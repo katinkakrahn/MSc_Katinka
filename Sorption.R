@@ -8,7 +8,7 @@ library(broom)
 library(ggpubr)
 library(tidyverse)
 
-Sorption <- read_excel("/Users/katinkakrahn/Documents/Skole/VOW/Lab/160222_sorption_rawdata.xlsx")
+Sorption <- read_excel("/Users/hildemurikrahn/Downloads/MSc_Katinka/160222_sorption_rawdata.xlsx")
 as.data.table(Sorption)
 Sorption <- as.data.table(Sorption)
 
@@ -52,6 +52,7 @@ summary_stats_CWC_single_all <- data.table(K_F = rep(0, nr_compounds),
                                  r_squared_adj = rep(0, nr_compounds),
                                  residual_std_error = rep(0, nr_compounds),
                                  F_statistic = rep(0, nr_compounds),
+                                 nr_points = rep("all", nr_compounds),
                                  compound = compounds)
 
 for(i in 1:nr_compounds){
@@ -82,6 +83,7 @@ summary_stats_CWC_single_C1omit <- data.table(K_F = rep(0, nr_compounds),
                                            r_squared_adj = rep(0, nr_compounds),
                                            residual_std_error = rep(0, nr_compounds),
                                            F_statistic = rep(0, nr_compounds),
+                                           nr_points = rep("C1_omit", nr_compounds),
                                            compound = compounds)
 
 for(i in 1:nr_compounds){
@@ -96,6 +98,10 @@ for(i in 1:nr_compounds){
   summary_stats_CWC_single_C1omit[compound == compounds[i], F_statistic := summary(fit)$fstatistic[1]]
 }
 summary_stats_CWC_single_C1omit
+
+#Compare all points to C1 omitted
+compare_fit_CWC_singleComp <- merge(summary_stats_CWC_single_all,summary_stats_CWC_single_C1omit, all = TRUE)
+compare_fit_CWC_singleComp$compound <- factor(compare_fit_CWC_singleComp$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
 
 #ULS Freundlich isotherm plot all points
 ULS_single_all$Compound <- factor(ULS_single_all$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
