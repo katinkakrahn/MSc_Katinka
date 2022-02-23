@@ -30,11 +30,11 @@ Sorption_BCmixComp <- subset(Sorption_NAomit, mixLogic == TRUE)
 
 CWC_single_all <- filter(Sorption_BCsingleComp_all, Biochar == "CWC")
 ULS_single_all <- filter(Sorption_BCsingleComp_all, Biochar == "ULS")
-DSL_single_all <- filter(Sorption_BCsingleComp_all, Biochar == "DSL")
+BRL_single_all <- filter(Sorption_BCsingleComp_all, Biochar == "BRL")
 
 CWC_single_C1omit <- filter(Sorption_BCsingleComp_C1omit, Biochar == "CWC")
 ULS_single_C1omit <- filter(Sorption_BCsingleComp_C1omit, Biochar == "ULS")
-DSL_single_C1omit <- filter(Sorption_BCsingleComp_C1omit, Biochar == "DSL")
+BRL_single_C1omit <- filter(Sorption_BCsingleComp_C1omit, Biochar == "BRL")
 
 #CWC Freundlich isotherm plot all points
 CWC_single_all$Compound <- factor(CWC_single_all$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
@@ -50,24 +50,48 @@ compounds <- unique(Sorption$Compound)
 
 # her initsialiseres et skjelett til en data table som du kan fylle inn i for løkken
 summary_stats_CWC_single_all <- data.table(K_F = rep(0, nr_compounds), 
-                                 n = rep(0, nr_compounds),
-                                 r_squared = rep(0, nr_compounds),
-                                 r_squared_adj = rep(0, nr_compounds),
-                                 residual_std_error = rep(0, nr_compounds),
-                                 F_statistic = rep(0, nr_compounds),
-                                 nr_points = rep("all", nr_compounds),
-                                 compound = compounds)
+                                           K_F_std_error = rep(0, nr_compounds),
+                                           K_F_t_value = rep (0, nr_compounds),
+                                           K_F_p_value_t = rep(0, nr_compounds),
+                                           n = rep(0, nr_compounds),
+                                           n_std_error = rep(0, nr_compounds),
+                                           n_t_value = rep(0, nr_compounds),
+                                           n_F_p_value_t = rep(0, nr_compounds),
+                                           r_squared = rep(0, nr_compounds),
+                                           r_squared_adj = rep(0, nr_compounds),
+                                           resid_min = rep(0, nr_compounds),
+                                           resid_1Q = rep(0, nr_compounds),
+                                           resid_median = rep(0, nr_compounds),
+                                           resid_3Q = rep(0, nr_compounds),
+                                           resid_max = rep(0, nr_compounds),
+                                           residual_std_error = rep(0, nr_compounds),
+                                           F_statistic = rep(0, nr_compounds),
+                                           p_value = rep(0, nr_compounds),
+                                           nr_points = rep("all", nr_compounds),
+                                           compound = compounds)
 
 for(i in 1:nr_compounds){
   fit <- lm(log_Cs ~ log_Cw, data = CWC_single_all[Compound == compounds[i]])
   print(summary(fit))
   print(compounds[i])
   summary_stats_CWC_single_all[compound == compounds[i], K_F := fit$coefficients[1]]
+  summary_stats_CWC_single_all[compound == compounds[i], K_F_std_error := summary(fit)$coefficients[1,2]]
+  summary_stats_CWC_single_all[compound == compounds[i], K_F_t_value := summary(fit)$coefficients[1,3]]
+  summary_stats_CWC_single_all[compound == compounds[i], K_F_p_value_t := summary(fit)$coefficients[1,4]]
   summary_stats_CWC_single_all[compound == compounds[i], n := fit$coefficients[2]]
+  summary_stats_CWC_single_all[compound == compounds[i], n_std_error := summary(fit)$coefficients[2,2]]
+  summary_stats_CWC_single_all[compound == compounds[i], n_t_value := summary(fit)$coefficients[2,3]]
+  summary_stats_CWC_single_all[compound == compounds[i], n_p_value_t := summary(fit)$coefficients[2,4]]
   summary_stats_CWC_single_all[compound == compounds[i], r_squared := summary(fit)$r.squared]
   summary_stats_CWC_single_all[compound == compounds[i], r_squared_adj := summary(fit)$adj.r.squared]
+  summary_stats_CWC_single_all[compound == compounds[i], resid_min := summary(fit$residuals)[,1]]
+  summary_stats_CWC_single_all[compound == compounds[i], resid_1Q := summary(fit$residuals)[,2]]
+  summary_stats_CWC_single_all[compound == compounds[i], resid_median := summary(fit$residuals)[,3]]
+  summary_stats_CWC_single_all[compound == compounds[i], resid_3Q := summary(fit$residuals)[1,4]]
+  summary_stats_CWC_single_all[compound == compounds[i], resid_max := summary(fit$residuals)[1,5]]
   summary_stats_CWC_single_all[compound == compounds[i], residual_std_error := summary(fit)$sigma]
   summary_stats_CWC_single_all[compound == compounds[i], F_statistic := summary(fit)$fstatistic[1]]
+  summary_stats_CWC_single_all[compound == compounds[i], p_value := summary(fit)$fstatistic[2]]
 }
 summary_stats_CWC_single_all
 
@@ -182,16 +206,16 @@ compare_fit_ULS_singleComp$compound <- factor(compare_fit_ULS_singleComp$compoun
 ###############################################################################################################################################################################
 
 
-#DSL Freundlich isotherm plot all points
-DSL_single_all$Compound <- factor(DSL_single_all$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+#BRL Freundlich isotherm plot all points
+BRL_single_all$Compound <- factor(BRL_single_all$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                       "PFOA", "PFNA", "PFDA"))
-DSL_isotherm_all <- ggplot(data = DSL_single_all) +
+BRL_isotherm_all <- ggplot(data = BRL_single_all) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound))) + 
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE)
-DSL_isotherm_all <- DSL_isotherm_all + labs(x = "log C_w", y = "log C_s")
-DSL_isotherm_all
+BRL_isotherm_all <- BRL_isotherm_all + labs(x = "log C_w", y = "log C_s")
+BRL_isotherm_all
 
-summary_stats_DSL_single_all <- data.table(K_F = rep(0, nr_compounds), 
+summary_stats_BRL_single_all <- data.table(K_F = rep(0, nr_compounds), 
                                            n = rep(0, nr_compounds),
                                            r_squared = rep(0, nr_compounds),
                                            r_squared_adj = rep(0, nr_compounds),
@@ -201,29 +225,29 @@ summary_stats_DSL_single_all <- data.table(K_F = rep(0, nr_compounds),
                                            compound = compounds)
 
 for(i in 1:nr_compounds){
-  fit <- lm(log_Cs ~ log_Cw, data = DSL_single_all[Compound == compounds[i]])
+  fit <- lm(log_Cs ~ log_Cw, data = BRL_single_all[Compound == compounds[i]])
   print(summary(fit))
   print(compounds[i])
-  summary_stats_DSL_single_all[compound == compounds[i], K_F := fit$coefficients[1]]
-  summary_stats_DSL_single_all[compound == compounds[i], n := fit$coefficients[2]]
-  summary_stats_DSL_single_all[compound == compounds[i], r_squared := summary(fit)$r.squared]
-  summary_stats_DSL_single_all[compound == compounds[i], r_squared_adj := summary(fit)$adj.r.squared]
-  summary_stats_DSL_single_all[compound == compounds[i], residual_std_error := summary(fit)$sigma]
-  summary_stats_DSL_single_all[compound == compounds[i], F_statistic := summary(fit)$fstatistic[1]]
+  summary_stats_BRL_single_all[compound == compounds[i], K_F := fit$coefficients[1]]
+  summary_stats_BRL_single_all[compound == compounds[i], n := fit$coefficients[2]]
+  summary_stats_BRL_single_all[compound == compounds[i], r_squared := summary(fit)$r.squared]
+  summary_stats_BRL_single_all[compound == compounds[i], r_squared_adj := summary(fit)$adj.r.squared]
+  summary_stats_BRL_single_all[compound == compounds[i], residual_std_error := summary(fit)$sigma]
+  summary_stats_BRL_single_all[compound == compounds[i], F_statistic := summary(fit)$fstatistic[1]]
 }
-summary_stats_DSL_single_all
+summary_stats_BRL_single_all
 
 
-#DSL Freundlich isotherm plot omit C1
-DSL_single_C1omit$Compound <- factor(DSL_single_C1omit$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+#BRL Freundlich isotherm plot omit C1
+BRL_single_C1omit$Compound <- factor(BRL_single_C1omit$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                             "PFOA", "PFNA", "PFDA"))
-DSL_isotherm_C1omit <- ggplot(data = DSL_single_C1omit) +
+BRL_isotherm_C1omit <- ggplot(data = BRL_single_C1omit) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound))) + 
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE)
-DSL_isotherm_C1omit <- DSL_isotherm_C1omit + labs(x = "log C_w", y = "log C_s")
-DSL_isotherm_C1omit
+BRL_isotherm_C1omit <- BRL_isotherm_C1omit + labs(x = "log C_w", y = "log C_s")
+BRL_isotherm_C1omit
 
-summary_stats_DSL_single_C1omit <- data.table(K_F = rep(0, nr_compounds), 
+summary_stats_BRL_single_C1omit <- data.table(K_F = rep(0, nr_compounds), 
                                               n = rep(0, nr_compounds),
                                               r_squared = rep(0, nr_compounds),
                                               r_squared_adj = rep(0, nr_compounds),
@@ -233,18 +257,18 @@ summary_stats_DSL_single_C1omit <- data.table(K_F = rep(0, nr_compounds),
                                               compound = compounds)
 
 for(i in 1:nr_compounds){
-  fit <- lm(log_Cs ~ log_Cw, data = DSL_single_C1omit[Compound == compounds[i]])
+  fit <- lm(log_Cs ~ log_Cw, data = BRL_single_C1omit[Compound == compounds[i]])
   print(summary(fit))
   print(compounds[i])
-  summary_stats_DSL_single_C1omit[compound == compounds[i], K_F := fit$coefficients[1]]
-  summary_stats_DSL_single_C1omit[compound == compounds[i], n := fit$coefficients[2]]
-  summary_stats_DSL_single_C1omit[compound == compounds[i], r_squared := summary(fit)$r.squared]
-  summary_stats_DSL_single_C1omit[compound == compounds[i], r_squared_adj := summary(fit)$adj.r.squared]
-  summary_stats_DSL_single_C1omit[compound == compounds[i], residual_std_error := summary(fit)$sigma]
-  summary_stats_DSL_single_C1omit[compound == compounds[i], F_statistic := summary(fit)$fstatistic[1]]
+  summary_stats_BRL_single_C1omit[compound == compounds[i], K_F := fit$coefficients[1]]
+  summary_stats_BRL_single_C1omit[compound == compounds[i], n := fit$coefficients[2]]
+  summary_stats_BRL_single_C1omit[compound == compounds[i], r_squared := summary(fit)$r.squared]
+  summary_stats_BRL_single_C1omit[compound == compounds[i], r_squared_adj := summary(fit)$adj.r.squared]
+  summary_stats_BRL_single_C1omit[compound == compounds[i], residual_std_error := summary(fit)$sigma]
+  summary_stats_BRL_single_C1omit[compound == compounds[i], F_statistic := summary(fit)$fstatistic[1]]
 }
 
-#Compare all points to C1 omitted DSL
-compare_fit_DSL_singleComp <- merge(summary_stats_DSL_single_all,summary_stats_DSL_single_C1omit, all = TRUE)
-compare_fit_DSL_singleComp$compound <- factor(compare_fit_DSL_singleComp$compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+#Compare all points to C1 omitted BRL
+compare_fit_BRL_singleComp <- merge(summary_stats_BRL_single_all,summary_stats_BRL_single_C1omit, all = TRUE)
+compare_fit_BRL_singleComp$compound <- factor(compare_fit_BRL_singleComp$compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                                               "PFOA", "PFNA", "PFDA"))
