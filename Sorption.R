@@ -8,7 +8,7 @@ library(broom)
 library(ggpubr)
 library(tidyverse)
 
-Sorption <- read_excel("/Users/hildemurikrahn/Downloads/MSc_Katinka/160222_sorption_rawdata.xlsx")
+Sorption <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Lab/160222_sorption_rawdata.xlsx")
 as.data.table(Sorption)
 Sorption <- as.data.table(Sorption)
 order <- data.table(order = c(1:6))
@@ -59,11 +59,11 @@ summary_stats_CWC_single_all <- data.table(K_F = rep(0, nr_compounds),
                                            n_F_p_value_t = rep(0, nr_compounds),
                                            r_squared = rep(0, nr_compounds),
                                            r_squared_adj = rep(0, nr_compounds),
-                                           resid_min = rep(0, nr_compounds),
-                                           resid_1Q = rep(0, nr_compounds),
-                                           resid_median = rep(0, nr_compounds),
-                                           resid_3Q = rep(0, nr_compounds),
-                                           resid_max = rep(0, nr_compounds),
+                                           #resid_min = rep(0, nr_compounds),
+                                           #resid_1Q = rep(0, nr_compounds),
+                                           #resid_median = rep(0, nr_compounds),
+                                           #resid_3Q = rep(0, nr_compounds),
+                                           #resid_max = rep(0, nr_compounds),
                                            residual_std_error = rep(0, nr_compounds),
                                            F_statistic = rep(0, nr_compounds),
                                            p_value = rep(0, nr_compounds),
@@ -81,14 +81,14 @@ for(i in 1:nr_compounds){
   summary_stats_CWC_single_all[compound == compounds[i], n := fit$coefficients[2]]
   summary_stats_CWC_single_all[compound == compounds[i], n_std_error := summary(fit)$coefficients[2,2]]
   summary_stats_CWC_single_all[compound == compounds[i], n_t_value := summary(fit)$coefficients[2,3]]
-  summary_stats_CWC_single_all[compound == compounds[i], n_p_value_t := summary(fit)$coefficients[2,4]]
+  summary_stats_CWC_single_all[compound == compounds[i], n_F_p_value_t := summary(fit)$coefficients[2,4]]
   summary_stats_CWC_single_all[compound == compounds[i], r_squared := summary(fit)$r.squared]
   summary_stats_CWC_single_all[compound == compounds[i], r_squared_adj := summary(fit)$adj.r.squared]
-  summary_stats_CWC_single_all[compound == compounds[i], resid_min := summary(fit$residuals)[,1]]
-  summary_stats_CWC_single_all[compound == compounds[i], resid_1Q := summary(fit$residuals)[,2]]
-  summary_stats_CWC_single_all[compound == compounds[i], resid_median := summary(fit$residuals)[,3]]
-  summary_stats_CWC_single_all[compound == compounds[i], resid_3Q := summary(fit$residuals)[1,4]]
-  summary_stats_CWC_single_all[compound == compounds[i], resid_max := summary(fit$residuals)[1,5]]
+  #summary_stats_CWC_single_all[compound == compounds[i], resid_min := summary(fit$residuals)[,1]]
+  #summary_stats_CWC_single_all[compound == compounds[i], resid_1Q := summary(fit$residuals)[,2]]
+  #summary_stats_CWC_single_all[compound == compounds[i], resid_median := summary(fit$residuals)[,3]]
+  #summary_stats_CWC_single_all[compound == compounds[i], resid_3Q := summary(fit$residuals)[,4]]
+  #summary_stats_CWC_single_all[compound == compounds[i], resid_max := summary(fit$residuals)[,5]]
   summary_stats_CWC_single_all[compound == compounds[i], residual_std_error := summary(fit)$sigma]
   summary_stats_CWC_single_all[compound == compounds[i], F_statistic := summary(fit)$fstatistic[1]]
   summary_stats_CWC_single_all[compound == compounds[i], p_value := summary(fit)$fstatistic[2]]
