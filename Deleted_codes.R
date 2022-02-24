@@ -45,3 +45,6 @@ for(i in 1:nr_compounds){
   summary_stats_CWC_single_all[compound == compounds[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],summary(fit)$fstatistic[3],lower.tail=F)]
 }
 summary_stats_CWC_single_all
+
+order <- data.table(order = c(1:6))
+Sorption[order, order := "PFPeA" == 1, "PFHxA" == 2, "PFHpA" == 3, "PFOA" == 4, "PFNA" == 5, "PFDA" == 6]
