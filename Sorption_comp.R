@@ -10,7 +10,7 @@ library(tidyverse)
 library(knitr)
 
 #Personal access token
-#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
+#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
 
 Sorption <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/160222_sorption_rawdata.xlsx")
 Sorption <- as.data.table(Sorption)

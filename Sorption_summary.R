@@ -23,8 +23,12 @@ PFNA_isotherm
 PFDA_isotherm
 
 #Compare sorption of biochars across char types
+summary_stats_CWC_single[, nr_CF2 := 4:9]
+summary_stats_ULS_single[, nr_CF2 := 4:9]
+summary_stats_DSL_single[, nr_CF2 := 4:9]
+
 summary_stats_single <- merge(summary_stats_CWC_single, summary_stats_ULS_single, all = TRUE)
-summary_stats_single <- merge(summary_stats_single, summary_stats_BRL_single, all = TRUE)
+summary_stats_single <- merge(summary_stats_single, summary_stats_DSL_single, all = TRUE)
 summary_stats_single$compound <- factor(summary_stats_single$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
 
 #Summary stats of each compound
