@@ -19,7 +19,6 @@ Standard_mix <- filter(Standards, Type == "MIX-STD")
 print()
 formatSignif(
   Standards,
-  ,
   digits = 2,
   interval = 3,
   mark = ",",
