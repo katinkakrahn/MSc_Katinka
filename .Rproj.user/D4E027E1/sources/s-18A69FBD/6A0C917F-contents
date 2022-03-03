@@ -1,0 +1,95 @@
+library(data.table)
+library(ggplot2)
+library(psych)
+library(readxl)
+library(grDevices)
+library(dplyr)
+library(broom)
+library(ggpubr)
+library(tidyverse)
+library(knitr)
+
+Sorption <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Lab/160222_sorption_rawdata.xlsx")
+as.data.table(Sorption)
+Sorption <- as.data.table(Sorption)
+
+#Convert 1 and 0 to TRUE and FALSE and delete integer columns
+Sorption$SoilLogic <- as.logical(Sorption$Soil_binary)
+Sorption$mixLogic <- as.logical(Sorption$mix_binary)
+Sorption <- subset(Sorption,select = -c(Soil_binary,mix_binary))
+Sorption_BC <- kable(Sorption, "latex", booktabs = TRUE, digits = 2)
+
+# Subset biochar and cocktail/single compound
+Sorption_NAomit <- na.omit(Sorption)
+Sorption_C1omit <- filter(Sorption_NAomit, between(Conc_point, 2, 10))
+Sorption_BCsingleComp_all <- subset(Sorption_NAomit, mixLogic == FALSE)
+Sorption_BCsingleComp_C1omit <- subset(Sorption_C1omit, mixLogic == FALSE)
+Sorption_BCmixComp <- subset(Sorption_NAomit, mixLogic == TRUE)
+
+#Compare sorption of biochars across char types
+PFPeA <- subset(Sorption_BCsingleComp_all, Compound == "PFPeA")
+PFHxA <- subset(Sorption_BCsingleComp_all, Compound == "PFHxA")
+PFHpA <- subset(Sorption_BCsingleComp_all, Compound == "PFHpA")
+PFOA <- subset(Sorption_BCsingleComp_all, Compound == "PFOA")
+PFNA <- subset(Sorption_BCsingleComp_all, Compound == "PFNA")
+PFDA <- subset(Sorption_BCsingleComp_all, Compound == "PFDA")
+
+nr_biochars <- length(unique(Sorption$Biochar))
+biochars <- unique(Sorption$Biochar)
+
+#PFPeA
+PFPeA_isotherm <- ggplot(data = PFPeA) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar))) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) +
+  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "compound type", title = "PFPeA") + 
+  theme_bw() +
+  theme(legend.position = c(0.85, 0.15))
+PFPeA_isotherm
+
+#PFHxA
+PFHxA_isotherm <- ggplot(data = PFHxA) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar))) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) +
+  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "compound type", title = "PFHxA")+ 
+  theme_bw() +
+  theme(legend.position = c(0.85, 0.15))
+PFHxA_isotherm
+
+#PFHpA
+PFHpA_isotherm <- ggplot(data = PFHpA) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar))) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) +
+  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Biochar type", title = "PFHpA")+ 
+  theme_bw() +
+  theme(legend.position = c(0.85, 0.15))
+PFHpA_isotherm
+
+#PFOA
+PFOA_isotherm <- ggplot(data = PFOA) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar))) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) +
+  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Biochar type", title = "PFOA")+ 
+  theme_bw() +
+  theme(legend.position = c(0.85, 0.15))
+PFOA_isotherm
+
+#PFNA
+PFNA_isotherm <- ggplot(data = PFNA) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar))) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) +
+  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Biochar type", title = "PFNA")+ 
+  theme_bw() +
+  theme(legend.position = c(0.85, 0.15))
+PFNA_isotherm
+
+#PFDA
+PFDA_isotherm <- ggplot(data = PFDA) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar))) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) +
+  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Biochar type", title = "PFDA")+ 
+  theme_bw() +
+  theme(legend.position = c(0.85, 0.15))
+PFDA_isotherm
+
+
+
