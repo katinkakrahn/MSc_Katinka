@@ -1,0 +1,38 @@
+\begin{table}
+\caption{Quality assurance and quality controls.}
+\centering
+\adjustbox{max width=\textwidth}{%
+\begin{threeparttable}
+\label{tab:QC}
+\begin{tabular}{lcccccc}
+\toprule
+\multicolumn{1}{c}{\textbf{Code}} & \textbf{\begin{tabular}[c]{@{}c@{}}Sample \\ matrix\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}TA (addition \\ pre-extraction)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}IS (addition \\ pre-extraction)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}TA (addition \\ post-extraction)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}IS (addition\\  post-extraction\end{tabular}} & \multicolumn{1}{c}{\textbf{\begin{tabular}[c]{@{}c@{}}Solvent\\ (MQ:MeOH)\end{tabular}}} \\ \midrule
+Procedural blank & NO &  & \checkmark &  & & 50:50 \\ \hline
+Blank 1 & YES &  & \checkmark &  & & 50:50 \\ 
+Blank 2 & YES &  & \checkmark &  & & 50:50 \\ \hline
+Spike 2.5 ppb & YES & \checkmark & \checkmark &  & & 50:50 \\ 
+Spike 25 ppb & YES & \checkmark & \checkmark &  & & 50:50 \\ 
+Spike 50 ppb & YES & \checkmark & \checkmark &  &  & 50:50\\ \hline
+Matrix matched 2.5 ppb & YES &  &  & \checkmark & \checkmark & 50:50\\
+Matrix matched 25 ppb & YES &  &  & \checkmark & \checkmark & 50:50\\
+Matrix matched 50 ppb & YES &  &  & \checkmark & \checkmark & 50:50\\ \hline
+Solvent blank\tnote{*} & NO & & & & & 0:100\\
+Calibration 0 ppb & NO &  &  & \checkmark & \checkmark & 0:100 \\ 
+Calibration 0.01 ppb & NO&  &  & \checkmark & \checkmark & 0:100\\
+Calibration 0.05 ppb & NO&  &  & \checkmark & \checkmark & 0:100\\
+Calibration 0.1 ppb & NO&  &  & \checkmark & \checkmark & 0:100\\
+Calibration 0.2 ppb & NO&  &  & \checkmark & \checkmark & 0:100\\
+Calibration 0.5 ppb & NO&  &  & \checkmark & \checkmark & 0:100\\
+Calibration 1 ppb & NO&  &  & \checkmark & \checkmark & 0:100\\
+Calibration 2 ppb & NO&  &  & \checkmark & \checkmark & 0:100\\
+Calibration 5 ppb & NO&  &  & \checkmark & \checkmark & 0:100\\
+Calibration 10 ppb\tnote{*} & NO &  &  & \checkmark & \checkmark & 0:100\\
+Calibration 25 ppb & NO&  &  & \checkmark & \checkmark & 0:100\\
+Calibration 50 ppb & NO&  &  & \checkmark & \checkmark & 0:100\\ \bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[*] Injected every 15-20 samples
+\item TA = target analytes, IS = internal standard
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}

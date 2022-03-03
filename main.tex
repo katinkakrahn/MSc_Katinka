@@ -1,0 +1,269 @@
+\documentclass[12pt,  a4paper,oneside]{book} %Fjern twoside dersom\usepackage[norsk] skriveren kun skriver ut på én side
+% Pakker.
+\usepackage[paper=A4,pagesize]{typearea}
+\usepackage{titlesec}
+\usepackage{times}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{textcomp}
+\usepackage{siunitx}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{pdfpages}
+\usepackage{csvsimple}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{afterpage}%bruker denne til å inkludere a3
+\usepackage{pdflscape}%bruker denne til å rotere pdf
+\usepackage{lscape}
+\usepackage{parskip}
+\usepackage[flushleft]{threeparttable} % for fotnoter til tabeller
+\usepackage{rotating}
+\usepackage{adjustbox}
+\usepackage{setspace}
+
+\usepackage{multicol}
+% For hypertekst i pdf.
+\usepackage[hidelinks]{hyperref} %Denne må før glossaries
+%\providecommand\phantomsection{} % Denne gjor at det vil kompilere både med og uten hyperref som funker
+
+% Innfører \cref{} for å gjøre referering til labler lettere.
+\usepackage[english]{cleveref}
+% Her kan man justere formateringen av kryssreferanser til cref:
+    % Kappittel:
+    \Crefformat{chapter}{Chapter~#2#1#3}
+    \crefformat{chapter}{Chapter~#2#1#3}
+    % Sections(og sub/subsub-sections):
+    \Crefformat{section}{Section~#2#1#3}
+    \crefformat{section}{Section~#2#1#3}
+    % Figurer
+    \Crefformat{figure}{Figure~#2#1#3}
+    \crefformat{figure}{Figure~#2#1#3}
+    % tabeller
+    \Crefformat{table}{Table~#2#1#3}
+    \crefformat{table}{Table~#2#1#3}
+    % Appendixer
+    \Crefformat{appendix}{Appendix~#2#1#3}
+    \crefformat{appendix}{Appendix~#2#1#3}
+
+\usepackage[acronym,xindy]{glossaries}
+\usepackage{glossary-mcols}% glossaries med to kolonner
+\renewcommand{\glossaryentrynumbers}[1]{}% empty sidetall best uten
+%\makeglossaries
+
+% Gjør lister bedre.
+%\setlength{\parskip}{1.5em} %avstand mellom avsnitt
+%\renewcommand{\baselinestretch}{1.5} %linjeavstand
+% Laster fonten Latin Modern.
+
+\usepackage{verbatim} %kommentere ut blokker med \begin{comment} .... \end{comment}
+\usepackage{nomencl}
+% Forsøk på å lage symbolliste
+\usepackage[bottom]{footmisc} 
+
+\usepackage{lmodern}
+
+\usepackage{amsmath,amssymb}
+% Innfører \ce{} for å gjøre kjemiske ligninger fine.
+\usepackage[version=3]{mhchem}
+% Gjør tabeller bedre.
+\usepackage{tabularx}
+\usepackage{booktabs,caption}
+\usepackage{array}
+\usepackage{textgreek}
+
+
+% Gjør figurer og bilder bedre.
+\usepackage{float}
+\usepackage{graphicx}
+% Gjør så man kan innføre koder som Matlab script (se prosessprodjekt for eksempel).
+\usepackage{listings}
+% For å tegne grafikk direkte i tex (kan feks innføre DIA diagrammer med tikz).
+%\usepackage{tikz}
+% For å få inn tex-filer fra matlab2tikz.
+%\usetikzlibrary{external}
+%\tikzexternalize[prefix=Bilder/Diagrammer/TikzFigs/]%lagrer pdfer her men vises ikke (bare lastes etter generering en gang) DEtte utgår
+\usepackage{chemfig}
+\usepackage{pgfplots}
+\usepackage{pgffor}
+
+\usepackage[utf8]{inputenc}
+\usepackage{dirtytalk} 
+\pgfplotsset{compat=newest}
+\pgfplotsset{plot coordinates/math parser=false}
+\newlength\figureheight
+\newlength\figurewidth
+
+% Gir funksjoner for en bedre topp- og bunntekst (Header og footer).
+\usepackage{fancyhdr}
+% Ordner funksjoner for format.
+\usepackage[left=2cm, right=2cm, top=2cm]{geometry}%kan justere marg avstand og "textwidt"
+
+% Gir labler fet tekst feks. \textbf{FIGUR 1.2:} oppsett av utstyr.
+\usepackage[labelfont=bf]{caption}
+\usepackage{subcaption}
+
+\usepackage{float}
+\floatstyle{plaintop}
+\restylefloat{table}
+
+% Ordner nummerering av floats innenfor sine respektable avsnitt.
+\numberwithin{figure}{chapter}
+\numberwithin{equation}{chapter}
+\numberwithin{table}{chapter}
+
+
+\usepackage{xcolor}
+ %%%%%%%%
+\usepackage{listings}  %%%!!!!!
+
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+%%%%%%%%
+
+
+\usepackage[authoryear,round]{natbib}
+\bibliographystyle{agsm} %Harvard ish stil
+
+%\usepackage[authoryear,round]{natbib}
+\usepackage{enumitem}
+%\hypersetup{pdfauthor={Egil}} % Denne skulle fikse noe...
+\usepackage{newfloat} % Vil du ha vanlig telling velg "within=none". "within=section" gir nummerering "section.<skjemanummer>". Skriver du i memoir/book/e.l. med chapter som hovedkapittel, kan det være naturlig å velge "within=chapter" i stedet.
+
+\DeclareFloatingEnvironment[  fileext={skjema},  placement={!htbp},  name={Skjema},  listname={Skjemaliste}]{skjema}
+% jeg er fæn av å holde figurer på Topp, Bunn eller egen Page, men hvis du vil bruke !h også kan du endre til "placement={!htbp}"
+\numberwithin{skjema}{section}
+
+\usepackage{changepage}
+
+
+\begin{document}
+%TC:ignore
+% Forside
+\pagenumbering{gobble} %skrur av sidetall
+%\include{Chapters/0-Div/Forside}
+
+
+%\pagenumbering{arabic} %sidetall etter innholdsfortegnelse
+\pagestyle{plain}
+\pagenumbering{roman}
+\setcounter{page}{5}
+%\include{Chapters/0-Div/preface}
+%\includepdf{Chapters/0-Div/PREFACE_signert.PDF}
+\include{Chapters/0-Div/Acknowledgements}
+\include{Chapters/0-Div/Summary}
+\include{Chapters/0-Div/Sammendrag}
+
+\listoffigures
+\addcontentsline{toc}{chapter}{List of figures}
+%\clearpage
+
+\listoftables
+\addcontentsline{toc}{chapter}{List of tables}
+%\clearpage
+
+\input{Lister/Acronyms}
+\addcontentsline{toc}{chapter}{Acronyms}
+%\clearpage
+
+\clearpage
+\input{Lister/Symbols}
+\addcontentsline{toc}{chapter}{Symbols}
+%\clearpage
+
+%TC:endignore
+
+\newpage
+
+\tableofcontents
+\cleardoublepage
+
+
+\pagenumbering{arabic}
+
+
+% Topptekst.
+\pagestyle{fancy}
+\lhead{\leftmark}
+\chead{}
+\rhead{Krahn}
+\renewcommand{\headrulewidth}{0.4pt}
+% Slik at tekst ikke ligger for nærme toppteksten.
+\setlength{\headheight}{30pt}
+
+
+
+%\maketitle
+
+\part{Introduction}
+%Introduction:
+\input{Chapters/1-Introduction/Introduction}
+\newpage
+
+
+%Literature
+\input{Chapters/2-Literature Study/Introduction.tex}
+\newpage
+
+\part{Materials and Methods}
+%Experiments in lab
+\input{Chapters/3-Materials and Methods/Introduction}/
+\newpage
+
+%Lab analysis
+
+\newpage
+
+\part{Results and discussion}
+\input{Chapters/4-Results&Discussion/Introduction.tex}
+\newpage
+
+%Conclusions
+\input{Chapters/5-Conclusion/Introduction.tex}
+\newpage
+
+%Further work
+\input{Chapters/6-Further work/Introduction}
+%\newpage
+
+%\input{Theory} % midlertidig for å se hvordan det blir. Flyttet til litterature
+%\input{Konklusjon}
+%input{Referanser}
+% Symbolliste
+%\include{Chapters/Symbolliste}
+%\include{Chapters/Refferanser}
+%\newpage
+
+\bibliography{Kilder/Biochar-PFAS,Kilder/Rapporter,Kilder/History,Kilder/Jord-PFAS,Kilder/PFAS}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+%\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage % for ikke ha romertall på siste side av references
+
+%Glossary
+\pagenumbering{roman}%romertall
+\setcounter{page}{18}%starter sidetall på rett side, denne må oppdateres ved endelig dokument
+
+
+
+%\addcontentsline{toc}{chapter}{Glossary}
+%\input{Lister/Glossary}
+
+% Formatering av appendix liste
+%\clearpage %Brukt i artikkel
+%\titleformat{\chapter}[block]{\Huge\bfseries}{Appendix \thechapter}{1em}{}
+\setcounter{secnumdepth}{0}
+
+%%  APPENDIX aka vedlegg
+% Fjerner appendix figurer & tabeller fra lister https://tex.stackexchange.com/questions/213523/remove-appendix-tables-and-figures-from-list-of-figure-tables
+\let\svaddcontentsline\addcontentsline
+\renewcommand\addcontentsline[3]{%
+  \ifthenelse{\equal{#1}{lof}}{}%
+  {\ifthenelse{\equal{#1}{lot}}{}{\svaddcontentsline{#1}{#2}{#3}}}}
+\input{Appendix/VedleggMAIN}
+
+\end{document}

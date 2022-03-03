@@ -1,0 +1,42 @@
+\appendix
+
+% Formatering for resten av appendix
+\setcounter{equation}{0}        % starter formler på 0
+\setcounter{secnumdepth}{2}     % A.1, A.2 etc
+
+\titleformat{\section}          % Kun på sections
+{\normalfont\bfseries\centering} % Bold sentrert
+{\thesection}                   % nummererer (A.1, A.2 etc.)
+{0.5em}                         % Avstand mellom label    (nummerering) og tekst i section-tittel
+{}  %https://www.overleaf.com/learn/latex/sections_and_chapters
+
+\setlength{\headsep}{0.3cm} % avstand topptekstlinje til tekst for å få plass til mer av pdf: scale 0,85, evt justere for andre PDF størrelser
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+
+% \ref{appSec:"vedleggslabel"}       gir: A,B,C...
+% \ref{app:"PDFlabel"}               gir: A1, A2, B1, B2 etc.
+% Merk at her brukes ikke \cref som i resten av dokumentet 
+
+% label for hver pdf plasseres i pagecommanden etter "\section{}"
+% Eks.: ..., pagecommand={\subsection{Min subsection}\label{app:OedoILs01LOG}},...
+
+\chapter*{Appendices} % Overskrift (start på vedlegg) suppresser kapitteltall
+    \phantomsection % For hyperref til funke når suppressed kapitteltall
+    \addcontentsline{toc}{part}{Appendices}%
+    \markboth{Appendices}{Appendices}% https://latex.org/forum/viewtopic.php?t=1309
+List of appendices % Oppdater siste tall (XYZ) til siste vedleggsnummer for hvert vedlegg
+\begin{itemize}
+    \item \cref{appSec:ETIA}.number--number: \nameref{appSec:ETIA}
+    \item \cref{appSec:IsothermSetup}. number--number: \nameref{appSec:IsothermSetup}
+    \item \cref{appSec:LCMS}. number--number: \nameref{appSec:LCMS}
+    \item \cref{appSec:misclab}. number--number: \nameref{appSec:misclab}
+    \item \cref{appSec:pollution}. number--number: \nameref{appSec:pollution}
+\end{itemize}
+
+% Ta inn vedlegg i ønsket rekkefølge og oppdater evt listen ovenfor
+\input{Appendix/Pyrolysis/Text}
+\input{Appendix/SorptionIsothermSetup/Text}
+\input{Appendix/LC_MS/Text}
+\input{Appendix/MiscallaneousLabTests/Text}
+\input{Appendix/PollutionControl/Text}
