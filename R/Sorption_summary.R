@@ -12,7 +12,7 @@ library(knitr)
 #Outputs isotherms by biochar:
 CWC_isotherm
 ULS_isotherm
-BRL_isotherm
+DSL_isotherm
 
 #Outputs isotherms by compound:
 PFPeA_isotherm

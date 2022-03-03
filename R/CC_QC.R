@@ -31,10 +31,6 @@ PFOA_CCsummary <- CCsummary_IS[Compound == "PFOA"]
 PFNA_CCsummary <- CCsummary_IS[Compound == "PFNA"]
 PFDA_CCsummary <- CCsummary_IS[Compound == "PFDA"]
 
-
-lm_PFPeA <- lm(mean_signal~Concentration_ppb, data = PFPeA_CCsummary)
-summary(lm_PFPeA)
-
 CC_PFPeA <- ggplot(data = PFPeA_CCsummary) +
   geom_point(mapping = aes(x = Concentration_ppb, y = mean_signal)) + 
   geom_smooth(method = "lm", mapping = aes(x = Concentration_ppb, y = mean_signal), formula = y ~ x, se=FALSE, fullrange = TRUE) +
@@ -56,7 +52,6 @@ CC_PFHxA <- ggplot(data = PFHxA_CCsummary) +
   ) +
   theme_bw()
 CC_PFHxA
-
 
 CC_PFHpA <- ggplot(data = PFHpA_CCsummary) +
   geom_point(mapping = aes(x = Concentration_ppb, y = mean_signal)) + 
@@ -113,8 +108,8 @@ CC_all <- ggplot(data = CCsummary_IS) +
     aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound), label = paste(..eq.label.., ..rr.label.., sep = "~~~")), 
     formula = y ~ x
   ) +
-  theme_bw() +
-  theme(legend.position = c(0.3, 0.87))
+  theme_bw() #+
+  #theme(legend.position = c(0.3, 0.87))
 CC_all
 
 #Subset QC and Area/Area IS
@@ -133,8 +128,8 @@ QC_all <- ggplot(data = QCsummary_IS) +
     aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound), label = paste(..eq.label.., ..rr.label.., sep = "~~~")), 
     formula = y ~ x
   ) +
-  theme_bw() +
-  theme(legend.position = c(0.3, 0.87))
+  theme_bw() #+
+  #theme(legend.position = c(0.3, 0.87))
 QC_all
 
 
