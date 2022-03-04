@@ -17,6 +17,18 @@ pHcondSummary <- pHcond[, .(mean_ph = mean(pH),
                         keyby = .(Sample)]
 pHcondSummary <- pHcondSummary[order(mean_ph),]
 
+pHcondSummarySummary <- pHcondSummary[, .(mean_ph = mean(mean_ph), 
+                            mean_cond = mean(mean_cond),
+                            sd_cond = sd(sd_cond),
+                            sd_ph = sd(sd_ph)
+)]
+
+pHcondSummary_S <- pHcondSummary %>% slice(-c(1))
+pHcondSummarySummary_S <- pHcondSummary_S[, .(mean_ph = mean(mean_ph), 
+                                          mean_cond = mean(mean_cond),
+                                          sd_cond = sd(sd_cond),
+                                          sd_ph = sd(sd_ph)
+)]
 #pH plot
 pH <- ggplot(data = pHcondSummary, aes(x = reorder(Sample, mean_ph), y = mean_ph)) + 
   geom_point()+ 
@@ -37,13 +49,13 @@ cond <- ggplot(data = pHcondSummary, aes(x = reorder(Sample, mean_cond), y = mea
   geom_point()+ 
   geom_errorbar(aes(ymin=mean_cond-sd_cond, ymax=mean_cond+sd_cond), width=.2,
                          position=position_dodge(.9)) + 
-  labs(x = "", y = "cond (\u03bcS/cm)") + 
+  labs(x = "", y = "Conductivity (\u03bcS/cm)") + 
   theme_bw()
 cond
 
 cond_points <- ggplot(data = pHcond, aes(x = reorder(Sample, Conductivity), y = Conductivity)) + 
   geom_point(position = position_jitter(h=0.2, w=0), shape = 21, size = 3, fill = "#077DAA")+ 
-  labs(x = "", y = "cond (\u03bcS/cm)") + 
+  labs(x = "", y = "Conductivity (\u03bcS/cm)") + 
   theme_bw()
 cond_points
 

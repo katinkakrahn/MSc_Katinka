@@ -37,9 +37,15 @@ CWC_single$Compound <- factor(CWC_single$Compound, levels = c("PFPeA", "PFHxA", 
 
 CWC_isotherm <- ggplot(data = CWC_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound))) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Compound", title = "CWC isotherm") + 
-  theme_bw() #+
+  # geom_smooth(mapping = aes(x = log_Cw, y = log_Cs), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE, colour = "grey",
+  #             data = CWC_single) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)), formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
+  labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
+  ggtitle("CWC isotherm") +
+  facet_wrap(~ Compound) +
+  geom_label(data = summary_stats_CWC_single, inherit.aes = FALSE, aes(x = 0, y = 0.2, label = paste("K_F =",K_F,","," ","n =",n,","," ","R^2",r_squared))) +
+  theme_bw() +
+  guides(color = "none")
   #theme(legend.position = c(0.9, 0.15))
 CWC_isotherm
 
