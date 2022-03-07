@@ -9,12 +9,23 @@ library(ggpubr)
 library(tidyverse)
 library(knitr)
 
-PFPeA_sorption_single <- Sorption_BC_single[Compound == "PFPeA"]
-PFHxA_sorption_single <- Sorption_BC_single[Compound == "PFHxA"]
-PFHpA_sorption_single <- Sorption_BC_single[Compound == "PFHpA"]
-PFOA_sorption_single <- Sorption_BC_single[Compound == "PFOA"]
-PFNA_sorption_single <- Sorption_BC_single[Compound == "PFNA"]
-PFDA_sorption_single <- Sorption_BC_single[Compound == "PFDA"]
+#Compare sorption of biochars across char types
+summary_stats_CWC_single[, nr_CF2 := 4:9]
+summary_stats_ULS_single[, nr_CF2 := 4:9]
+summary_stats_DSL_single[, nr_CF2 := 4:9]
+
+#Summary stats of entire biochar-water batch tests
+summary_stats_single <- merge(summary_stats_CWC_single, summary_stats_ULS_single, all = TRUE)
+summary_stats_single <- merge(summary_stats_single, summary_stats_DSL_single, all = TRUE)
+summary_stats_single$compound <- factor(summary_stats_single$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
+
+#Summary stats of each compound
+summary_stats_PFPeA <- filter(summary_stats_single, compound == "PFPeA")
+summary_stats_PFHxA <- filter(summary_stats_single, compound == "PFHxA")
+summary_stats_PFHpA <- filter(summary_stats_single, compound == "PFHpA")
+summary_stats_PFOA <- filter(summary_stats_single, compound == "PFOA")
+summary_stats_PFNA <- filter(summary_stats_single, compound == "PFNA")
+summary_stats_PFDA <- filter(summary_stats_single, compound == "PFDA")
 
 #PFPeA
 PFPeA_isotherm <- ggplot(data = PFPeA_sorption_single) +
@@ -47,7 +58,7 @@ PFPeA_facet_isotherm <- ggplot(data = PFPeA_sorption_single) +
   theme_bw() +
   guides(color = "none")
 PFPeA_facet_isotherm
-ggsave(filename="figs/PFPeA_facet_isotherm.png")
+ggsave(filename="R/figs/PFPeA_facet_isotherm.pdf")
 
 #PFHxA
 PFHxA_isotherm <- ggplot(data = PFHxA_sorption_single) +
@@ -80,7 +91,7 @@ PFHxA_facet_isotherm <- ggplot(data = PFHxA_sorption_single) +
   theme_bw() +
   guides(color = "none")
 PFHxA_facet_isotherm
-ggsave(filename="figs/PFHxA_facet_isotherm.png")
+ggsave(filename="R/figs/PFHxA_facet_isotherm.pdf")
 
 #PFHpA
 PFHpA_isotherm <- ggplot(data = PFHpA_sorption_single) +
@@ -113,7 +124,7 @@ PFHpA_facet_isotherm <- ggplot(data = PFHpA_sorption_single) +
   theme_bw() +
   guides(color = "none")
 PFHpA_facet_isotherm
-ggsave(filename="figs/PFHpA_facet_isotherm.png")
+ggsave(filename="R/figs/PFHpA_facet_isotherm.pdf")
 
 #PFOA
 PFOA_isotherm <- ggplot(data = PFOA_sorption_single) +
@@ -147,7 +158,7 @@ PFOA_facet_isotherm <- ggplot(data = PFOA_sorption_single) +
   theme_bw() +
   guides(color = "none")
 PFOA_facet_isotherm
-ggsave(filename="figs/PFOA_facet_isotherm.png")
+ggsave(filename="R/figs/PFOA_facet_isotherm.pdf")
 
 #PFNA
 PFNA_isotherm <- ggplot(data = PFNA_sorption_single) +
@@ -180,7 +191,7 @@ PFNA_facet_isotherm <- ggplot(data = PFNA_sorption_single) +
   theme_bw() +
   guides(color = "none")
 PFNA_facet_isotherm
-ggsave(filename="figs/PFNA_facet_isotherm.png")
+ggsave(filename="R/figs/PFNA_facet_isotherm.pdf")
 
 #PFDA
 PFDA_isotherm <- ggplot(data = PFDA_sorption_single) +
@@ -213,7 +224,7 @@ PFDA_facet_isotherm <- ggplot(data = PFDA_sorption_single) +
   theme_bw() +
   guides(color = "none")
 PFDA_facet_isotherm
-ggsave(filename="figs/PFDA_facet_isotherm.png")
+ggsave(filename="R/figs/PFDA_facet_isotherm.pdf")
 
 
 

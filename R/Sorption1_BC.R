@@ -8,9 +8,7 @@ library(broom)
 library(ggpubr)
 library(tidyverse)
 library(knitr)
-
-#Personal access token
-#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
+library(latex2exp)
 
 Sorption <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/160222_sorption_rawdata.xlsx")
 Sorption <- as.data.table(Sorption)
@@ -31,10 +29,8 @@ CWC_single <- filter(Sorption_BC_single, Biochar == "CWC")
 ULS_single <- filter(Sorption_BC_single, Biochar == "ULS")
 DSL_single <- filter(Sorption_BC_single, Biochar == "DSL")
 
-#CWC Freundlich isotherm plot
-CWC_single$Compound <- factor(CWC_single$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                              "PFOA", "PFNA", "PFDA"))
 
+#CWC Freundlich isotherm plot
 facetCWC <- CWC_single |>
   transform(pre_compound = Compound)
 
@@ -47,7 +43,8 @@ facetCWC <- rbind(
   transform(facetCWC, Compound = unique(CWC_single$Compound)[6])
 )
 
-
+CWC_single$Compound <- factor(CWC_single$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                                              "PFOA", "PFNA", "PFDA"))
 CWC_facet_isotherm <- ggplot(data = CWC_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "gray45", size = 1) + 
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), formula = y ~ x, method=lm, se=FALSE, colour = "grey", size = 0.5,
@@ -55,12 +52,12 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
   ggtitle("CWC isotherm") +
-  geom_label(data = transform(summary_stats_CWC_single, Compound = compound), size = 2, inherit.aes = T, aes(x = 0.25, y = 0.5, label = paste("K_F =",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
+  geom_label(data = transform(summary_stats_CWC_single, Compound = compound), size = 2, inherit.aes = T, aes(x = 0.25, y = 0.5, label = paste("K_F",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
   facet_wrap(~Compound) +
   theme_bw() +
   guides(color = "none")
 CWC_facet_isotherm
-ggsave(filename="figs/CWC_facet_isotherm.png")
+ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
 
 nr_compounds <- length(unique(Sorption$Compound))
 compounds <- unique(Sorption$Compound)
@@ -117,7 +114,7 @@ ULS_isotherm <- ggplot(data = ULS_single) +
   theme_bw() +
   guides(group = "none")
 ULS_isotherm
-ggsave(filename="figs/ULS_isotherm.png")
+ggsave(filename="figs/ULS_isotherm.pdf")
 
 summary_stats_ULS_single <- data.table(K_F = rep(0, nr_compounds), 
                                        K_F_std_error = rep(0, nr_compounds),
@@ -170,7 +167,7 @@ DSL_isotherm <- ggplot(data = DSL_single) +
   theme_bw() +
   guides(color = "none")
 DSL_isotherm
-ggsave(filename="figs/DSL_isotherm.png")
+ggsave(filename="figs/DSL_isotherm.pdf")
 
 summary_stats_DSL_single <- data.table(K_F = rep(0, nr_compounds), 
                                        K_F_std_error = rep(0, nr_compounds),

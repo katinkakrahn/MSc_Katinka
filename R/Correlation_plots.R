@@ -8,6 +8,7 @@ library(broom)
 library(ggpubr)
 library(tidyverse)
 library(knitr)
+library(latex2exp)
 
 ChainLength_KF <- ggplot(data = summary_stats_single) +
   geom_point(mapping = aes(x = nr_CF2, y = K_F, group = biochar), color = "grey45", size = 1) + 
@@ -17,8 +18,8 @@ ChainLength_KF <- ggplot(data = summary_stats_single) +
   labs(x = expression(number~of~CF[2]~moieties), y = expression(log~K[F])) +
   facet_wrap(~ biochar) +
   geom_label(data = summary_stats_single, size = 2, inherit.aes = T, 
-    aes(x = 6.5, y = 2, label = paste("slope =",round(n, digits = 2),","," ","R^2",round(r_squared, digits = 2)))) +
+    aes(x = 6.5, y = 2, label = paste("slope =",round(n, digits = 2),","," ","R^2 = ",round(r_squared, digits = 2)))) +
   theme_bw() +
   guides(size = "none", fill = "none")
 ChainLength_KF
-ggsave(filename = "figs/chainlength_KF.png")
+ggsave(filename = "R/figs/chainlength_KF.pdf")

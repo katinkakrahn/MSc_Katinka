@@ -3,6 +3,7 @@ library(ggplot2)
 library(psych)
 library(readxl)
 library(grDevices)
+library(latex2exp)
 
 pHcond <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Lab/pH_Conductivity/pH&conductivity_R.xlsx")
 as.data.table(pHcond)
@@ -26,28 +27,16 @@ pH <- ggplot(data = pHcondSummary, aes(x = reorder(Sample, mean_ph), y = mean_ph
   labs(x = "", y = "pH") + 
   theme_bw()
 pH
-
-pH_points <- ggplot(data = pHcondSummary) + 
-  geom_pointrange(aes(x = reorder(Sample,mean_ph), y = mean_ph, ymin = mean_ph-sd_ph, ymax=mean_ph+sd_ph, group = Sample))+ 
-  labs(x = "", y = "pH") + 
-  theme_bw()
-pH_points
-ggsave(filename="figs/pH_points.png")
+ggsave(filename="R/figs/pH.pdf")
 
 #cond plot
-cond <- ggplot(data = pHcondSummary, aes(x = reorder(Sample,mean_cond), y = mean_cond))+ 
-  geom_point()+ 
+cond <- ggplot(data = pHcondSummary, aes(x = reorder(Sample,mean_cond), y = mean_cond)) + 
+  geom_point() + 
   geom_errorbar(aes(ymin=mean_cond-sd_cond, ymax=mean_cond+sd_cond), width=.2,
                          position=position_dodge(.9)) + 
-  labs(x = "", y = "Conductivity (\u03bcS/cm)") + 
+  labs(x = "", y = TeX(r'(Conductivity $(\mu S cm^{-1})$)')) + 
   theme_bw()
 cond
-
-cond_points <- ggplot(data = pHcondSummary) + 
-  geom_pointrange(aes(x = reorder(Sample,mean_cond), y = mean_cond, ymin=mean_cond-sd_cond, ymax=mean_cond+sd_cond, group = Sample)) +  
-  labs(x = "", y = "Conductivity (\u03bcS/cm)") + 
-  theme_bw()
-cond_points
-ggsave(filename="figs/cond_points.png")
+ggsave(filename = "R/figs/conductivity.pdf")
 
 
