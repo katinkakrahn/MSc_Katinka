@@ -10,13 +10,15 @@ library(tidyverse)
 library(magrittr)
 library(sandwich)
 library(tidyverse)
+library(RColorBrewer)
 
 CCQC <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/010322_Calibration_data.xlsx")
 as.data.table(CCQC)
 CCQC <- as.data.table(CCQC)
 
 #Mean for each compound keyed by concentration, CC/QC and Area/Area/IS
-CCQCsummary <- CCQC[, .(mean_signal = mean(Signal)
+CCQCsummary <- CCQC[, .(mean_signal = mean(Signal),
+                        sd_signal = sd(Signal)
 ),
 keyby = .(Compound, Cal_type, Correction, Concentration_ppb)]
 
@@ -102,14 +104,12 @@ CCsummary_IS$Compound <- factor(CCsummary_IS$Compound, levels = c("PFPeA", "PFHx
 
 CC_all <- ggplot(data = CCsummary_IS) +
   geom_point(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound))) + 
-  geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
+  geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound)), 
+              formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
+  scale_colour_brewer(palette = "Set2") +
   labs(x = "Concentration (ppb)", y = "Signal (area/area IS)", title = "Calibraton curve", col = "Compound") + 
-  stat_regline_equation(
-    aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound), label = paste(..eq.label.., ..rr.label.., sep = "~~~")), 
-    formula = y ~ x
-  ) +
-  theme_bw() #+
-  #theme(legend.position = c(0.3, 0.87))
+  facet_wrap(~Compound) +
+  theme_bw()
 CC_all
 
 #Subset QC and Area/Area IS
@@ -122,15 +122,14 @@ QCsummary_IS$Compound <- factor(QCsummary_IS$Compound, levels = c("PFPeA", "PFHx
 
 QC_all <- ggplot(data = QCsummary_IS) +
   geom_point(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound))) + 
-  geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = "Concentration (ppb)", y = "Signal (area/area IS)", title = "Matrix matched calibraton curve", col = "Compound") + 
-  stat_regline_equation(
-    aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound), label = paste(..eq.label.., ..rr.label.., sep = "~~~")), 
-    formula = y ~ x
-  ) +
-  theme_bw() #+
-  #theme(legend.position = c(0.3, 0.87))
+  geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound)), 
+              formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
+  scale_colour_brewer(palette = "Set2") +
+  labs(x = "Concentration (ppb)", y = "Signal (area/area IS)", title = "Matrix matched calibraton curve", 
+       col = "Compound") +
+  theme_bw()
 QC_all
+ggsave(filename = "figs/QC_all.png")
 
 
 

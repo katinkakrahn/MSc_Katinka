@@ -35,19 +35,32 @@ DSL_single <- filter(Sorption_BC_single, Biochar == "DSL")
 CWC_single$Compound <- factor(CWC_single$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                               "PFOA", "PFNA", "PFDA"))
 
-CWC_isotherm <- ggplot(data = CWC_single) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound))) + 
-  # geom_smooth(mapping = aes(x = log_Cw, y = log_Cs), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE, colour = "grey",
-  #             data = CWC_single) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)), formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
+facetCWC <- CWC_single |>
+  transform(pre_compound = Compound)
+
+facetCWC <- rbind(
+  transform(facetCWC, Compound = unique(CWC_single$Compound)[1]),
+  transform(facetCWC, Compound = unique(CWC_single$Compound)[2]),
+  transform(facetCWC, Compound = unique(CWC_single$Compound)[3]),
+  transform(facetCWC, Compound = unique(CWC_single$Compound)[4]),
+  transform(facetCWC, Compound = unique(CWC_single$Compound)[5]),
+  transform(facetCWC, Compound = unique(CWC_single$Compound)[6])
+)
+
+
+CWC_facet_isotherm <- ggplot(data = CWC_single) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "gray45", size = 1) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), formula = y ~ x, method=lm, se=FALSE, colour = "grey", size = 0.5,
+              data = facetCWC) +
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
   ggtitle("CWC isotherm") +
-  facet_wrap(~ Compound) +
-  geom_label(data = summary_stats_CWC_single, inherit.aes = FALSE, aes(x = 0, y = 0.2, label = paste("K_F =",K_F,","," ","n =",n,","," ","R^2",r_squared))) +
+  geom_label(data = transform(summary_stats_CWC_single, Compound = compound), size = 2, inherit.aes = T, aes(x = 0.25, y = 0.5, label = paste("K_F =",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
+  facet_wrap(~Compound) +
   theme_bw() +
   guides(color = "none")
-  #theme(legend.position = c(0.9, 0.15))
-CWC_isotherm
+CWC_facet_isotherm
+ggsave(filename="figs/CWC_facet_isotherm.png")
 
 nr_compounds <- length(unique(Sorption$Compound))
 compounds <- unique(Sorption$Compound)
@@ -80,13 +93,31 @@ for(i in 1:nr_compounds){
 ULS_single$Compound <- factor(ULS_single$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                               "PFOA", "PFNA", "PFDA"))
 
+facetULS <- ULS_single |>
+  transform(pre_compound = Compound)
+
+facetULS <- rbind(
+  transform(facetULS, Compound = unique(ULS_single$Compound)[1]),
+  transform(facetULS, Compound = unique(ULS_single$Compound)[2]),
+  transform(facetULS, Compound = unique(ULS_single$Compound)[3]),
+  transform(facetULS, Compound = unique(ULS_single$Compound)[4]),
+  transform(facetULS, Compound = unique(ULS_single$Compound)[5]),
+  transform(facetULS, Compound = unique(ULS_single$Compound)[6])
+)
+
 ULS_isotherm <- ggplot(data = ULS_single) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound))) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Compound", title = "ULS isotherm") + 
-  theme_bw() #+
-  #theme(legend.position = c(0.9, 0.15))
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "gray45", size = 1) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), formula = y ~ x, method=lm, se=FALSE, colour = "grey", size = 0.5,
+              data = facetULS) +
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
+  labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
+  ggtitle("ULS isotherm") +
+  geom_label(data = transform(summary_stats_ULS_single, Compound = compound), size = 2, inherit.aes = FALSE, aes(x = -0.5, y = 3.5, label = paste("K_F =",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =",round(r_squared, digits = 2)))) +
+  facet_wrap(~ Compound) +
+  theme_bw() +
+  guides(group = "none")
 ULS_isotherm
+ggsave(filename="figs/ULS_isotherm.png")
 
 summary_stats_ULS_single <- data.table(K_F = rep(0, nr_compounds), 
                                        K_F_std_error = rep(0, nr_compounds),
@@ -113,13 +144,33 @@ for(i in 1:nr_compounds){
 #DSL Freundlich isotherm plot
 DSL_single$Compound <- factor(DSL_single$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                               "PFOA", "PFNA", "PFDA"))
+
+facetDSL <- DSL_single |>
+  transform(pre_compound = Compound)
+
+facetDSL <- rbind(
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[1]),
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[2]),
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[3]),
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[4]),
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[5]),
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[6])
+)
+
 DSL_isotherm <- ggplot(data = DSL_single) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound))) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Compound", title = "DSL isotherm") + 
-  theme_bw() #+
-  #theme(legend.position = c(0.9, 0.15))
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "gray45", size = 1) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), formula = y ~ x, method=lm, se=FALSE, colour = "grey", size = 0.5,
+              data = facetDSL) +
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
+  labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
+  ggtitle("DSL isotherm") +
+  geom_label(data = transform(summary_stats_CWC_single, Compound = compound), size = 2, inherit.aes = T, aes(x = 0, y = 0.3, label = paste("K_F=",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
+  facet_wrap(~ Compound) +
+  scale_colour_brewer(palette = "Set2") +
+  theme_bw() +
+  guides(color = "none")
 DSL_isotherm
+ggsave(filename="figs/DSL_isotherm.png")
 
 summary_stats_DSL_single <- data.table(K_F = rep(0, nr_compounds), 
                                        K_F_std_error = rep(0, nr_compounds),
