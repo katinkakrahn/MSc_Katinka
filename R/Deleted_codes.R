@@ -403,3 +403,71 @@ pHcond_BC_S <- filter (pHcond, Sample == "CWC+S" | Sample == "ULS+S" | Sample ==
 
 pH_ANOVA_all <- aov(pH ~ Sample, data = pHcond)
 summary(pH_ANOVA_all)
+
+#copy of CWC isotherm facet before changing labels
+CWC_facet_isotherm <- ggplot(data = CWC_single) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "gray45", size = 1) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), formula = y ~ x, method=lm, se=FALSE, colour = "grey", size = 0.5,
+              data = facetCWC) +
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
+  labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
+  ggtitle("CWC isotherm") +
+  geom_label(data = transform(summary_stats_CWC_single, Compound = compound), size = 3, inherit.aes = T, 
+             aes(x = 0.25, y = 0.5, label = (paste("K_F =",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2))))) +
+  facet_wrap(~Compound) +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  guides(color = "none")
+
+#DSL Freundlich isotherm plot
+DSL_single$Compound <- factor(DSL_single$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                                              "PFOA", "PFNA", "PFDA"))
+
+facetDSL <- DSL_single |>
+  transform(pre_compound = Compound)
+
+facetDSL <- rbind(
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[1]),
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[2]),
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[3]),
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[4]),
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[5]),
+  transform(facetDSL, Compound = unique(DSL_single$Compound)[6])
+)
+
+DSL_isotherm <- ggplot(data = DSL_single) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "gray45", size = 1) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), formula = y ~ x, method=lm, se=FALSE, colour = "grey", size = 0.5,
+              data = facetDSL) +
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
+  labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
+  ggtitle("DSL isotherm") +
+  geom_label(data = transform(summary_stats_CWC_single, Compound = compound), size = 2, inherit.aes = T, aes(x = 0, y = 0.3, label = paste("K_F=",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
+  facet_wrap(~ Compound) +
+  scale_colour_brewer(palette = "Set2") +
+  theme_bw() +
+  guides(color = "none")
+DSL_isotherm
+ggsave(filename="figs/DSL_isotherm.pdf")
+
+summary_stats_DSL_single <- data.table(K_F = rep(0, nr_compounds), 
+                                       K_F_std_error = rep(0, nr_compounds),
+                                       n = rep(0, nr_compounds),
+                                       n_std_error = rep(0, nr_compounds),
+                                       r_squared = rep(0, nr_compounds),
+                                       residual_std_error = rep(0, nr_compounds),
+                                       p_value = rep(0, nr_compounds),
+                                       compound = compounds,
+                                       biochar = "DSL")
+
+for(i in 1:nr_compounds){
+  fit <- lm(log_Cs ~ log_Cw, data = DSL_single[Compound == compounds[i]])
+  summary_stats_DSL_single[compound == compounds[i], K_F := fit$coefficients[1]]
+  summary_stats_DSL_single[compound == compounds[i], K_F_std_error := summary(fit)$coefficients[1,2]]
+  summary_stats_DSL_single[compound == compounds[i], n := fit$coefficients[2]]
+  summary_stats_DSL_single[compound == compounds[i], n_std_error := summary(fit)$coefficients[2,2]]
+  summary_stats_DSL_single[compound == compounds[i], r_squared := summary(fit)$r.squared]
+  summary_stats_DSL_single[compound == compounds[i], residual_std_error := summary(fit)$sigma]
+  summary_stats_DSL_single[compound == compounds[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
+                                                                   summary(fit)$fstatistic[3],lower.tail=F)]
+}
