@@ -32,20 +32,21 @@ SoilsummaryTotal <- Total_element[, .(mean_conc = mean(Concentration),
 
 #CEC ions plot
 CECions_plot <- ggplot(data = SoilsummaryCEC) + 
-  geom_pointrange(mapping = aes(x = reorder(Compound, mean_conc), y = mean_conc, 
-                                ymin = mean_conc-sd_conc, ymax = mean_conc+sd_conc, group = Compound)) + 
+  geom_point(mapping = aes(x = reorder(Compound, mean_conc), y = mean_conc, 
+                               group = Compound), size = 4) + 
   labs(x = "Exchangeable ion", y = "Total concentration (meqv/100g)") + 
   theme_bw() +
+  scale_y_log10() +
   guides(size = "none")
 CECions_plot
-ggsave(filename = "figs/CECions_plot.png")
+ggsave(filename = "R/figs/CECions_plot.pdf")
 
 Totalelement_plot <- ggplot(data = SoilsummaryTotal) + 
-  geom_pointrange(aes(x = reorder(Compound, mean_conc),y= mean_conc, ymin=mean_conc-sd_conc, 
-                      ymax=mean_conc+sd_conc, group = Compound)) + 
+  geom_point(aes(x = reorder(Compound, mean_conc), y = mean_conc, 
+                 group = Compound), size = 4) + 
   labs(x = "Element", y = "Total concentration (mg/kg dw)") + 
   scale_y_log10() +
   theme_bw() +
   guides(size = "none")
 Totalelement_plot
-ggsave(filename = "figs/totalelement_plot.png")
+ggsave(filename = "R/figs/totalelement_plot.pdf")
