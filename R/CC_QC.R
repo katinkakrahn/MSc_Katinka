@@ -102,15 +102,55 @@ CC_PFDA
 CCsummary_IS$Compound <- factor(CCsummary_IS$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                               "PFOA", "PFNA", "PFDA"))
 
-CC_all <- ggplot(data = CCsummary_IS) +
-  geom_point(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound))) + 
-  geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound)), 
-              formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
+CC_allinone <- ggplot(data = CCsummary_IS) +
+  geom_point(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound))) +
+  geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound)),
+              formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) +
   scale_colour_brewer(palette = "Set2") +
-  labs(x = "Concentration (ppb)", y = "Signal (area/area IS)", title = "Calibraton curve", col = "Compound") + 
+  labs(x = "Concentration (ppb)", y = "Signal (area/area IS)", title = "Calibraton curve", col = "Compound") +
   facet_wrap(~Compound) +
   theme_bw()
+CC_allinone
+ggsave(filename = "R/figs/CC_allinone.pdf")
+
+facetCC <- CCsummary_IS |>
+  transform(pre_compound = Compound)
+
+facetCC <- rbind(
+  transform(facetCC, Compound = unique(CCsummary_IS$Compound)[1]),
+  transform(facetCC, Compound = unique(CCsummary_IS$Compound)[2]),
+  transform(facetCC, Compound = unique(CCsummary_IS$Compound)[3]),
+  transform(facetCC, Compound = unique(CCsummary_IS$Compound)[4]),
+  transform(facetCC, Compound = unique(CCsummary_IS$Compound)[5]),
+  transform(facetCC, Compound = unique(CCsummary_IS$Compound)[6])
+)
+
+
+
+CC_all <- ggplot(data = CCsummary_IS) +
+  geom_point(mapping = aes(x = Concentration_ppb, y = mean_signal, group = factor(Compound)), 
+             color = "gray45", size = 1) + 
+  # #geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, group = pre_compound), 
+  #             formula = y ~ x, 
+  #             method=lm, 
+  #             se=FALSE, 
+  #             colour = "grey", 
+  #             size = 0.5,
+  #             data = facetCC
+  # ) +
+  geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, group = factor(Compound)), 
+              color = "black", 
+              formula = y ~ x, 
+              method=lm, 
+              se=FALSE, 
+              fullrange = FALSE) + 
+  labs(x = "Concentration (ppb)", y = "Signal (area/area IS)") + 
+  #ggtitle("Calibration curve") +
+  facet_wrap(~Compound) +
+  theme_bw() #+
+  #theme(panel.grid = element_blank())
 CC_all
+ggsave(filename="R/figs/CC_all.pdf")
 
 #Subset QC and Area/Area IS
 QCsummary <- CCQCsummary[Cal_type == "QC"]
@@ -120,7 +160,7 @@ QCsummary_IS <- na.omit(QCsummary_IS)
 QCsummary_IS$Compound <- factor(QCsummary_IS$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                   "PFOA", "PFNA", "PFDA"))
 
-QC_all <- ggplot(data = QCsummary_IS) +
+QC_allinone <- ggplot(data = QCsummary_IS) +
   geom_point(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound))) + 
   geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, color = factor(Compound)), 
               formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
@@ -128,8 +168,67 @@ QC_all <- ggplot(data = QCsummary_IS) +
   labs(x = "Concentration (ppb)", y = "Signal (area/area IS)", title = "Matrix matched calibraton curve", 
        col = "Compound") +
   theme_bw()
+QC_allinone
+ggsave(filename = "R/figs/QC_allinone.pdf")
+
+
+facetQC <- QCsummary_IS |>
+  transform(pre_compound = Compound)
+
+facetQC <- rbind(
+  transform(facetQC, Compound = unique(QCsummary_IS$Compound)[1]),
+  transform(facetQC, Compound = unique(QCsummary_IS$Compound)[2]),
+  transform(facetQC, Compound = unique(QCsummary_IS$Compound)[3]),
+  transform(facetQC, Compound = unique(QCsummary_IS$Compound)[4]),
+  transform(facetQC, Compound = unique(QCsummary_IS$Compound)[5]),
+  transform(facetQC, Compound = unique(QCsummary_IS$Compound)[6])
+)
+
+
+
+QC_all <- ggplot(data = QCsummary_IS) +
+  geom_point(mapping = aes(x = Concentration_ppb, y = mean_signal, group = factor(Compound)), 
+             color = "gray45", size = 1) + 
+  # #geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, group = pre_compound), 
+  #             formula = y ~ x, 
+  #             method=lm, 
+  #             se=FALSE, 
+  #             colour = "grey", 
+  #             size = 0.5,
+  #             data = facetCC
+  # ) +
+  geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, group = factor(Compound)), 
+              color = "black", 
+              formula = y ~ x, 
+              method=lm, 
+              se=FALSE, 
+              fullrange = FALSE) + 
+  labs(x = "Concentration (ppb)", y = "Signal (area/area IS)") + 
+  #ggtitle("Calibration curve") +
+  facet_wrap(~Compound) +
+  theme_bw() #+
+#theme(panel.grid = element_blank())
 QC_all
-ggsave(filename = "figs/QC_all.png")
+ggsave(filename="R/figs/QC_all.pdf")
 
+#matrix effect
+CCQCsummary_IS <- filter(CCQCsummary, Correction == "Area/Area IS")
+CCQCsummary_IS <- filter(CCQCsummary_IS, Compound != "PFOA_13C8")
 
-
+CCQCsummary_IS$Compound <- factor(CCQCsummary_IS$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                                                  "PFOA", "PFNA", "PFDA"))
+CCQC_matrixeffect <- ggplot(data = CCQCsummary_IS) +
+  geom_point(mapping = aes(x = Concentration_ppb, y = mean_signal, group = interaction(Compound, Cal_type), color = Cal_type), size = 1) + 
+  geom_smooth(mapping = aes(x = Concentration_ppb, y = mean_signal, group = interaction(Compound, Cal_type), color = Cal_type), 
+              formula = y ~ x, 
+              method=lm, 
+              se=FALSE, 
+              fullrange = FALSE) + 
+  labs(x = "Concentration (ppb)", y = "Signal (area/area IS)", col = "Calibration") + 
+  #guides(color = "none") +
+  #ggtitle("Calibration curve") +
+  facet_wrap(~Compound) +
+  theme_bw() #+
+#theme(panel.grid = element_blank())
+CCQC_matrixeffect
+ggsave(filename="R/figs/CCQC_matrixeffect.pdf")

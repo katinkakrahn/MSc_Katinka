@@ -109,8 +109,8 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
               se=T, 
               fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
-  ggtitle("CWC isotherm") +
   facet_wrap(~Compound) +
+  ggtitle("CWC isotherm") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
   guides(color = "none") +
@@ -204,7 +204,7 @@ ULS_facet_isotherm <- ggplot(data = ULS_single) +
               se=T, 
               fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
-  ggtitle("ULS isotherm") +
+  #ggtitle("ULS isotherm") +
   facet_wrap(~Compound) +
   theme_bw() +
   theme(panel.grid = element_blank()) +
@@ -300,7 +300,7 @@ DSL_facet_isotherm <- ggplot(data = DSL_single) +
               se=T, 
               fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
-  ggtitle("DSL isotherm") +
+  #ggtitle("DSL isotherm") +
   facet_wrap(~Compound) +
   theme_bw() +
   theme(panel.grid = element_blank()) +
