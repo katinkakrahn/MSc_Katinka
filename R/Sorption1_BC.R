@@ -61,7 +61,7 @@ for(i in 1:nr_compounds){
 
 summary_stats_CWC_single_label <- summary_stats_CWC_single %>%
   mutate(
-    log_Cw = 1.65, log_Cs = 0.8,
+    log_Cw = 1, log_Cs = 0.8,
     label =
       glue("*r*<sup>2</sup> = {round(r_squared, 2)} <br> log *K*<sub>F</sub> = {round(K_F, 2)} <br> n = {round(n, 2)}")
     )
@@ -91,6 +91,7 @@ summary_stats_CWC_single$compound <- factor(summary_stats_CWC_single$compound, l
 summary_stats_CWC_single_label$Compound <- factor(summary_stats_CWC_single_label$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                                           "PFOA", "PFNA", "PFDA"))
 
+
 CWC_facet_isotherm <- ggplot(data = CWC_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
              color = "gray45", size = 1) + 
@@ -110,19 +111,17 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
               fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
   facet_wrap(~Compound) +
-  ggtitle("CWC isotherm") +
+  #ggtitle("CWC isotherm") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
   guides(color = "none") +
   geom_richtext(
     data = summary_stats_CWC_single_label,
     aes(label = label, x = log_Cw, y = log_Cs),
+    hjust = 0
   )
 CWC_facet_isotherm
 ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
-
-
-
 
 
 
@@ -156,7 +155,7 @@ for(i in 1:nr_compounds){
 
 summary_stats_ULS_single_label <- summary_stats_ULS_single %>%
   mutate(
-    log_Cw = 0.5, log_Cs = 4,
+    log_Cw = -2.5, log_Cs = 6.1,
     label =
       glue("*r*<sup>2</sup> = {round(r_squared, 2)} <br> log *K*<sub>F</sub> = {round(K_F, 2)} <br> n = {round(n, 2)}")
   )
@@ -189,14 +188,14 @@ summary_stats_ULS_single_label$Compound <- factor(summary_stats_ULS_single_label
 ULS_facet_isotherm <- ggplot(data = ULS_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
              color = "gray45", size = 1) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), 
-              formula = y ~ x, 
-              method=lm, 
-              se=FALSE, 
-              colour = "grey", 
-              size = 0.5,
-              data = facetULS
-  ) +
+  # geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), 
+  #             formula = y ~ x, 
+  #             method=lm, 
+  #             se=FALSE, 
+  #             colour = "grey", 
+  #             size = 0.5,
+  #             data = facetULS
+  # ) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
               color = "black", 
               formula = y ~ x, 
@@ -207,11 +206,12 @@ ULS_facet_isotherm <- ggplot(data = ULS_single) +
   #ggtitle("ULS isotherm") +
   facet_wrap(~Compound) +
   theme_bw() +
-  theme(panel.grid = element_blank()) +
+  #theme(panel.grid = element_blank()) +
   guides(color = "none") +
   geom_richtext(
     data = summary_stats_ULS_single_label,
     aes(label = label, x = log_Cw, y = log_Cs),
+    hjust = 0
   )
 ULS_facet_isotherm
 ggsave(filename="R/figs/ULS_facet_isotherm.pdf")
@@ -250,7 +250,7 @@ for(i in 1:nr_compounds){
 
 summary_stats_DSL_single_label <- summary_stats_DSL_single %>%
   mutate(
-    log_Cw = 1.3, log_Cs = 1.4,
+    log_Cw = 0.8, log_Cs = 1.4,
     label =
       glue("*r*<sup>2</sup> = {round(r_squared, 2)} <br> log *K*<sub>F</sub> = {round(K_F, 2)} <br> n = {round(n, 2)}")
   )
@@ -308,6 +308,7 @@ DSL_facet_isotherm <- ggplot(data = DSL_single) +
   geom_richtext(
     data = summary_stats_DSL_single_label,
     aes(label = label, x = log_Cw, y = log_Cs),
+    hjust = 0
   )
 DSL_facet_isotherm
 ggsave(filename="R/figs/DSL_facet_isotherm.pdf")

@@ -17,8 +17,12 @@ pHcondSummary <- pHcond[, .(mean_ph = mean(pH),
                             ),
                         keyby = .(Sample)]
 pHcondSummary <- pHcondSummary[order(mean_ph),]
+pHcondSummary <- pHcondSummary[,c(1,2,5,3,4)]
+target <- c("ULS", "BRL", "CWC", "ULS+S", "BRL+S", "CWC+S", "S")
+pHcondSummary <- pHcondSummary[match(target, pHcondsummary$Sample),]
 
-
+pHcond_table <- kable(pHcondSummary, "latex", digits = 2, booktabs = TRUE)
+pHcond_table
 #pH plot
 pH <- ggplot(data = pHcondSummary, aes(x = reorder(Sample, mean_ph), y = mean_ph)) + 
   geom_point()+ 
