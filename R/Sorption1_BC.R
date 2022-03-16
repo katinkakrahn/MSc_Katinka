@@ -14,6 +14,9 @@ library(ggtext)
 
 Sorption <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/160222_sorption_rawdata.xlsx")
 Sorption <- as.data.table(Sorption)
+#old <- c("Ci_(ug/L)", "Cw_(ug/L)", "Cs_(ug/g)")
+#new <- c("Ci", "Cw", "Cs")
+#setnames(Sorption, old, new, skip_absent = TRUE)
 
 #Convert 1 and 0 to TRUE and FALSE and delete integer columns
 Sorption$SoilLogic <- as.logical(Sorption$Soil_binary)
@@ -63,7 +66,7 @@ summary_stats_CWC_single_label <- summary_stats_CWC_single %>%
   mutate(
     log_Cw = 1, log_Cs = 0.8,
     label =
-      glue("*r*<sup>2</sup> = {round(r_squared, 2)} <br> log *K*<sub>F</sub> = {round(K_F, 2)} <br> n = {round(n, 2)}")
+      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
     )
 
 summary_stats_CWC_single_label <- summary_stats_CWC_single_label |>
@@ -157,7 +160,7 @@ summary_stats_ULS_single_label <- summary_stats_ULS_single %>%
   mutate(
     log_Cw = -2.5, log_Cs = 6.1,
     label =
-      glue("*r*<sup>2</sup> = {round(r_squared, 2)} <br> log *K*<sub>F</sub> = {round(K_F, 2)} <br> n = {round(n, 2)}")
+      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
   )
 
 summary_stats_ULS_single_label <- summary_stats_ULS_single_label |>
@@ -188,14 +191,14 @@ summary_stats_ULS_single_label$Compound <- factor(summary_stats_ULS_single_label
 ULS_facet_isotherm <- ggplot(data = ULS_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
              color = "gray45", size = 1) + 
-  # geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), 
-  #             formula = y ~ x, 
-  #             method=lm, 
-  #             se=FALSE, 
-  #             colour = "grey", 
-  #             size = 0.5,
-  #             data = facetULS
-  # ) +
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound),
+              formula = y ~ x,
+              method=lm,
+              se=FALSE,
+              colour = "grey",
+              size = 0.5,
+              data = facetULS
+  ) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
               color = "black", 
               formula = y ~ x, 
@@ -252,7 +255,7 @@ summary_stats_DSL_single_label <- summary_stats_DSL_single %>%
   mutate(
     log_Cw = 0.8, log_Cs = 1.4,
     label =
-      glue("*r*<sup>2</sup> = {round(r_squared, 2)} <br> log *K*<sub>F</sub> = {round(K_F, 2)} <br> n = {round(n, 2)}")
+      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
   )
 
 summary_stats_DSL_single_label <- summary_stats_DSL_single_label |>

@@ -127,6 +127,26 @@ PFHpA_facet_isotherm
 ggsave(filename="R/figs/PFHpA_facet_isotherm.pdf")
 
 #PFOA
+old <- c("Ci_(ug/L)", "Cw_(ug/L)", "Cs_(ug/g)")
+new <- c("Ci", "Cw", "Cs")
+setnames(PFOA_sorption_single, old, new, skip_absent = TRUE)
+
+PFOA_CWC_isotherm_nonlinear <- ggplot(subset(PFOA_sorption_single, Biochar %in% "CWC"), aes(x = Cw, y = Cs)) +
+  geom_point(size = 3) + 
+  geom_smooth(method = "lm", formula = y ~ poly(log(x), 2), se = FALSE) +
+  labs(x = expression(C[w]~ug/L), y = expression(C[s]~ug/kg), title = "Freundlich isoterm CWC-PFOA") + 
+  theme_bw()
+PFOA_CWC_isotherm_nonlinear
+ggsave(filename="R/figs/PFOA_CWC_isotherm_nonlinear.pdf")
+
+PFOA_CWC_isotherm_linear <- ggplot(subset(PFOA_sorption_single, Biochar %in% "CWC"), aes(x = log_Cw, y = log_Cs)) +
+  geom_point() + 
+  geom_smooth(formula = y ~ x, method = lm, se=FALSE) +
+  labs(x = expression(log~C[w]~ug/L), y = expression(log~C[s]~ug/kg), title = "Lineær Freundlich isoterm CWC-PFOA") + 
+  theme_bw()
+PFOA_CWC_isotherm_linear
+ggsave(filename="R/figs/PFOA_CWC_isotherm_linear.pdf")
+
 PFOA_isotherm <- ggplot(data = PFOA_sorption_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar))) + 
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) +
@@ -194,6 +214,28 @@ PFNA_facet_isotherm
 ggsave(filename="R/figs/PFNA_facet_isotherm.pdf")
 
 #PFDA
+old <- c("Ci_(ug/L)", "Cw_(ug/L)", "Cs_(ug/g)")
+new <- c("Ci", "Cw", "Cs")
+setnames(PFDA_sorption_single, old, new, skip_absent = TRUE)
+
+PFDA_CWC_isotherm_nonlinear <- ggplot(subset(PFDA_sorption_single, Biochar %in% "CWC"), aes(x = Cw, y = Cs)) +
+  geom_point(size = 3) + 
+  geom_smooth(method = "lm", formula = y ~ poly(log(x), 2), se = FALSE) +
+  labs(x = expression(C[w]~ug/L), y = expression(C[s]~ug/kg), title = "Freundlich isoterm CWC-PFDA") + 
+  theme_bw() +
+  theme(text = element_text(size = 15), panel.grid = element_blank())
+PFDA_CWC_isotherm_nonlinear
+ggsave(filename="R/figs/PFD_CWC_isotherm_nonlinear.pdf")
+
+PFDA_CWC_isotherm_linear <- ggplot(subset(PFDA_sorption_single, Biochar %in% "CWC"), aes(x = log_Cw, y = log_Cs)) +
+  geom_point(size = 3) + 
+  geom_smooth(formula = y ~ x, method = lm, se=FALSE) +
+  labs(x = expression(log~C[w]~ug/L), y = expression(log~C[s]~ug/kg), title = "Lineær Freundlich isoterm CWC-PFDA") + 
+  theme_bw() +
+  theme(text = element_text(size = 15), panel.grid = element_blank())
+PFDA_CWC_isotherm_linear
+ggsave(filename="R/figs/PFDA_CWC_isotherm_linear.pdf")
+
 PFDA_isotherm <- ggplot(data = PFDA_sorption_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar))) + 
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) +

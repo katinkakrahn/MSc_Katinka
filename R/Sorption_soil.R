@@ -19,8 +19,8 @@ Sorption_soil <- subset(Sorption_soil,select = -c(Soil_binary,mix_binary))
 Sorption_BC_BS <- kable(Sorption_soil, "latex", booktabs = TRUE, digits = 2)
 
 # Subset biochar and cocktail/single compound, change from Sorption_soil to Sorption_soil_NAomit when data is updated
-#Sorption_soil_NAomit <- na.omit(Sorption_soil) #this one must be turned on when actual data is there
-#Sorption_soil_NA_C1omit <- Sorption_NAomit %>% slice(-c(column numbers))
+# Sorption_soil_NAomit <- na.omit(Sorption_soil) #this one must be turned on when actual data is there
+# Sorption_soil_NA_C1omit <- Sorption_NAomit %>% slice(-c(column numbers))
 Sorption_soil_blank <- subset(Sorption_soil, Biochar == "no") 
 Sorption_soil_blank_mix <- subset(Sorption_soil_blank, mixLogic == TRUE)
 Sorption_soil_blank_PFOA <- subset(Sorption_soil_blank, mixLogic == FALSE)
