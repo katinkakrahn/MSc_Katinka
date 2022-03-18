@@ -16,20 +16,44 @@ Synchrotron
 
 \subsection{Surface area and pore volume}
 N2/CO2 sorptometry
+Pore size distribution
 
 \begin{table}
 \centering
-\caption{Surface area and pore volume determined by BET and DFT theories, respectively. $\mathrm{N_2}$ represents pores }
+\caption{Surface area and pore volume determined by BET and DFT theories, respectively. $\mathrm{CO_2}$ represents pores 0.4-1.5 nm, $\mathrm{N_2}$ represents pores \textgreater 1.5 nm.}
 \label{tab:SAPV}
-\begin{tabular}{lccccc}
+\begin{tabular}{lccc|cc}
 \toprule
-                & \multicolumn{1}{l}{}   & \multicolumn{2}{c}{\textbf{N2}} & \multicolumn{2}{c}{\textbf{CO2}} \\ \cline{4-7}
-                & \multicolumn{1}{l}{}   & BET-SA         & BJH-PV         & DFT-SA          & DFT-PV         \\ \midrule
-\textbf{Sample} & \textbf{Pyr temp (°C)} & $\mathrmm{m^2/g}$           & cc/g           & $\mathrmm{m^2/g}$            & cc/g           \\
+              &   & \multicolumn{2}{c}{\textbf{N\textsubscript{2}}} & \multicolumn{2}{c}{\textbf{CO\textsubscript{2}}} \\  \cline{3-6} \addlinespace
+              &  & BET-SA         & BJH-PV         & DFT-SA          & DFT-PV         \\ \midrule
+\textbf{Sample} & \textbf{PT (\textdegree C)} & $\mathrm{m^2/g}$  & cc/g           & $\mathrm{m^2/g}$            & cc/g           \\ \midrule
 ULS         & 700                    & 128.31         & 0.126          & 164.58          & 0.047          \\
 CWC         & 700                    & 323.33         & 0.017          & 683.27          & 0.186          \\
-DSL         & 700                    & 110.14         & 0.111          & 86.55           & 0.027         \\ \midru
+DSL         & 700                    & 110.14         & 0.111          & 86.55           & 0.027         \\ \midrule
 \end{tabular}
+\end{table}
+
+
+
+\begin{table}
+\caption{Effective cross-sectional diameter (D\textsubscript{eff}) and maximum diameter (D\textsubscript{max}) of TCs interpolated and extrapolated by linear regression from calculations performed by \citep{inoue2012size} on PFOA and other PFCAs with chain lengths 11-18.}
+\centering
+\begin{threeparttable}
+\label{tab:molecsize}
+\begin{tabular}{lccc}
+\toprule
+Compound & \begin{tabular}[c]{@{}c@{}}Carbon chain \\ length\end{tabular} & \begin{tabular}[c]{@{}c@{}}D\textsubscript{eff} \\ (nm)\end{tabular} & \begin{tabular}[c]{@{}c@{}}D\textsubscript{max} \\ (nm)\end{tabular} \\ \midrule
+PFPeA    & 5                                                              & 0.45                                                 & 0.96                                                 \\
+PFHxA    & 6                                                              & 0.50                                                 & 1.08                                                 \\
+PFHpA    & 7                                                              & 0.56                                                 & 1.19                                                 \\
+PFOA\textsuperscript{*}     & 8                                                              & 0.61                                                 & 1.36                                                 \\
+PFNA     & 9                                                              & 0.67                                                 & 1.42                                                 \\
+PFDA     & 10                                                             & 0.72                                                 & 1.54  \\ \bottomrule                                    
+\end{tabular}
+\begin{tablenotes}
+\item \textsubscript{*} Calculated value from \citep{inoue2012size}
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 \subsection{Total elemental composition}
