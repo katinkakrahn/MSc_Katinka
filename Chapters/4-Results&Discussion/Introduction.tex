@@ -20,17 +20,19 @@ Pore size distribution
 
 \begin{table}
 \centering
-\caption{Surface area and pore volume determined by BET and DFT theories, respectively. $\mathrm{CO_2}$ represents pores 0.4-1.5 nm, $\mathrm{N_2}$ represents pores \textgreater 1.5 nm.}
+\caption{Surface area, pore volume and elemental content (C, O, H, N) and ratios for the biochars produced for the batch tests.}
+\adjustbox{max width=\textwidth}{
 \label{tab:SAPV}
-\begin{tabular}{lccc|cc}
+\begin{tabular}{lllllllllllll}
 \toprule
-              &   & \multicolumn{2}{c}{\textbf{N\textsubscript{2}}} & \multicolumn{2}{c}{\textbf{CO\textsubscript{2}}} \\  \cline{3-6} \addlinespace
-              &  & BET-SA         & BJH-PV         & DFT-SA          & DFT-PV         \\ \midrule
-\textbf{Sample} & \textbf{PT (\textdegree C)} & $\mathrm{m^2/g}$  & cc/g           & $\mathrm{m^2/g}$            & cc/g           \\ \midrule
-ULS         & 700                    & 128.31         & 0.126          & 164.58          & 0.047          \\
-CWC         & 700                    & 323.33         & 0.017          & 683.27          & 0.186          \\
-DSL         & 700                    & 110.14         & 0.111          & 86.55           & 0.027         \\ \midrule
-\end{tabular}
+Biochar & Pyrolysis   & \multicolumn{2}{l}{N\textsubscript{2} sorption}      & \multicolumn{2}{l}{CO\textsubscript{2} sorption}       & \multicolumn{4}{c}{Elemental content} & \multicolumn{3}{c}{Elemental ratio} \\
+sorbent   & temperature & \multicolumn{2}{l}{(pores \textgreater 1.5 nm)} & \multicolumn{2}{l}{(pores 0.4-1.5 nm)} &         &         &         &         &             &           &           \\ \cmidrule(l){3-4} \cmidrule(l){5-6} \cmidrule(l){7-10} \cmidrule(l){11-13}
+                & (\textdegree C)        & Surface area       & Pore volume     & Surface area       & Pore volume       & C       & O       & H       & N       & C/O         & C/H       & C/N       \\
+                &             & ($\mathrm{m^2~g^{-1}}$)           & (cm\textsuperscript{3} g\textsuperscript{-1})       & ($\mathrm{m^2~g^{-1}}$)           & (cm\textsuperscript{3} g\textsuperscript{-1})         & (\%)     & (\%)     & (\%)     & (\%)     &             &           &           \\ \midrule
+CWC         & 700         & 323                & 0.017           & 683                & 0.186             & 91.4    & 5.50    & 1.01    & 0.69    & 16.6        & 91        & 133       \\
+ULS         & 700         & 128                & 0.126           & 165                & 0.047             & 29.6    & 57.1    & 1.24    & 1.13    & 0.52        & 24        & 26        \\
+DSL         & 700         & 110                & 0.111           & 87                 & 0.027             & 13.5    & 61.4    & 1.05    & 0.82    & 0.22        & 13        & 16       \\ \bottomrule
+\end{tabular}}
 \end{table}
 
 
@@ -40,9 +42,11 @@ DSL         & 700                    & 110.14         & 0.111          & 86.55  
 \centering
 \begin{threeparttable}
 \label{tab:molecsize}
-\begin{tabular}{lccc}
+\begin{tabular}{llll}
 \toprule
-Compound & \begin{tabular}[c]{@{}c@{}}Carbon chain \\ length\end{tabular} & \begin{tabular}[c]{@{}c@{}}D\textsubscript{eff} \\ (nm)\end{tabular} & \begin{tabular}[c]{@{}c@{}}D\textsubscript{max} \\ (nm)\end{tabular} \\ \midrule
+Compound & Carbon & D\textsubscript{eff} & D\textsubscript{max} \\ 
+& chain & (nm) & (nm) \\
+& length & & \\ \midrule
 PFPeA    & 5                                                              & 0.45                                                 & 0.96                                                 \\
 PFHxA    & 6                                                              & 0.50                                                 & 1.08                                                 \\
 PFHpA    & 7                                                              & 0.56                                                 & 1.19                                                 \\
@@ -58,70 +62,26 @@ PFDA     & 10                                                             & 0.72
 
 \subsection{Total elemental composition}
 
-
-\begin{table}
-\centering
-\caption{Total element composition of the biochars used in this thesis.}
-\adjustbox{max width=\textwidth}{
-\label{tab:totelem}
-\begin{tabular}{llccccccc} 
-\toprule
-\textbf{}               & \textbf{}      & \textbf{} & \multicolumn{2}{c}{\textbf{CWC}} & \multicolumn{2}{c}{\textbf{ULS}} & \multicolumn{2}{c}{\textbf{DSL}} \\ \cline{4-9} 
-                        &                &           & Mean              & Std.dev          & Mean             & Std.dev           & Mean            & Std.dev            \\ \hline \addlinespace
-Pyrolysis temperature   &                &           & 700               &                  & 700              &                   & 700             &                    \\
-pH                      & 1:5 in water   & -         & 9.6               & 0.1              &                  &                   & 9.68            &                    \\
-Conductivity            & 1:5 in water   & µS/cm     & 1268              & 263              &                  &                   &                 &                     \\ \addlinespace \hline
-\textbf{Main elements}  & \textbf{}      &           &                   &                  &                  &                   &                 &                    \\ \hline \addlinespace
-C                       &                & \%        & 91.4              & 2.5              & 29.63            & 0.47              & 13.5            & 0.2                \\
-N                       &                & \%        & 0.69              & 0.02             & 1.131            & 0.039             & 0.82            & 0.02               \\
-H                       &                & \%        & 1.01              & 0.14             & 1.243            & 0.045             & 1.05            & 0.16               \\
-O                       & Calculated     & \%        &                   &                  &                  &                   &                 &                    \\
-Ca                      & $\mathrm{HNO_3}$ digestion & g/kg      & 8.0               & 0.2              & 21               &                   & 26.0            & 0.0                \\
-Fe                      & $\mathrm{HNO_3}$ digestion & g/kg      & 0.13              & 0.04             & 23               &                   & 180             & 0                  \\
-K                       & $\mathrm{HNO_3}$ digestion & g/kg      & 4.03              & 0.06             & 6.8              &                   & 3.7             & 0.1                \\
-Mg                      & $\mathrm{HNO_3}$ digestion & g/kg      & 0.91              & 0.02             & 5.3              &                   & 4.70            & 0.17               \\
-Na                      & $\mathrm{HNO_3}$ digestion & g/kg      & 0.05              & 0.00             & 2.4              &                   & 1.83            & 0.06               \\
-P                       & $\mathrm{HNO_3}$ digestion & g/kg      & 0.41              & 0.01             & 45               &                   & 8.0             & 0.5                \\
-S                       & $\mathrm{HNO_3}$ digestion & g/kg      & 0.09              & 0.00             & 2.9              &                   & 7.23            & 0.68               \\
-Si                      & $\mathrm{HNO_3}$ digestion & g/kg      & 0.17              & 0.02             & 1.7              &                   & 0.62            & 0.08               \\ \addlinespace \hline
-\textbf{Trace elements} & \textbf{}      &           &                   &                  &                  &                   &                 &                    \\ \hline \addlinespace
-As                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 0.01              & 0.00             & 3.0              &                   & 3.13            & 0.21               \\
-Ba                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 216.67            & 5.77             & 310              &                   & 177             & 6                  \\
-Cd                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 0.00044           & -                & 0.0081           &                   & 0.03            & 0.00               \\
-Co                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 0.30              & 0.03             & 7.1              &                   & 9.97            & 0.06               \\
-Cr                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 1.69              & 1.22             & 56               &                   & 53.3            & 1.5                \\
-Cu                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 5.17              & 0.60             & 220              &                   & 277             & 6                  \\
-Mo                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 0.06              & 0.02             & 7.1              &                   & 19.0            & 0.0                \\
-Ni                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 1.77              & 0.64             & 41               &                   & 34.7            & 0.6                \\
-Pb                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 0.08              & 0.02             & 13               &                   & 25.3            & 4.0                \\
-Sr                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 36                & 2                & 87               &                   & 120             & 0                  \\
-V                       & $\mathrm{HNO_3}$ digestion & mg/kg     & 0.10              & 0.02             & 34               &                   & 54.0            & 1.0                \\
-Zn                      & $\mathrm{HNO_3}$ digestion & mg/kg     & 3.2               & 0.6              & 480              &                   & 0.80            & 0.01      \\ \bottomrule        
-\end{tabular}}
-\end{table}
-
 \subsubsection{C/O and C/H ratios}
 
 \subsection{PZC}
 
 \section{Soil chemistry}
-The soil used in the batch tests was characterized as a fine sand (0.1 to 0.3 mm) with 1.3 \% TOC (pH 5.38 \textpm 0.02 , CEC 2.63 \textpm 0.06 meqv 100 g\textsuperscript{-1}). Total element concentrations and exchangeable ion concentrations are in \ref{appSec:misclab}. 
+The soil used in the batch tests was characterized as a fine sand (0.1 to 0.3 mm) with 1.3 \% TOC (pH 5.38 \textpm 0.02 , CEC 2.63 \textpm 0.06 meqv 100 g\textsuperscript{-1}). Total element concentrations and exchangeable ion concentrations are in \cref{appSec:elements}, \cref{apptab:soil}. 
 
 PFAS contamination?
 
-
-
 \section{pH and conductivity}
-pH varied little between all biochar-soil-water systems with an average pH of 7.18 \textpm 0.02. Conductivity was 39 \textpm 0.9 \textmu S cm\textsuperscript{-1}. Since the variance is low, pH and conductivity will not be considered as factors that influence sorption of PFCAs. whereby conductivity of soil-water samples differed the most from the rest of the samples with a mean conductivity of 23 \textpm 0.05 \textmu S cm\textsuperscript{-1} versus a mean of 41 \textpm 0.9 \textmu S cm\textsuperscript{-1} for the biochar-water and biochar-soil-water samples. Complete pH and conductivity data is in \cref{appSec:misclab} 
+pH varied little between all biochar-soil-water systems with an average pH of 7.18 \textpm 0.02. Conductivity was 39 \textpm 0.9 \textmu S cm\textsuperscript{-1}. Since the variance is low, pH and conductivity will not be considered as factors that influence sorption of PFCAs. whereby conductivity of soil-water samples differed the most from the rest of the samples with a mean conductivity of 23 \textpm 0.05 \textmu S cm\textsuperscript{-1} versus a mean of 41 \textpm 0.9 \textmu S cm\textsuperscript{-1} for the biochar-water and biochar-soil-water samples. Complete pH and conductivity data is in \cref{appSec:misclab}. 
 
 \begin{table}
 \centering
-\caption{Mean and standard deviation of pH and conductivity (\textmu S/cm) measurements for the different batch test systems (n=3). BC:S:H\textsubscript{2}O is the biochar:soil:water ratio.}
+\caption{Mean and standard deviation of pH and conductivity (\textmu S cm\textsuperscript{-1}) measurements for the different batch test systems (n=3). BC:S:H\textsubscript{2}O is the biochar:soil:water ratio.}
 \label{tab:pHcond}
 \begin{tabular}{lccccc}
 \toprule
- & \multicolumn{2}{c}{pH} & \multicolumn{2}{c}{Conductivity} & \\
- & mean & std. dev & mean & std. dev & BC:S:H20\\
+ & \multicolumn{2}{c}{\textbf{pH}} & \multicolumn{2}{c}{\textbf{Conductivity}} & \\ \cline{2-5}
+ & mean & std. dev & mean & std. dev & BC:S:H\textsubscript{2}0\\ 
 \midrule
 ULS & 7.10 & 0.04 & 45.70 & 3.03 & 1:0:500\\
 DSL & 7.31 & 0.02 & 40.93 & 1.07 & 1:0:500\\
@@ -136,29 +96,6 @@ S & 7.08 & 0.05 & 23.33 & 0.87 & 0:1:10\\
 
 \subsection{PFAS-contamination}
 
-\begin{table}[htb]
-\centering
-\caption{Total concentration (mg/kg dw), exchangeable ions (meqv/100 g) and summary parameters for the soil used in the batch leaching tests.}
-\label{tab:soil}
-\begin{tabular}{llll} \toprule
-\multicolumn{2}{c}{\textbf{Total concentration}} & \multicolumn{2}{c}{\textbf{Exchangeable ions}} \\ \hline \addlinespace
-Ba                       & 11.0 ± 0.3                       & Al\textsuperscript{3+}                              & 0.87 ± 0.01              \\
-Be                       & 0.27 ± 0.004                        & H\textsuperscript{+}                               & 0.088 ± 0.03              \\
-Cd                       & 0.20 ±0.06                        & Mg\textsuperscript{2+}                              & 0.07 ± 0.001               \\
-Co                       & 2.07 ± 0.09                         & Ca\textsuperscript{2+}                              & 1.54 ± 0.03              \\
-Cr                       & 6.13 ± 0.4                        & Na\textsuperscript{+}                                 & 0.009 ± 00004                  \\
-Cu                       & 9.10 ± 1                        & K\textsuperscript{+}                                 & 0.046 ± 0.0002                  \\
-Fe                       & 6740 ± 445                     &                                   &                          \\
-Hg                       & \textless{}1                       &                                   &                          \\
-Mn                       & 124 ± 7                      & \multicolumn{2}{c}{\textbf{Summary parameters}}              \\  \cline{3-4} \addlinespace
-Ni                       & 3.09 ± 0.2                        & CEC                               & 2.62 ± 0.07              \\
-P                        & 525 ± 29                      & pH (H\textsubscript{2}O)                          & 5.38 ± 0.02              \\
-Pb                       & 8.45 ± 0.5                         & pH (0.01 M CaCl\textsubscript{2})                 & 4.36 ± 0.01               \\
-Sr                       & 6.80 ± 0.7                          & Conductivity (\textmu S/cm)              & 23 ± 0.9                \\
-V                        & 12.67 ± 0.9                       & C-org (\%)                        & 1.32 ± 0.03              \\
-Zn                       & 22.20 ± 1                           & N-tot (\%)                        & 0.11 ± 0.003 \\ \bottomrule             
-\end{tabular}
-\end{table}
 
 \section{Sorption of PFAS: single-compound isotherms BC-water}
 
