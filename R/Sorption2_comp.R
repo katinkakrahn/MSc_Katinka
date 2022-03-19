@@ -27,6 +27,15 @@ summary_stats_PFOA <- filter(summary_stats_single, compound == "PFOA")
 summary_stats_PFNA <- filter(summary_stats_single, compound == "PFNA")
 summary_stats_PFDA <- filter(summary_stats_single, compound == "PFDA")
 
+#Individual compound sorption
+PFPeA_sorption_single <- filter(Sorption_BC_single, Compound == "PFPeA")
+PFHxA_sorption_single <- filter(Sorption_BC_single, Compound == "PFHxA")
+PFHpA_sorption_single <- filter(Sorption_BC_single, Compound == "PFHpA")
+PFOA_sorption_single <- filter(Sorption_BC_single, Compound == "PFOA")
+PFNA_sorption_single <- filter(Sorption_BC_single, Compound == "PFNA")
+PFDA_sorption_single <- filter(Sorption_BC_single, Compound == "PFDA")
+
+
 #PFPeA
 PFPeA_isotherm <- ggplot(data = PFPeA_sorption_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar))) + 
@@ -127,7 +136,7 @@ PFHpA_facet_isotherm
 ggsave(filename="R/figs/PFHpA_facet_isotherm.pdf")
 
 #PFOA
-old <- c("Ci_(ug/L)", "Cw_(ug/L)", "Cs_(ug/g)")
+old <- c("Ci_(ug/L)", "Cw_(ug/L)", "Cs_(ug/kg)")
 new <- c("Ci", "Cw", "Cs")
 setnames(PFOA_sorption_single, old, new, skip_absent = TRUE)
 
