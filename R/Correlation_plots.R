@@ -32,7 +32,7 @@ for(i in 1:nr_biochars){
 
 summary_stats_CLandKF_label <- summary_stats_CLandKF %>%
   mutate(
-    nr_CF2 = 7.2, K_F = 2.5,
+    nr_CF2 = 6, K_F = 2.7,
     label =
       glue("*r*<sup>2</sup> = {round(r_squared, 2)} <br> n = {round(n, 2)} <br> p-value = {round(p_value, 3)}")
   )

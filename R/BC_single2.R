@@ -164,6 +164,16 @@ PFOA_isotherm <- ggplot(data = PFOA_sorption_single) +
   theme(legend.position = c(0.9, 0.18))
 PFOA_isotherm
 
+summary_stats_PFOA_single_label <- summary_stats_PFOA %>%
+  mutate(
+    log_Cw = 1.85, log_Cs = 5.3,
+    label =
+      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
+  )
+
+summary_stats_PFOA_single_label <- summary_stats_PFOA_single_label |>
+  transform(Biochar = biochar)
+
 facetPFOA <- PFOA_sorption_single |>
   transform(pre_biochar = Biochar)
 
@@ -181,10 +191,14 @@ PFOA_facet_isotherm <- ggplot(data = PFOA_sorption_single) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
   ggtitle("PFOA") +
-  geom_label(data = transform(summary_stats_PFOA, Biochar = biochar), 
-             size = 2, inherit.aes = T, aes(x = 0.8, y = 4.9, label = paste("K_F =",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
-  facet_wrap(~Biochar) +
+  facet_grid(rows = vars(Biochar)) +
   theme_bw() +
+  geom_richtext(
+    data = summary_stats_PFOA_single_label,
+    aes(label = label, x = log_Cw, y = log_Cs),
+    hjust = 0
+  ) +
+  theme(panel.grid = element_blank()) +
   guides(color = "none")
 PFOA_facet_isotherm
 ggsave(filename="R/figs/PFOA_facet_isotherm.pdf")
@@ -234,7 +248,7 @@ PFDA_CWC_isotherm_nonlinear <- ggplot(subset(PFDA_sorption_single, Biochar %in% 
   theme_bw() +
   theme(text = element_text(size = 15), panel.grid = element_blank())
 PFDA_CWC_isotherm_nonlinear
-ggsave(filename="R/figs/PFD_CWC_isotherm_nonlinear.pdf")
+ggsave(filename="R/figs/PFDA_CWC_isotherm_nonlinear.pdf")
 
 PFDA_CWC_isotherm_linear <- ggplot(subset(PFDA_sorption_single, Biochar %in% "CWC"), aes(x = log_Cw, y = log_Cs)) +
   geom_point(size = 3) + 
@@ -244,6 +258,44 @@ PFDA_CWC_isotherm_linear <- ggplot(subset(PFDA_sorption_single, Biochar %in% "CW
   theme(text = element_text(size = 15), panel.grid = element_blank())
 PFDA_CWC_isotherm_linear
 ggsave(filename="R/figs/PFDA_CWC_isotherm_linear.pdf")
+
+#ULS PFDA
+PFDA_ULS_isotherm_nonlinear <- ggplot(subset(PFDA_sorption_single, Biochar %in% "ULS"), aes(x = Cw, y = Cs)) +
+  geom_point(size = 3) + 
+  geom_smooth(method = "lm", formula = y ~ poly(log(x), 2), se = FALSE) +
+  labs(x = expression(C[w]~ug/L), y = expression(C[s]~ug/kg), title = "Freundlich isoterm ULS-PFDA") + 
+  theme_bw() +
+  theme(text = element_text(size = 15), panel.grid = element_blank())
+PFDA_ULS_isotherm_nonlinear
+ggsave(filename="R/figs/PFDA_ULS_isotherm_nonlinear.pdf")
+
+PFDA_ULS_isotherm_linear <- ggplot(subset(PFDA_sorption_single, Biochar %in% "ULS"), aes(x = log_Cw, y = log_Cs)) +
+  geom_point(size = 3) + 
+  geom_smooth(formula = y ~ x, method = lm, se=FALSE) +
+  labs(x = expression(log~C[w]~ug/L), y = expression(log~C[s]~ug/kg), title = "Lineær Freundlich isoterm ULS-PFDA") + 
+  theme_bw() +
+  theme(text = element_text(size = 15), panel.grid = element_blank())
+PFDA_ULS_isotherm_linear
+ggsave(filename="R/figs/PFDA_ULS_isotherm_linear.pdf")
+
+#DSL PFDA
+PFDA_DSL_isotherm_nonlinear <- ggplot(subset(PFDA_sorption_single, Biochar %in% "DSL"), aes(x = Cw, y = Cs)) +
+  geom_point(size = 3) + 
+  geom_smooth(method = "lm", formula = y ~ poly(log(x), 2), se = FALSE) +
+  labs(x = expression(C[w]~ug/L), y = expression(C[s]~ug/kg), title = "Freundlich isoterm DSL-PFDA") + 
+  theme_bw() +
+  theme(text = element_text(size = 15), panel.grid = element_blank())
+PFDA_DSL_isotherm_nonlinear
+ggsave(filename="R/figs/PFDA_DSL_isotherm_nonlinear.pdf")
+
+PFDA_DSL_isotherm_linear <- ggplot(subset(PFDA_sorption_single, Biochar %in% "DSL"), aes(x = log_Cw, y = log_Cs)) +
+  geom_point(size = 3) + 
+  geom_smooth(formula = y ~ x, method = lm, se=FALSE) +
+  labs(x = expression(log~C[w]~ug/L), y = expression(log~C[s]~ug/kg), title = "Lineær Freundlich isoterm DSL-PFDA") + 
+  theme_bw() +
+  theme(text = element_text(size = 15), panel.grid = element_blank())
+PFDA_DSL_isotherm_linear
+ggsave(filename="R/figs/PFDA_DSL_isotherm_linear.pdf")
 
 PFDA_isotherm <- ggplot(data = PFDA_sorption_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar))) + 

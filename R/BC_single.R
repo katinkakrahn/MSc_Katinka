@@ -64,7 +64,7 @@ for(i in 1:nr_compounds){
 
 summary_stats_CWC_single_label <- summary_stats_CWC_single %>%
   mutate(
-    log_Cw = 1, log_Cs = 0.8,
+    log_Cw = 0.6, log_Cs = 1,
     label =
       glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
     )
@@ -158,7 +158,7 @@ for(i in 1:nr_compounds){
 
 summary_stats_ULS_single_label <- summary_stats_ULS_single %>%
   mutate(
-    log_Cw = -2.5, log_Cs = 6.1,
+    log_Cw = -2.5, log_Cs = 6,
     label =
       glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
   )
@@ -249,7 +249,7 @@ for(i in 1:nr_compounds){
 
 summary_stats_DSL_single_label <- summary_stats_DSL_single %>%
   mutate(
-    log_Cw = 0.8, log_Cs = 1.4,
+    log_Cw = 0.4, log_Cs = 1.4,
     label =
       glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
   )
