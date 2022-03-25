@@ -15,7 +15,6 @@ Soil <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~Cloud
 as.data.table(Soil)
 Soil <- as.data.table(Soil)
 
-
 CECions <- filter(Soil, Type == "Exchangeable ions")
 Total_element <- filter(Soil, Type == "Total element conc")
 
