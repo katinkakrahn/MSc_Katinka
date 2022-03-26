@@ -1,14 +1,3 @@
-library(data.table)
-library(ggplot2)
-library(psych)
-library(readxl)
-library(grDevices)
-library(dplyr)
-library(broom)
-library(ggpubr)
-library(tidyverse)
-library(knitr)
-
 #Compare sorption of biochars across char types
 summary_stats_CWC_single[, nr_CF2 := 4:9]
 summary_stats_ULS_single[, nr_CF2 := 4:9]

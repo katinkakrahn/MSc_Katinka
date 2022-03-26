@@ -529,3 +529,17 @@ for(i in 1:nr_compounds){
   summary_stats_DSL_single[compound == compounds[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
                                                                    summary(fit)$fstatistic[3],lower.tail=F)]
 }
+
+Sorption_attenuation_BC <- ggplot() +
+  geom_point(data = Sorption_BC_single_C10_common, mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar), shape = mixLogic, size = 2), 
+  ) + 
+  geom_point(data = Sorption_BC_mix_summary, mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar), shape = mixLogic, size = 2), 
+  ) + 
+  labs(x = expression(log~C[w]), y = expression(log~C[s]), shape = "Cocktail", color = "Biochar") +
+  guides(size = "none") +
+  facet_wrap(~Compound) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+Sorption_attenuation_BC
+set_palette(Sorption_attenuation_BC, "uchicago")
+ggsave(filename="R/figs/Sorption_attenuation_BC.pdf")

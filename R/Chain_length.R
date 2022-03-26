@@ -1,15 +1,3 @@
-library(data.table)
-library(ggplot2)
-library(psych)
-library(readxl)
-library(grDevices)
-library(dplyr)
-library(broom)
-library(ggpubr)
-library(tidyverse)
-library(knitr)
-library(latex2exp)
-
 #Summary statistics chain length and log KF
 nr_compounds <- length(unique(Sorption$Compound))
 compounds <- unique(Sorption$Compound)

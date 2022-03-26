@@ -1,22 +1,5 @@
-library(data.table)
-library(ggplot2)
-library(psych)
-library(readxl)
-library(grDevices)
-library(dplyr)
-library(broom)
-library(ggpubr)
-library(tidyverse)
-library(knitr)
-library(latex2exp)
-library(glue)
-library(ggtext)
-
 Sorption <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/160222_sorption_rawdata.xlsx")
 Sorption <- as.data.table(Sorption)
-#old <- c("Ci_(ug/L)", "Cw_(ug/L)", "Cs_(ug/kg)")
-#new <- c("Ci", "Cw", "Cs")
-#setnames(Sorption, old, new, skip_absent = TRUE)
 
 #Convert 1 and 0 to TRUE and FALSE and delete integer columns
 Sorption$SoilLogic <- as.logical(Sorption$Soil_binary)
@@ -27,6 +10,8 @@ Sorption_BC <- kable(Sorption, "latex", booktabs = TRUE, digits = 2)
 # Subset biochar and cocktail/single compound
 Sorption_NAomit <- na.omit(Sorption)
 Sorption_NA_C1omit <- Sorption_NAomit %>% slice(-c(20, 30, 40, 50, 79, 88, 98, 108, 118, 157, 167, 177))
+Sorption_NA_C1omit <- Sorption_NA_C1omit %>%
+  mutate(Kd = Cs/Cw, log_Kd = log10(Cs/Cw))
 Sorption_BC_single <- subset(Sorption_NA_C1omit, mixLogic == FALSE)
 Sorption_BC_mix <- subset(Sorption_NA_C1omit, mixLogic == TRUE)
 
@@ -34,12 +19,28 @@ CWC_single <- filter(Sorption_BC_single, Biochar == "CWC")
 ULS_single <- filter(Sorption_BC_single, Biochar == "ULS")
 DSL_single <- filter(Sorption_BC_single, Biochar == "DSL")
 
-#Summary statistics CWC
+Sorption_BC_mix_summary <- Sorption_BC_mix[, .(Conc_point = 10,
+                                               Ci = mean(Ci),
+                                               Cw = mean(Cw),
+                                               Cs = mean(Cs),
+                                               Kd = mean(Cs/Cw),
+                                               log_Kd = log10(mean(Cs/Cw)),
+                                               log_Cw = mean(log_Cw), 
+                                               log_Cs = mean(log_Cs),
+                                               se_logCw = std.error(log_Cw),
+                                               se_logCs = std.error(log_Cs),
+                                               se_logKd = std.error(log10(Cs/Cw)),
+                                               mixLogic = TRUE, 
+                                               SoilLogic = FALSE
+),
+keyby = .(Biochar, Compound)]
+
 nr_compounds <- length(unique(Sorption$Compound))
 compounds <- unique(Sorption$Compound)
 nr_biochars <- length(unique(Sorption$Biochar))
 biochars <- unique(Sorption$Biochar)
 
+#Summary statistics CWC
 summary_stats_CWC_single <- data.table(K_F = rep(0, nr_compounds), 
                                        K_F_std_error = rep(0, nr_compounds),
                                        n = rep(0, nr_compounds),
@@ -93,11 +94,18 @@ summary_stats_CWC_single$compound <- factor(summary_stats_CWC_single$compound, l
                                                               "PFOA", "PFNA", "PFDA"))
 summary_stats_CWC_single_label$Compound <- factor(summary_stats_CWC_single_label$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                                           "PFOA", "PFNA", "PFDA"))
+Sorption_BC_mix_summary$Compound <- factor(Sorption_BC_mix_summary$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                                                                                      "PFOA", "PFNA", "PFDA"))
 
 
 CWC_facet_isotherm <- ggplot(data = CWC_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
              color = "gray45", size = 1) + 
+  geom_point(data = subset(Sorption_BC_mix_summary, Biochar %in% "CWC"), 
+             mapping = aes(x = log_Cw, y = log_Cs), 
+             color = "#800000FF",
+             group = "Compound",
+             size = 2) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), 
               formula = y ~ x, 
               method=lm, 
@@ -129,11 +137,6 @@ ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
 
 
 #Summary statistics ULS
-nr_compounds <- length(unique(Sorption$Compound))
-compounds <- unique(Sorption$Compound)
-nr_biochars <- length(unique(Sorption$Biochar))
-biochars <- unique(Sorption$Biochar)
-
 summary_stats_ULS_single <- data.table(K_F = rep(0, nr_compounds), 
                                        K_F_std_error = rep(0, nr_compounds),
                                        n = rep(0, nr_compounds),
@@ -187,15 +190,23 @@ summary_stats_ULS_single$compound <- factor(summary_stats_ULS_single$compound, l
                                                                                           "PFOA", "PFNA", "PFDA"))
 summary_stats_ULS_single_label$Compound <- factor(summary_stats_ULS_single_label$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                                                       "PFOA", "PFNA", "PFDA"))
+Sorption_BC_mix_summary$Compound <- factor(Sorption_BC_mix_summary$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                                                                        "PFOA", "PFNA", "PFDA"))
+
 
 ULS_facet_isotherm <- ggplot(data = ULS_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
              color = "gray45", size = 1) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound),
-              formula = y ~ x,
-              method=lm,
-              se=FALSE,
-              colour = "grey",
+  geom_point(data = subset(Sorption_BC_mix_summary, Biochar %in% "ULS"), 
+             mapping = aes(x = log_Cw, y = log_Cs), 
+             color = "#800000FF",
+             group = "Compound",
+             size = 2) +
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), 
+              formula = y ~ x, 
+              method=lm, 
+              se=FALSE, 
+              colour = "grey", 
               size = 0.5,
               data = facetULS
   ) +
@@ -206,8 +217,8 @@ ULS_facet_isotherm <- ggplot(data = ULS_single) +
               se=T, 
               fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
-  #ggtitle("ULS isotherm") +
   facet_wrap(~Compound) +
+  #ggtitle("ULS isotherm") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
   guides(color = "none") +
@@ -220,11 +231,6 @@ ULS_facet_isotherm
 ggsave(filename="R/figs/ULS_facet_isotherm.pdf")
 
 #Summary statistics DSL
-nr_compounds <- length(unique(Sorption$Compound))
-compounds <- unique(Sorption$Compound)
-nr_biochars <- length(unique(Sorption$Biochar))
-biochars <- unique(Sorption$Biochar)
-
 summary_stats_DSL_single <- data.table(K_F = rep(0, nr_compounds), 
                                        K_F_std_error = rep(0, nr_compounds),
                                        n = rep(0, nr_compounds),
@@ -280,10 +286,18 @@ summary_stats_DSL_single$compound <- factor(summary_stats_DSL_single$compound, l
                                                                                           "PFOA", "PFNA", "PFDA"))
 summary_stats_DSL_single_label$Compound <- factor(summary_stats_DSL_single_label$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                                                       "PFOA", "PFNA", "PFDA"))
+Sorption_BC_mix_summary$Compound <- factor(Sorption_BC_mix_summary$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                                                                        "PFOA", "PFNA", "PFDA"))
+
 
 DSL_facet_isotherm <- ggplot(data = DSL_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
              color = "gray45", size = 1) + 
+  geom_point(data = subset(Sorption_BC_mix_summary, Biochar %in% "DSL"), 
+             mapping = aes(x = log_Cw, y = log_Cs), 
+             color = "#800000FF",
+             group = "Compound",
+             size = 2) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), 
               formula = y ~ x, 
               method=lm, 
@@ -299,8 +313,8 @@ DSL_facet_isotherm <- ggplot(data = DSL_single) +
               se=T, 
               fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
-  #ggtitle("DSL isotherm") +
   facet_wrap(~Compound) +
+  #ggtitle("DSL isotherm") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
   guides(color = "none") +
@@ -311,5 +325,3 @@ DSL_facet_isotherm <- ggplot(data = DSL_single) +
   )
 DSL_facet_isotherm
 ggsave(filename="R/figs/DSL_facet_isotherm.pdf")
-
-

@@ -1,15 +1,3 @@
-library(data.table)
-library(ggplot2)
-library(psych)
-library(readxl)
-library(grDevices)
-library(dplyr)
-library(broom)
-library(ggpubr)
-library(tidyverse)
-library(knitr)
-library(plotrix)
-
 Sorption_soil <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/010322_sorption_rawdata_soil.xlsx")
 as.data.table(Sorption_soil)
 Sorption_soil <- as.data.table(Sorption_soil)
@@ -17,6 +5,8 @@ Sorption_soil <- as.data.table(Sorption_soil)
 Sorption_soil$SoilLogic <- as.logical(Sorption_soil$Soil_binary)
 Sorption_soil$mixLogic <- as.logical(Sorption_soil$mix_binary)
 Sorption_soil <- subset(Sorption_soil,select = -c(Soil_binary,mix_binary))
+Sorption_soil <- Sorption_soil %>%
+  mutate(Kd = Cs/Cw, log_Kd = log10(Cs/Cw))
 Sorption_BC_BS <- kable(Sorption_soil, "latex", booktabs = TRUE, digits = 2)
 
 
