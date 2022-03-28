@@ -26,10 +26,8 @@ C10_mixVsSingle_BC$Compound <- factor(C10_mixVsSingle_BC$Compound, levels = c("P
                                                                                         "PFOA", "PFNA", "PFDA"))
 
 C10_mixVsSingle_BC_plot <- ggplot(data = C10_mixVsSingle_BC, aes(x = Compound, y = log_Kd, color = single_mix, shape = Biochar)) + 
-  geom_point(size = 3,
-             position=position_dodge(w=0.05)) + 
-  geom_errorbar(aes(ymin=log_Kd-se_logKd, ymax=log_Kd+se_logKd), width = .05,
-                position=position_dodge(w=0.05)) + 
+  geom_point(size = 4) + 
+  geom_errorbar(aes(ymin=log_Kd-se_logKd, ymax=log_Kd+se_logKd), width = 0) + 
   labs(x = "", y = expression(log~K[d]), color = "", shape = "") + 
   theme_bw() +
   theme(panel.grid = element_blank(), legend.position = "bottom")
@@ -45,12 +43,6 @@ Competition_factor_BC <- Competition_BC[, .(Conc_point = 10,
                                             Competition_factor = log_Kd_s/log_Kd_mix
                                             ),
                                         keyby = .(Biochar, Compound)]
-
-
-Sorption_BC_single_C10_common$Compound <- factor(Sorption_BC_single_C10_common$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                              "PFOA", "PFNA", "PFDA"))
-Sorption_BC_mix_summary$Compound <- factor(Sorption_BC_mix_summary$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                          "PFOA", "PFNA", "PFDA"))
 
 
 

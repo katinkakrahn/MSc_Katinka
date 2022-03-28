@@ -543,3 +543,64 @@ Sorption_attenuation_BC <- ggplot() +
 Sorption_attenuation_BC
 set_palette(Sorption_attenuation_BC, "uchicago")
 ggsave(filename="R/figs/Sorption_attenuation_BC.pdf")
+
+SA <- ggplot(data = subset(SA_PV, Porosity %in% "SA"), 
+             aes(x = Gas, y = Mean_diffunit, color = Biochar)) +
+  geom_point() +
+  labs(x = "", y = "m2/g") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+SA
+
+PV <- ggplot(data = subset(SA_PV, Porosity %in% "PV"), 
+             aes(x = Gas, y = Mean_diffunit, color = biochar)) +
+  geom_point() +
+  labs(x = "", y = "cm3/g") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+PV
+
+C_Ca_ratios_plot <- ggplot(data = subset(Elements_ratios, Parameter %in% "C_Ca"), 
+                           aes(x = Biochar, y = Ratio, group = Biochar)) +
+  geom_point() +
+  # geom_smooth(formula = y ~ x, 
+  #             method=lm, 
+  #             se = FALSE, 
+  #             fullrange = FALSE,
+  #             color = "grey") +
+  labs(x = expression(""), y = "C/Ca ratio") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+C_Ca_ratios_plot
+
+
+C_Fe_ratios_plot <- ggplot(data = subset(Elements_ratios, Parameter %in% "C_Fe"), 
+                           aes(x = Biochar, y = Ratio, group = Biochar)) +
+  geom_point() +
+  # geom_smooth(formula = y ~ x, 
+  #             method=lm, 
+  #             se = FALSE, 
+  #             fullrange = FALSE,
+  #             color = "grey") +
+  labs(x = expression(""), y = "C/Fe ratio") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+C_Fe_ratios_plot
+
+Elements_CWC <- subset(Elements_biochar, biochar == "CWC")
+Elements_ULS <- subset(Elements_biochar, biochar == "ULS")
+Elements_DSL <- subset(Elements_biochar, biochar == "DSL")
+
+Elements_biochar_join <- inner_join(Elements_CWC, Elements_ULS, by = "Parameter")
+Elements_biochar_join <- inner_join(Elements_biochar_join, Elements_DSL, by = "Parameter")
+Elements_biochar_join <- Elements_biochar_join[, .(Parameter, Mean_diffunit.x, Mean_diffunit.y, Mean_diffunit)]
+setnames(Elements_biochar_join, c("Mean_diffunit.x", "Mean_diffunit.y", "Mean_diffunit"), c("CWC", "ULS", "DSL"))
+Elements_biochar_join_t <- setNames(data.frame(t(Elements_biochar_join[, - 1])), Elements_biochar_join[, 1])
+colnames(Elements_biochar_join_t) <- t(names)
+
+
+Elements_ratios <- Elements_biochar_join_t
+Elements_ratios$C_Ca <- Elements_ratios$C/Elements_ratios$Ca
+Elements_ratios$C_Fe <- Elements_ratios$C/Elements_ratios$Fe
+Elements_ratios <- as.data.table(Elements_ratios, keep.rownames = T)
+setnames(Elements_ratios, "rn", "Biochar")

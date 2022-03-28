@@ -9,11 +9,19 @@ Sorption_soil <- Sorption_soil %>%
   mutate(Kd = Cs/Cw, log_Kd = log10(Cs/Cw))
 Sorption_BC_BS <- kable(Sorption_soil, "latex", booktabs = TRUE, digits = 2)
 
-
 # Subset biochar and cocktail/single compound, change from Sorption_soil to Sorption_soil_NAomit when data is updated
 Sorption_soil_NAomit <- na.omit(Sorption_soil)
-#Sorption_soil_NA_C1omit <- Sorption_NAomit %>% slice(-c(column numbers))
-Sorption_soil_blank <- subset(Sorption_soil_NAomit, Biochar == "no") 
+
+Sorption_soil_blank <- subset(Sorption_soil, Biochar == "no") 
+Sorption_soil_blank_summary <- Sorption_soil_blank[, .(K_ds = mean(K_ds), 
+                                                       log_Kds = log10(mean(K_ds)),
+                                                       se_K_ds = std.error(K_ds),
+                                                       se_logKds = std.error(log10(K_ds))
+                                                       ),
+                                                   keyby = .(Compound, mixLogic)]
+
+write_xlsx(Sorption_soil_blank_summary,"/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/270322_Kd_soil.xlsx")
+
 Sorption_soil_blank_mix <- subset(Sorption_soil_blank, mixLogic == TRUE)
 Sorption_soil_blank_PFOA <- subset(Sorption_soil_blank, mixLogic == FALSE)
 Sorption_soil_BC <- Sorption_soil_NAomit[Biochar != 'no'] 
@@ -28,21 +36,14 @@ CWC_soil_PFOA <- filter(Sorption_soil_BC_PFOA, Biochar == "CWC")
 ULS_soil_PFOA <- filter(Sorption_soil_BC_PFOA, Biochar == "ULS")
 DSL_soil_PFOA <- filter(Sorption_soil_BC_PFOA, Biochar == "DSL")
 
-Sorption_soil_blank_summary <- Sorption_soil_blank[, .(mean_logCw = mean(log_Cw), 
-                            mean_logCs = mean(log_Cs),
-                            se_logCw = std.error(log_Cw),
-                            se_logCs = std.error(log_Cs),
-                            log_Kd = mean(log_Cs/log_Cw),
-                            se_logKd = std.error(log_Cs/log_Cw)
-),
-keyby = .(Compound,mixLogic)]
+Sorption_soil_blank_summary_NAomit <- na.omit(Sorption_soil_blank_summary)
 
-Sorption_soil_blank_summary$Compound <- factor(Sorption_soil_blank_summary$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+Sorption_soil_blank_summary_NAomit$Compound <- factor(Sorption_soil_blank_summary_NAomit$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                               "PFOA", "PFNA", "PFDA"))
 
-SoilBlankKd <- ggplot(data = Sorption_soil_blank_summary, aes(x = Compound, y = log_Kd, color = mixLogic)) + 
+SoilBlankKd <- ggplot(data = Sorption_soil_blank_summary_NAomit, aes(x = Compound, y = log_Kds, color = mixLogic)) + 
   geom_point()+ 
-  geom_errorbar(aes(ymin=log_Kd-se_logKd, ymax=log_Kd+se_logKd), width = .1) + 
+  geom_errorbar(aes(ymin=log_Kds-se_logKds, ymax=log_Kds+se_logKds), width = .1) + 
   labs(x = "", y = expression(log~K[d]), col = "") + 
   scale_color_manual(
     values = c('black','grey60'),
@@ -52,50 +53,50 @@ SoilBlankKd <- ggplot(data = Sorption_soil_blank_summary, aes(x = Compound, y = 
   theme_bw()
 SoilBlankKd
 ggsave(filename="R/figs/SoilBlankKd.pdf")
-#for this plot need to normalize for same conc. to get comparable Kd.
-
-#Sorption_soil_BC <- Sorption_soil_BC[, Compound := as.factor(Compound)]
-#CWC_soil_mix <- CWC_soil_mix[, Compound := as.factor(Compound)]
-
-#CWC facet soil mix
-compounds2 <- unique(CWC_soil_mix$Compound)
+#cannot compare Kds like in this plot.
 
 
-summary_stats_CWC_soil_mix <- data.table(K_F = rep(0, nr_compounds-1), 
-                                       K_F_std_error = rep(0, nr_compounds-1),
-                                       n = rep(0, nr_compounds-1),
-                                       n_std_error = rep(0, nr_compounds-1),
-                                       r_squared = rep(0, nr_compounds-1),
-                                       residual_std_error = rep(0, nr_compounds-1),
-                                       p_value = rep(0, nr_compounds-1),
-                                       compound = compounds2,
-                                       biochar = "CWC")
-
-for(i in 1:(nr_compounds-1)){
-  fit <- lm(log_Cs ~ log_Cw, data = CWC_soil_mix[Compound == compounds2[i]])
-  summary_stats_CWC_soil_mix[compound == compounds2[i], K_F := fit$coefficients[1]]
-  summary_stats_CWC_soil_mix[compound == compounds2[i], K_F_std_error := summary(fit)$coefficients[1,2]]
-  summary_stats_CWC_soil_mix[compound == compounds2[i], n := fit$coefficients[2]]
-  summary_stats_CWC_soil_mix[compound == compounds2[i], n_std_error := summary(fit)$coefficients[2,2]]
-  summary_stats_CWC_soil_mix[compound == compounds2[i], r_squared := summary(fit)$r.squared]
-  summary_stats_CWC_soil_mix[compound == compounds2[i], residual_std_error := summary(fit)$sigma]
-  summary_stats_CWC_soil_mix[compound == compounds2[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
-                                                         summary(fit)$fstatistic[3],lower.tail=F)]
-}
+#CWC facet soil mix: no results, all NAs
+# compounds2 <- unique(CWC_soil_mix$Compound)
+# 
+# 
+# summary_stats_CWC_soil_mix <- data.table(K_F = rep(0, nr_compounds-1), 
+#                                        K_F_std_error = rep(0, nr_compounds-1),
+#                                        n = rep(0, nr_compounds-1),
+#                                        n_std_error = rep(0, nr_compounds-1),
+#                                        r_squared = rep(0, nr_compounds-1),
+#                                        residual_std_error = rep(0, nr_compounds-1),
+#                                        p_value = rep(0, nr_compounds-1),
+#                                        compound = compounds2,
+#                                        biochar = "CWC")
+# 
+# for(i in 1:(nr_compounds-1)){
+#   fit <- lm(log_Cs ~ log_Cw, data = CWC_soil_mix[Compound == compounds2[i]])
+#   summary_stats_CWC_soil_mix[compound == compounds2[i], K_F := fit$coefficients[1]]
+#   summary_stats_CWC_soil_mix[compound == compounds2[i], K_F_std_error := summary(fit)$coefficients[1,2]]
+#   summary_stats_CWC_soil_mix[compound == compounds2[i], n := fit$coefficients[2]]
+#   summary_stats_CWC_soil_mix[compound == compounds2[i], n_std_error := summary(fit)$coefficients[2,2]]
+#   summary_stats_CWC_soil_mix[compound == compounds2[i], r_squared := summary(fit)$r.squared]
+#   summary_stats_CWC_soil_mix[compound == compounds2[i], residual_std_error := summary(fit)$sigma]
+#   summary_stats_CWC_soil_mix[compound == compounds2[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
+#                                                          summary(fit)$fstatistic[3],lower.tail=F)]
+# }
 
 #ULS facet soil mix
-summary_stats_ULS_soil_mix <- data.table(K_F = rep(0, nr_compounds-1), 
-                                         K_F_std_error = rep(0, nr_compounds-1),
-                                         n = rep(0, nr_compounds-1),
-                                         n_std_error = rep(0, nr_compounds-1),
-                                         r_squared = rep(0, nr_compounds-1),
-                                         residual_std_error = rep(0, nr_compounds-1),
-                                         p_value = rep(0, nr_compounds-1),
+ULS_soil_mix <- filter(ULS_soil_mix, Compound != "PFPeA")
+compounds2 <- unique(ULS_soil_mix$Compound)
+summary_stats_ULS_soil_mix <- data.table(K_F = rep(0, nr_compounds-2), 
+                                         K_F_std_error = rep(0, nr_compounds-2),
+                                         n = rep(0, nr_compounds-2),
+                                         n_std_error = rep(0, nr_compounds-2),
+                                         r_squared = rep(0, nr_compounds-2),
+                                         residual_std_error = rep(0, nr_compounds-2),
+                                         p_value = rep(0, nr_compounds-2),
                                          compound = compounds2,
                                          biochar = "ULS")
 
-for(i in 1:(nr_compounds-1)){
-  fit <- lm(log_Cs ~ log_Cw, data = ULS_soil_mix[Compound == compounds2[i]])
+for(i in 1:(nr_compounds-2)){
+  fit <- lm(y ~ log_Cw, data = ULS_soil_mix[Compound == compounds2[i]])
   summary_stats_ULS_soil_mix[compound == compounds2[i], K_F := fit$coefficients[1]]
   summary_stats_ULS_soil_mix[compound == compounds2[i], K_F_std_error := summary(fit)$coefficients[1,2]]
   summary_stats_ULS_soil_mix[compound == compounds2[i], n := fit$coefficients[2]]
@@ -108,28 +109,52 @@ for(i in 1:(nr_compounds-1)){
 
 
 #DSL facet soil mix
-summary_stats_DSL_soil_mix <- data.table(K_F = rep(0, nr_compounds-1), 
-                                         K_F_std_error = rep(0, nr_compounds-1),
-                                         n = rep(0, nr_compounds-1),
-                                         n_std_error = rep(0, nr_compounds-1),
-                                         r_squared = rep(0, nr_compounds-1),
-                                         residual_std_error = rep(0, nr_compounds-1),
-                                         p_value = rep(0, nr_compounds-1),
-                                         compound = compounds2,
+DSL_soil_mix <- filter(DSL_soil_mix, Compound == "PFDA")
+compounds3 <- unique(DSL_soil_mix$Compound)
+
+summary_stats_DSL_soil_mix <- data.table(K_F = rep(0, nr_compounds-5), 
+                                         K_F_std_error = rep(0, nr_compounds-5),
+                                         n = rep(0, nr_compounds-5),
+                                         n_std_error = rep(0, nr_compounds-5),
+                                         r_squared = rep(0, nr_compounds-5),
+                                         residual_std_error = rep(0, nr_compounds-5),
+                                         p_value = rep(0, nr_compounds-5),
+                                         compound = compounds3,
                                          biochar = "DSL")
 
-for(i in 1:(nr_compounds-1)){
-  fit <- lm(log_Cs ~ log_Cw, data = DSL_soil_mix[Compound == compounds2[i]])
-  summary_stats_DSL_soil_mix[compound == compounds2[i], K_F := fit$coefficients[1]]
-  summary_stats_DSL_soil_mix[compound == compounds2[i], K_F_std_error := summary(fit)$coefficients[1,2]]
-  summary_stats_DSL_soil_mix[compound == compounds2[i], n := fit$coefficients[2]]
-  summary_stats_DSL_soil_mix[compound == compounds2[i], n_std_error := summary(fit)$coefficients[2,2]]
-  summary_stats_DSL_soil_mix[compound == compounds2[i], r_squared := summary(fit)$r.squared]
-  summary_stats_DSL_soil_mix[compound == compounds2[i], residual_std_error := summary(fit)$sigma]
-  summary_stats_DSL_soil_mix[compound == compounds2[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
+for(i in 1:(nr_compounds-5)){
+  fit <- lm(y ~ log_Cw, data = DSL_soil_mix[Compound == compounds3[i]])
+  summary_stats_DSL_soil_mix[compound == compounds3[i], K_F := fit$coefficients[1]]
+  summary_stats_DSL_soil_mix[compound == compounds3[i], K_F_std_error := summary(fit)$coefficients[1,2]]
+  summary_stats_DSL_soil_mix[compound == compounds3[i], n := fit$coefficients[2]]
+  summary_stats_DSL_soil_mix[compound == compounds3[i], n_std_error := summary(fit)$coefficients[2,2]]
+  summary_stats_DSL_soil_mix[compound == compounds3[i], r_squared := summary(fit)$r.squared]
+  summary_stats_DSL_soil_mix[compound == compounds3[i], residual_std_error := summary(fit)$sigma]
+  summary_stats_DSL_soil_mix[compound == compounds3[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
                                                                       summary(fit)$fstatistic[3],lower.tail=F)]
 }
 
+DSL_PFDA_soil_plot <- ggplot(data = DSL_soil_mix) +
+  geom_point(mapping = aes(x = log_Cw, y = y)) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = y), 
+              formula = y ~ x, 
+              method=lm, 
+              se=FALSE, 
+              colour = "grey", 
+              size = 0.5,
+              data = DSL_soil_mix
+  ) +
+  labs(x = expression(log~C[w]), y = expression(log~C[s]~modified)) + 
+  #ggtitle("DSL PFDA isotherm") +
+  theme_bw() +
+  theme(panel.grid = element_blank()) #+
+  # geom_richtext(
+  #   data = summary_stats_CWC_single_label,
+  #   aes(label = label, x = log_Cw, y = log_Cs),
+  #   hjust = 0
+  # )
+DSL_PFDA_soil_plot
+ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
 
 #PFOA soil summary statistics
 summary_stats_PFOA_soil <- data.table(K_F = rep(0, nr_biochars), 
