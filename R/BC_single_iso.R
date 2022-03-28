@@ -54,7 +54,7 @@ Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
               fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s]), color = "") + 
   facet_wrap(~Compound) +
-  ggtitle("Freundlich linear sorption isotherms") +
+  #ggtitle("Freundlich linear sorption isotherms") +
   theme_bw() +
   theme(panel.grid = element_blank(), legend.position = "bottom") #+
   # geom_richtext(
@@ -67,20 +67,21 @@ set_palette(Sorption_isotherms, "uchicago")
 ggsave(filename="R/figs/Sorption_isotherms_single_BC.pdf")
 
 #Summary statistics CWC
-summary_stats_CWC_single <- data.table(K_F = rep(0, nr_compounds), 
-                                       K_F_std_error = rep(0, nr_compounds),
+summary_stats_CWC_single <- data.table(log_KF = rep(0, nr_compounds), 
+                                       log_KF_std_error = rep(0, nr_compounds),
                                        n = rep(0, nr_compounds),
                                        n_std_error = rep(0, nr_compounds),
                                        r_squared = rep(0, nr_compounds),
                                        residual_std_error = rep(0, nr_compounds),
                                        p_value = rep(0, nr_compounds),
+                                       log_Cw = rep(0, nr_compounds),
                                        compound = compounds,
                                        biochar = "CWC")
 
 for(i in 1:nr_compounds){
   fit <- lm(log_Cs ~ log_Cw, data = CWC_single[Compound == compounds[i]])
-  summary_stats_CWC_single[compound == compounds[i], K_F := fit$coefficients[1]]
-  summary_stats_CWC_single[compound == compounds[i], K_F_std_error := summary(fit)$coefficients[1,2]]
+  summary_stats_CWC_single[compound == compounds[i], log_KF := fit$coefficients[1]]
+  summary_stats_CWC_single[compound == compounds[i], log_KF_std_error := summary(fit)$coefficients[1,2]]
   summary_stats_CWC_single[compound == compounds[i], n := fit$coefficients[2]]
   summary_stats_CWC_single[compound == compounds[i], n_std_error := summary(fit)$coefficients[2,2]]
   summary_stats_CWC_single[compound == compounds[i], r_squared := summary(fit)$r.squared]
@@ -93,7 +94,7 @@ summary_stats_CWC_single_label <- summary_stats_CWC_single %>%
   mutate(
     log_Cw = 0.6, log_Cs = 1,
     label =
-      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
+      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(log_KF, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
     )
 
 summary_stats_CWC_single_label <- summary_stats_CWC_single_label |>
@@ -163,20 +164,21 @@ ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
 
 
 #Summary statistics ULS
-summary_stats_ULS_single <- data.table(K_F = rep(0, nr_compounds), 
-                                       K_F_std_error = rep(0, nr_compounds),
+summary_stats_ULS_single <- data.table(log_KF = rep(0, nr_compounds), 
+                                       log_KF_std_error = rep(0, nr_compounds),
                                        n = rep(0, nr_compounds),
                                        n_std_error = rep(0, nr_compounds),
                                        r_squared = rep(0, nr_compounds),
                                        residual_std_error = rep(0, nr_compounds),
                                        p_value = rep(0, nr_compounds),
+                                       log_Cw = rep(0, nr_compounds),
                                        compound = compounds,
                                        biochar = "ULS")
 
 for(i in 1:nr_compounds){
   fit <- lm(log_Cs ~ log_Cw, data = ULS_single[Compound == compounds[i]])
-  summary_stats_ULS_single[compound == compounds[i], K_F := fit$coefficients[1]]
-  summary_stats_ULS_single[compound == compounds[i], K_F_std_error := summary(fit)$coefficients[1,2]]
+  summary_stats_ULS_single[compound == compounds[i], log_KF := fit$coefficients[1]]
+  summary_stats_ULS_single[compound == compounds[i], log_KF_std_error := summary(fit)$coefficients[1,2]]
   summary_stats_ULS_single[compound == compounds[i], n := fit$coefficients[2]]
   summary_stats_ULS_single[compound == compounds[i], n_std_error := summary(fit)$coefficients[2,2]]
   summary_stats_ULS_single[compound == compounds[i], r_squared := summary(fit)$r.squared]
@@ -189,7 +191,7 @@ summary_stats_ULS_single_label <- summary_stats_ULS_single %>%
   mutate(
     log_Cw = -2.5, log_Cs = 6,
     label =
-      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
+      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(log_KF, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
   )
 
 summary_stats_ULS_single_label <- summary_stats_ULS_single_label |>
@@ -257,20 +259,21 @@ ULS_facet_isotherm
 ggsave(filename="R/figs/ULS_facet_isotherm.pdf")
 
 #Summary statistics DSL
-summary_stats_DSL_single <- data.table(K_F = rep(0, nr_compounds), 
-                                       K_F_std_error = rep(0, nr_compounds),
+summary_stats_DSL_single <- data.table(log_KF = rep(0, nr_compounds), 
+                                       log_KF_std_error = rep(0, nr_compounds),
                                        n = rep(0, nr_compounds),
                                        n_std_error = rep(0, nr_compounds),
                                        r_squared = rep(0, nr_compounds),
                                        residual_std_error = rep(0, nr_compounds),
                                        p_value = rep(0, nr_compounds),
+                                       log_Cw = rep(0, nr_compounds),
                                        compound = compounds,
                                        biochar = "DSL")
 
 for(i in 1:nr_compounds){
   fit <- lm(log_Cs ~ log_Cw, data = DSL_single[Compound == compounds[i]])
-  summary_stats_DSL_single[compound == compounds[i], K_F := fit$coefficients[1]]
-  summary_stats_DSL_single[compound == compounds[i], K_F_std_error := summary(fit)$coefficients[1,2]]
+  summary_stats_DSL_single[compound == compounds[i], log_KF := fit$coefficients[1]]
+  summary_stats_DSL_single[compound == compounds[i], log_KF_std_error := summary(fit)$coefficients[1,2]]
   summary_stats_DSL_single[compound == compounds[i], n := fit$coefficients[2]]
   summary_stats_DSL_single[compound == compounds[i], n_std_error := summary(fit)$coefficients[2,2]]
   summary_stats_DSL_single[compound == compounds[i], r_squared := summary(fit)$r.squared]
@@ -283,7 +286,7 @@ summary_stats_DSL_single_label <- summary_stats_DSL_single %>%
   mutate(
     log_Cw = 0.4, log_Cs = 1.4,
     label =
-      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
+      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(log_KF, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
   )
 
 summary_stats_DSL_single_label <- summary_stats_DSL_single_label |>
