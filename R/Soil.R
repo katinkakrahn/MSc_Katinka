@@ -11,7 +11,7 @@ library(knitr)
 library(scales)
 library(jcolors)
 
-Soil <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/040322_soil_rawdata.xlsx")
+Soil <- read_excel("C:/Users/KMK/OneDrive - NGI/VOW/Data/040322_soil_rawdata.xlsx")
 as.data.table(Soil)
 Soil <- as.data.table(Soil)
 
@@ -49,3 +49,4 @@ Totalelement_plot <- ggplot(data = SoilsummaryTotal) +
   guides(size = "none")
 Totalelement_plot
 ggsave(filename = "R/figs/totalelement_plot.pdf")
+
