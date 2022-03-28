@@ -34,6 +34,7 @@ C10_mixVsSingle_BC_plot <- ggplot(data = C10_mixVsSingle_BC, aes(x = Compound, y
 C10_mixVsSingle_BC_plot
 set_palette(C10_mixVsSingle_BC_plot, "uchicago")
 ggsave(filename="R/figs/C10_mixVsSingle_BC_plot.pdf")
+# Each data point from cocktail (red) represents an average of triplicate batch tests.
 
 Sorption_BC_C10_Kdsingle <- setnames(Sorption_BC_single_C10_common, "log_Kd", "log_Kd_s")
 Sorption_BC_C10_Kdmix <- setnames(Sorption_BC_mix_summary, "log_Kd", "log_Kd_mix")

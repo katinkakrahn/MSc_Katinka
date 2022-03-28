@@ -40,6 +40,32 @@ compounds <- unique(Sorption$Compound)
 nr_biochars <- length(unique(Sorption$Biochar))
 biochars <- unique(Sorption$Biochar)
 
+#Sorption isotherm all chars
+Sorption_BC_single$Compound <- factor(Sorption_BC_single$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                                              "PFOA", "PFNA", "PFDA"))
+
+Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
+             size = 1) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
+              formula = y ~ x, 
+              method=lm, 
+              se=T, 
+              fullrange = FALSE) + 
+  labs(x = expression(log~C[w]), y = expression(log~C[s]), color = "") + 
+  facet_wrap(~Compound) +
+  ggtitle("Freundlich linear sorption isotherms") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom") #+
+  # geom_richtext(
+  #   data = summary_stats_ULS_single_label,
+  #   aes(label = label, x = log_Cw, y = log_Cs),
+  #   hjust = 0
+  # )
+Sorption_isotherms
+set_palette(Sorption_isotherms, "uchicago")
+ggsave(filename="R/figs/Sorption_isotherms_single_BC.pdf")
+
 #Summary statistics CWC
 summary_stats_CWC_single <- data.table(K_F = rep(0, nr_compounds), 
                                        K_F_std_error = rep(0, nr_compounds),

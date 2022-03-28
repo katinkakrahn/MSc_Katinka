@@ -32,6 +32,7 @@ ChainLength_Kd_ratio_plot <- ggplot(data = Biochar_Kd_ratio,
               color = "grey") +
   theme_bw()
 ChainLength_Kd_ratio_plot
+#Sorption of DSL increases more with chain length than ULS, which is hard to explain...
 
 #Ratio with respect to ULS
 ULS_CWC <- inner_join(ULS_C3, CWC_C3, by = "Compound")
@@ -76,4 +77,15 @@ Elements_ratios_plot_PFOA <- ggplot(data = Elements_ratios_Kd_PFOA,
   theme_bw() +
   theme(panel.grid = element_blank(), legend.position = "bottom")
 Elements_ratios_plot_PFOA
+
+Elements_ratios_plot_PFOA <- ggplot(data = Elements_ratios_Kd,
+                                    aes(x = Ratio, y = log_Kd, color = Compound, shape = Biochar), 
+) +
+  geom_point() +
+  # geom_smooth(method = "lm",
+  #             formula = y ~ x)+
+  labs(x = "Element ratio", y = expression(log~K[d]), color = "", shape = "") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+Elements_ratios_plot
 
