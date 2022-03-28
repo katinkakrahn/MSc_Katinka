@@ -261,36 +261,36 @@ Modeling sorption is complicated in the presence of soil since partition behavio
     C_s = \frac{K_d}{C_{w}}
 \end{equation}
 
-Where $C_s$ = quantity sorbed per unit mass (\textmu g kg\textsuperscript{-1}), $C_{aq}$ =  equilibrium aqueous concentration (\textmu g L\textsuperscript{-1} and $K_d$ is the partition constant between the solid and aqueous phase. A new mass balance for the partitioning between water, soil and sorbent is obtained by building on the Freundlich equation (\cref{eq:Freundlich}) (mass PFAS, m / ng or \textmu g and mass soil or sorbent, M / kg). The mass balance between the three phases can be deduced:
+Where $C_s$ = quantity sorbed per unit mass (\textmu g kg\textsuperscript{-1}), $C_{aq}$ =  equilibrium aqueous concentration (\textmu g L\textsuperscript{-1} and $K_d$ is the partition constant between the solid and aqueous phase. A new mass balance for the partitioning between water, soil and sorbent is obtained by building on the Freundlich equation (\cref{eq:Freundlich}) (mass PFAS, m ng\textsuperscript{-1} or \textmu g and mass soil or sorbent, M kg\textsuperscript{-1}). The mass balance between the three phases can be deduced:
 
 \begin{equation} \label{eq:massBalance1}
-    m_{tot} = m_{aq} + m_{s} + m_{BC}
+    m_{tot} = m_{aq} + m_{s} + m_{bc}
 \end{equation}
 
 \begin{equation} \label{eq:massBalance2}
-     m_{tot} = C_{aq}V_{aq} + C_sM_s + C_sM_s + C_{BC}M_{BC}
+     m_{tot} = C_{aq}V_{aq} + C_sM_s + C_{bc}M_{bc}
 \end{equation}
 
 \begin{equation} \label{eq:massBalance3}
-     m_{tot} = C_{aq}V_{aq} + K_dC_{aq}M_s + K_{F}C_{aq}^{n_F}M_{BC}
+     m_{tot} = C_{aq}V_{aq} + K_dC_{aq}M_s + K_{F}C_{aq}^{n_F}M_{bc}
 \end{equation}
  
 Fitting \cref{eq:massBalance3} to the Freundlich equation yields:
 
 \begin{equation} \label{eq:FreundFit}
-    m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s = K_{F}C_{aq}^{n_F}M_{BC}
+    m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s = K_{F}C_{aq}^{n_F}M_{bc}
 \end{equation}
 
-and get the partitioning of PFAS in the biochar (BC) expressed on the left hand side, and the aqueous PFAS concentration on the right hand side of \cref{eq:FreundFit}. To get the linear Freundlich expression log of each side is performed:
+and get the partitioning of PFAS in the biochar (bc) expressed on the left hand side, and the aqueous PFAS concentration on the right hand side of \cref{eq:FreundFit}. To get the linear Freundlich expression log of each side is performed:
 
 \begin{equation} \label{eq:FreundLinSoil1}
-   \log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) = \log (K_{F}C_{aq}^{n_F}M_{BC})
+   \log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) = \log (K_{F}C_{aq}^{n_F}M_{bc})
 \end{equation}
 
 Further modifications are made to simplify to the Freundlich linear expression as y = b + ax:
 
 \begin{equation} \label{eq:FreundLinSoil2}
-    \log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) = \log K_{F} + \log C_{aq}^{n_F} + \log M_{BC}
+    \log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) = \log K_{F} + \log C_{aq}^{n_F} + \log M_{bc}
 \end{equation}
 
 \begin{equation} \label{eq:FreundLinSoil3}
@@ -301,7 +301,7 @@ Further modifications are made to simplify to the Freundlich linear expression a
     \log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) - \log M_{BC} = \log K_{F} + n_F \times \log C_{aq}  
 \end{equation}
 
-\cref{eq:FreundLinSoil4} can be plotted using $\log C_{aq}$ on the x axis and $\log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) - \log M_{BC}$ on the y axis for each point on the isotherm. The slope derived from linear regression is $n_F$ and the intercept is $K_F$. Using the Freundlich model, sorption capacity is expressed in terms of \(n\) and affinity is expressed in terms of \(K_F\). 
+\cref{eq:FreundLinSoil4} can be plotted using $\log C_{aq}$ on the x axis and $\log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) - \log M_{bc}$ on the y axis for each point on the isotherm. The slope derived from linear regression is $n_F$ and the intercept is $K_F$. Using the Freundlich model, sorption capacity is expressed in terms of \(n\) and affinity is expressed in terms of \(K_F\). 
 
 \subsection{Sorbent addition to natural systems}
 Pore filling/clogging see \citep{Li2019}
