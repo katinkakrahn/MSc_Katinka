@@ -540,7 +540,7 @@ Sorption_attenuation_BC <- ggplot() +
   facet_wrap(~Compound) +
   theme_bw() +
   theme(panel.grid = element_blank())
-Sorption_attenuation_BC
+ Sorption_attenuation_BC
 set_palette(Sorption_attenuation_BC, "uchicago")
 ggsave(filename="R/figs/Sorption_attenuation_BC.pdf")
 
