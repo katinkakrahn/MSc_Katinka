@@ -1,4 +1,4 @@
-Sorption_soil <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/010322_sorption_rawdata_soil.xlsx")
+Sorption_soil <- read_excel("C:/Users/KMK/OneDrive - NGI/VOW/Data/010322_sorption_rawdata_soil.xlsx")
 as.data.table(Sorption_soil)
 Sorption_soil <- as.data.table(Sorption_soil)
 
@@ -20,7 +20,7 @@ Sorption_soil_blank_summary <- Sorption_soil_blank[, .(K_ds = mean(K_ds),
                                                        ),
                                                    keyby = .(Compound, mixLogic)]
 
-write_xlsx(Sorption_soil_blank_summary,"/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/270322_Kd_soil.xlsx")
+write_xlsx(Sorption_soil_blank_summary,"C:/Users/KMK/OneDrive - NGI/VOW/Data/270322_Kd_soil.xlsx")
 
 Sorption_soil_blank_mix <- subset(Sorption_soil_blank, mixLogic == TRUE)
 Sorption_soil_blank_PFOA <- subset(Sorption_soil_blank, mixLogic == FALSE)
@@ -227,80 +227,6 @@ ggsave(filename="R/figs/PFOA_facet_soil_isotherm.pdf")
 
 
 
-#Cocktail soil isotherms
-
-
-
-
-
-
-
-
-
-
-summary_stats_CWC_soil_mix_label <- summary_stats_CWC_soil_mix %>%
-  mutate(
-    log_Cw = 0.6, log_Cs = 1,
-    label =
-      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
-  )
-
-summary_stats_CWC_soil_mix_label <- summary_stats_CWC_soil_mix_label |>
-  transform(Compound = compound)
-
-#CWC Freundlich isotherm plot
-facetCWC <- CWC_single |>
-  transform(pre_compound = Compound)
-
-facetCWC <- rbind(
-  transform(facetCWC, Compound = unique(CWC_single$Compound)[1]),
-  transform(facetCWC, Compound = unique(CWC_single$Compound)[2]),
-  transform(facetCWC, Compound = unique(CWC_single$Compound)[3]),
-  transform(facetCWC, Compound = unique(CWC_single$Compound)[4]),
-  transform(facetCWC, Compound = unique(CWC_single$Compound)[5]),
-  transform(facetCWC, Compound = unique(CWC_single$Compound)[6])
-)
-
-CWC_single$Compound <- factor(CWC_single$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                              "PFOA", "PFNA", "PFDA"))
-facetCWC$Compound <- factor(facetCWC$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                          "PFOA", "PFNA", "PFDA"))
-summary_stats_CWC_single$compound <- factor(summary_stats_CWC_single$compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                                                          "PFOA", "PFNA", "PFDA"))
-summary_stats_CWC_single_label$Compound <- factor(summary_stats_CWC_single_label$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                                                                      "PFOA", "PFNA", "PFDA"))
-
-
-CWC_facet_isotherm_soil_mix <- ggplot(data = CWC_) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
-             color = "gray45", size = 1) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), 
-              formula = y ~ x, 
-              method=lm, 
-              se=FALSE, 
-              colour = "grey", 
-              size = 0.5,
-              data = facetCWC
-  ) +
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
-              color = "black", 
-              formula = y ~ x, 
-              method=lm, 
-              se=T, 
-              fullrange = FALSE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
-  facet_wrap(~Compound) +
-  #ggtitle("CWC isotherm") +
-  theme_bw() +
-  theme(panel.grid = element_blank()) +
-  guides(color = "none") +
-  geom_richtext(
-    data = summary_stats_CWC_single_label,
-    aes(label = label, x = log_Cw, y = log_Cs),
-    hjust = 0
-  )
-CWC_facet_isotherm
-ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
 
 
 

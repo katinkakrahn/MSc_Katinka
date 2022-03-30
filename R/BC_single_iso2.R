@@ -51,7 +51,7 @@ PFPeA_facet_isotherm <- ggplot(data = PFPeA_sorption_single) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
   ggtitle("PFPeA") +
-  geom_label(data = transform(summary_stats_PFPeA, Biochar = biochar), size = 2, inherit.aes = T, aes(x = 1.25, y = 3.5, label = paste("K_F =",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
+  geom_label(data = transform(summary_stats_PFPeA, Biochar = biochar), size = 2, inherit.aes = T, aes(x = 1.25, y = 3.5, label = paste("log_KF =",round(log_KF, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
   facet_wrap(~Biochar) +
   theme_bw() +
   guides(color = "none")
@@ -84,7 +84,7 @@ PFHxA_facet_isotherm <- ggplot(data = PFHxA_sorption_single) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
   ggtitle("PFHxA") +
-  geom_label(data = transform(summary_stats_PFHxA, Biochar = biochar), size = 2, inherit.aes = T, aes(x = 0.2, y = 0.25, label = paste("K_F =",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
+  geom_label(data = transform(summary_stats_PFHxA, Biochar = biochar), size = 2, inherit.aes = T, aes(x = 0.2, y = 0.25, label = paste("log_KF =",round(log_KF, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
   facet_wrap(~Biochar) +
   theme_bw() +
   guides(color = "none")
@@ -117,7 +117,7 @@ PFHpA_facet_isotherm <- ggplot(data = PFHpA_sorption_single) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
   ggtitle("PFHpA") +
-  geom_label(data = transform(summary_stats_PFHpA, Biochar = biochar), size = 2, inherit.aes = T, aes(x = -0.75, y = 3.5, label = paste("K_F =",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
+  geom_label(data = transform(summary_stats_PFHpA, Biochar = biochar), size = 2, inherit.aes = T, aes(x = -0.75, y = 3.5, label = paste("log_KF =",round(log_KF, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
   facet_wrap(~Biochar) +
   theme_bw() +
   guides(color = "none")
@@ -157,7 +157,7 @@ summary_stats_PFOA_single_label <- summary_stats_PFOA %>%
   mutate(
     log_Cw = 1.85, log_Cs = 5.3,
     label =
-      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
+      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(log_KF, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
   )
 
 summary_stats_PFOA_single_label <- summary_stats_PFOA_single_label |>
@@ -218,7 +218,7 @@ PFNA_facet_isotherm <- ggplot(data = PFNA_sorption_single) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
   ggtitle("PFNA") +
-  geom_label(data = transform(summary_stats_PFNA, Biochar = biochar), size = 2, inherit.aes = T, aes(x = 0, y = 4.75, label = paste("K_F =",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
+  geom_label(data = transform(summary_stats_PFNA, Biochar = biochar), size = 2, inherit.aes = T, aes(x = 0, y = 4.75, label = paste("log_KF =",round(log_KF, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
   facet_wrap(~Biochar) +
   theme_bw() +
   guides(color = "none")
@@ -311,7 +311,7 @@ PFDA_facet_isotherm <- ggplot(data = PFDA_sorption_single) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
   labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
   ggtitle("PFDA") +
-  geom_label(data = transform(summary_stats_PFDA, Biochar = biochar), size = 2, inherit.aes = T, aes(x = 0, y = 5, label = paste("K_F =",round(K_F, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
+  geom_label(data = transform(summary_stats_PFDA, Biochar = biochar), size = 2, inherit.aes = T, aes(x = 0, y = 5, label = paste("log_KF =",round(log_KF, digits = 2),","," ","n =",round(n, digits = 2),","," ","R^2 =", round(r_squared, digits = 2)))) +
   facet_wrap(~Biochar) +
   theme_bw() +
   guides(color = "none")

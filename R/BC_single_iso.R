@@ -1,4 +1,4 @@
-Sorption <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/160222_sorption_rawdata.xlsx")
+Sorption <- read_excel("C:/Users/KMK/OneDrive - NGI/VOW/Data/160222_sorption_rawdata.xlsx")
 Sorption <- as.data.table(Sorption)
 
 #Convert 1 and 0 to TRUE and FALSE and delete integer columns
