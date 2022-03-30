@@ -1,4 +1,4 @@
-Biochar <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Data/250322_biochar_parameters.xlsx")
+Biochar <- read_excel("C:/Users/KMK/OneDrive - NGI/VOW/Data/250322_biochar_parameters.xlsx")
 as.data.table(Biochar)
 Biochar <- as.data.table(Biochar)
 setnames(Biochar, "Biochar", "biochar")
@@ -41,7 +41,7 @@ CHON_biochar_plot
 Sorption_BC_single_C3 <- filter(Sorption_BC_single, Conc_point == 3)
 Biochar_sorption_soil_C3 <- full_join(x = Sorption_BC_single_C3, y = Biochar, by = c("Biochar" = "biochar"))
 
-Main_elements_Kd <- Biochar_sorption_soil_C3 %>% filter(Parameter %in% Main_elements_select)
+Main_elements_Kd <- Biochar_sorption_soil_C3 %>% filter(Parameter %in% Elements_biochar)
 
 Biochar_sorption_soil_C3_PFOA <- filter(Biochar_sorption_soil_C3, Compound == "PFOA")
 
