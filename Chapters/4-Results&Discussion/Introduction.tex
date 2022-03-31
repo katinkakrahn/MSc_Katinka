@@ -1,4 +1,5 @@
 \chapter{Results and discussion}\label{chap:Results&Disc}
+In this chapter the results and methods from the laboratory experiments are discussed.
 
 \section{PFAS sorption in single-compound batch tests}
 
@@ -33,6 +34,42 @@
 Table with partitioning coefficients for the biochar sorbents with and without the presence of soil, plus/minus standard error
 
 \subsection{Freundlich parameters}
+
+\begin{table}
+\caption{Summary statistics for the single-compound 9-point isotherms for biochar-water. The error is presented as standard error.}
+\centering
+\adjustbox{max width=\textwidth}{%
+\begin{threeparttable}
+\label{tab:summary_stats_single}
+\begin{tabular}{llllllllllll}
+\toprule
+\multicolumn{1}{c}{\textbf{Biochar}} & \multicolumn{1}{c}{\textbf{Compound}} & \multicolumn{3}{c}{\textbf{log K\textsubscript{F}}} & \multicolumn{3}{c}{\textbf{n\textsubscript{F}}} & \multicolumn{3}{c}{\textbf{r\textsuperscript{2}}} & \textbf{p} \\ \midrule
+CWC                                  & PFPeA                                 & 3.98        & ±        & 0.36        & 0.56      & ±      & 0.33      & 0.30       & ±       & 0.31            & -             \\
+CWC                                  & PFHxA                     & 3.01        & ±        & 0.32        & 0.69      & ±      & 0.17      & 0.68       & ±       & 0.67               & **           \\
+CWC                                  & PFHpA                     & 4.44        & ±        & 0.05        & 0.59      & ±      & 0.11      & 0.80       & ±       & 0.16               & **           \\
+CWC                                  & PFOA                      & 5.06        & ±        & 0.08        & 0.39      & ±      & 0.05      & 0.90       & ±       & 0.10               & ***          \\
+CWC                                  & PFNA                      & 4.88        & ±        & 0.04        & 0.65      & ±      & 0.04      & 0.98       & ±       & 0.05               & ***          \\
+CWC                                  & PFDA                      & 5.22        & ±        & 0.07        & 0.45      & ±      & 0.04      & 0.94       & ±       & 0.08               & ***          \\
+DSL                                  & PFPeA                     & 4.25        & ±        & 0.74        & 0.14      & ±      & 0.38      & 0.06       & ±       & 0.07               & -             \\
+DSL                                  & PFHxA                     & 3.16        & ±        & 0.04        & 1.22      & ±      & 0.03      & 1.00       & ±       & 0.09               & ***          \\
+DSL                                  & PFHpA                     & 4.67        & ±        & 0.06        & 0.57      & ±      & 0.09      & 0.86       & ±       & 0.13               & ***          \\
+DSL                                  & PFOA                      & 5.12        & ±        & 0.02        & 0.60      & ±      & 0.02      & 0.99       & ±       & 0.03               & ***          \\
+DSL                                  & PFNA                      & 5.33        & ±        & 0.03        & 0.80      & ±      & 0.07      & 0.94       & ±       & 0.08               & ***          \\
+DSL                                  & PFDA                      & 5.61        & ±        & 0.02        & 0.61      & ±      & 0.02      & 0.99       & ±       & 0.03               & ***          \\
+ULS                                  & PFPeA                     & 4.10        & ±        & 0.13        & 0.67      & ±      & 0.16      & 0.74       & ±       & 0.17               & **           \\
+ULS                                  & PFHxA                     & 4.80        & ±        & 0.06        & 0.34      & ±      & 0.09      & 0.72       & ±       & 0.13               & **           \\
+ULS                                  & PFHpA                     & 5.98        & ±        & 0.17        & 1.08      & ±      & 0.11      & 0.93       & ±       & 0.10               & ***          \\
+ULS                                  & PFOA                      & 5.73        & ±        & 0.02        & 0.65      & ±      & 0.05      & 0.95       & ±       & 0.07               & ***          \\
+ULS                                  & PFNA                      & 5.89        & ±        & 0.02        & 0.71      & ±      & 0.03      & 0.99       & ±       & 0.04               & ***          \\
+ULS                                  & PFDA                      & 6.00        & ±        & 0.04        & 0.35      & ±      & 0.05      & 0.86       & ±       & 0.13               & ***     \\ \bottomrule    
+\end{tabular}
+\begin{tablenotes}
+\item Significant codes: *** $\sim$ 0.001, ** $\sim$ 0.01, - $>$ 0.05 
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+
 Meaning of parameters KF and n
 Importance of nonlinearity and concentration interval achieved 
 Comparison of KF across concentration magnitudes, conversion factor and why
@@ -77,13 +114,32 @@ Biochar removal efficiency
 Freundlich parameters
 Attenuation factors, larger for short-chain than long chains which have greater sorption affinity. 
 
-% Change orientation of facets to 2x3 instead of 3x2
+\subsection{Competition}
+Due to different spike concentration used for each compound in the cocktail, establishing quantitative trends for how chain length influences competition for sorption size is difficult. However, some conclusions can be drawn by looking at the overall trends. \cref{tab:competition} shows that $log~K_d$ decreases for all compounds in the presence of a mixture. $K_d$ changes the least for PFHxA and PFHpA (2.3 and 0.2 \% respectively) and may be attributed to lower spiked concentrations (330 and 117 \textmu g L\textsuperscript{-1}) for these compounds compared to the rest in \cref{tab:competition}. Competition is most profound for PFOA to CWC followed by PFDA for ULS and CWC (15.8, 10.0 and 10.6 \% respectively), which can be explained by the highest concentrations spiked for these compounds (1 953 and 3 830 \textmu g L\textsuperscript{-1}). It appears that sorption of PFNA is minimally influenced by competition between other compounds despite SC being in the higher range (1 409 \textmu g L\textsuperscript{-1}). $K_d$ for PFPeA is reduced by 8.2\% and is expected based on weaker sorption of short-chain compounds.
+
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{R/figs/Sorption_attenuation_BC.pdf}
-    \caption{Competition, sorption attenuation by the presence of a mixture of TCs.}
+    \includegraphics[width=\textwidth]{R/figs/C10_mixVsSingle_BC_plot.pdf}
+    \caption{Sorption attenuation for TCs in a cocktail spiked at SC10. Note that the attenuation for cannot be compared across chain lengths as different concentrations have been used. The error bars represent the standard deviation of $log~K_F$ for the cocktail batch tests performed in triplicate. The single-compound $log~K_d$s are one point only.}
     \label{fig:competition}
 \end{figure}
+
+\begin{table}
+\centering
+\caption{Competition factor at SC10 (\cref{tab:spikeConcentrations}) for each compound and biochar. Competition factor is defined as K\textsubscript{d,single}/K\textsubscript{d,mix})$\times$100\%. For the compounds and biochars with blank cells (-), competition factors could not be calculated due to incomplete results.}
+\label{tab:competition}
+\begin{tabular}{lrrr}
+\toprule
+ & \multicolumn{3}{c}{Competition factor \%} \\ \cmidrule(l){2-4}
+ & CWC & ULS & DSL \\ \midrule
+PFPeA & 8.2 & - & - \\
+PFHxA & - & 2.3 & - \\
+PFHpA & - & 0.2 & - \\
+PFOA & 15.8 & 3.4 & 4.4 \\
+PFNA & 0.9 & 3.4 & 0.7 \\
+PFDA & 10.6 & 10.9 & 3.1 \\ \bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Surface area and pore volume}
 Biochar from clean wood chips had a specific surface area (SSA) of 323  m\textsuperscript{2} g\textsuperscript{-1} for large pores (\textgreater 1.5 nm, N\textsubscript{2}), $\sim$ 200 m\textsuperscript{2} g\textsuperscript{-1} higher than the ULS and DSL sludge chars (128 and 110  m\textsuperscript{2} g\textsuperscript{-1}, respectively) \cref{tab:SAPV}. SSA of small pores (0.4-1.5 nm, CO\textsubscript{2} sorption) was 600  m\textsuperscript{2} g\textsuperscript{-1} for CWC, $\sim$ six times higher than ULS and DSL (165 and 87  m\textsuperscript{2} g\textsuperscript{-1}, respectively). Pore volume for large and small pores were relatively similar across biochar types (within 0.1 and 0.15 cm\textsuperscript{3} g\textsuperscript{-1} respectively). Contrary to previous findings, surface area and pore volume does not correlate with higher sorption as CWC proved to be the weakest sorbent in this study. A lack of significant linear correlations between SSA and $K_d$ and PV and K\textsubscript{d} is not surprising due to few biochar samples (n=3). 
