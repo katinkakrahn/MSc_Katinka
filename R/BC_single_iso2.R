@@ -7,6 +7,8 @@ summary_stats_DSL_single[, nr_CF2 := 4:9]
 summary_stats_single <- merge(summary_stats_CWC_single, summary_stats_ULS_single, all = TRUE)
 summary_stats_single <- merge(summary_stats_single, summary_stats_DSL_single, all = TRUE)
 summary_stats_single$compound <- factor(summary_stats_single$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
+write_xlsx(summary_stats_single, "/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/310322_summary_stats_single.xlsx")
+summary_stats_single_table <- kable(summary_stats_single, "latex", booktabs = TRUE, digits = 2)
 
 #Summary stats of each compound
 summary_stats_PFPeA <- filter(summary_stats_single, compound == "PFPeA")
