@@ -1,5 +1,6 @@
 Kd_1ugL <- summary_stats_single[, .(log_Cs = log_KF + n*log_Cw,
-                                    log_Kd = log_KF + n*log_Cw
+                                    log_Kd = log_KF + n*log_Cw,
+                                    Kd = 10^(log_KF + n*log_Cw)
   
 ), keyby = .(compound, biochar)]
 
@@ -69,4 +70,4 @@ for(i in 1:nr_compounds){
   summary_stats_ULS_single[compound == compounds[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
                                                                    summary(fit)$fstatistic[3],lower.tail=F)]
 }
-}
+

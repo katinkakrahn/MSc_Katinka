@@ -5,7 +5,6 @@ Sorption <- as.data.table(Sorption)
 Sorption$SoilLogic <- as.logical(Sorption$Soil_binary)
 Sorption$mixLogic <- as.logical(Sorption$mix_binary)
 Sorption <- subset(Sorption,select = -c(Soil_binary,mix_binary))
-Sorption_BC <- kable(Sorption, "latex", booktabs = TRUE, digits = 2)
 
 # Subset biochar and cocktail/single compound
 Sorption_NAomit <- na.omit(Sorption)
@@ -14,6 +13,10 @@ Sorption_NA_C1omit <- Sorption_NA_C1omit %>%
   mutate(Kd = Cs/Cw, log_Kd = log10(Cs/Cw))
 Sorption_BC_single <- subset(Sorption_NA_C1omit, mixLogic == FALSE)
 Sorption_BC_mix <- subset(Sorption_NA_C1omit, mixLogic == TRUE)
+write_xlsx(Sorption, "/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/010422_Sorption_BC.xlsx")
+write_xlsx(Sorption_BC_single, "/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/010422_Sorption_BC_single.xlsx")
+write_xlsx(Sorption_BC_mix, "/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/010422_Sorption_BC_mix.xlsx")
+
 
 CWC_single <- filter(Sorption_BC_single, Biochar == "CWC")
 ULS_single <- filter(Sorption_BC_single, Biochar == "ULS")
@@ -156,13 +159,12 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
   geom_richtext(
     data = summary_stats_CWC_single_label,
     aes(label = label, x = log_Cw, y = log_Cs),
-    hjust = 0
-  )
+    hjust = 0)
 CWC_facet_isotherm
 ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
 
 
-
+expression("Diameter of apeture (" * mu ~ "m)")
 #Summary statistics ULS
 summary_stats_ULS_single <- data.table(log_KF = rep(0, nr_compounds), 
                                        log_KF_std_error = rep(0, nr_compounds),
