@@ -107,9 +107,14 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
              color = "gray45", size = 1) + 
   geom_point(data = subset(Sorption_BC_mix_summary, Biochar %in% "CWC"), 
              mapping = aes(x = log_Cw, y = log_Cs), 
-             color = "#800000FF",
+             color = "red",
              group = "Compound",
-             size = 2) +
+             size = 1) +
+  # geom_errorbar(data = subset(Sorption_BC_mix_summary, Biochar %in% "CWC"),
+  #               mapping = aes(x=log_Cw, y=log_Cs, ymin=log_Cs-se_logCs, ymax=log_Cs+se_logCs, xmin=log_Cw-se_logCw, xmax=log_Cw+se_logCw),
+  #               width=.1,
+  #               position=position_dodge(.9),
+  #               color = "red") +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), 
               formula = y ~ x, 
               method=lm, 
@@ -203,9 +208,14 @@ ULS_facet_isotherm <- ggplot(data = ULS_single) +
              color = "gray45", size = 1) + 
   geom_point(data = subset(Sorption_BC_mix_summary, Biochar %in% "ULS"), 
              mapping = aes(x = log_Cw, y = log_Cs), 
-             color = "#800000FF",
+             color = "red",
              group = "Compound",
-             size = 2) +
+             size = 1) +
+  # geom_errorbar(data = subset(Sorption_BC_mix_summary, Biochar %in% "ULS"),
+  #               mapping = aes(x=log_Cw, y=log_Cs, ymin=log_Cs-se_logCs, ymax=log_Cs+se_logCs, xmin=log_Cw-se_logCw, xmax=log_Cw+se_logCw),
+  #               width=.1,
+  #               position=position_dodge(.9),
+  #               color = "red") +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), 
               formula = y ~ x, 
               method=lm, 
@@ -300,9 +310,14 @@ DSL_facet_isotherm <- ggplot(data = DSL_single) +
              color = "gray45", size = 1) + 
   geom_point(data = subset(Sorption_BC_mix_summary, Biochar %in% "DSL"), 
              mapping = aes(x = log_Cw, y = log_Cs), 
-             color = "#800000FF",
+             color = "red",
              group = "Compound",
-             size = 2) +
+             size = 1) +
+  # geom_errorbar(data = subset(Sorption_BC_mix_summary, Biochar %in% "DSL"),
+  #               mapping = aes(x=log_Cw, y=log_Cs, ymin=log_Cs-se_logCs, ymax=log_Cs+se_logCs, xmin=log_Cw-se_logCw, xmax=log_Cw+se_logCw),
+  #               width=.1,
+  #               position=position_dodge(.9),
+  #               color = "red") +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_compound), 
               formula = y ~ x, 
               method=lm, 
