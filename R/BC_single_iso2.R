@@ -8,7 +8,32 @@ summary_stats_single <- merge(summary_stats_CWC_single, summary_stats_ULS_single
 summary_stats_single <- merge(summary_stats_single, summary_stats_DSL_single, all = TRUE)
 summary_stats_single$compound <- factor(summary_stats_single$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
 write_xlsx(summary_stats_single, "/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/310322_summary_stats_single.xlsx")
-summary_stats_single_table <- kable(summary_stats_single, "latex", booktabs = TRUE, digits = 2)
+  
+#Sorption isotherm all chars
+Sorption_BC_single$Compound <- factor(Sorption_BC_single$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                                                                "PFOA", "PFNA", "PFDA"))
+
+Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
+             size = 1) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
+              formula = y ~ x, 
+              method=lm, 
+              se=T, 
+              fullrange = FALSE) + 
+  labs(x = TeX(r'($log~C_{w}~(\mu g~L^{-1})$)'), y = TeX(r'($log~C_{s}~(\mu g~kg^{-1})$)'), color = "") + 
+  facet_wrap(~Compound) +
+  #ggtitle("Freundlich linear sorption isotherms") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom") #+
+# geom_richtext(
+#   data = summary_stats_ULS_single_label,
+#   aes(label = label, x = log_Cw, y = log_Cs),
+#   hjust = 0
+# )
+Sorption_isotherms
+set_palette(Sorption_isotherms, "uchicago")
+ggsave(filename="R/figs/Sorption_isotherms_single_BC.pdf")
 
 #Summary stats of each compound
 summary_stats_PFPeA <- filter(summary_stats_single, compound == "PFPeA")
