@@ -14,7 +14,7 @@ A series of batch shaking tests were conducted to test the sorption strength of 
 Three feedstock types were selected as sorbents in the sorption experiments: Ullensaker Sludge (ULS), Digested Sludge Lindum (DSL) clean wood chips (CWC). ULS is raw sewage sludge from Ullensaker WWTP that has been dewatered. DSL is sewage sludge that has been through anaerobic digestion (AD) to produce biogas, also referred to as digestate. Anaerobic digestion is performed at Lindum AS and produces methane (and other gases; \cref{eq:AD}) which becomes commercial biogas fuel. The sewage sludge is dewatered, dried and pelletized before pyrolysis. CWC is made of clean, fresh softwood timber without additives that have been shredded, dried, and compressed into 8 mm pellets. The wood pellets are commercially available from Hallingdal trepellets (Kleivi næringspark, Ål).
 
 \subsection{Pyrolysis}
-CWC, ULS, and DSL biochars were produced by slow pyrolysis at 700 \textdegree C using ETIA technology by Biogreen\textsuperscript{\textcopyright} at Lindum AS (Drammen, Norway). \cref{tab:sorbents} summarizes the variables for pyrolysis of each biochar. The three biochars were produced as part of a larger study on the life cycle of waste based sorbents and was given as biochar samples to conduct the sorption experiments on for this thesis. The pyrolysis chamber is first electrically heated to stable PT. Feedstock pellets are added to a feeding container (\cref{fig:feeder}) where a heated rotating screw (Spirajoule\textsuperscript{\textregistered}) transports the feedstock into and through the pyrolysis chamber at the programmed RT (\cref{fig:pyrolysischamber}). The biochar is then transported to an external collection container where it is dispensed into sampling bags \cref{fig:biocharCollection}. \cref{fig:pellets} shows the pellets before and after pyrolysis. 
+CWC, ULS, and DSL biochars were produced by slow pyrolysis at 700 \textdegree C using ETIA technology by Biogreen\textsuperscript{\textcopyright} at Lindum AS (Drammen, Norway). \cref{tab:sorbents} summarizes the variables for pyrolysis of each biochar. The three biochars were produced as part of a larger study on the life cycle of waste based sorbents and was given as biochar samples to conduct the sorption experiments on for this thesis. The pyrolysis chamber is first electrically heated to stable PT. Feedstock pellets are added to a feeding container where a heated rotating screw (Spirajoule\textsuperscript{\textregistered}) transports the feedstock into and through the pyrolysis chamber at the programmed RT. The biochar is then transported to an external collection container where it is dispensed into sampling bags \cref{fig:biocharCollection}. \cref{fig:pellets} shows the pellets before and after pyrolysis. 
 
 \begin{table}
 \centering
@@ -34,30 +34,6 @@ DSL & 700 & 20 & Digested sludge Lindum \\
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.6\linewidth,scale=0.6]{Bilder/Pyrolysis/Feeder.jpg}
-    \caption{Starting point for the pyrolysis process where feedstock pellets are added to the system and transported with a rotating screw up the pipe on the photo that leads to the pyrolysis chamber.}
-    \label{fig:feeder}
-\end{figure}
-
-\begin{figure}
-    \centering
-     \begin{subfigure}[t]{\linewidth}
-         \centering
-         \includegraphics[width=0.74\linewidth,scale=0.74]{Bilder/Pyrolysis/PyrolyzerChamber.png}
-         \caption{}
-     \end{subfigure}
-    \centering
-    \begin{subfigure}[b]{\linewidth}
-         \centering
-         \includegraphics[width=0.74\linewidth,scale=0.74]{Bilder/Pyrolysis/spirajoule.jpeg}
-         \caption{}
-     \end{subfigure}
-    \caption{\textbf{(a)} external view of the pyrolysis chamber, \textbf{(b)} internal view of the pyrolysis chamber. The Spirajoule\textsuperscript{\textregistered} is heated to the desired pyrolysis temperature and the speed of rotation is set to the wanted residence. Adopted from \url{https://www.biogreen-energy.com/spirajoule}.}
-    \label{fig:pyrolysischamber}
-\end{figure}
-
-\begin{figure}
-    \centering
     \includegraphics[width=0.6\linewidth,scale=0.6]{Bilder/Pyrolysis/BiocharCollection.jpg}
     \caption{Biochar collection area.}
     \label{fig:biocharCollection}
@@ -71,8 +47,6 @@ DSL & 700 & 20 & Digested sludge Lindum \\
 \end{figure}
 
 Syn-gas from pyrolysis is led through a condensing pipe that condenses into bio-oil at two points depending on boiling point. Syn-gas that does not condense at this point is led into a combustion chamber where a steady inflow of propane ensures a clean burning process of the remaining molecules. See \cref{appSec:pollution} for additional work on measurements on environmental pollutant emission from the ETIA unit.
-
-
 
 \subsection{Biochar characterization}
 
@@ -105,16 +79,14 @@ Six perfluorinated carboxylic acids (PFCAs): perfluoropentanoic acid (PFPeA), pe
 \input{Chapters/3-Materials_and_Methods/tab_PFCAs}
 
 \subsubsection{Spike concentrations}
-A final concentration interval over four orders of magnitude where the lowest concentration point lies close to the instrumental LOQs was desired in order to provide sorption isotherms that spans both the regions of linear sorption and sorption attenuation according to the Freundlich sorption model. To achieve detectable concentrations across this range, determination of appropriate spike concentrations was based on several factors: 1) Biochar-water partition coefficients ($K_{BC}$) for the TCs obtained from literature \cite{Xiao2017} \cref{tab:Kbc}, 2) biochar dose, 3), the LOQ of the analytical method for, and 4) available pipetting volume range. 
-
-The relationship between $K_{BC}~\mathrm{(L~g^{-1})}$, the sorbed concentration, $C_s~\mathrm{(\mu g~g^{-1})}$, and the freely dissolved aqueous concentration, $C_w~\mathrm{(\mu g~L^{-1})}$, expressed as:
+Sorption of PFAS to biochar follows the Freundlich sorption model, which means that sorption increases linearly until it is attenuated at higher concentrations \cref{eq:Freundlich}. The goal when designing the sorption isotherm experiments was to represent sorption across both the linear and non-linear region. To achieve detectable concentrations across this range, determination of appropriate spike concentrations was based on several factors: 1) Biochar-water partition coefficients ($K_{BC}$) for the TCs obtained from literature \cite{Xiao2017} \cref{tab:Kbc}, 2) biochar dose, 3), the LOQ of the analytical method, and 4) available pipetting volume range. The relationship between $K_{BC}~\mathrm{(L~g^{-1})}$, the sorbed concentration, $C_s~\mathrm{(\mu g~g^{-1})}$, and the freely dissolved aqueous concentration, $C_w~\mathrm{(\mu g~L^{-1})}$, expressed as:
 
 \begin{align}
     \label{eq:Kbc1}
-    K_{D} = \frac{C_s}{C_w}
+    K_{d} = \frac{C_s}{C_w}
 \end{align}
 
-was used to estimate the expected $C_w$. By rearranging \cref{eq:Kbc1},  $C_w$ is expressed as a function of the mass TA spiked and the estimated $K_D$:
+was used to estimate the expected $C_w$. By rearranging \cref{eq:Kbc1},  $C_w$ is expressed as a function of the mass TA spiked and the estimated $K_d$:
 
 \begin{align}
     \label{eq:Cw2}
@@ -179,7 +151,7 @@ The soil used for the sorption tests was an unaged sandy soil obtained from a re
 An overview of the experimental setup for the batch test is given in \cref{fig:batchtests}. Details for the preparations of each batch test category are given in the subsections below. The batch tests were prepared with a liquid to solid mass ratio (L/S) of 500 for biochar and L/S of 10 for soil amended with 2\% biochar in accordance with CEN EN 12457. The dry matter was added to pre-cleaned 50 mL PP centrifuge tubes and spiked with either individual PFCAs or a cocktail of all six TCs at the concentrations specified in \cref{tab:spikeConcentrations} to a final liquid volume of 50 mL. The standard concentrations were analytically verified to ensure accuracy of the data analysis (see \cref{appSec:IsothermSetup} for expected vs. analytical concentrations). The samples were assured to contain \textless 10\% MeOH, which is the upper limit for which methanol does not influence sorption (reference). The batch tests were shaken end-over-end (9 rpm) and/or agitated on a shaking table (160 rpm) in room temperature (20\textdegree C) for at least 14 days to reach equilibrium \citep{higgins2006sorption} before filtration through a 0.45 \textmu m Minisart\textsuperscript{\textregistered} regenerated cellulose syringe filter into PP tubes based on the methods described in \cite{Sorengard2019}. Loss of biochar to the walls of the syringe was quantified to maintain a full mass balance when analyzing the partitioning of the TCs between the solid and liquid phase and is in \cref{appSec:misclab}. Therefore, a 100\% mass balance was assumed when calculating partitioning between sorbent and water by subtracting the initial spike concentration from the measured concentration in the filtrates. by also correcting for loss to laboratory ware (reference). 
 
 \subsubsection{Biochar-water batch tests}
-100\textpm 4 mg biochar was weighed for the biochar-water batch tests. on an analytical scale and placed into pre-cleaned (50\% methanol) 50 mL PP tubes. The tubes were filled half up of Milli-Q water. In each tube, stock PFCA was pipetted using micro- (5-50 {\textmu}l and 200-1000 {\textmu}L) and milli pipettes (2-10 mL) into the char-water solution to make 10 dilutions for each of the 6 PFCAs in even intervals within the concentration points in \cref{tab:spikeConcentrations}. Some tubes were added Milli-Q water up to the 50 mL mark and some were weighed in order to control for the water amount being within \textpm 0.02 mL. The same ten concentrations were used to spike CWC, ULS and DSL batch tests. A cocktail batch test was prepared for the three biochars at SP10  The same dose biochar was used as for the other sorption isotherms. The cumulative CMC (critical micelle concentration) for the six PFCAs at SC10 was assured not to be an issue for the concentration range considered \citep{bhhatarai2011}.
+100\textpm 4 mg biochar was weighed for the biochar-water batch tests. on an analytical scale and placed into pre-cleaned (50\% methanol) 50 mL PP tubes. The tubes were filled half up of Milli-Q water. In each tube, stock PFCA was pipetted using micro- (5-50 {\textmu}l and 200-1000 {\textmu}L) and milli pipettes (2-10 mL) into the char-water solution to make 10 dilutions for each of the 6 PFCAs in even intervals within the concentration points in \cref{tab:spikeConcentrations}. Some tubes were added Milli-Q water up to the 50 mL mark and some were weighed in order to control for the water amount being within \textpm 0.02 mL. The same ten concentrations were used to spike CWC, ULS and DSL batch tests. A cocktail batch test was prepared for the three biochars at SP10  The same dose biochar was used as for the other sorption isotherms. The cumulative CMC (critical micelle concentration) for the six PFCAs at SC10 was assured not to be an issue for the concentration range considered \citep{bhhatarai2011,ding2013physicochemical}.
 
 \subsubsection{Soil-biochar-water batch tests}
 5\textpm 0.005 g soil, 0.1\textpm 0.0004 g biochar
@@ -197,10 +169,11 @@ To prevent underestimation of $C_w$, filter blanks were prepared for each PFCA i
 \section{Instrumental analysis} \label{methods:instrAnalysis}
 PFAS quantitation in the filtrates were determined by liquid chromatography--tandem mass spectrometry (LC-MS/MS). Reversed phase solid phase extraction (SPE) was used as sample preparation method. The analyses were conducted at the Institute of Chemistry at NTNU (Trondheim, Norway).
 
+% missing reconstitution step, update diagram
 \begin{figure}
     \centering
     \includegraphics{Diagrams/Methods-Analytical_method.pdf}
-    \caption{Schematic diagram of the analytical method applied for the determination target PFCs in the batch test filtrates adapted from \citep{arvaniti2012diagram}.}
+    \caption{Schematic diagram of the analytical method applied for the determination of TCs in the batch test filtrates adapted from \cite{arvaniti2012diagram}.}
     \label{fig:analyticalMethod}
 \end{figure}
 
