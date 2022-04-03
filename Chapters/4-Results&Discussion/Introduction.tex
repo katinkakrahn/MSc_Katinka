@@ -2,14 +2,10 @@
 In this chapter the results and methods from laboratory experiments are presented and discussed.
 
 \section{PFAS sorption in biochar-water batch tests}
-In \cref{fig:sorption_isotherms}, the sorption isotherms are presented for sorption of PFCA C5-C10 to the CWC, ULS and DSL batch tests. The isotherms were interpreted with the Freundlich equation (\cref{eq:FreundlichLinear}). For all compounds, the sorption isotherm for ULS is visibly higher than DSL and the lowest isotherms are the ones for CWC. Surprisingly, sorption increases in the order, CWC \textgreater DSL \textgreater ULS, attributing the highest sorption to the Ullensaker and digested sludges. Possible reasons for the unexpected strong sorption by the sludge biochars will be discussed throughout this chapter. 
+In \cref{fig:sorption_isotherms}, the sorption isotherms are presented for PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA to CWC, ULS and DSL. The isotherms were interpreted with the Freundlich equation (\cref{eq:FreundlichLinear}). For all compounds, the sorption isotherm for ULS is visibly higher than DSL followed by CWC. The Freundlich sorption coefficients ($log~K_F$), linearity coefficients ($n$) and correlation coefficients ($r^2$) are presented in \cref{tab:summary_stats_single}. Surprisingly, sorption increases in the order, CWC \textgreater DSL \textgreater ULS, attributing the highest sorption to the sewage sludge biochars. Possible reasons for the unexpected strong sorption by the sludge biochars will be discussed throughout this chapter. 
 
-For the short-chain compounds (PFPeA and PFHxA), the concentration range and  achieved is for some compounds only over one order of magnitude for $C_w$, in contrast to the desired concentration range over four orders of magnitude. Correlations are poor which results in higher standard errors and slopes that are unrealistic (PFHxA-DSL: n=1.22 and PFHpA-ULS: 1.08). Possible explanations for the poor correlations for PFPeA and PFHxA are poor affinity. In \cref{fig:CWC_isotherm} PFPeA, it appears that CWC sorption sites have been saturated since most points center around the same area, which means that CWC reaches sorption maximum at $~$4000 $\mu g~kg^{-1}$.  This indicates that CWC has the lowest affinity and capacity to sorb short-chain PFCAs. 
-
-The batch tests were spiked at 10 concentrations where the lowest concentration was aimed at being close to the instrumental LOQ. Poor signals were achieved for most of these points and were removed from the data analysis to improve the certainty of the regression analysis. By doing this the concentration range was reduced . It is also possible that some of the SP2 points also have higher uncertainty as the PFHxA CWC isotherm is strongly determined by the lowest spike point, the rest of the points are widely scattered \cref{fig:CWC_isotherm}. The DSL-PFPeA isotherm only consists of four points (SP7-10) could be used for the regression due to higher analyzed filtrate concentrations than what was spiked due to analytical uncertainty \cref{fig:DSL_isotherm}.  
-
-\crefrange{fig:CWC_isotherm}{fig:DSL_isotherm} show sorption isotherms for the single-compound batch tests for CWC, ULS and DSL.
-The Freundlich coefficients of PFPeA sorption to CWC were $log~K_F$ = x $\pm$ se; $n_F$ = x $\pm$ y ($r^2$ = w). The sorption coefficients are higher compared to literature values for $log~K_F$ of PFOA to activated char that are frequently around x-y (citation). The results were interpreted by fitting the points to the Freundlich equation (\cref{eq:FreundlichLinear}).  
+\cref{fig:sorption_isotherms_all} show sorption isotherms for the single-compound batch tests for CWC, ULS and DSL.
+The Freundlich coefficients of PFPeA sorption to CWC were $log~K_F$ = x $\pm$ se; $n_F$ = x $\pm$ y ($r^2$ = w). The sorption coefficients are higher compared to literature values for $log~K_F$ of PFOA to activated char that are frequently around x-y (citation). The results were interpreted by fitting the points to the Freundlich equation (\cref{eq:FreundlichLinear}). 
 
 \begin{figure}
     \centering
@@ -44,23 +40,25 @@ PFDA & 6.00 ± 0.04 & 0.35 ± 0.05 & 0.86 & *** & 5.61 ± 0.02 & 0.61 ± 0.02 & 
     \centering
         \begin{subfigure}[t]{\linewidth}
             \centering
-            \includegraphics[scale=0.5]{R/figs/ULS_facet_isotherm.pdf}
-            \caption{ULS isotherms}
+            \includegraphics[width=0.8\textwidth]{R/figs/ULS_facet_isotherm.pdf}
+            \subcaption{ULS isotherms}
             \label{fig:ULS_isotherm}
         \end{subfigure}
         \begin{subfigure}[]{\linewidth}
             \centering
-            \includegraphics[scale=0.5]{R/figs/DSL_facet_isotherm.pdf}
-            \caption{DSL isotherms}
+            \includegraphics[width=0.8\textwidth]{R/figs/DSL_facet_isotherm.pdf}
+            \subcaption{DSL isotherms}
             \label{fig:DSL_isotherm}
         \end{subfigure}   
+\end{figure}
+\begin{figure}[t]\ContinuedFloat
         \begin{subfigure}[]{\linewidth}
             \centering
-            \includegraphics[scale=0.5]{R/figs/CWC_facet_isotherm.pdf}
-            \caption{CWC isotherms}
+            \includegraphics[width=0.8\textwidth]{R/figs/CWC_facet_isotherm.pdf}
+            \subcaption{CWC isotherms}
             \label{fig:CWC_isotherm}
         \end{subfigure}
-        \caption{Single-compound sorption isotherms.}
+        \caption{Single-compound Freundlich sorption isotherms. Lines are obtained by linear regression.}
         \label{fig:sorption_isotherms_all}
 \end{figure}
 
@@ -71,8 +69,6 @@ All $log~K_{F,BC}$ values can be found in \cref{tab:summary_stats_single}.
 Importance of nonlinearity and concentration interval achieved 
 Comparison of KF across concentration magnitudes, conversion factor and why
 
-
-
 \citep{Kupryianchyk2016b}: PFOA to biochar in natively contaminated soil was KF = 3.02plusminus 0.04 and 3.01 plus minus 0.01 (in micrograms). 
 
 \subsection{Sorption mechanisms}
@@ -81,6 +77,10 @@ Both hydrophobic and electrostatic interactions are found \citep{zhang2013sorpti
 
 \subsubsection{Effect of PFAS chain length}
 For the three biochars conducted single-compound isotherms on, log K\textsubscript{d} increases linearly with fluorocarbon (CF) chain length (\cref{fig:chainlength}). Although the regression was not significant for CWC ($R^2$ = 0.64, p = 0.056), comparing the regression analyses all together suggest a positive relationship between $log~K_F$ and chain length. For every CF\textsubscript{2} moiety, hydrophobic interactions between condensed aromatic structures in the biochar matrix increases. This suggests that hydrophobic interactions is the dominant sorption mechanism over electrostatic interactions between the anionic carboxylate functional group and positively charged surfaces on the sorbent. In accordance with most previous studies \citep{Sorengard2019,higgins2006sorption}. 
+
+For the short-chain compounds (PFPeA and PFHxA), the concentration range and  achieved is for some compounds only over one order of magnitude for $C_w$, in contrast to the desired concentration range over four orders of magnitude. Correlations are poor which results in higher standard errors and slopes that are unrealistic (PFHxA-DSL: n=1.22 and PFHpA-ULS: 1.08). Possible explanations for the poor correlations for PFPeA and PFHxA are poor affinity. In \cref{fig:CWC_isotherm} PFPeA, it appears that CWC sorption sites have been saturated since most points center around the same area, which means that CWC reaches sorption maximum at $~$4000 $\mu g~kg^{-1}$.  This indicates that CWC has the lowest affinity and capacity to sorb short-chain PFCAs. 
+
+The batch tests were spiked at 10 concentrations where the lowest concentration was aimed at being close to the instrumental LOQ. Poor signals were achieved for most of these points and were removed from the data analysis to improve the certainty of the regression analysis. By doing this the concentration range was reduced . It is also possible that some of the SP2 points also have higher uncertainty as the PFHxA CWC isotherm is strongly determined by the lowest spike point, the rest of the points are widely scattered \cref{fig:CWC_isotherm}. The DSL-PFPeA isotherm only consists of four points (SP7-10) could be used for the regression due to higher analyzed filtrate concentrations than what was spiked due to analytical uncertainty \cref{fig:DSL_isotherm}.  
 
 \citep{zhang2013sorption}: reports that sorption of PFASs onto raw sewage sludge from C5-C15 increases with increasing alkyl chain length, while for chain lengths 2-5 the opposite is seen. 
 
@@ -96,6 +96,8 @@ For the three biochars conducted single-compound isotherms on, log K\textsubscri
 Perfluorinated sulfonic acid (PFSA) have been found to sorb substantially stronger than perfluorinated carboxylic acids \citep{zhang2013sorption,zhang2021sorption}. PFOS exhibits better sorption capacity than PFOA because the sulfonic acid is a stronger acid than carboxylic acid \citep{arvaniti2015review}
 
 biochar surface is negatively charged \citep{Ahmad2014}, pfas have low pka due to being strong acids and will be negatively charged. For PFOA pKa is 0-3.80, subject to much debate \citep{Goss2009comment,ding2013physicochemical}. pKa decreases with increasing alkyl chain length, but is still lower than the relevant concentrations \citep{ding2013physicochemical}. The PFCAs investigated in this study will be negatively charged regardless given the filtrate pH of 7.1-7.4 (\cref{tab:pHcond}). Thus, all TCs experience electrostatic repulsion from the biochar surface which result in the lowest KFvalues for the shorter chain PFCAs (\cref{tab:summary_stats_single}). 
+
+\subsection{Sorption non-linearity}
 
 \subsection{Competition}
 Due to different spike concentration used for each compound in the cocktail, establishing quantitative trends for how chain length influences competition for sorption size is difficult. However, some conclusions can be drawn by looking at the overall trends. \cref{tab:competition} shows that $log~K_d$ decreases for all compounds in the presence of a mixture. $K_d$ changes the least for PFHxA and PFHpA (2.3 and 0.2 \% respectively) and may be attributed to lower spiked concentrations (330 and 117 \textmu g L\textsuperscript{-1}) for these compounds compared to the rest in \cref{tab:competition}. Competition is most profound for PFOA to CWC followed by PFDA for ULS and CWC (15.8, 10.0 and 10.6 \% respectively), which can be explained by the highest concentrations spiked for these compounds (1 953 and 3 830 \textmu g L\textsuperscript{-1}). It appears that sorption of PFNA is minimally influenced by competition between other compounds despite SC being in the higher range (1 409 \textmu g L\textsuperscript{-1}). $K_d$ for PFPeA is reduced by 8.2\% and is expected based on weaker sorption of short-chain compounds.
