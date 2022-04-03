@@ -133,6 +133,7 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
   facet_wrap(~Compound) +
   #ggtitle("CWC isotherm") +
   theme_bw() +
+  theme(text = element_text(size = 16)) +
   theme(panel.grid = element_blank()) +
   guides(color = "none") #+
   # geom_richtext(
@@ -234,6 +235,7 @@ ULS_facet_isotherm <- ggplot(data = ULS_single) +
   facet_wrap(~Compound) +
   #ggtitle("ULS isotherm") +
   theme_bw() +
+  theme(text = element_text(size = 16)) +
   theme(panel.grid = element_blank()) +
   guides(color = "none") #+
   # geom_richtext(
@@ -336,6 +338,7 @@ DSL_facet_isotherm <- ggplot(data = DSL_single) +
   facet_wrap(~Compound) +
   #ggtitle("DSL isotherm") +
   theme_bw() +
+  theme(text = element_text(size = 16)) +
   theme(panel.grid = element_blank()) +
   guides(color = "none") #+
   # geom_richtext(
