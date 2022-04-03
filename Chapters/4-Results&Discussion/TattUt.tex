@@ -51,3 +51,58 @@ PFDA     & 10                                                             & 0.72
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
+
+\begin{table}
+\caption{Freundlich sorption parameters of single TC isotherms in CWC, ULS and DSL (n=9). The error is presented as standard error. All $K_F$ data are in units of $\mathrm{(\mu g/kg)/(\mu g/L)^{n_F}}$.}
+\centering
+\adjustbox{max width=\textwidth}{%
+\begin{threeparttable}
+\label{tab:summary_stats_single}
+\begin{tabular}{llllllllllll}
+\toprule
+\multicolumn{1}{c}{Biochar} & \multicolumn{1}{c}{Compound} & \multicolumn{3}{c}{$log~K_{F,BC}$} & \multicolumn{3}{c}{$n_{F,BC}$} & \multicolumn{3}{c}{$r^2$} & $p$ \\ \midrule
+CWC                                  & PFPeA                                 & 3.98        & ±        & 0.36        & 0.56      & ±      & 0.33      & 0.30       & ±       & 0.31            & -             \\
+CWC                                  & PFHxA                     & 3.01        & ±        & 0.32        & 0.69      & ±      & 0.17      & 0.68       & ±       & 0.67               & **           \\
+CWC                                  & PFHpA                     & 4.44        & ±        & 0.05        & 0.59      & ±      & 0.11      & 0.80       & ±       & 0.16               & **           \\
+CWC                                  & PFOA                      & 5.06        & ±        & 0.08        & 0.39      & ±      & 0.05      & 0.90       & ±       & 0.10               & ***          \\
+CWC                                  & PFNA                      & 4.88        & ±        & 0.04        & 0.65      & ±      & 0.04      & 0.98       & ±       & 0.05               & ***          \\
+CWC                                  & PFDA                      & 5.22        & ±        & 0.07        & 0.45      & ±      & 0.04      & 0.94       & ±       & 0.08               & ***          \\
+DSL                                  & PFPeA                     & 4.25        & ±        & 0.74        & 0.14      & ±      & 0.38      & 0.06       & ±       & 0.07               & -             \\
+DSL                                  & PFHxA                     & 3.16        & ±        & 0.04        & 1.22      & ±      & 0.03      & 1.00       & ±       & 0.09               & ***          \\
+DSL                                  & PFHpA                     & 4.67        & ±        & 0.06        & 0.57      & ±      & 0.09      & 0.86       & ±       & 0.13               & ***          \\
+DSL                                  & PFOA                      & 5.12        & ±        & 0.02        & 0.60      & ±      & 0.02      & 0.99       & ±       & 0.03               & ***          \\
+DSL                                  & PFNA                      & 5.33        & ±        & 0.03        & 0.80      & ±      & 0.07      & 0.94       & ±       & 0.08               & ***          \\
+DSL                                  & PFDA                      & 5.61        & ±        & 0.02        & 0.61      & ±      & 0.02      & 0.99       & ±       & 0.03               & ***          \\
+ULS                                  & PFPeA                     & 4.10        & ±        & 0.13        & 0.67      & ±      & 0.16      & 0.74       & ±       & 0.17               & **           \\
+ULS                                  & PFHxA                     & 4.80        & ±        & 0.06        & 0.34      & ±      & 0.09      & 0.72       & ±       & 0.13               & **           \\
+ULS                                  & PFHpA                     & 5.98        & ±        & 0.17        & 1.08      & ±      & 0.11      & 0.93       & ±       & 0.10               & ***          \\
+ULS                                  & PFOA                      & 5.73        & ±        & 0.02        & 0.65      & ±      & 0.05      & 0.95       & ±       & 0.07               & ***          \\
+ULS                                  & PFNA                      & 5.89        & ±        & 0.02        & 0.71      & ±      & 0.03      & 0.99       & ±       & 0.04               & ***          \\
+ULS                                  & PFDA                      & 6.00        & ±        & 0.04        & 0.35      & ±      & 0.05      & 0.86       & ±       & 0.13               & ***     \\ \bottomrule    
+\end{tabular}
+\begin{tablenotes}
+\item Significant codes: *** $\sim$ 0.001, ** $\sim$ 0.01, - $>$ 0.05 
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{R/figs/CWC_facet_isotherm.pdf}
+    \caption{Freundlich isotherms of TCs in CWC batch tests. Lines are obtained by linear regression.}
+    \label{fig:CWC_isotherm2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{R/figs/ULS_facet_isotherm.pdf}
+    \caption{Freundlich isotherms of TCs in ULS batch tests. Lines are obtained by linear regression.}
+    \label{fig:ULS_isotherm2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{R/figs/DSL_facet_isotherm.pdf}
+    \caption{Freundlich isotherms of TCs in DSL batch tests. Lines are obtained by linear regression.}
+    \label{fig:DSL_isotherm2}
+\end{figure}
