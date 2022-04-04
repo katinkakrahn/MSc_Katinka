@@ -41,9 +41,9 @@ for(i in 1:nr_biochars){
 
 summary_stats_CLandKF_label <- summary_stats_CLandKF %>%
   mutate(
-    nr_CF2 = 6, K_F = 2.7,
+    nr_CF2 = 7, K_F = 3,
     label =
-      glue("*r*<sup>2</sup> = {round(r_squared, 2)} <br> n = {round(n, 2)} <br> p-value = {round(p_value, 3)}")
+      glue("*r*<sup>2</sup> = {round(r_squared, 2)} <br> p = {round(p_value, 3)}")
   )
 
 summary_stats_single$biochar <- factor(summary_stats_single$biochar, levels = c("ULS", "DSL", "CWC"))
