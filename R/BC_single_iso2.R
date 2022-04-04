@@ -25,6 +25,7 @@ Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
   facet_wrap(~Compound) +
   #ggtitle("Freundlich linear sorption isotherms") +
   theme_bw() +
+  theme(text = element_text(size = 16)) +
   theme(panel.grid = element_blank(), legend.position = "bottom") #+
 # geom_richtext(
 #   data = summary_stats_ULS_single_label,

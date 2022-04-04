@@ -8,7 +8,8 @@ Sorption <- subset(Sorption,select = -c(Soil_binary,mix_binary))
 
 # Subset biochar and cocktail/single compound
 Sorption_NAomit <- na.omit(Sorption)
-Sorption_NA_C1omit <- Sorption_NAomit %>% slice(-c(20, 30, 40, 50, 79, 88, 98, 108, 118, 157, 167, 177))
+Sorption_NA_C1omit <- filter(Sorption_NAomit, Conc_point != 1)
+#Sorption_NA_C1omit <- Sorption_NAomit %>% slice(-c(20, 30, 40, 50, 79, 88, 98, 108, 118, 157, 167, 177))
 Sorption_NA_C1omit <- Sorption_NA_C1omit %>%
   mutate(Kd = Cs/Cw, log_Kd = log10(Cs/Cw))
 Sorption_BC_single <- subset(Sorption_NA_C1omit, mixLogic == FALSE)
@@ -16,8 +17,7 @@ Sorption_BC_mix <- subset(Sorption_NA_C1omit, mixLogic == TRUE)
 write_xlsx(Sorption, "/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/010422_Sorption_BC.xlsx")
 write_xlsx(Sorption_BC_single, "/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/010422_Sorption_BC_single.xlsx")
 write_xlsx(Sorption_BC_mix, "/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/010422_Sorption_BC_mix.xlsx")
-
-
+  
 CWC_single <- filter(Sorption_BC_single, Biochar == "CWC")
 ULS_single <- filter(Sorption_BC_single, Biochar == "ULS")
 DSL_single <- filter(Sorption_BC_single, Biochar == "DSL")
@@ -134,8 +134,8 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
   #ggtitle("CWC isotherm") +
   theme_bw() +
   theme(text = element_text(size = 16)) +
-  theme(panel.grid = element_blank()) +
-  guides(color = "none") #+
+  theme(panel.grid = element_blank()) #+
+  #guides(color = "none") #+
   # geom_richtext(
   #   data = summary_stats_CWC_single_label,
   #   aes(label = label, x = log_Cw, y = log_Cs),
@@ -143,8 +143,6 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
 CWC_facet_isotherm
 ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
 
-
-expression("Diameter of apeture (" * mu ~ "m)")
 #Summary statistics ULS
 summary_stats_ULS_single <- data.table(log_KF = rep(0, nr_compounds), 
                                        log_KF_std_error = rep(0, nr_compounds),
