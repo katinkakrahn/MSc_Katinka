@@ -61,7 +61,7 @@ ChainLength_Kd_ratio_plot2 <- ggplot(data = Biochar_Kd_ratio2,
   theme_bw()
 ChainLength_Kd_ratio_plot2
 
-Elements_ratios <- read_excel("C:/Users/KMK/OneDrive - NGI/VOW/Data/270322_Elements_ratios.xlsx")
+Elements_ratios <- read_excel("/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/270322_Elements_ratios.xlsx")
 Elements_ratios <- as.data.table(Elements_ratios)
 
 Elements_ratios_Kd <- full_join(x = Elements_ratios, y = Sorption_BC_single_C3, by = "Biochar")
@@ -88,4 +88,6 @@ Elements_ratios_plot_PFOA <- ggplot(data = Elements_ratios_Kd,
   theme_bw() +
   theme(panel.grid = element_blank(), legend.position = "bottom")
 Elements_ratios_plot_PFOA
+
+Elements_ratios_Kd_1ugL <- full_join(x = Elements_ratios, y = Sorption_BC_single_C3, by = "Biochar")
 

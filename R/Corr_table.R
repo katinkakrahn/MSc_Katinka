@@ -45,29 +45,20 @@ write_xlsx(Biochar_ratios, "/Users/katinkakrahn/Library/Mobile Documents/com~app
 setnames(Biochar_ratios, c("C",	"Ca",	"Fe",	"N2_BET_SA",	"N2_BJH_PV",	"CO2_DFT_SA",	"CO2_DFT_PV",	"C_Ca",	"C_Fe",	"SAN2_Fe",	"SAN2_Ca",	"SACO2_Fe",	"SACO2_Ca",	"PVN2_Fe",	"PVN2_Ca",	"PVCO2_Fe",	"PVCO2_Ca"), 
          c("C",	"Ca",	"Fe",	"N2_SA2",	"N2_PV",	"CO2_SA",	"CO2_PV",	"C_Ca",	"C_Fe",	"SAN2_Fe",	"SAN2_Ca",	"SACO2_Fe",	"SACO2_Ca",	"PVN2_Fe",	"PVN2_Ca",	"PVCO2_Fe",	"PVCO2_Ca"))
 
-Biochar_ratios_Kd <- full_join(Biochar_ratios, Kd_1ugL_select, by = "biochar")
+Biochar_ratios_1ugL_select <- full_join(Biochar_ratios, Kd_1ugL_select, by = "biochar")
+Biochar_ratios_1ugL_all <- full_join(Biochar_ratios, Kd_1ugL, by = "biochar")
 
-
-summary_stats_ULS_single <- data.table(log_KF = rep(0, nr_compounds), 
-                                       log_KF_std_error = rep(0, nr_compounds),
-                                       n = rep(0, nr_compounds),
-                                       n_std_error = rep(0, nr_compounds),
-                                       r_squared = rep(0, nr_compounds),
-                                       residual_std_error = rep(0, nr_compounds),
-                                       p_value = rep(0, nr_compounds),
-                                       log_Cw = rep(0, nr_compounds),
-                                       compound = compounds,
-                                       biochar = "ULS")
+Corr_table <- data.table(r_squared = rep(0, nr_compounds),
+                         p_value = rep(0, nr_compounds),
+                         compound = compounds)
 
 for(i in 1:nr_compounds){
-  fit <- lm(log_Cs ~ log_Cw, data = ULS_single[Compound == compounds[i]])
-  summary_stats_ULS_single[compound == compounds[i], log_KF := fit$coefficients[1]]
-  summary_stats_ULS_single[compound == compounds[i], log_KF_std_error := summary(fit)$coefficients[1,2]]
-  summary_stats_ULS_single[compound == compounds[i], n := fit$coefficients[2]]
-  summary_stats_ULS_single[compound == compounds[i], n_std_error := summary(fit)$coefficients[2,2]]
-  summary_stats_ULS_single[compound == compounds[i], r_squared := summary(fit)$r.squared]
-  summary_stats_ULS_single[compound == compounds[i], residual_std_error := summary(fit)$sigma]
-  summary_stats_ULS_single[compound == compounds[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
-                                                                   summary(fit)$fstatistic[3],lower.tail=F)]
+  fit <- lm(log_Kd ~ PVCO2_Ca, data = Biochar_ratios_1ugL_all[compound == compounds[i]])
+  Corr_table[compound == compounds[i], r_squared := summary(fit)$r.squared]
+  Corr_table[compound == compounds[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
+                                           summary(fit)$fstatistic[3],lower.tail=F)]
 }
+
+
+
 

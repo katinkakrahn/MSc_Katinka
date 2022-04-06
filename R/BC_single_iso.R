@@ -347,3 +347,77 @@ DSL_facet_isotherm <- ggplot(data = DSL_single) +
 DSL_facet_isotherm
 ggsave(filename="R/figs/DSL_facet_isotherm.pdf")
 
+C3_Kd_plot <- ggplot(data = Sorption_BC_single_C3, aes(x = nr_CF2, y = log_Kd, color = Biochar)) + 
+  geom_smooth(mapping = aes(x = nr_CF2, y = log_Kd, group = Biochar),
+              se = F, fullrange = F, 
+              formula = y ~ x, 
+              method=lm) +
+  geom_point(size = 4) + 
+  labs(x = "", y = expression(log~K[d])) + 
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+C3_Kd_plot
+set_palette(C3_Kd_plot, "uchicago")
+ggsave(filename="R/figs/C3_Kd_plot.pdf")
+
+Kd_1ugL_select[compound=="PFPeA", nr_CF2:=4]
+Kd_1ugL_select[compound=="PFHxA", nr_CF2:=5]
+Kd_1ugL_select[compound=="PFHpA", nr_CF2:=6]
+Kd_1ugL_select[compound=="PFOA", nr_CF2:=7]
+Kd_1ugL_select[compound=="PFNA", nr_CF2:=8]
+Kd_1ugL_select[compound=="PFDA", nr_CF2:=9]
+
+Kd_1ugL_select$biochar <- factor(Kd_1ugL_select$biochar, levels = c("ULS", "DSL", "CWC"))
+
+Kd_1ugL_plot <- ggplot(data = Kd_1ugL_select, aes(x = nr_CF2, y = log_Kd, color = biochar)) + 
+  # geom_smooth(mapping = aes(x = nr_CF2, y = log_Kd, group = biochar),
+  #             se = F, fullrange = F,
+  #             formula = y ~ x,
+  #             method=lm) +
+  geom_point(size = 4) + 
+  geom_line(size = 1) + 
+  labs(x = "", y = expression(log~K[d]~(1~ug~L^-1))) + 
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+Kd_1ugL_plot
+set_palette(Kd_1ugL_plot, "uchicago")
+ggsave(filename="R/figs/Kd_1ugL_plot.pdf")
+
+summary_stats_1ugL_CWC <- lm(log_Kd ~ nr_CF2, data = subset(Kd_1ugL_select, biochar == "CWC"))
+summary(summary_stats_1ugL_CWC)
+summary_stats_1ugL_ULS <- lm(log_Kd ~ nr_CF2, data = subset(Kd_1ugL_select, biochar == "ULS"))
+summary(summary_stats_1ugL_ULS)
+summary_stats_1ugL_DSL <- lm(log_Kd ~ nr_CF2, data = subset(Kd_1ugL_select, biochar == "DSL"))
+summary(summary_stats_1ugL_DSL)
+
+Kd_1ugL_n <- merge(Kd_1ugL_select, summary_stats_single, all=FALSE, by = c("compound", "biochar"))
+Kd_1ngL <- Kd_1ugL_n[, Kd_1ngL:=log_Kd+3*(1-n)]
+Kd_1ngL <- Kd_1ngL[, logKd_error := sqrt(log_KF_std_error^2+n_std_error^2)]
+Kd_1ugL <- Kd_1ugL_n[, logKd_error := sqrt(log_KF_std_error^2+n_std_error^2)]
+  
+Kd_1ugL_plot <- ggplot(data = Kd_1ugL, aes(x = nr_CF2.y, y = log_Kd, color = biochar)) + 
+  geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), width=.05)+ 
+  geom_point(size = 1) + 
+  geom_line(size = 1) + 
+  labs(x = expression(CF[2]~chain~length), y = expression(log~K[d]~(1~ug~L^-1))) + 
+  theme_bw() +
+  theme(text = element_text(size = 16)) +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+Kd_1ugL_plot
+set_palette(Kd_1ugL_plot, "uchicago")
+ggsave(filename="R/figs/Kd_1ugL_plot.pdf")
+
+Kd_1ngL_plot <- ggplot(data = Kd_1ngL, aes(x = nr_CF2.x, y = Kd_1ngL, color = biochar)) + 
+  # geom_smooth(mapping = aes(x = nr_CF2, y = log_Kd, group = biochar),
+  #             se = F, fullrange = F,
+  #             formula = y ~ x,
+  #             method=lm) +
+  geom_point(size = 4) + 
+  geom_line(size = 1) + 
+  labs(x = "", y = expression(log~K[d]~(1~ng~L^-1))) + 
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+Kd_1ngL_plot
+set_palette(Kd_1ngL_plot, "uchicago")
+ggsave(filename="R/figs/Kd_1ngL_plot.pdf")
+

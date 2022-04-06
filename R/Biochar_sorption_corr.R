@@ -164,3 +164,13 @@ PV <- ggplot(data = subset(SA_PV, Porosity %in% "PV"),
 PV
 #So far all parameters follow the trend DSL<ULS<CWC except PV N2
 
+PVN2_Ca <- ggplot(data = Biochar_ratios_1ugL_all,
+             aes(x = PVN2_Ca, y = log_Kd, color = compound) 
+) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm",se = F,
+              formula = y ~ x)+
+  labs(x = "PVN2/Ca ratio", y = expression(log~K[d]), color = "", shape = "") +
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+PVN2_Ca
