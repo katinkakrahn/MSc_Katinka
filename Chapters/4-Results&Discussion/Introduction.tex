@@ -2,9 +2,11 @@
 In this chapter the results and methods from laboratory experiments are presented and discussed.
 
 \section{PFAS sorption in biochar-water batch tests}
-In \cref{fig:sorption_isotherms}, the sorption isotherms are presented for PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA to CWC, ULS and DSL. The points generated from the batch tests were interpreted with the Freundlich equation (\cref{eq:FreundlichLinear}). For all compounds, the sorption isotherm for ULS is visibly higher than DSL, followed by CWC. The Freundlich sorption coefficients ($log~K_F$), linearity coefficients ($n$) and correlation coefficients ($r^2$) are presented in \cref{tab:summary_stats_single}. Somewhat unexpectedly, sorption is strongest for the two sludge chars. Possible reasons for the strong sorption will be discussed in this section. 
+In \cref{fig:sorption_isotherms}, the sorption isotherms are presented for PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA to CWC, ULS and DSL. The points generated from the batch tests were fitted using the Freundlich model (\cref{eq:FreundlichLinear}). For all compounds, the sorption isotherm for ULS is visibly higher than DSL, followed by CWC. The Freundlich sorption coefficients ($log~K_F$), linearity coefficients ($n_F$) and correlation coefficients ($r^2$) are presented in \cref{tab:summary_stats_single}. Somewhat unexpectedly, sorption is strongest for the two sludge chars. Possible mechanisms for the strong sorption will be discussed in this section. 
 
-\begin{figure}
+Due to the pioneering research on sewage sludge biochars as sorbents for PFAS in this thesis, literature partitioning coefficients for PFCAs of other sewage sludge biochars are non-existent (is that correct?). However, a comparison can be made between the $log~K_F$s found in this thesis and for commercially-produced activated carbons (AC) from other studies. The sorption coefficients are equivalent or higher compared to literature values for $log~K_F$ of PFOA to AC: 5.60 \citep{Kupryianchyk2016a}, 4.45 \citep{hansen2010sorption}, and 4.74-5.42 \citep{silvani2019can}. This is promising for the potential to replace non-renewable AC with waste based biochars for environmental remediation in the field and wastewater treatment. 
+
+\begin{figure}[tb]
     \centering
     \includegraphics[width=\textwidth]{R/figs/Sorption_isotherms_single_BC.pdf}
     \caption{Freundlich isotherms of TCs in batch tests with three different biochars. Lines are obtained by linear regression.}
@@ -33,21 +35,31 @@ PFDA & 6.00 ± 0.04 & 0.35 ± 0.05 & 0.86 & *** & 5.61 ± 0.02 & 0.61 ± 0.02 & 
 \end{threeparttable}}
 \end{table}
 
-\subsection{Effect of PFAS chain length and functional group}
-\cref{fig:sorption_isotherms_all} shows sorption isotherms for the single-compound batch tests for CWC, ULS and DSL separately. The Freundlich coefficients for ULS increased in the order PFPeA $<$ PFHxA $<$ PFOA $<$ PFHpA $<$ PFNA $<$ PFDA, ranging from $log~K_F$ = 4.10-6.00 \cref{tab:summary_stats_single}. All regressions were significant (p$<$0.01). The Freundlich coefficients for DSL increased in the order PFHxA $<$ PFPeA $<$ PFHpA $<$ PFOA $<$ PFNA $<$ PFDA, ranging from $log~K_F$ = 3.16-5.61. All regressions were significant (p$<$0.001) except for PFPeA. The Freundlich coefficients for CWC increased in the order PFPeA $<$ PFHpA $<$ PFHxA $<$ PFNA $<$ PFOA $<$ PFDA, ranging from $log~K_F$ = 3.01-5.22. All regressions were significant (p$<$0.01) except for PFPeA and PFHxA. Changes in $log~K_F$ with chain length can be visualized in \cref{subfig:chainlength}. 
+\cite{du2014adsorption}: electr and hydry balance 
 
-In this study, a statistically significant relationship between $log~K_F$ and CF\textsubscript{2} chain length was found for all three biochars (p$<$0.05,\cref{fig:chainlength}), which is in accordance with previous studies \citep{Sorengard2019,higgins2006sorption,ahmed2020per}. For every CF\textsubscript{2} moiety, hydrophobic interactions between condensed aromatic structures in the biochar matrix increases. This suggests that hydrophobic interactions is the dominant sorption mechanism over electrostatic interactions between the anionic carboxylate functional group and positively charged surfaces on the sorbent. 
+\subsection{Effect of PFAS chain length}
+\cref{fig:sorption_isotherms_all} shows sorption isotherms for the single-compound batch tests for CWC, ULS and DSL. The Freundlich coefficients for ULS increased in the order, PFPeA $<$ PFHxA $<$ PFOA $<$ PFHpA $<$ PFNA $<$ PFDA, ranging from $log~K_F$ = 4.10-6.00 (\cref{tab:summary_stats_single}). All regressions were significant (p$<$0.01). The Freundlich coefficients for DSL increased in the order, PFHxA $<$ PFPeA $<$ PFHpA $<$ PFOA $<$ PFNA $<$ PFDA, ranging from $log~K_F$ = 3.16-5.61. All regressions were significant (p$<$0.001) except for the PFPeA isotherm which only consisted of four points (SP7-10) due to higher analyzed filtrate concentrations than what was spiked for SP1-6 (attributed to analytical uncertainty or imprecision/contamination during laboratory work) (\cref{fig:DSL_isotherm}). The Freundlich coefficients for CWC increased in the order, PFPeA $<$ PFHpA $<$ PFHxA $<$ PFNA $<$ PFOA $<$ PFDA, ranging from $log~K_F$ = 3.01-5.22. All regressions were significant (p$<$0.01) except for PFPeA and PFHxA despite nine points used in the regressions. Changes in $log~K_F$ with chain length can be visualized in \cref{subfig:chainlength}. 
 
-PFAS contains a highly hydrophobic perfluorinated tail, which suggests that hydrophobic interactions plays an important role for sorption. Meanwhile, the charged and polar head of PFCAs give these compounds unique sorptive properties because the polar head can engage simultaneously in electrostatic bonding with surface functional groups or bridging cations within the biochar matrix \citep{zhang2013sorption}. Previous studies conclude that hydrophobic interaction plays the dominant role for sorption and that electrostatic interaction is secondary, indicated by sorption strength in a study by \cite{zhang2021sorption} who saw sorption increasing in the order PFBA $<$ PFBS $<$ PFOA $<$ PFOS. The difference between the PFSA and PFCA groups is that PFSAs have one more perfluorinated carbon than PFCAs, which has its terminal carbon attached as a carboxylate (COO\textsuperscript{-1}). In another sorption study conducted for PFHpS and PFOA, which have the same number of PFCs, PFHpS exhibits stronger sorption than PFOA. The researchers attributes this to difference in molecular size, where the sulfonate moiety is is slightly larger than the carboxylate moiety, which results in greater hydrophobicity of PFSAs \citep{yin2022insights}.
+A statistically significant relationship between $log~K_F$ and CF\textsubscript{2} chain length was found for all three biochars (p$<$0.05, \cref{fig:chain_length_n}), which is in accordance with previous studies \citep{Sorengard2019,higgins2006sorption,ahmed2020per}. There was a difference of 1.2-1.9 $log~K_F$ units between the longest and the shortest PFCA chain (PFDA and PFPeA). For every CF\textsubscript{2} moiety, hydrophobic interactions between condensed aromatic structures in the biochar matrix increases. Several mechanisms can be used to explain why perfluorinated carboxylic acids increase in hydrophobicity with increasing chain length. 1) Due to high molecular surface of the perfluorinated tail, a high cavity formation energy is needed to dissolve the compounds in water, and therefore they tend to be pushed towards water extremities, such as a biochar surface. Therefore, dissolution becomes increasingly energetically demanding with increasing chain length \citep{sigmund2022sorption}. 2) the perfluorinated chain with CF\textsubscript{2} moieties is capable of the least van der Waals interactions per molecular surface area compared to CH\textsubscript{2} which results in the least interactions between water molecules when in the water cavity. This is why PFASs are both oil- and water repellent. 
 
-Due to the pioneering research on sewage sludge biochars as sorbents for PFAS in this thesis, literature partitioning coefficients for PFCAs of other sewage sludge biochars are non-existent (is that correct?). However, a comparison can be made between the $log~K_F$s found in this thesis and for commercially-produced activated carbons (AC) from other studies. The sorption coefficients are equivalent or higher compared to literature values for $log~K_F$ of PFOA to AC: 5.60 \citep{Kupryianchyk2016a}, 4.45 \citep{hansen2010sorption}, and 4.74-5.42 \citep{silvani2019can}. This is promising for the potential to replace non-renewable AC with waste based biochars for environmental remediation in the field and wastewater treatment. 
-
-\subsubsection{Isotherm concentration interval}
-For the short-chain compounds (PFPeA and PFHxA), the concentration range and achieved is between 0-2.3 orders of magnitude for $C_w$ (mean = 1 order), in contrast to the desired concentration range over 4 orders of magnitude. Correlations are poor which results in higher standard errors and slopes that are unrealistic (PFHxA-DSL: n=1.11 and PFHpA-ULS: 1.08). Possible explanations for the poor correlations for PFPeA and PFHxA are poor biochar affinity, but the standard error is also large so that the isotherm may actually be linear ($\pm$ 0.11 for both). For PFPeA- and PFHxA-CWC, it appears that CWC sorption sites have been saturated since most points center around the same area, which means that CWC reaches sorption maximum at $~$4000 $\mu g~kg^{-1}$.  This indicates that CWC has the lowest affinity and capacity to sorb short-chain PFCAs. The CWC isotherms had the widest concentration intervals for $C_w$, which can be explained by CWC being the weakest sorbent of the three biochars studied, resulting in higher aqueous concentrations than for the sludge biochars. ULS and DSL gave isotherms typically across 0-1.5 orders of magnitude, which indicates that either higher spike concentrations or a lower BC dosage should have been used for the batch tests and that the sludge biochars have a higher sorptive capacity compared with CWC. 
-
-The batch tests were spiked at 10 concentrations where the lowest concentration was aimed at being close to the instrumental LOQ. Poor signals were achieved for most of these points and were removed from the data analysis to improve the certainty of the regression analysis. By doing this the concentration range was reduced. It is also possible that some of the SP2 points also have higher uncertainty as the PFHxA CWC isotherm is strongly determined by the lowest spike point, the rest of the points are widely scattered \cref{fig:CWC_isotherm}. The DSL-PFPeA isotherm only consists of four points (SP7-10) could be used for the regression due to higher analyzed filtrate concentrations than what was spiked due to analytical uncertainty \cref{fig:DSL_isotherm}.  
-
-\citep{zhang2013sorption}: reports that sorption of PFASs onto raw sewage sludge from C5-C15 increases with increasing alkyl chain length, while for chain lengths 2-5 the opposite is seen. 
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=6cm]{R/figs/chainlength_KF_line.pdf}
+        \caption{Linear regression coefficients for $log~K_F$ dependency on chain length for ULS: $r^2$ = 0.72, $p$ = 0.013, DSL: $r^2$ = 0.72, $p$ = 0.034, CWC: $r^2$ = 0.82, $p$ = 0.032}
+        \label{subfig:chainlength}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=6cm]{R/figs/n_KF.pdf}
+        \caption{Error bars are the standard error of $log~K_F$ for each chain length and biochar isotherm.}
+        \label{subfig:n}
+    \end{subfigure}
+    \label{fig:chain_length_n}
+    \caption{Relationship between $log~K_F$, $n_F$ and $CF_2$ chain length.}
+\end{figure*}
 
 \begin{figure}
     \centering
@@ -73,51 +85,124 @@ The batch tests were spiked at 10 concentrations where the lowest concentration 
         \end{subfigure}
         \caption{Single-compound Freundlich sorption isotherms of PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA. Lines are obtained by linear regression.}
         \label{fig:sorption_isotherms_all}
-\end{figure}a
-
-\begin{figure}[tb]
-    \centering
-    \includegraphics[width=\textwidth]{R/figs/chainlength_KF.pdf}
-    \caption{Correlation plot of $log~K_F$ as a function of PFCA chain length (number of $CF_2$ moieties) for the different biochars fitted by linear regression. The error bars and gray area represent the standard error for each $log~K_F$ and the regression line, respectively (n=9).}
-    \label{fig:chainlength}
 \end{figure}
 
-\begin{figure*}[t!]
-    \centering
-    \label{fig:chain_length_n}
-    \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \includegraphics[height=6cm]{R/figs/chainlength_KF_line.pdf}
-        \caption{}
-        \label{subfig:chainlength}
-    \end{subfigure}%
-    ~ 
-    \begin{subfigure}[t]{0.5\textwidth}
-        \centering
-        \includegraphics[height=6cm]{R/figs/n_KF.pdf}
-        \caption{}
-        \label{subfig:n}
-    \end{subfigure}
-    \caption{Relationship between $log~K_F$, $n_F$ and $CF_2$ chain length.}
-\end{figure*}
+\subsection{Effect of PFAS functional group} 
+The charged and polar head of PFCAs give these compound classes unique sorptive properties because the polar head can engage simultaneously in electrostatic bonding with surface functional groups or bridging cations within the biochar matrix (ash rich in cations) \citep{zhang2013sorption,sigmund2022sorption}. In this study, the highest sorption was seen for ULS and DSL with the lowest \% C (\cref{tab:SAPV}), which is in contrast with previous literature. However, previous PFAS sorption studies have been conducted on biochar from cleaner, wood-based feedstock \citep{Sormo2021}, activated carbon \citep{zhang2021sorption,Kupryianchyk2016b}, soils and sediments \citep{higgins2006sorption}, and raw sewage sludges \citep{zhang2013sorption}. These studies conclude that the importance of electrostatic interaction to sorption comes secondary to the hydrophobic effect. The main reason for this is that the biochar surface is net negatively charged with a high cation exchange capacity (CEC) \citep{Ahmad2014} and may experience electrostatic repulsion of the negatively charged functional group. PFCAs have low $pK_a$s (-1, \citep{goss2008pKa}) due to having strong electron withdrawing fluorine atoms and hence become strong acids. The PFCAs investigated in this study will be negatively charged given the filtrate pH of 7.1-7.4 (\cref{tab:pHcond}). Thus, all TCs experience electrostatic repulsion from the biochar surface which result in the lowest $K_F$-values for the shorter-chain PFCAs (\cref{tab:summary_stats_single}). Electrostatic repulsion is reduced in acid soils where the CEC is reduced and the biochar surfaces become protonated and more neutral. This allows for anion- \textpi bond interaction with biochar \citep{sigmund2022sorption}. 
 
-\cite{du2014adsorption}: electr and hydry balance 
-Perfluorinated sulfonic acid (PFSA) have been found to sorb substantially stronger than perfluorinated carboxylic acids \citep{zhang2013sorption,zhang2021sorption}. PFOS exhibits better sorption capacity than PFOA because the sulfonic acid is a stronger acid than carboxylic acid \citep{arvaniti2015review}
+\cite{zhang2021sorption} found that sorption increased in the order PFBA $<$ PFBS $<$ PFOA $<$ PFOS for granular activated carbon and softwood-derived biochar. The difference between the PFSA and PFCA groups is that PFSAs have one more perfluorinated carbon than PFCAs, which has its terminal carbon bonded as a carboxylate (COO\textsuperscript{-}). If one compares PFHpS with PFOA, which have the same number of $\mathrm{CF_2}$ moieties, the perfluorinated sulfonic acid still sorbs better. Researchers attribute this to 1) difference in molecular size, where the sulfonate moiety is slightly larger than the carboxylate moiety, which results in greater cavity formation energy of PFSAs, and hence in water saturated conditions, the functional group is pushed towards water extremities. In batch shaking experiments this would be the biochar surfaces or tube walls \citep{yin2022insights,sigmund2022sorption}, and 2) because sulfonic acid is a stronger acid than carboxylic acid which results in stronger ionic interaction to positive charges of mineral phases \citep{arvaniti2015review}.
 
-biochar surface is negatively charged \citep{Ahmad2014}, pfas have low pka due to being strong acids and will be negatively charged. For PFOA pKa is 0-3.80, subject to much debate \citep{Goss2009comment,ding2013physicochemical}. pKa decreases with increasing alkyl chain length, but is still lower than the relevant concentrations \citep{ding2013physicochemical}. The PFCAs investigated in this study will be negatively charged regardless given the filtrate pH of 7.1-7.4 (\cref{tab:pHcond}). Thus, all TCs experience electrostatic repulsion from the biochar surface which result in the lowest KFvalues for the shorter chain PFCAs (\cref{tab:summary_stats_single}). 
+Since sorption increased with chain length onto all three biochars in this study, this suggests that hydrophobic interactions is the dominant sorption mechanism over electrostatic interactions. Therefore, further investigation to explain why the sludge biochars sorb better than CWC will follow. 
 
-\subsubsection{Sorption non-linearity}
-$n_F$ is a dimensionless empirical parameter that represents sorption linearity, where $n<$ indicates sorption attenuation. All isotherms experience sorption attenuation at increasing concentrations indicated by $n_F<1 $ (\cref{tab:summary_stats_single}, which is consistent with the Freundlich model and other studies where sorption to biochar sees $n$-values typically around 0.3-0.7 \citep{Cornelissen2005}. From other studies, $K_F$ increases and $n_F$ decreases with decreasing O/C, H/C, and N/C ratios \citep{Cornelissen2005}. However, this study $K_F$ decreases with decreasing O/C, H/C, and N/C ratios, and no clear trend is seen for $n_F$. Meanwhile, it does seem like the nonlinearity coefficients for CWC are more stable with increasing chain lengths than ULS and DSL. Additionally, comparing $n$ across compound isotherms does not make sense due to different spike concentrations being used for each compound. \citep{yin2022insights} suggests that electrostatic interactions between PFCAs and sediment can contribute to further enhancement of saturation of the adsorption sites and that intermolecular electrostatic repulsion between the individual molecules could also result in nonlinear sorption \citep{higgins2006sorption,yin2022insights}.
+\subsection{Effect of sorbent properties}
+\subsubsection{Main elements}
+Carbon content of the biochars follows the expected trend, CWC \textless ULS \textless DSL with 91.4\%, 29.6\% and 13.5\%, respectively (\cref{tab:SAPV}). Oxygen content was highest for DSL and ULS (61.4 and 57.1 \% respectively) compared to 5.5 \% for CWC. CWC has a low O/C and H/C ratio (\textless 1) whereas ULS and DSL have ratios \textgreater 1. A low H/C and O/C ratio is associated with a high degree of aromaticity/condensation and few functional groups. This shows that the CWC matrix is dominated by aromatic carbon whereas ULS and DSL are dominated by oxidized carbon resulting in a more hydrophobic surface of the high-C biochar. The proportion of elements other than C, O, H and N contained in the biochar matrices is significantly lower for the clean wood biochar (1.4 \%) compared to the sludge biochars (10.9 and 23.2 \%), containing a greater mixture of other elements. Total elemental composition of the biochars is given in \cref{appSec:elements}. The results from this study is in contrast to literature \citep{Hale2016,Sormo2021,zhang2021sorption} that report that the sorption strength of organic compounds to biochar increases with decreasing biochar O/C and biochar H/C ratios. Thus, the higher sorption onto ULS and DSL cannot be explained by the sorbent composition of main elements.
 
-\subsection{Competition}
-Due to different spike concentration used for each compound in the cocktail, establishing quantitative trends for how chain length influences competition for sorption size is difficult. However, some conclusions can be drawn by looking at the overall trends. \cref{tab:competition} shows that $log~K_d$ decreases for all compounds in the presence of a mixture. $K_d$ changes the least for PFHxA and PFHpA (2.3 and 0.2 \% respectively) and may be attributed to lower spiked concentrations (330 and 117 \textmu g L\textsuperscript{-1}) for these compounds compared to the rest in \cref{tab:competition}. Competition is most profound for PFOA to CWC followed by PFDA for ULS and CWC (15.8, 10.0 and 10.6 \% respectively), which can be explained by the highest concentrations spiked for these compounds (1 953 and 3 830 \textmu g L\textsuperscript{-1}). It appears that sorption of PFNA is minimally influenced by competition between other compounds despite SC being in the higher range (1 409 \textmu g L\textsuperscript{-1}). $K_d$ for PFPeA is reduced by 8.2\% and is expected based on weaker sorption of short-chain compounds.
+\subsubsection{Ionic composition}
+PFAS sorption to sludge enhanced with increasing calcium concentration in solution, divalent ions contribute to stronger sorption compared to monovalent ions due to ion bridging between negatively charged PFAS and biochar at low pH \citep{zhang2013sorption,arvaniti2014sorption,arvaniti2015review}. 
+\citep{yin2022insights} effects of salinity on sorption, states sorption increases with increasing salinity. 
 
-Expected: Attenuation factors, larger for short-chain than long chains which have greater sorption affinity.
+Do I have data on \% ash for each sorbent?
+
+\subsubsection{Surface area and pore volume}
+Biochar from clean wood chips had a specific surface area (SSA) of 323  m\textsuperscript{2} g\textsuperscript{-1} for large pores (\textgreater 1.5 nm, N\textsubscript{2}), $\sim$ 200 m\textsuperscript{2} g\textsuperscript{-1} higher than the ULS and DSL sludge chars (128 and 110  m\textsuperscript{2} g\textsuperscript{-1}, respectively) \cref{tab:SAPV}. SSA of small pores (0.4-1.5 nm, CO\textsubscript{2} sorption) was 600 m\textsuperscript{2} g\textsuperscript{-1} for CWC, $\sim$ six times higher than ULS and DSL (165 and 87  m\textsuperscript{2} g\textsuperscript{-1}, respectively). Pore volume for large and small pores were relatively similar across biochar types (within 0.1 and 0.15 cm\textsuperscript{3} g\textsuperscript{-1} respectively). Contrary to previous findings, surface area and pore volume does not correlate with higher sorption as CWC proved to be the weakest sorbent in this study. A lack of significant linear correlations between SSA and $K_d$ and PV and K\textsubscript{d} is not surprising due to few biochar samples (n=3). 
+
+Pore size distribution is important for explaining sorption of PFAS of increasing chain lengths due to differences in molecular size. PFDA has a maximum diameter of 1.54 nm, and therefore experiences size exclusion for the smallest pores (0.5-1.5 nm) and can therefore only diffuse into the larger pores represented by N\textsubscript{2} (\textgreater 1.5 nm) (\cref{tab:molecsize}). Regardless of the critical separation at pore size greater/less than 1.5 nm, shorter-chain PFCAs is expected to diffuse more easily into the pores than the larger compounds.  
+
+\citep{Hale2016}: SA and sorption. name variables that showed the strongest correlation with log KF although r2 values were low. Maximum sorption occurs when the molecular dimensions of the PFAS congeners fit inside the pores called size exclusion. Size exclusion is particularly prominent for biochars that are dominated with small micropores, 
+
+Are PFAS chains flexible? 
+
+\begin{table}
+\centering
+\caption{Surface area, pore volume and elemental content (C, O, H, N) and ratios for the biochars produced for the batch tests.}
+\adjustbox{max width=\textwidth}{
+\label{tab:SAPV}
+\begin{tabular}{lllllllllllll}
+\toprule
+Biochar & Pyrolysis & \multicolumn{2}{l}{N\textsubscript{2} sorption} & \multicolumn{2}{l}{CO\textsubscript{2} sorption} & \multicolumn{4}{c}{Elemental content} & \multicolumn{3}{c}{Elemental ratio} \\
+sorbent & temperature & \multicolumn{2}{l}{(pores \textgreater 1.5 nm)} & \multicolumn{2}{l}{(pores 0.4-1.5 nm)} & & & & & & & \\ \cmidrule(l){3-4} \cmidrule(l){5-6} \cmidrule(l){7-10} \cmidrule(l){11-13} & (\textdegree C) & Surface area  & Pore volume & Surface area & Pore volume  & C & O & H & N & O/C & H/C & N/C \\
+& & ($\mathrm{m^2~g^{-1}}$) & (cm\textsuperscript{3} g\textsuperscript{-1}) & ($\mathrm{m^2~g^{-1}}$) & (cm\textsuperscript{3} g\textsuperscript{-1}) & (\%) & (\%) & (\%) & (\%) & & & \\ \midrule
+CWC & 700 & 323 & 0.017 & 683 & 0.186 & 91.4 & 5.50 & 1.01 & 0.69 & 0.06 & 0.01 & 0.008       \\
+ULS & 700 & 128 & 0.126 & 165 & 0.047 & 29.6 & 57.1 & 1.24 & 1.13 & 1.9  & 0.04 & 0.04        \\
+DSL & 700 & 110 & 0.111 & 87  & 0.027 & 13.5 & 61.4 & 1.05 & 0.82 & 4.6  & 0.08 & 0.06       \\ \bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{table}
+\caption{Effective cross-sectional diameter (D\textsubscript{eff}) and maximum diameter (D\textsubscript{max}) of TCs interpolated and extrapolated by linear regression from calculations performed by \cite{inoue2012size} on PFOA and other PFCAs with chain lengths 11-18.}
+\centering
+\begin{threeparttable}
+\label{tab:molecsize}
+\begin{tabular}{llll}
+\toprule
+Compound & CF\textsubscript{2} & D\textsubscript{eff} & D\textsubscript{max} \\ 
+& chain & (nm) & (nm) \\ \midrule
+PFPeA & 5  & 0.45  & 0.96  \\
+PFHxA & 6  & 0.50  & 1.08  \\
+PFHpA & 7  & 0.56  & 1.19  \\
+PFOA\textsuperscript{*} & 8 & 0.61 & 1.36 \\
+PFNA & 9 & 0.67 & 1.42  \\
+PFDA & 10 & 0.72 & 1.54  \\ \bottomrule                                    
+\end{tabular}
+\begin{tablenotes}
+\item \textsubscript{*} Value from \cite{inoue2012size}
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsubsection{Iron speciation}
+Synchrotron results 
+
+\subsubsection{PZC}
+
+\subsubsection{pH and conductivity}
+pH varied little between all biochar-soil-water systems with an average pH of 7.18 \textpm 0.02. Conductivity was 39 \textpm 0.9 \textmu S cm\textsuperscript{-1}. Since the variance is low, pH and conductivity was not considered as factors that influence sorption of PFCAs. The conductivity of soil-water samples differed the most from the rest of the samples with a mean conductivity of 23 \textpm 0.05 \textmu S cm\textsuperscript{-1} versus a mean of 41 \textpm 0.9 \textmu S cm\textsuperscript{-1} for the biochar-water and biochar-soil-water samples. Complete pH and conductivity data is in \cref{appSec:misclab}.
+
+\citep{zhang2013sorption}: sorption of PFAS increases with decreasing pH
+
+\begin{table}
+\centering
+\caption{Mean pH and conductivity (\textmu S cm\textsuperscript{-1}) measurements for the different batch test systems (n=3). The error bars represent the standard error. BC:S:H\textsubscript{2}O is the biochar:soil:liquid ratio.}
+\label{tab:pHcond}
+\begin{tabular}{lccccc}
+\toprule
+ & \multicolumn{2}{c}{pH} & \multicolumn{2}{c}{Conductivity} & \\ \cline{2-5}
+ & mean & std. dev & mean & std. dev & BC/S/L\\ 
+\midrule
+ULS & 7.10 & 0.04 & 45.70 & 3.03 & 1/0/500\\
+DSL & 7.31 & 0.02 & 40.93 & 1.07 & 1/0/500\\
+CWC & 7.36 & 0.07 & 46.47 & 0.70 & 1/0/500\\
+ULS+S & 7.18 & 0.02 & 34.93 & 0.40 & 1/50/500\\
+DSL+S & 7.14 & 0.00 & 35.73 & 1.50 & 1/50/500\\
+CWC+S & 7.09 & 0.05 & 44.90 & 1.54 & 1/50/500\\
+S & 7.08 & 0.05 & 23.33 & 0.87 & 0:1:10\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Sorption non-linearity}
+$n_F$ is a dimensionless empirical parameter that represents sorption linearity, where $n<$ indicates sorption attenuation. All isotherms experience sorption site saturation at increasing concentrations indicated by $n_F<1 $ (\cref{tab:summary_stats_single}, which is consistent with the Freundlich model and other studies where sorption to biochar sees $n$-values typically around 0.3-0.7 \citep{Cornelissen2005}. From other studies, $K_F$ increases and $n_F$ decreases with decreasing O/C, H/C, and N/C ratios \citep{Cornelissen2005}. However, this study $K_F$ decreases with decreasing O/C, H/C, and N/C ratios, and no clear trend is seen for $n_F$ \cref{subfig:n}. Meanwhile, it does seem like the nonlinearity coefficients for CWC are more stable with increasing chain lengths than ULS and DSL. Additionally, comparing $n$ across compound isotherms does not make sense due to different spike concentrations being used for each compound. \citep{yin2022insights} suggests that electrostatic interactions between PFCAs and sediment can contribute to further enhancement of saturation of the adsorption sites and that intermolecular electrostatic repulsion between the individual molecules could also result in nonlinear sorption \citep{higgins2006sorption,yin2022insights}.
+
+\citep{yin2022insights} attributes non-linear sorption to three explanations: 1) complex composition of biochar with negative, positive and neutral charges within same matrix, 2) successive saturation of adsorption sites, 3) electrostatic interactions between the PFASs and sediment, 4) electrostatic repulsion from negatively charged carboxylate groups. 
+
+Sorption non-linearity ($n<1$) occurs due to the complex composition of sediment/biochar with both positive and negative charges contributing to either attraction or repulsion, as well as hydrophobic surfaces, and indicates successive saturation of these adsorption sites \citep{yin2022insights}.  
+
+For the short-chain compounds (PFPeA and PFHxA), Correlations are poor which results in higher standard errors and slopes that are unrealistic (PFHxA-DSL: n=1.11 and PFHpA-ULS: 1.08). Possible explanations for the poor correlations for PFPeA and PFHxA are poor biochar affinity, but the standard error is also large so that the isotherm may actually be linear ($\pm$ 0.11 for both). For PFPeA- and PFHxA-CWC, it appears that CWC sorption sites have been saturated since most points center around the same area, which means that CWC reaches sorption maximum at $~$4000 $\mu g~kg^{-1}$. However, four points are insufficient to conclude that CWC has the lowest affinity and capacity to sorb short-chain PFCAs. The CWC isotherms had the widest concentration intervals for $C_w$, which can be explained by CWC being the weakest sorbent of the three biochars studied, resulting in higher aqueous concentrations than for the sludge biochars. 
+
+\subsubsection{Isotherm concentration range}
+The importance of a wide enough concentration interval is reflected in the resulting $n_F$-value acheived. ULS and DSL gave isotherms typically across 0-1.5 orders of magnitude, which indicates that either higher spike concentrations or a lower BC dosage should have been used for the batch tests and that the sludge biochars have a higher sorptive capacity compared with CWC. The batch tests were spiked at 10 concentrations over four orders of magnitude where the lowest concentration was aimed at being close to the instrumental LOQ. Poor signals were achieved for the SC1 points and were removed from the data analysis to improve the certainty of the regression analysis. By doing this the concentration range was reduced. The concentration range achieved was an average of 1.3 log units for the batch test filtrate, in contrast to the desired concentration range over 4 log units.
+
+\section{Sorption attenuation in a PFCA cocktail}
+Sorptive attenuation of a spiked cocktail of the six TCs were tested for each biochar is shown by the red point in \cref{fig:sorption_isotherms_all}. Due to different spike concentration used for each compound in the cocktail, establishing quantitative trends for how chain length influences competition for sorption size is difficult. However, some conclusions can be drawn by looking at the overall trends. \cref{tab:competition} shows that $log~K_d$ decreases for all compounds in the presence of a mixture. $K_d$ changes the least for PFHxA and PFHpA (2.3 and 0.2 \% respectively) and may be attributed to lower spiked concentrations (330 and 117 \textmu g L\textsuperscript{-1}) for these compounds compared to the rest in \cref{tab:competition}. Competition is most profound for PFOA to CWC followed by PFDA for ULS and CWC (15.8, 10.0 and 10.6 \% respectively), which can be explained by the highest concentrations spiked for these compounds (1 953 and 3 830 \textmu g L\textsuperscript{-1}). It appears that sorption of PFNA is minimally influenced by competition between other compounds despite SC being in the higher range (1 409 \textmu g L\textsuperscript{-1}). $K_d$ for PFPeA is reduced by 8.2\% and is expected based on weaker sorption of short-chain compounds.
+
+Expected: Attenuation factors larger for short-chain than long chains which have greater sorption affinity.
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{R/figs/C10_mixVsSingle_BC_plot.pdf}
-    \caption{Sorption attenuation for TCs in a cocktail spiked at SC10. Note that the attenuation for cannot be compared across chain lengths as different concentrations have been used. The error bars represent the standard deviation of $log~K_F$ for the cocktail batch tests performed in triplicate. The single-compound $log~K_d$s are one point only.}
+    \caption{Sorption attenuation for TCs in a cocktail spiked at SC10. It is important to note that attenuation cannot be compared across chain lengths as different concentrations have been used. The error bars represent the standard deviation of $log~K_d$ for the cocktail batch tests performed in triplicate. The single-compound $log~K_d$'s are single points.}
     \label{fig:competition}
 \end{figure}
 
@@ -143,92 +228,6 @@ PFDA & 10.6 & 10.9 & 3.1 \\ \bottomrule
 \end{threeparttable}
 \end{table}
 
-\subsection{Effect of sorbent elemental composition}
-Carbon content of the biochars follows the expected trend, CWC \textgreater ULS \textgreater DSL with 91.4\%, 29.6\% and 13.5\%, respectively (\cref{tab:SAPV}). Oxygen content was highest for DSL and ULS (61.4 and 57.1 \% respectively) compared to 5.5 \% for CWC. CWC has a low O/C and H/C ratio (\textless 1) whereas ULS and DSL have ratios \textgreater 1. A low H/C and O/C ratio is associated with a high degree of aromaticity/condensation and few functional groups. This shows that the CWC matrix is dominated by carbon whereas ULS and DSL are dominated by oxygen resulting in a highly hydrophobic surface. The proportion of elements other than C, O, H and N contained in the biochar matrices is significantly different lower for the clean wood biochar (1.4 \%) compared to the sludge biochars (10.9 and 23.2 \%), containing a greater mixture of other elements. Total elemental composition of the three biochars is given in \cref{appSec:elements}. 
-
-The results from this study is in contrast to \cite{Hale2016} that reports that the sorption strength of organic compounds to biochar increases with decreasing biochar O/C and biochar H/C ratios. 
-
-PFAS sorption to sludge enhanced with increasing calcium concentration in solution, divalent ions contribute to stronger sorption compared to monovalent ions due to ion bridging between negatively charged PFAS and biochar at low pH \citep{zhang2013sorption,arvaniti2014sorption,arvaniti2015review}. 
-
-\subsection{Effect of surface area and pore volume}
-Biochar from clean wood chips had a specific surface area (SSA) of 323  m\textsuperscript{2} g\textsuperscript{-1} for large pores (\textgreater 1.5 nm, N\textsubscript{2}), $\sim$ 200 m\textsuperscript{2} g\textsuperscript{-1} higher than the ULS and DSL sludge chars (128 and 110  m\textsuperscript{2} g\textsuperscript{-1}, respectively) \cref{tab:SAPV}. SSA of small pores (0.4-1.5 nm, CO\textsubscript{2} sorption) was 600  m\textsuperscript{2} g\textsuperscript{-1} for CWC, $\sim$ six times higher than ULS and DSL (165 and 87  m\textsuperscript{2} g\textsuperscript{-1}, respectively). Pore volume for large and small pores were relatively similar across biochar types (within 0.1 and 0.15 cm\textsuperscript{3} g\textsuperscript{-1} respectively). Contrary to previous findings, surface area and pore volume does not correlate with higher sorption as CWC proved to be the weakest sorbent in this study. A lack of significant linear correlations between SSA and $K_d$ and PV and K\textsubscript{d} is not surprising due to few biochar samples (n=3). 
-
-Pore size distribution is important for explaining sorption of PFAS of increasing chain lengths due to differences in molecular size. PFDA has a maximum diameter of 1.54 nm, and therefore experiences size exclusion for the small pores (0.5-1.5 nm) and can therefore only diffuse into the larger pores represented by N\textsubscript{2} (\textgreater 1.5 nm) (\cref{tab:molecsize}). Regardless of the critical separation at pore size greater/less than 1.5 nm, shorter chain PFCAs is expected to diffuse more easily into the pores than the larger compounds.  
-
-\citep{Hale2016}: SA and sorption. name variables that showed the strongest correlation with log KF although r2 values were low. Maximum sorption occurs when the molecular dimensions of the PFAS congeners fit inside the pores called size exclusion. Size exclusion is particularly prominent for biochars that are dominated with small micropores, 
-
-Are PFAS chains flexible? 
-
-\begin{table}
-\centering
-\caption{Surface area, pore volume and elemental content (C, O, H, N) and ratios for the biochars produced for the batch tests.}
-\adjustbox{max width=\textwidth}{
-\label{tab:SAPV}
-\begin{tabular}{lllllllllllll}
-\toprule
-Biochar & Pyrolysis   & \multicolumn{2}{l}{N\textsubscript{2} sorption}      & \multicolumn{2}{l}{CO\textsubscript{2} sorption}       & \multicolumn{4}{c}{Elemental content} & \multicolumn{3}{c}{Elemental ratio} \\
-sorbent   & temperature & \multicolumn{2}{l}{(pores \textgreater 1.5 nm)} & \multicolumn{2}{l}{(pores 0.4-1.5 nm)} &         &         &         &         &             &           &           \\ \cmidrule(l){3-4} \cmidrule(l){5-6} \cmidrule(l){7-10} \cmidrule(l){11-13}
-                & (\textdegree C)        & Surface area       & Pore volume     & Surface area       & Pore volume       & C       & O       & H       & N       & O/C         & H/C       & N/C       \\
-                &             & ($\mathrm{m^2~g^{-1}}$)           & (cm\textsuperscript{3} g\textsuperscript{-1})       & ($\mathrm{m^2~g^{-1}}$)           & (cm\textsuperscript{3} g\textsuperscript{-1})         & (\%)     & (\%)     & (\%)     & (\%)     &             &           &           \\ \midrule
-CWC         & 700         & 323                & 0.017           & 683                & 0.186             & 91.4    & 5.50    & 1.01    & 0.69    & 0.06        & 0.01        & 0.008       \\
-ULS         & 700         & 128                & 0.126           & 165                & 0.047             & 29.6    & 57.1    & 1.24    & 1.13    & 1.9        & 0.04        & 0.04        \\
-DSL         & 700         & 110                & 0.111           & 87                 & 0.027             & 13.5    & 61.4    & 1.05    & 0.82    & 4.6        & 0.08        & 0.06       \\ \bottomrule
-\end{tabular}}
-\end{table}
-
-
-\begin{table}
-\caption{Effective cross-sectional diameter (D\textsubscript{eff}) and maximum diameter (D\textsubscript{max}) of TCs interpolated and extrapolated by linear regression from calculations performed by \citep{inoue2012size} on PFOA and other PFCAs with chain lengths 11-18.}
-\centering
-\begin{threeparttable}
-\label{tab:molecsize}
-\begin{tabular}{llll}
-\toprule
-Compound & Carbon & D\textsubscript{eff} & D\textsubscript{max} \\ 
-& chain & (nm) & (nm) \\
-& length & & \\ \midrule
-PFPeA    & 5                                                              & 0.45                                                 & 0.96                                                 \\
-PFHxA    & 6                                                              & 0.50                                                 & 1.08                                                 \\
-PFHpA    & 7                                                              & 0.56                                                 & 1.19                                                 \\
-PFOA\textsuperscript{*}     & 8                                                              & 0.61                                                 & 1.36                                                 \\
-PFNA     & 9                                                              & 0.67                                                 & 1.42                                                 \\
-PFDA     & 10                                                             & 0.72                                                 & 1.54  \\ \bottomrule                                    
-\end{tabular}
-\begin{tablenotes}
-\item \textsubscript{*} Calculated value from \citep{inoue2012size}
-\end{tablenotes}
-\end{threeparttable}
-\end{table}
-
-\subsection{Effect of iron speciation}
-Synchrotron
-
-\subsection{PZC}
-
-\subsubsection{pH and conductivity}
-pH varied little between all biochar-soil-water systems with an average pH of 7.18 \textpm 0.02. Conductivity was 39 \textpm 0.9 \textmu S cm\textsuperscript{-1}. Since the variance is low, pH and conductivity was not considered as factors that influence sorption of PFCAs. The conductivity of soil-water samples differed the most from the rest of the samples with a mean conductivity of 23 \textpm 0.05 \textmu S cm\textsuperscript{-1} versus a mean of 41 \textpm 0.9 \textmu S cm\textsuperscript{-1} for the biochar-water and biochar-soil-water samples. Complete pH and conductivity data is in \cref{appSec:misclab}.
-
-\citep{zhang2013sorption}: sorption of of PFAS increases with decreasing pH
-
-\begin{table}
-\centering
-\caption{Mean pH and conductivity (\textmu S cm\textsuperscript{-1}) measurements for the different batch test systems (n=3). The error bars represent the standard error. BC:S:H\textsubscript{2}O is the biochar:soil:liquid ratio.}
-\label{tab:pHcond}
-\begin{tabular}{lccccc}
-\toprule
- & \multicolumn{2}{c}{pH} & \multicolumn{2}{c}{Conductivity} & \\ \cline{2-5}
- & mean & std. dev & mean & std. dev & BC/S/L\\ 
-\midrule
-ULS & 7.10 & 0.04 & 45.70 & 3.03 & 1/0/500\\
-DSL & 7.31 & 0.02 & 40.93 & 1.07 & 1/0/500\\
-CWC & 7.36 & 0.07 & 46.47 & 0.70 & 1/0/500\\
-ULS+S & 7.18 & 0.02 & 34.93 & 0.40 & 1/50/500\\
-DSL+S & 7.14 & 0.00 & 35.73 & 1.50 & 1/50/500\\
-CWC+S & 7.09 & 0.05 & 44.90 & 1.54 & 1/50/500\\
-S & 7.08 & 0.05 & 23.33 & 0.87 & 0:1:10\\
-\bottomrule
-\end{tabular}
-\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -272,9 +271,20 @@ Precipitation of a brown fluff was observed when filtered batch tests containing
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.6\linewidth,scale=0.6]{Bilder/Samples/Precipitation.jpg}
-    \caption{Precipitation observed when filtered soil samples were adjusted to pH 3 with 1 M acetic acid.}
-    \label{fig:precip}
+        \begin{subfigure}[t]{\linewidth}
+            \centering
+            \includegraphics[width=0.6\textwidth]{Bilder/Samples/Filtrate_DOC.JPG}
+            \subcaption{}
+            \label{fig:filtrate}
+        \end{subfigure}
+        \begin{subfigure}[]{\linewidth}
+            \centering
+            \includegraphics[width=0.6\textwidth]{Bilder/Samples/Precipitation.jpg}
+            \subcaption{}
+            \label{fig:precip}
+        \end{subfigure}  
+        \caption{(a) Color of filtrate for each biochar batch test. From left to right: soil only, soil+ULS, soil+CWC, and soil+BRL. (b) Precipitation observed when filtered soil samples were adjusted to pH 3 with 1 M acetic acid.}
+        \label{fig:DOC_tubes}
 \end{figure}
 
 \section{Potential for commercializing sludge chars as sorbents}
