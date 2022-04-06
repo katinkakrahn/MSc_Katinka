@@ -41,7 +41,7 @@ for(i in 1:nr_biochars){
 
 summary_stats_CLandKF_label <- summary_stats_CLandKF %>%
   mutate(
-    nr_CF2 = 7, K_F = 3,
+    nr_CF2 = 8.7, K_F = 3.3,
     label =
       glue("*r*<sup>2</sup> = {round(r_squared, 2)} <br> p = {round(p_value, 3)}")
   )
@@ -80,10 +80,11 @@ ChainLength_KF <- ggplot(data = summary_stats_single) +
   geom_smooth(mapping = aes(x = nr_CF2, y = log_KF, group = biochar), color = "black", 
               formula = y ~ x, method=lm, 
               se = TRUE, fullrange = TRUE) +
-  geom_errorbar(aes(nr_CF2, ymin=log_KF-log_KF_std_error, ymax=log_KF+log_KF_std_error), width=.2,
+  geom_errorbar(aes(nr_CF2, ymin=log_KF-log_KF_std_error, ymax=log_KF+log_KF_std_error), width=.05,
                 position=position_dodge(.9), color = "grey45") +
   labs(x = expression(CF[2]~chain~length), y = expression(log~K[F])) +
-  facet_wrap(~ biochar) +
+  facet_grid(rows = vars(biochar)) +
+  # facet_wrap(~ biochar) +
   geom_richtext(
     data = summary_stats_CLandKF_label,
     aes(label = label, x = nr_CF2, y = K_F),
@@ -121,3 +122,10 @@ n_KF <- ggplot(data = summary_stats_single, mapping = aes(x = nr_CF2, y = n, col
 n_KF
 set_palette(n_KF, "uchicago")
 ggsave(filename = "R/figs/n_KF.pdf")
+
+summary_stats_C3_single_CWC <- lm(log_Kd ~ nr_CF2, data = subset(Sorption_BC_single_C3, Biochar == "CWC"))
+summary(summary_stats_C3_single_CWC)
+summary_stats_C3_single_ULS <- lm(log_Kd ~ nr_CF2, data = subset(Sorption_BC_single_C3, Biochar == "ULS"))
+summary(summary_stats_C3_single_ULS)
+summary_stats_C3_single_DSL <- lm(log_Kd ~ nr_CF2, data = subset(Sorption_BC_single_C3, Biochar == "DSL"))
+summary(summary_stats_C3_single_DSL)
