@@ -1,4 +1,4 @@
-Biochar <- read_excel("C:/Users/KMK/OneDrive - NGI/VOW/Data/250322_biochar_parameters.xlsx")
+Biochar <- read_excel("/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/250322_biochar_parameters.xlsx")
 as.data.table(Biochar)
 Biochar <- as.data.table(Biochar)
 setnames(Biochar, "Biochar", "biochar")
@@ -7,7 +7,7 @@ setnames(Biochar, "Biochar", "biochar")
 Elements_biochar <- filter(Biochar, PV_SA == 0)
 SA_PV <- filter(Biochar, PV_SA == 1)
 
-
+Main_elements_1ugL <- Kd_1ugL_select %>% filter(Parameter %in% Elements_biochar)
 Main_elements_biochar_plot <- ggplot(data = subset(Elements_biochar, Unit %in% "g/kg"), 
                                 aes(x = Parameter, y = Mean_diffunit, color = biochar),
                                 ) +
@@ -41,54 +41,7 @@ CHON_biochar_plot
 Sorption_BC_single_C3 <- filter(Sorption_BC_single, Conc_point == 3)
 Biochar_sorption_soil_C3 <- full_join(x = Sorption_BC_single_C3, y = Biochar, by = c("Biochar" = "biochar"))
 
-Main_elements_Kd <- Biochar_sorption_soil_C3 %>% filter(Parameter %in% Elements_biochar)
-
 Biochar_sorption_soil_C3_PFOA <- filter(Biochar_sorption_soil_C3, Compound == "PFOA")
-
-Main_elements_Kd_PFOA_Ca <- ggplot(data = subset(Biochar_sorption_soil_C3_PFOA, Parameter %in% "Ca"),
-                                aes(x = Mean_sameunit, y = log_Kd, group = Parameter, color = Biochar), 
-                                ) +
-  geom_point() +
-  # geom_smooth(method = "lm",
-  #             formula = y ~ x)+
-  labs(x = "Ca (g/kg)", y = expression(log~K[d]), group = "") +
-  theme_bw() +
-  theme(panel.grid = element_blank(), legend.position = "bottom")
-Main_elements_Kd_PFOA_Ca
-
-Main_elements_Kd_PFOA_Fe <- ggplot(data = subset(Biochar_sorption_soil_C3_PFOA, Parameter %in% "Fe"),
-                                   aes(x = Mean_sameunit, y = log_Kd, group = Parameter, color = Biochar), 
-) +
-  geom_point() +
-  # geom_smooth(method = "lm",
-  #             formula = y ~ x)+
-  labs(x = "Fe (g/kg)", y = expression(log~K[d]), group = "") +
-  theme_bw() +
-  theme(panel.grid = element_blank(), legend.position = "bottom")
-Main_elements_Kd_PFOA_Fe
-
-Main_elements_Kd_PFOA_C <- ggplot(data = subset(Biochar_sorption_soil_C3_PFOA, Parameter %in% "C"),
-                                   aes(x = Mean_sameunit, y = log_Kd, group = Parameter, color = Biochar), 
-) +
-  geom_point() +
-  # geom_smooth(method = "lm",
-  #             formula = y ~ x)+
-  labs(x = "C (g/kg)", y = expression(log~K[d]), group = "") +
-  theme_bw() +
-  theme(panel.grid = element_blank(), legend.position = "bottom")
-Main_elements_Kd_PFOA_C
-
-Main_elements_Kd_PFOA_O <- ggplot(data = subset(Biochar_sorption_soil_C3_PFOA, Parameter %in% "O"),
-                                   aes(x = Mean_sameunit, y = log_Kd, group = Parameter, color = Biochar), 
-) +
-  geom_point() +
-  # geom_smooth(method = "lm",
-  #             formula = y ~ x)+
-  labs(x = "O (g/kg)", y = expression(log~K[d]), group = "") +
-  theme_bw() +
-  theme(panel.grid = element_blank(), legend.position = "bottom")
-Main_elements_Kd_PFOA_O
-
 Biochar_sorption_soil_C3$Compound <- factor(Biochar_sorption_soil_C3$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                                 "PFOA", "PFNA", "PFDA"))
 #Ca
