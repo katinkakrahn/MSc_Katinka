@@ -37,6 +37,11 @@ Biochar_ratios$PVN2_Fe <- Biochar_ratios$N2_BJH_PV/Biochar_ratios$Fe
 Biochar_ratios$PVN2_Ca <- Biochar_ratios$N2_BJH_PV/Biochar_ratios$Ca
 Biochar_ratios$PVCO2_Fe <- Biochar_ratios$CO2_DFT_PV/Biochar_ratios$Fe
 Biochar_ratios$PVCO2_Ca <- Biochar_ratios$CO2_DFT_PV/Biochar_ratios$Ca
+Biochar_ratios$SA_PV <- Biochar_ratios$N2_SA/Biochar_ratios$N2_PV
+Biochar_ratios$SA_PV_Ca <- (Biochar_ratios$N2_SA/Biochar_ratios$N2_PV)/Biochar_ratios$Ca
+Biochar_ratios$SA_PV_C <- (Biochar_ratios$N2_SA/Biochar_ratios$N2_PV)/Biochar_ratios$C
+Biochar_ratios$PV_C <- Biochar_ratios$N2_PV/Biochar_ratios$C
+Biochar_ratios$SA_C <- Biochar_ratios$N2_SA/Biochar_ratios$C
 
 
 Biochar_ratios <- as.data.table(Biochar_ratios, keep.rownames = T)
@@ -48,14 +53,17 @@ setnames(Biochar_ratios, c("C",	"Ca",	"Fe",	"N2_BET_SA",	"N2_BJH_PV",	"CO2_DFT_S
 Biochar_ratios_1ugL_select <- full_join(Biochar_ratios, Kd_1ugL_select, by = "biochar")
 Biochar_ratios_1ugL_all <- full_join(Biochar_ratios, Kd_1ugL, by = "biochar")
 
-Corr_table <- data.table(r_squared = rep(0, nr_compounds),
-                         p_value = rep(0, nr_compounds),
-                         compound = compounds)
+nr_compounds2 <- length(unique(Biochar_ratios_1ugL_select$compound))
+compounds2 <- unique(Biochar_ratios_1ugL_select$compound)
 
-for(i in 1:nr_compounds){
-  fit <- lm(log_Kd ~ PVCO2_Ca, data = Biochar_ratios_1ugL_all[compound == compounds[i]])
-  Corr_table[compound == compounds[i], r_squared := summary(fit)$r.squared]
-  Corr_table[compound == compounds[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
+Corr_table <- data.table(r_squared = rep(0, nr_compounds2),
+                         p_value = rep(0, nr_compounds2),
+                         compound = compounds2)
+
+for(i in 1:nr_compounds2){
+  fit <- lm(log_Kd ~ SA_PV_C, data = Biochar_ratios_1ugL_select[compound == compounds2[i]])
+  Corr_table[compound == compounds2[i], r_squared := summary(fit)$r.squared]
+  Corr_table[compound == compounds2[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
                                            summary(fit)$fstatistic[3],lower.tail=F)]
 }
 

@@ -28,36 +28,36 @@ C10_mixVsSingle_BC$Compound <- factor(C10_mixVsSingle_BC$Compound, levels = c("P
 
 
   
-C10_mixVsSingle_BC_plot <- ggplot(data = C10_mixVsSingle_BC, aes(x = Compound, y = log_Kd, fill = single_mix, shape = Biochar)) + 
+C10_mixVsSingle_BC_plot <- ggplot(data = C10_mixVsSingle_BC, aes(x = Compound, y = log_Kd, color = single_mix, shape = Biochar)) + 
   geom_point(size = 4) + 
   geom_errorbar(aes(ymin=log_Kd-se_logKd, ymax=log_Kd+se_logKd), width = 0) + 
-  scale_fill_manual(name = "",
-                    labels = c("single compound",
-                               "single compound",
-                               "single compound",
-                               "cocktail",
-                               "cocktail",
-                               "cocktail"),
-                    values = c("CWC single" = "#998ec3", 
-                               "DSL single" = "#998ec3",
-                               "ULS single" = "#998ec3", 
-                               "CWC cocktail" = "#f1a340", 
-                               "DSL cocktail" = "#f1a340", 
-                               "ULS cocktail" = "#f1a340")
-                    ) 
-  scale_shape_manual(name = "",
-                     labels = c("CWC single" = 15, 
-                                "DSL single" = 16, 
-                                "ULS single" = 17, 
-                                "CWC cocktail" = 15, 
-                                "DSL cocktail" = 16, 
-                                "ULS cocktail" = 17),
-                     values = c("CWC" = 15, 
-                                "DSL" = 16, 
-                                "ULS" = 17, 
-                                "CWC" = 15, 
-                                "DSL" = 16, 
-                                "ULS" = 17)) +
+  # scale_fill_manual(name = "",
+  #                   labels = c("single compound",
+  #                              "single compound",
+  #                              "single compound",
+  #                              "cocktail",
+  #                              "cocktail",
+  #                              "cocktail"),
+  #                   values = c("CWC single" = "#998ec3", 
+  #                              "DSL single" = "#998ec3",
+  #                              "ULS single" = "#998ec3", 
+  #                              "CWC cocktail" = "#f1a340", 
+  #                              "DSL cocktail" = "#f1a340", 
+  #                              "ULS cocktail" = "#f1a340")
+  #                   ) 
+  # scale_shape_manual(name = "",
+  #                    labels = c("CWC single" = 15, 
+  #                               "DSL single" = 16, 
+  #                               "ULS single" = 17, 
+  #                               "CWC cocktail" = 15, 
+  #                               "DSL cocktail" = 16, 
+  #                               "ULS cocktail" = 17),
+  #                    values = c("CWC" = 15, 
+  #                               "DSL" = 16, 
+  #                               "ULS" = 17, 
+  #                               "CWC" = 15, 
+  #                               "DSL" = 16, 
+  #                               "ULS" = 17)) +
   labs(x = "", y = expression(log~K[d])) + 
   theme_bw() +
   theme(panel.grid = element_blank(), legend.position = "bottom")
