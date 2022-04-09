@@ -26,6 +26,7 @@ Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
   #ggtitle("Freundlich linear sorption isotherms") +
   theme_bw() +
   theme(text = element_text(size = 16)) +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
   theme(panel.grid = element_blank(), legend.position = "bottom") #+
 # geom_richtext(
 #   data = summary_stats_ULS_single_label,
@@ -33,7 +34,6 @@ Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
 #   hjust = 0
 # )
 Sorption_isotherms
-set_palette(Sorption_isotherms, "uchicago")
 ggsave(filename="R/figs/Sorption_isotherms_single_BC.pdf")
 
 #Summary stats of each compound
