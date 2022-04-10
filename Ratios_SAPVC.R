@@ -109,7 +109,7 @@ Kd_1ugL_SA_PV_C <- ggplot(data = SA_PV,
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 8) +
   scale_x_log10() +
-  labs(x = TeX(r'(log SA/PV $(m^{2}~cm^{-3})$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
+  labs(x = TeX(r'(log (SA/PV)/C)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
   theme_bw() +
   guides(color = "none", shape = "none") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
