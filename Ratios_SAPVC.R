@@ -23,7 +23,7 @@ Kd_1ugL_C <- ggplot(data = subset(Elements_ratios_1ugL, Parameter %in% "C"),
   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.03)+
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 8) + 
-  labs(x = "log C (g/kg)", y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
+  labs(x = TeX(r'(log C $(g~kg^{-1})$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
   theme_bw() +
   guides(color = "none", shape = "none") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
@@ -35,12 +35,12 @@ Kd_1ugL_SAN2 <- ggplot(data = SA_PV,
                        aes(x = N2_SA, y = log_Kd, shape = compound, color = biochar), 
 ) +
   geom_point() +
-  # geom_smooth(method = "lm",
-  #             formula = y ~ x)+
+  scale_x_log10() +
   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.05)+
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 2) +
-  labs(x = "SA N2", y = expression(log~K[d]), color = "", shape = "") +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+  labs(x =TeX(r'(log SA $(m^{2}~g^{-1})$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
   theme_bw() +
   #guides(color = "none", shape = "none") +
   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
@@ -50,17 +50,17 @@ ggsave(filename="R/figs/Kd_1ugL_SAN2.pdf")
 Kd_1ugL_PVN2 <- ggplot(data = SA_PV,
                        aes(x = N2_PV, y = log_Kd, shape = compound, color = biochar), 
 ) +
+  scale_x_log10() +
   geom_point() +
-  # geom_smooth(method = "lm",
-  #             formula = y ~ x)+
   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.001)+
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 2) +
-  labs(x = "PV N2", y = expression(log~K[d]), color = "", shape = "") +
+  labs(x = TeX(r'(log PV $(cm^{3}~g^{-1})$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
   theme_bw() +
   guides(shape = "none") +
   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
-set_palette(Kd_1ugL_PVN2, "uchicago")
+Kd_1ugL_PVN2
 ggsave(filename="R/figs/Kd_1ugL_PVN2.pdf")
 
 
@@ -91,7 +91,7 @@ Kd_1ugL_SA_PV <- ggplot(data = SA_PV,
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 8) +
   scale_x_log10() +
-  labs(x = "log SA/PV", y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
+  labs(x = TeX(r'(log SA/PV $(m^{2}~cm^{-3})$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
   theme_bw() +
   #guides(color = "none", shape = "none") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
@@ -109,7 +109,7 @@ Kd_1ugL_SA_PV_C <- ggplot(data = SA_PV,
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 8) +
   scale_x_log10() +
-  labs(x = "log (SA/PV)/C", y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
+  labs(x = TeX(r'(log SA/PV $(m^{2}~cm^{-3})$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
   theme_bw() +
   guides(color = "none", shape = "none") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
