@@ -1,11 +1,4 @@
-library(data.table)
-library(ggplot2)
-library(psych)
-library(readxl)
-library(grDevices)
-library(latex2exp)
-
-pHcond <- read_excel("/Users/katinkakrahn/Library/Mobile Documents/com~apple~CloudDocs/Documents/Skole/VOW/Lab/pH_Conductivity/pH&conductivity_R.xlsx")
+pHcond <- read_excel("R/data_raw/pH_conductivity_R.xlsx")
 as.data.table(pHcond)
 pHcond <- as.data.table(pHcond)
 
@@ -20,11 +13,14 @@ pHcondSummary <- pHcond[, .(mean_ph = mean(pH),
 pHcondSummary <- pHcondSummary[order(mean_ph),]
 pHcondSummary <- pHcondSummary[,c(1,2,5,3,4)]
 target <- c("ULS", "BRL", "CWC", "ULS+S", "BRL+S", "CWC+S", "S")
-pHcondSummary <- pHcondSummary[match(target, pHcondsummary$Sample),]
+
+# Can't remember what this code did and now it's not working...
+#pHcondSummary <- pHcondSummary[match(target, pHcondsummary$Sample),]
 
 pHcond_table <- kable(pHcondSummary, "latex", digits = 2, booktabs = TRUE)
 pHcond_table
-#pH plot
+
+# pH plot ----
 pH <- ggplot(data = pHcondSummary, aes(x = reorder(Sample, mean_ph), y = mean_ph)) + 
   geom_point()+ 
   geom_errorbar(aes(ymin=mean_ph-se_ph, ymax=mean_ph+se_ph), width=.2,
@@ -34,12 +30,12 @@ pH <- ggplot(data = pHcondSummary, aes(x = reorder(Sample, mean_ph), y = mean_ph
 pH
 ggsave(filename="R/figs/pH.pdf")
 
-#cond plot
+# conductivity plot ----
 cond <- ggplot(data = pHcondSummary, aes(x = reorder(Sample,mean_cond), y = mean_cond)) + 
   geom_point() + 
   geom_errorbar(aes(ymin=mean_cond-se_cond, ymax=mean_cond+se_cond), width=.2,
                          position=position_dodge(.9)) + 
-  labs(x = "", y = TeX(r'(Conductivity $(\mu S cm^{-1})$)')) + 
+  labs(x = "", y = TeX(r'(Conductivity $(\mu S/cm)$)')) + 
   theme_bw()
 cond
 ggsave(filename = "R/figs/conductivity.pdf")

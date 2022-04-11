@@ -1,17 +1,4 @@
-library(data.table)
-library(ggplot2)
-library(psych)
-library(readxl)
-library(grDevices)
-library(dplyr)
-library(broom)
-library(ggpubr)
-library(tidyverse)
-library(knitr)
-library(scales)
-library(jcolors)
-
-Soil <- read_excel("C:/Users/KMK/OneDrive - NGI/VOW/Data/040322_soil_rawdata.xlsx")
+Soil <- read_excel("/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/040322_soil_rawdata.xlsx")
 as.data.table(Soil)
 Soil <- as.data.table(Soil)
 

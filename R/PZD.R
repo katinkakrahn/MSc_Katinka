@@ -1,4 +1,4 @@
-PZD <- read_xlsx("/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/080422_PZD.xlsx")
+PZD <- read_xlsx("R/data_raw/080422_PZD.xlsx")
 PZD <- as.data.table(PZD)
 PZD$SA_PV <- PZD$SA/PZD$PV
 PZD$SA_PV_C <- PZD$SA_PV/PZD$C
@@ -9,7 +9,6 @@ SA_all <- ggplot(data = PZD, mapping = aes(x = Pore_size, y = SA, color = Biocha
   labs(x = "Pore size (nm)", y = TeX(r'(Surface area $(m^{2} g^{-1})$)'), color = "") +
   theme_bw() +
   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
-set_palette(SA_all, "uchicago")
 
 PV_all <- ggplot(data = PZD, mapping = aes(x = Pore_size, y = PV, color = Biochar, shape = Gas)) +
   geom_point() + 
@@ -18,7 +17,6 @@ PV_all <- ggplot(data = PZD, mapping = aes(x = Pore_size, y = PV, color = Biocha
   theme_bw() +
   # guides(color = "none") +
   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
-set_palette(PV_all, "uchicago")
 
 SA_small <- ggplot(data = subset(PZD, Gas %in% "CO2"), mapping = aes(x = Pore_size, y = log10(SA), color = Biochar)) +
   geom_point(size = 4) +
@@ -92,7 +90,6 @@ SAPV_large_ULS_DSL <- ggplot(data = subset(PZD_ULS_DSL, Gas %in% "N2"), mapping 
   theme_bw() +
   # guides(color = "none") +
   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
-set_palette(SAPV_large_ULS_DSL, "uchicago")
 ggsave(filename="R/figs/SAPV_large_ULS_DSL.pdf")
 
 SAPV_C_large <- ggplot(data = subset(PZD_ULS_DSL, Gas %in% "N2"), mapping = aes(x = Pore_size, y = log10(SA_PV_C), color = Biochar)) +
@@ -105,3 +102,4 @@ SAPV_C_large <- ggplot(data = subset(PZD_ULS_DSL, Gas %in% "N2"), mapping = aes(
   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
 SAPV_C_large
 ggsave(filename="R/figs/SAPV_C_large.pdf")
+
