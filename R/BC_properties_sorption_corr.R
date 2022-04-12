@@ -174,6 +174,10 @@ Kd_1ugL_select <- Kd_1ugL %>%
 Biochar_ratios_1ugL_select <- full_join(as_tibble(Biochar_ratios), 
                                         Kd_1ugL_select, 
                                         by = "biochar")
+Biochar_ratios_1ugL <- merge(x = as_tibble(Biochar_ratios),
+                             y = as_tibble(Kd_1ugL_select), 
+                             all = TRUE,
+                             by = "biochar")
 
 Kd_1ugL_select <- merge(Kd_1ugL_select, 
                         summary_stats_single, 
@@ -292,6 +296,92 @@ Main_elements_biochar_plot <- ggplot(data = subset(Biochar, Unit %in% "g/kg"),
 Main_elements_biochar_plot
 ggsave("R/figs/Main_elements_biochar.pdf")
 
+# Pivot correlation plot SA PV Ca ----
+Biochar_ratios_labels_Ca <- as_labeller(c(
+  "Ca" = "log Ca",
+  "N2_PV" = "log PV",
+  "PVN2_Ca" = "log PV/Ca",
+  "SA_PV_Ca" = "log (SA/PV)/Ca"
+))
+
+scaleX <- function(x) sprintf("%.1f", x)
+
+Biochar_ratios_1ugL$compound <- factor(Biochar_ratios_1ugL$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
+
+Correlation_SAPV_Ca_plot <- Biochar_ratios_1ugL %>% 
+  mutate(id = row_number()) %>% 
+  select(Ca, N2_PV, PVN2_Ca, SA_PV_Ca, log_Kd, logKd_error, biochar, compound) %>%
+  pivot_longer(c(where(is.numeric), -log_Kd, -logKd_error, -compound, -biochar)) %>% 
+  ggplot(aes(
+    y = log_Kd,
+    x = log10(value),
+    color = biochar,
+    shape = compound
+  )) +
+  labs(x = NULL, y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
+  geom_errorbar(aes(ymin=log_Kd-logKd_error, 
+                    ymax=log_Kd+logKd_error), 
+                width = 0,
+                color = "grey")+
+  geom_line(aes(group = compound), color = "black") +
+  geom_point(size = 4) +
+  facet_wrap(~ name,
+             scales = "free_x",
+             labeller = Biochar_ratios_labels_Ca,
+             strip.position = "bottom") +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF")) +
+  theme_bw() +
+  theme(panel.grid = element_blank(), 
+        legend.position = "bottom", 
+        text = element_text(size = 20),
+        strip.placement = "outside",
+        strip.background = element_blank()) +
+  scale_x_continuous(labels = scaleX)
+Correlation_SAPV_Ca_plot
+ggsave("R/figs/Correlation_SAPV_Ca_plot.pdf")
+
+# Pivot correlation C ----
+
+Biochar_ratios_labels_C <- as_labeller(c(
+  "C" = "log C",
+  "SA_PV" = "log SA/PV",
+  "SA_PV_C" = "log (SA/PV)/C"
+))
+
+
+Biochar_ratios_1ugL$compound <- factor(Biochar_ratios_1ugL$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
+
+Correlation_SAPV_C_plot <- Biochar_ratios_1ugL %>% 
+  mutate(id = row_number()) %>% 
+  select(C, SA_PV, SA_PV_C, log_Kd, logKd_error, biochar, compound) %>%
+  pivot_longer(c(where(is.numeric), -log_Kd, -logKd_error, -compound, -biochar)) %>% 
+  ggplot(aes(
+    y = log_Kd,
+    x = log10(value),
+    color = biochar,
+    shape = compound
+  )) +
+  labs(x = NULL, y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
+  geom_errorbar(aes(ymin=log_Kd-logKd_error, 
+                    ymax=log_Kd+logKd_error), 
+                width = 0.05,
+                color = "grey")+
+  geom_line(aes(group = compound), color = "black") +
+  geom_point(size = 4) +
+  facet_wrap(~ name,
+             scales = "free_x",
+             labeller = Biochar_ratios_labels_C,
+             strip.position = "bottom") +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF")) +
+  theme_bw() +
+  theme(panel.grid = element_blank(), 
+        legend.position = "bottom", 
+        text = element_text(size = 20),
+        strip.placement = "outside",
+        strip.background = element_blank()) +
+  scale_x_continuous(labels = scaleX)
+Correlation_SAPV_C_plot
+ggsave("R/figs/Correlation_SAPV_C_plot.pdf")
 
 # Main elements separately ----
 Biochar_ratios_1ugL_select$compound <- factor(Biochar_ratios_1ugL_select$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
