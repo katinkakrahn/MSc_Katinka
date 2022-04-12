@@ -168,20 +168,11 @@ DSL & 700 & 110 & 0.111 & 634 & 87  & 0.027 & 3 206 & 13.5 & 61.4 & 1.05 & 0.82 
 
 The SA/PV ratio becomes important for PFAS sorption because these compound classes are quite rigid molecularly, meaning that the the perfluorinated chains are not flexible enough to adapt its shape to pore walls of any size and will not come close enough to the pore walls to sorb strongly due to steric hindrance. Additionally, molecular size increases with chain length, which makes it even more difficult for long-chain PFASs to diffuse into the smallest pores. \cref{tab:molecsize} lists effective cross-sectional diameter ($D_{eff}$) and maximum diameter ($D_{max}$) of each TC, and \cref{fig:molecularSize} illustrates the definition of these parameters. PFCAs C5-C10 range from 0.45-0.72 nm $D_{eff}$ and 0.96-1.54 nm $D_{max}$. Maximum sorption is acheived when the molecular dimensions of the PFAS congeners match the pore size and shape \citep{Hale2016}. Since the PZD within the CO\textsubscript{2}-range is dominated by pores $<$0.6 nm for CWC, ULS, and DSL, sorption of PFPeA, PFHxA, and PFHpA is only possible if the congeners enter the pores at the exact right angle, whereas PFOA, PFNA, and PFDA will experience size exclusion. This means that pores between 0.4-1.5 nm have quite limited pore space for PFAS to diffuse into, and more importantly, sorb to. Since CWC is similar in SA/PV ratio to the sludge chars and all ratios are relatively high, sorption of PFAS in small pores cannot explain the differences in sorption between biochar types, especially since the strongest sorption was observed for the long-chain PFCAs, PFOA, PFNA, and PFDA.
 
-\begin{figure}[!ht]
-\subfloat[\label{subfig:SA_small}]{%
-  \includegraphics[width=0.31\textwidth]{R/figs/SA_small.pdf}
-}
-\hfill
-\subfloat[\label{subfig:PV_small}]{%
-  \includegraphics[width=0.31\textwidth]{R/figs/PV_small.pdf}
-}
-\hfill
-\subfloat[\label{subfig:SAPV_small}]{%
-  \includegraphics[width=0.31\textwidth]{R/figs/SAPV_small.pdf}
-}
-\caption{Cumulative pore size distribution for pores 0.4-1.5 nm using DFT.}
-\label{fig:PZD_small}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{R/figs/Correlation_SAPV_small_plot.pdf}
+    \caption{Cumulative pore size distribution for pores 0.4-1.5 nm using DFT.}
+    \label{fig:PZD_small}
 \end{figure}
 
 \begin{table}
@@ -220,44 +211,24 @@ Another parameter is needed to explain why ULS is a better sorbent than DSL in t
 
 In summary, difference in sorption between CWC, DSL, and ULS can be explained by 1) difference in nanopore and micropore structure, where a higher number of large micropores signified by low SA/PV ratio is more ideal for sorption of long-chain PFASs such as PFOA, PFNA, and PFDA, and 2) a higher proportion of carbon in the pore wall matrix further enhances sorption by creating more hydrophobic sorption surfaces. Since the conclusions drawn for the sorption mechanisms contributing to PFCA sorption is based on only three biochar samples, further research within this area should test if a higher sample size comply with the suggestion that pore size size and structure is the most important determinant for sorption of organic contaminants. 
 
-\begin{figure}[!ht]
-\subfloat[\label{subfig:SA_large}]{%
-  \includegraphics[width=0.45\textwidth]{R/figs/SA_large.pdf}
-}
-\hfill
-\subfloat[\label{subfig:PV_large}]{%
-  \includegraphics[width=0.45\textwidth]{R/figs/PV_large.pdf}
-}
-\hfill
-\subfloat[\label{subfig:SAPV_large}]{%
-  \includegraphics[width=0.45\textwidth]{R/figs/SAPV_large.pdf}
-}
-\hfill
-\subfloat[\label{subfig:SAPV_C_large}]{%
-  \includegraphics[width=0.45\textwidth]{R/figs/SAPV_C_large.pdf}
-}
-\caption{Cumulative pore size distribution for pores $>$ 1.5 nm using DFT theory. (a) Surface area, (b) pore volume, (c) SA/PV ratio for pores $>$1.5 nm normalized to carbon content (g C g BC\textsuperscript{-1}). (d) A lower SA/PV/C ratio indicates a higher degree of C in the pore wall matrix.}
-\label{fig:PZD_large}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{R/figs/Correlation_SAPV_C_plot.pdf}
+    \caption{Cumulative pore size distribution for pores $>$ 1.5 nm using DFT theory. (a) Surface area, (b) pore volume, (c) SA/PV ratio for pores $>$1.5 nm normalized to carbon content (g C g BC\textsuperscript{-1}). (d) A lower SA/PV/C ratio indicates a higher degree of C in the pore wall matrix.}
+    \label{fig:PZD_large}
 \end{figure}
+
 
 \subsection{Surface chemistry}
 Based on feedstock type for the three biochars studied in this thesis, carbon content of the biochars follows the expected trend, CWC \textless ULS \textless DSL with 91.4\%, 29.6\% and 13.5\%, respectively (\cref{tab:SAPV}). Oxygen content was highest for DSL and ULS (61.4 and 57.1 \% respectively) compared to 5.5 \% for CWC. CWC has a low O/C and H/C ratio (\textless 1) whereas ULS and DSL have ratios \textgreater 1. A low H/C and O/C ratio is associated with high degree of aromaticity and few functional groups. This shows that the CWC matrix is dominated by aromatic carbon whereas ULS and DSL are dominated by oxidized carbon resulting in a more hydrophobic surface of the high-C biochar. The proportion of elements other than C, O, H and N contained in the biochar matrices is significantly lower for the clean wood biochar (1.4 \%) compared to the sludge biochars (10.9 and 23.2 \%), containing a greater mixture of other elements. Total elemental composition of the biochars is given in \cref{appSec:elements}. The results from this study is in contrast to literature \citep{Hale2016,Sormo2021,zhang2021sorption} that report that the sorption strength of organic compounds to biochar increases with decreasing biochar O/C and biochar H/C ratios. Thus, the higher sorption onto ULS and DSL cannot be explained by the sorbent composition of main elements alone.
 
-\begin{figure}[!ht]
-\subfloat[\label{subfig:Kd_C}]{%
-  \includegraphics[width=0.3\textwidth]{R/figs/Kd_1ugL_C.pdf}
-}
-\hfill
-\subfloat[\label{subfig:Kd_SAPV}]{%
-  \includegraphics[width=0.3\textwidth]{R/figs/Kd_1ugL_SA_PV.pdf}
-}
-\hfill
-\subfloat[\label{subfig:Kd_SAPVC}]{%
-  \includegraphics[width=0.3\textwidth]{R/figs/Kd_1ugL_SA_PV_C.pdf}
-}
-\caption{The correlation of $log~K_d$ vs. (a) log C (b) log SA/PV (c) log (SA/PV)/C using BET for SA and BJH for PV by biomass feedstock. Error bars are the propagated standard error.}
-\label{fig:Kd_SAPV_C}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{R/figs/Kd.pdf}
+    \caption{The correlation of $log~K_d$ vs. (a) log C (b) log SA/PV (c) log (SA/PV)/C using BET for SA and BJH for PV by biomass feedstock. Error bars are the propagated standard error.}
+    \label{fig:Kd_SAPV_C}
 \end{figure}
+
 
 \subsection{Effect of solution chemistry}
 
@@ -286,26 +257,13 @@ Previous research suggests that calcium content is an important parameter contri
 \citep{yin2022insights,du2014adsorption} effects of salinity on sorption, states sorption increases with increasing salinity because the solubility of PFAS declines when the solution increases in ionic strength, making more PFCs separated from bulk solution onto adsorbents, which is called salting-out effect . 
 
 Do I have data on \% ash for each sorbent?
-
-\begin{figure}[!ht]
-\subfloat[\label{subfig:Kd_Ca}]{%
-  \includegraphics[width=0.45\textwidth]{R/figs/Kd_1ugL_Ca.pdf}
-}
-\hfill
-\subfloat[\label{subfig:Kd_PV}]{%
-  \includegraphics[width=0.45\textwidth]{R/figs/Kd_1ugL_PVN2.pdf}
-}
-\hfill
-\subfloat[\label{subfig:Kd_PV_Ca}]{%
-  \includegraphics[width=0.45\textwidth]{R/figs/Kd_1ugL_PVN2_Ca.pdf}
-}
-\hfill
-\subfloat[\label{subfig:Kd_SAPVCa}]{%
-  \includegraphics[width=0.45\textwidth]{R/figs/Kd_1ugL_SA_PV_Ca.pdf}
-}
-\caption{The correlation of $log~K_d$ vs. (a) log Ca (b) log PV (c) log PV/Ca (d) log (SA/PV)/Ca using BET for SA and BJH for PV by biomass feedstock. Error bars are the propagated standard error.}
-\label{fig:Kd_SAPV_Ca}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{R/figs/Correlation_SAPV_Ca_plot.pdf}
+    \caption{he correlation of $log~K_d$ vs. (a) log Ca (b) log PV (c) log PV/Ca (d) log (SA/PV)/Ca using BET for SA and BJH for PV by biomass feedstock. Error bars are the propagated standard error.}
+    \label{fig:Kd_SAPV_Ca}
 \end{figure}
+
 
 Iron speciation, Synchrotron results, Inner-sphere complexes (covalent metal-ligand bonds) with Fe-carboxylate by ligand exchange \citep{gao2012adsorption}(NEED TO GET ACCESS TO ARTICLE, BUT CITED IN \citep{du2014adsorption}):
 
