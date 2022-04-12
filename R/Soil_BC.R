@@ -1,3 +1,12 @@
+# Library ----
+library(data.table)
+library(readxl)
+library(latex2exp)
+library(ggtext)
+library(scales)
+library(writexl)
+library(tidyverse)
+library(tidyverse)
 # Data manipulation ----
 Sorption_soil <- read_excel("R/data_raw/010322_sorption_rawdata_soil.xlsx")
 as.data.table(Sorption_soil)

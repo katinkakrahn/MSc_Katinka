@@ -1,3 +1,12 @@
+# Library ----
+library(data.table)
+library(readxl)
+library(latex2exp)
+library(ggtext)
+library(scales)
+library(writexl)
+library(tidyverse)
+
 # Sorption biochar water data ---- 
 Sorption <- read_excel("R/data_raw/160222_sorption_rawdata.xlsx")
 as.data.table(Sorption)

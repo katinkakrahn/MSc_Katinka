@@ -1,3 +1,4 @@
+# Not cleaned
 summary_stats_single2 <- setnames(summary_stats_single, c("compound", "biochar"), 
                                   c("Compound", "Biochar"))
 Biochar_Kd_merge <- merge(Sorption_BC_single_C3, summary_stats_single2, by = c("Compound", "Biochar"))

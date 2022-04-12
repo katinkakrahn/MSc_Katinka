@@ -1,3 +1,25 @@
+# Library ----
+library(data.table)
+library(ggplot2)
+library(psych)
+library(readxl)
+library(grDevices)
+library(dplyr)
+library(knitr)
+library(latex2exp)
+library(glue)
+library(ggtext)
+library(jcolors)
+library(plotrix)
+library(scales)
+library(writexl)
+library(ggbreak) 
+library(patchwork)
+library(scales)
+library(mapproj)
+library(tidyverse)
+
+# Ca ----
 Kd_1ugL_Ca <- ggplot(data = subset(Elements_ratios_1ugL, Parameter %in% "Ca"),
                                 aes(x = log10(Mean_sameunit), y = log_Kd, shape = compound, color = biochar), 
 ) +
@@ -5,7 +27,7 @@ Kd_1ugL_Ca <- ggplot(data = subset(Elements_ratios_1ugL, Parameter %in% "Ca"),
   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.01)+
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 2) + 
-  labs(x = TeX(r'(log Ca $(g~kg^{-1})$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
+  labs(x = TeX(r'(log Ca $(g~kg^{-1})$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
   theme_bw() +
   #guides(shape = "none") +
@@ -103,7 +125,7 @@ Kd_1ugL_PVN2 <- ggplot(data = SA_PV,
 ) +
   geom_point(size = 8) +
   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.001)+
-  labs(x = TeX(r'(log PV $(cm^{3}~g^{-1})$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
+  labs(x = TeX(r'(log PV $(cm^{3}~g^{-1})$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 2) +
@@ -120,7 +142,7 @@ Kd_1ugL_PVN2_Ca <- ggplot(data = SA_PV,
   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.005)+
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 8) +
-  labs(x = TeX(r'(log PV/Ca)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
+  labs(x = TeX(r'(log PV/Ca)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
   theme_bw() +
   #guides(color = "none", shape = "none") +
@@ -134,7 +156,7 @@ Kd_1ugL_SA_PV_Ca <- ggplot(data = SA_PV,
   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.03)+
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 8) +
-  labs(x = TeX(r'(log (SA/PV)/Ca)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g~L^{-1})$)'), color = "", shape = "") +
+  labs(x = TeX(r'(log (SA/PV)/Ca)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
   theme_bw() +
   guides(color = "none", shape = "none") +
