@@ -6,6 +6,8 @@ library(ggtext)
 library(scales)
 library(writexl)
 library(tidyverse)
+library(glue)
+library(plotrix)
 
 # Sorption biochar water data ---- 
 Sorption <- read_excel("R/data_raw/160222_sorption_rawdata.xlsx")
@@ -393,7 +395,7 @@ Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
   theme_bw() +
   theme(text = element_text(size = 16)) +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
-  theme(panel.grid = element_blank(), legend.position = "bottom") #+
+  theme(panel.grid = element_blank(), legend.position = "bottom")
 # geom_richtext(
 #   data = summary_stats_ULS_single_label,
 #   aes(label = label, x = log_Cw, y = log_Cs),
@@ -401,6 +403,30 @@ Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
 # )
 Sorption_isotherms
 ggsave(filename="R/figs/Sorption_isotherms_single_BC.pdf")
+
+Sorption_isotherms_nolabel <- ggplot(data = Sorption_BC_single) +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
+             size = 1) + 
+  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
+              formula = y ~ x, 
+              method=lm, 
+              se=T, 
+              fullrange = FALSE) + 
+  labs(x = TeX(r'($log~C_{w}~(\mu g~L^{-1})$)'), y = TeX(r'($log~C_{s}~(\mu g~kg^{-1})$)'), color = "") + 
+  facet_wrap(~Compound) +
+  #ggtitle("Freundlich linear sorption isotherms") +
+  theme_bw() +
+  theme(text = element_text(size = 35)) +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+  theme(panel.grid = element_blank(), legend.position = "bottom") +
+  guides(color = "none")
+# geom_richtext(
+#   data = summary_stats_ULS_single_label,
+#   aes(label = label, x = log_Cw, y = log_Cs),
+#   hjust = 0
+# )
+Sorption_isotherms_nolabel
+ggsave(filename="R/figs/Sorption_isotherms_single_BC_nolabel.pdf")
 
 # Summary stats of each compound ----
 summary_stats_PFPeA <- filter(summary_stats_single, compound == "PFPeA")

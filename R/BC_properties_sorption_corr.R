@@ -20,11 +20,17 @@ Biochar1 <- subset(Biochar, biochar == "CWC")
 names <- unique(Biochar1$Parameter)
 names <- as.data.table(names)
 
-Biochar_join <- inner_join(Biochar_CWC, Biochar_ULS, by = "Parameter")
-Biochar_join <- inner_join(Biochar_join, Biochar_DSL, by = "Parameter") 
-Biochar_join <- select(Biochar_join, Parameter, Mean_diffunit.x, Mean_diffunit.y, Mean_diffunit)
-Biochar_join <- setnames(Biochar_join, c("Mean_diffunit.x", "Mean_diffunit.y", "Mean_diffunit"), c("CWC", "ULS", "DSL"))
-Biochar_join_t <- setNames(data.frame(t(Biochar_join[, - 1])), Biochar_join[, 1])
+Biochar_join_t <- inner_join(Biochar_CWC, Biochar_ULS, by = "Parameter")
+Biochar_join_t <- inner_join(Biochar_join_t, Biochar_DSL, by = "Parameter")
+Biochar_join_t <- select(Biochar_join_t, Parameter, Mean_diffunit.x, Mean_diffunit.y, Mean_diffunit) %>% 
+  setnames(c("Mean_diffunit.x", 
+             "Mean_diffunit.y", 
+             "Mean_diffunit"),
+           c("CWC", 
+             "ULS", 
+             "DSL"))
+  
+Biochar_join_t <- setNames(data.frame(t(Biochar_join_t[, - 1])), Biochar_join_t[, 1])
 colnames(Biochar_join_t) <- t(names)
 
 Biochar_ratios <- Biochar_join_t %>%
@@ -42,14 +48,14 @@ Biochar_ratios <- Biochar_join_t %>%
          SA_PV_Ca = (N2_BET_SA/N2_BJH_PV)/Ca,
          SA_PV_C = (N2_BET_SA/N2_BJH_PV)/C,
          PV_C = N2_BJH_PV/C,
-         SA_C = N2_BET_SA/C)
+         SA_C = N2_BET_SA/C) %>% 
+  setnames(c("N2_BET_SA",	"N2_BJH_PV",	"CO2_DFT_SA",	"CO2_DFT_PV"), 
+           c("N2_SA2", "N2_PV",	"CO2_SA",	"CO2_PV"))
 
 Biochar_ratios <- as.data.table(Biochar_ratios, keep.rownames = T)
 setnames(Biochar_ratios, "rn", "biochar")
 write_xlsx(Biochar_ratios, "R/data_manipulated/280322_Biochar_ratios.xlsx")
-setnames(Biochar_ratios, c("C",	"Ca",	"Fe",	"N2_BET_SA",	"N2_BJH_PV",	"CO2_DFT_SA",	"CO2_DFT_PV",	"C_Ca",	"C_Fe",	"SAN2_Fe",	"SAN2_Ca",	"SACO2_Fe",	"SACO2_Ca",	"PVN2_Fe",	"PVN2_Ca",	"PVCO2_Fe",	"PVCO2_Ca"), 
-         c("C",	"Ca",	"Fe",	"N2_SA2",	"N2_PV",	"CO2_SA",	"CO2_PV",	"C_Ca",	"C_Fe",	"SAN2_Fe",	"SAN2_Ca",	"SACO2_Fe",	"SACO2_Ca",	"PVN2_Fe",	"PVN2_Ca",	"PVCO2_Fe",	"PVCO2_Ca"))
-
+as_tibble(Biochar_ratios)
 
 # Summary stats single compound isotherms ----
 Sorption <- read_excel("R/data_raw/160222_sorption_rawdata.xlsx")
@@ -170,30 +176,25 @@ Kd_1ugL <- summary_stats_single %>%
 # Kd for the compounds with isotherm within the 1 ug/L range
 Kd_1ugL_select <- Kd_1ugL %>% 
   filter(compound != "PFPeA", compound != "PFHxA", compound !="PFHpA")
+Kd_1ugL_select <- full_join(Kd_1ugL_select, 
+                            summary_stats_single, 
+                            all=FALSE, 
+                            by = c("compound", "biochar")) 
 
 Biochar_ratios_1ugL_select <- full_join(as_tibble(Biochar_ratios), 
-                                        Kd_1ugL_select, 
+                                        as_tibble(Kd_1ugL_select),
+                                        all = TRUE,
                                         by = "biochar")
-Biochar_ratios_1ugL <- merge(x = as_tibble(Biochar_ratios),
-                             y = as_tibble(Kd_1ugL_select), 
-                             all = TRUE,
-                             by = "biochar")
 
-Kd_1ugL_select <- merge(Kd_1ugL_select, 
-                        summary_stats_single, 
-                        all=FALSE, 
-                        by = c("compound", "biochar")) 
-
-
-nr_compounds2 <- length(unique(Kd_1ugL_select$compound))
-compounds2 <- unique(Kd_1ugL_select$compound)
+nr_compounds2 <- length(unique(Biochar_ratios_1ugL_select$compound))
+compounds2 <- unique(Biochar_ratios_1ugL_select$compound)
 
 # Corr_table <- data.table(r_squared = rep(0, nr_compounds2),
 #                          p_value = rep(0, nr_compounds2),
 #                          compound = compounds2)
 # 
 # for(i in 1:nr_compounds2){
-#   fit <- lm(log_Kd ~ SA_PV_C, 
+#   fit <- lm(log_Kd ~ SA_PV_C,
 #             data = Biochar_ratios_1ugL_select[compound == compounds2[i]])
 #   Corr_table[compound == compounds2[i], r_squared := summary(fit)$r.squared]
 #   Corr_table[compound == compounds2[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
@@ -209,7 +210,7 @@ Kd_1ugL_chain_length <- Kd_1ugL %>%
 
 Kd_1ugL_select$biochar <- factor(Kd_1ugL_select$biochar, levels = c("ULS", "DSL", "CWC"))
 
-Kd_1ugL_plot <- ggplot(data = Kd_1ugL_chain_length, 
+chain_length_Kd1ugL_plot <- ggplot(data = Kd_1ugL_chain_length, 
                        aes(x = nr_CF2, y = log_Kd, color = biochar)) + 
   geom_point(size = 4) + 
   geom_line(size = 1) + 
@@ -226,8 +227,8 @@ Kd_1ugL_plot <- ggplot(data = Kd_1ugL_chain_length,
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
         text = element_text(size = 16))
-Kd_1ugL_plot
-ggsave(filename="R/figs/Kd_1ugL_plot.pdf")
+chain_length_Kd1ugL_plot
+ggsave(filename="R/figs/chain_length_Kd1ugL_plot.pdf")
 
 summary_stats_1ugL_CWC <- lm(log_Kd ~ nr_CF2, data = subset(Kd_1ugL_chain_length, biochar == "CWC"))
 summary(summary_stats_1ugL_CWC)
@@ -235,24 +236,6 @@ summary_stats_1ugL_ULS <- lm(log_Kd ~ nr_CF2, data = subset(Kd_1ugL_chain_length
 summary(summary_stats_1ugL_ULS)
 summary_stats_1ugL_DSL <- lm(log_Kd ~ nr_CF2, data = subset(Kd_1ugL_chain_length, biochar == "DSL"))
 summary(summary_stats_1ugL_DSL)
-
-# Kd 1 ng/L plot (not good) ----
-Kd_1ugL_n <- merge(Kd_1ugL_chain_length, summary_stats_single, all=FALSE, by = c("compound", "biochar"))
-Kd_1ngL <- Kd_1ugL_n %>% 
-  mutate(Kd_1ngL = log_Kd+3*(1-n.x),
-         logKd_error = sqrt(log_KF_std_error.y^2+n_std_error.y^2)
-         )
-Kd_1ugL <- Kd_1ugL_n %>% 
-  mutate(logKd_error = sqrt(log_KF_std_error.y^2+n_std_error.y^2))
-
-Kd_1ngL_plot <- ggplot(data = Kd_1ngL, aes(x = nr_CF2.x, y = Kd_1ngL, color = biochar)) + 
-  geom_point(size = 4) + 
-  geom_line(size = 1) + 
-  labs(x = "", y = expression(log~K[d]~(1~ng~L^-1))) + 
-  theme_bw() +
-  theme(panel.grid = element_blank(), legend.position = "bottom")
-Kd_1ngL_plot
-ggsave(filename="R/figs/Kd_1ngL_plot.pdf")
 
 # Trace and main elements plots together ----
 Trace_elements_biochar_plot <- ggplot(data = subset(Biochar, Unit %in% "mg/kg"), 
@@ -306,12 +289,15 @@ Biochar_ratios_labels_Ca <- as_labeller(c(
 
 scaleX <- function(x) sprintf("%.1f", x)
 
-Biochar_ratios_1ugL$compound <- factor(Biochar_ratios_1ugL$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
+Biochar_ratios_1ugL_select$compound <- 
+  factor(Biochar_ratios_1ugL_select$compound, 
+         levels = c("PFOA", "PFNA", "PFDA"))
 
-Correlation_SAPV_Ca_plot <- Biochar_ratios_1ugL %>% 
+Correlation_SAPV_Ca_plot <- Biochar_ratios_1ugL_select %>% 
   mutate(id = row_number()) %>% 
   select(Ca, N2_PV, PVN2_Ca, SA_PV_Ca, log_Kd, logKd_error, biochar, compound) %>%
   pivot_longer(c(where(is.numeric), -log_Kd, -logKd_error, -compound, -biochar)) %>% 
+  drop_na() %>% 
   ggplot(aes(
     y = log_Kd,
     x = log10(value),
@@ -321,7 +307,7 @@ Correlation_SAPV_Ca_plot <- Biochar_ratios_1ugL %>%
   labs(x = NULL, y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
   geom_errorbar(aes(ymin=log_Kd-logKd_error, 
                     ymax=log_Kd+logKd_error), 
-                width = 0,
+                width = 0.01,
                 color = "grey")+
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 4) +
@@ -329,7 +315,8 @@ Correlation_SAPV_Ca_plot <- Biochar_ratios_1ugL %>%
              scales = "free_x",
              labeller = Biochar_ratios_labels_Ca,
              strip.position = "bottom") +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF")) +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
+                     values=c("#767676FF","#800000FF","#FFB547FF")) +
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
@@ -349,12 +336,15 @@ Biochar_ratios_labels_C <- as_labeller(c(
 ))
 
 
-Biochar_ratios_1ugL$compound <- factor(Biochar_ratios_1ugL$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
+Biochar_ratios_1ugL_select$compound <- 
+  factor(Biochar_ratios_1ugL_select$compound, 
+         levels = c("PFOA", "PFNA", "PFDA"))
 
-Correlation_SAPV_C_plot <- Biochar_ratios_1ugL %>% 
+SAPV_C_Kd1ugL_plot <- Biochar_ratios_1ugL_select %>% 
   mutate(id = row_number()) %>% 
   select(C, SA_PV, SA_PV_C, log_Kd, logKd_error, biochar, compound) %>%
   pivot_longer(c(where(is.numeric), -log_Kd, -logKd_error, -compound, -biochar)) %>% 
+  drop_na() %>% 
   ggplot(aes(
     y = log_Kd,
     x = log10(value),
@@ -364,7 +354,7 @@ Correlation_SAPV_C_plot <- Biochar_ratios_1ugL %>%
   labs(x = NULL, y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
   geom_errorbar(aes(ymin=log_Kd-logKd_error, 
                     ymax=log_Kd+logKd_error), 
-                width = 0.05,
+                width = 0.03,
                 color = "grey")+
   geom_line(aes(group = compound), color = "black") +
   geom_point(size = 4) +
@@ -380,100 +370,118 @@ Correlation_SAPV_C_plot <- Biochar_ratios_1ugL %>%
         strip.placement = "outside",
         strip.background = element_blank()) +
   scale_x_continuous(labels = scaleX)
-Correlation_SAPV_C_plot
-ggsave("R/figs/Correlation_SAPV_C_plot.pdf")
+SAPV_C_Kd1ugL_plot
+ggsave("R/figs/SAPV_C_Kd1ugL_plot.pdf")
+
+Kd_1ugL_SA_PV_C <- Biochar_ratios_1ugL_select %>% 
+  drop_na() %>%
+  ggplot(aes(x = log10(SA_PV_C), y = log_Kd, shape = compound, color = biochar),
+) +
+  geom_line(aes(group = compound), color = "black") +
+  geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.01)+
+  labs(x = TeX(r'(log (SA/PV)/C$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
+  geom_point(size = 8) +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+  geom_point(size = 2) +
+  theme_bw() +
+  #guides(shape = "none", color = "none") +
+  theme(panel.grid = element_blank(), legend.position = "right", text = element_text(size = 35))
+Kd_1ugL_SA_PV_C
+ggsave(filename="R/figs/Kd_1ugL_SA_PV_C.pdf")
 
 # Main elements separately ----
-Biochar_ratios_1ugL_select$compound <- factor(Biochar_ratios_1ugL_select$compound, levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
-
-Kd_1ugL_Ca <- ggplot(data = Biochar_ratios_1ugL_select,
-                     aes(x = log10(Ca), y = log_Kd, shape = compound, color = biochar), 
-) +
-  geom_point(size = 8) +
-  geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.01)+
-  geom_line(aes(group = compound), color = "black") +
-  labs(x = TeX(r'(log Ca $(g/kg)$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
-  theme_bw() +
-  guides(shape = "none") +
-  theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
-Kd_1ugL_Ca
-ggsave(filename="R/figs/Kd_1ugL_Ca.pdf")
-
-Kd_1ugL_Fe <- ggplot(data = subset(Biochar_ratios_1ugL_select),
-                     aes(x = log10(Fe), y = log_Kd, shape = compound, color = biochar), 
-) +
-  geom_point() +
-  geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.05)+
-  geom_line(aes(group = compound), color = "black") +
-  geom_point(size = 8) + 
-  labs(x = TeX(r'(log Fe $(g/kg)$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
-  guides(color = "none", shape = "none") +
-  theme_bw() +
-  theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
-Kd_1ugL_Fe
-ggsave(filename="R/figs/Kd_1ugL_Fe.pdf")
-
-Kd_1ugL_C <- ggplot(data = subset(Biochar_ratios_1ugL_select),
-                     aes(x = log10(C), y = log_Kd, shape = compound, color = biochar), 
-) +
-  geom_point() +
-  geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.005)+
-  geom_line(aes(group = compound), color = "black") +
-  geom_point(size = 8) + 
-  labs(x = TeX(r'(log C $(g/kg)$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
-  guides(color = "none", shape = "none") +
-  theme_bw() +
-  theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
-Kd_1ugL_C
-ggsave(filename="R/figs/Kd_1ugL_C.pdf")
-
-Kd_1ugL_PVN2 <- ggplot(data = subset(Biochar_ratios_1ugL_select),
-                       aes(x = log10(N2_PV), y = log_Kd, shape = compound, color = biochar), 
-) +
-  geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.005)+
-  labs(x = TeX(r'(log PV $(cm^{3}/g)$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
-  geom_point(size = 8) +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
-  geom_line(aes(group = compound), color = "black") +
-  geom_point(size = 2) +
-  theme_bw() +
-  guides(shape = "none") +
-  theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 30))
-Kd_1ugL_PVN2
-ggsave(filename="R/figs/Kd_1ugL_PVN2.pdf")
-
-Kd_1ugL_PVN2_Ca <- ggplot(data = subset(Biochar_ratios_1ugL_select),
-                       aes(x = log10(PVN2_Ca), y = log_Kd, shape = compound, color = biochar), 
-) +
-  geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.005)+
-  labs(x = TeX(r'(log PV/Ca$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
-  geom_point(size = 8) +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
-  geom_line(aes(group = compound), color = "black") +
-  geom_point(size = 2) +
-  theme_bw() +
-  guides(shape = "none") +
-  theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 30))
-Kd_1ugL_PVN2_Ca
-ggsave(filename="R/figs/Kd_1ugL_PVN2_Ca.pdf")
-
-Kd_1ugL_SA_PV_Ca <- ggplot(data = subset(Biochar_ratios_1ugL_select),
-                          aes(x = log10(SA_PV_Ca), y = log_Kd, shape = compound, color = biochar), 
-) +
-  geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.005)+
-  labs(x = TeX(r'(log (SA/PV)/Ca$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
-  geom_point(size = 8) +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
-  geom_line(aes(group = compound), color = "black") +
-  geom_point(size = 2) +
-  theme_bw() +
-  guides(shape = "none") +
-  theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 30))
-Kd_1ugL_SA_PV_Ca 
-ggsave(filename="R/figs/Kd_1ugL_SA_PV_Ca.pdf")
+# Biochar_ratios_1ugL_select$compound <- 
+#   factor(Biochar_ratios_1ugL_select$compound, 
+#          levels = c("PFOA", "PFNA", "PFDA"))
+# 
+# Kd_1ugL_Ca <- ggplot(data = Biochar_ratios_1ugL_select,
+#                      aes(x = log10(Ca), y = log_Kd, shape = compound, color = biochar), 
+# ) +
+#   geom_point(size = 8) +
+#   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.01)+
+#   geom_line(aes(group = compound), color = "black") +
+#   labs(x = TeX(r'(log Ca $(g/kg)$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
+#   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+#   theme_bw() +
+#   guides(shape = "none") +
+#   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
+# Kd_1ugL_Ca
+# ggsave(filename="R/figs/Kd_1ugL_Ca.pdf")
+# 
+# Kd_1ugL_Fe <- ggplot(data = subset(Biochar_ratios_1ugL_select),
+#                      aes(x = log10(Fe), y = log_Kd, shape = compound, color = biochar), 
+# ) +
+#   geom_point() +
+#   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.05)+
+#   geom_line(aes(group = compound), color = "black") +
+#   geom_point(size = 8) + 
+#   labs(x = TeX(r'(log Fe $(g/kg)$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
+#   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+#   guides(color = "none", shape = "none") +
+#   theme_bw() +
+#   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
+# Kd_1ugL_Fe
+# ggsave(filename="R/figs/Kd_1ugL_Fe.pdf")
+# 
+# Kd_1ugL_C <- ggplot(data = subset(Biochar_ratios_1ugL_select),
+#                      aes(x = log10(C), y = log_Kd, shape = compound, color = biochar), 
+# ) +
+#   geom_point() +
+#   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.005)+
+#   geom_line(aes(group = compound), color = "black") +
+#   geom_point(size = 8) + 
+#   labs(x = TeX(r'(log C $(g/kg)$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
+#   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+#   guides(color = "none", shape = "none") +
+#   theme_bw() +
+#   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 20))
+# Kd_1ugL_C
+# ggsave(filename="R/figs/Kd_1ugL_C.pdf")
+# 
+# Kd_1ugL_PVN2 <- ggplot(data = subset(Biochar_ratios_1ugL_select),
+#                        aes(x = log10(N2_PV), y = log_Kd, shape = compound, color = biochar), 
+# ) +
+#   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.005)+
+#   labs(x = TeX(r'(log PV $(cm^{3}/g)$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
+#   geom_point(size = 8) +
+#   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+#   geom_line(aes(group = compound), color = "black") +
+#   geom_point(size = 2) +
+#   theme_bw() +
+#   guides(shape = "none") +
+#   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 30))
+# Kd_1ugL_PVN2
+# ggsave(filename="R/figs/Kd_1ugL_PVN2.pdf")
+# 
+# Kd_1ugL_PVN2_Ca <- ggplot(data = subset(Biochar_ratios_1ugL_select),
+#                        aes(x = log10(PVN2_Ca), y = log_Kd, shape = compound, color = biochar), 
+# ) +
+#   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.005)+
+#   labs(x = TeX(r'(log PV/Ca$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
+#   geom_point(size = 8) +
+#   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+#   geom_line(aes(group = compound), color = "black") +
+#   geom_point(size = 2) +
+#   theme_bw() +
+#   guides(shape = "none") +
+#   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 30))
+# Kd_1ugL_PVN2_Ca
+# ggsave(filename="R/figs/Kd_1ugL_PVN2_Ca.pdf")
+# 
+# Kd_1ugL_SA_PV_Ca <- ggplot(data = subset(Biochar_ratios_1ugL_select),
+#                           aes(x = log10(SA_PV_Ca), y = log_Kd, shape = compound, color = biochar), 
+# ) +
+#   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.005)+
+#   labs(x = TeX(r'(log (SA/PV)/Ca$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
+#   geom_point(size = 8) +
+#   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+#   geom_line(aes(group = compound), color = "black") +
+#   geom_point(size = 2) +
+#   theme_bw() +
+#   guides(shape = "none") +
+#   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 30))
+# Kd_1ugL_SA_PV_Ca 
+# ggsave(filename="R/figs/Kd_1ugL_SA_PV_Ca.pdf")
 
 
 # Plots I don't use ----
@@ -647,3 +655,21 @@ ggsave(filename="R/figs/Kd_1ugL_SA_PV_Ca.pdf")
 #   theme(panel.grid = element_blank(), legend.position = "bottom")
 # PVN2_Ca
 # 
+# Kd 1 ng/L plot (not good) ----
+Kd_1ugL_n <- merge(Kd_1ugL_chain_length, summary_stats_single, all=FALSE, by = c("compound", "biochar"))
+Kd_1ngL <- Kd_1ugL_n %>% 
+  mutate(Kd_1ngL = log_Kd+3*(1-n.x),
+         logKd_error = sqrt(log_KF_std_error.y^2+n_std_error.y^2)
+  )
+Kd_1ugL <- Kd_1ugL_n %>% 
+  mutate(logKd_error = sqrt(log_KF_std_error.y^2+n_std_error.y^2))
+
+Kd_1ngL_plot <- ggplot(data = Kd_1ngL, aes(x = nr_CF2.x, y = Kd_1ngL, color = biochar)) + 
+  geom_point(size = 4) + 
+  geom_line(size = 1) + 
+  labs(x = "", y = expression(log~K[d]~(1~ng~L^-1))) + 
+  theme_bw() +
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+Kd_1ngL_plot
+ggsave(filename="R/figs/Kd_1ngL_plot.pdf")
+
