@@ -335,10 +335,13 @@ Biochar_ratios_labels_C <- as_labeller(c(
   "SA_PV_C" = "log (SA/PV)/C"
 ))
 
-
 Biochar_ratios_1ugL_select$compound <- 
   factor(Biochar_ratios_1ugL_select$compound, 
          levels = c("PFOA", "PFNA", "PFDA"))
+
+Biochar_ratios_1ugL_select$biochar <- 
+  factor(Biochar_ratios_1ugL_select$biochar, 
+         levels = c("ULS", "DSL", "CWC"))
 
 SAPV_C_Kd1ugL_plot <- Biochar_ratios_1ugL_select %>% 
   mutate(id = row_number()) %>% 
@@ -380,14 +383,17 @@ Kd_1ugL_SA_PV_C <- Biochar_ratios_1ugL_select %>%
   geom_line(aes(group = compound), color = "black") +
   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.01)+
   labs(x = TeX(r'(log (SA/PV)/C$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
-  geom_point(size = 8) +
+  geom_point(size = 10) +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
   geom_point(size = 2) +
   theme_bw() +
-  #guides(shape = "none", color = "none") +
-  theme(panel.grid = element_blank(), legend.position = "right", text = element_text(size = 35))
+  guides(shape = "none", color = "none") +
+  coord_fixed(ratio = 0.9) +
+  theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 40))
 Kd_1ugL_SA_PV_C
 ggsave(filename="R/figs/Kd_1ugL_SA_PV_C.pdf")
+ggsave(filename="R/figs/legend.pdf")
+
 
 # Main elements separately ----
 # Biochar_ratios_1ugL_select$compound <- 

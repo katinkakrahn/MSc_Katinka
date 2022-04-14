@@ -19,12 +19,13 @@ PZD_labels <- as_labeller(c(
   "SA" = "log SA",
   "PV" = "log PV",
   "SA_PV" = "log SA/PV",
-  "SA_PV_C" = "log (SA/PV)/C"
+  "SA_PV_C" = "log SA/PV/C"
 ))
 
 scaleX <- function(x) sprintf("%.1f", x)
+scaleY <- function(y) sprintf("%.1f", y)
 
-Correlation_SAPV_C_plot <- PZD %>% 
+PZD_SAPV_C_plot <- PZD %>% 
   filter(Gas == "N2") %>% 
   mutate(id = row_number()) %>% 
   select(SA, PV, SA_PV, SA_PV_C, Pore_size, Biochar) %>%
@@ -36,21 +37,22 @@ Correlation_SAPV_C_plot <- PZD %>%
     color = Biochar
   )) +
   labs(x = "Pore size (mm)", y = NULL, color = "", shape = "") +
-  geom_point() +
+  geom_point(size = 2) +
   facet_wrap(~ factor(name, levels=c("SA","PV","SA_PV", "SA_PV_C")),
              scales = "free_y",
              labeller = PZD_labels,
              strip.position = "left") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF")) +
   scale_x_continuous(breaks=c(1,3,5,10,20,30)) +
+  scale_y_continuous(labels = scaleY) +
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
         text = element_text(size = 30),
         strip.placement = "outside",
         strip.background = element_blank())
-Correlation_SAPV_C_plot
-ggsave("R/figs/Correlation_SAPV_C_plot.pdf")
+PZD_SAPV_C_plot
+ggsave("R/figs/PZD_SAPV_C_large.pdf")
 
 Correlation_SAPV_C_plot_nolabel <- PZD %>% 
   filter(Gas == "N2") %>% 
@@ -64,18 +66,19 @@ Correlation_SAPV_C_plot_nolabel <- PZD %>%
     color = Biochar
   )) +
   labs(x = "Pore size (mm)", y = NULL, color = "", shape = "") +
-  geom_point() +
+  geom_point(size = 2) +
   facet_wrap(~ factor(name, levels=c("SA","PV","SA_PV", "SA_PV_C")),
              scales = "free_y",
              labeller = PZD_labels,
              strip.position = "left") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF")) +
   scale_x_continuous(breaks=c(1,3,5,10,20,30)) +
+  scale_y_continuous(labels = scaleY) +
   theme_bw() +
   guides(color = "none") +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
-        text = element_text(size = 35),
+        text = element_text(size = 40),
         strip.placement = "outside",
         strip.background = element_blank())
 Correlation_SAPV_C_plot_nolabel

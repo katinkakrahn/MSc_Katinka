@@ -404,19 +404,28 @@ Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
 Sorption_isotherms
 ggsave(filename="R/figs/Sorption_isotherms_single_BC.pdf")
 
-Sorption_isotherms_nolabel <- ggplot(data = Sorption_BC_single) +
+Sorption_isotherms_nolabel <- as_tibble(Sorption_BC_single) %>% 
+  mutate(Compound = recode(Compound,
+                           "PFPeA" = "PFPeA (C5)",
+                           "PFHxA" = "PFHxA (C6)",
+                           "PFHpA" = "PFHpA (C7)",
+                           "PFOA" = "PFOA (C8)",
+                           "PFNA" = "PFNA (C9)",
+                           "PFDA" = "PFDA (C10)")) %>%  
+  ggplot() +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
-             size = 1) + 
+             size = 2) + 
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
               formula = y ~ x, 
               method=lm, 
-              se=T, 
-              fullrange = FALSE) + 
+              se=F, 
+              fullrange = FALSE,
+              size = 2) + 
   labs(x = TeX(r'($log~C_{w}~(\mu g~L^{-1})$)'), y = TeX(r'($log~C_{s}~(\mu g~kg^{-1})$)'), color = "") + 
   facet_wrap(~Compound) +
   #ggtitle("Freundlich linear sorption isotherms") +
   theme_bw() +
-  theme(text = element_text(size = 35)) +
+  theme(text = element_text(size = 40)) +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
   theme(panel.grid = element_blank(), legend.position = "bottom") +
   guides(color = "none")
@@ -476,7 +485,6 @@ PFPeA_facet_isotherm <- ggplot(data = PFPeA_sorption_single) +
   theme_bw() +
   guides(color = "none")
 PFPeA_facet_isotherm
-ggsave(filename="R/figs/PFPeA_facet_isotherm.pdf")
 
 # PFHxA ----
 PFHxA_isotherm <- ggplot(data = PFHxA_sorption_single) +
@@ -509,7 +517,6 @@ PFHxA_facet_isotherm <- ggplot(data = PFHxA_sorption_single) +
   theme_bw() +
   guides(color = "none")
 PFHxA_facet_isotherm
-ggsave(filename="R/figs/PFHxA_facet_isotherm.pdf")
 
 # PFHpA ----
 PFHpA_isotherm <- ggplot(data = PFHpA_sorption_single) +
@@ -542,7 +549,6 @@ PFHpA_facet_isotherm <- ggplot(data = PFHpA_sorption_single) +
   theme_bw() +
   guides(color = "none")
 PFHpA_facet_isotherm
-ggsave(filename="R/figs/PFHpA_facet_isotherm.pdf")
 
 # PFOA ----
 old <- c("Ci_(ug/L)", "Cw_(ug/L)", "Cs_(ug/kg)")
