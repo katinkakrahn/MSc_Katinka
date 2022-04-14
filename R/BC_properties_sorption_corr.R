@@ -322,11 +322,11 @@ Correlation_SAPV_Ca_plot <- Biochar_ratios_1ugL_select %>%
         legend.position = "bottom", 
         text = element_text(size = 20),
         strip.placement = "outside",
-        strip.background = element_blank()) +
-  scale_x_continuous(labels = scaleX)
+        strip.background = element_blank())
 Correlation_SAPV_Ca_plot
 ggsave("R/figs/Correlation_SAPV_Ca_plot.pdf")
 
+?scale_x_continuous
 # Pivot correlation C ----
 
 Biochar_ratios_labels_C <- as_labeller(c(

@@ -15,36 +15,38 @@ PZD$SA_PV_C <- PZD$SA_PV/PZD$C
 
 
 # Pivot PZD ----
-PZD_labels <- as_labeller(c(
-  "SA" = "log SA",
-  "PV" = "log PV",
-  "SA_PV" = "log SA/PV",
-  "SA_PV_C" = "log SA/PV/C"
-))
-
 scaleX <- function(x) sprintf("%.1f", x)
-scaleY <- function(y) sprintf("%.1f", y)
+scaleY <- function(y) sprintf("%.0f", y)
 
-PZD_SAPV_C_plot <- PZD %>% 
+PZD_label <- PZD %>% 
+  mutate(SA_PV = log10(SA_PV),
+         SA_PV_C = log10(SA_PV_C)) %>% 
   filter(Gas == "N2") %>% 
   mutate(id = row_number()) %>% 
   select(SA, PV, SA_PV, SA_PV_C, Pore_size, Biochar) %>%
   pivot_longer(c(where(is.numeric), -Biochar, -Pore_size)) %>% 
-  filter(name != "SA_PV_C" | Biochar != "CWC") %>% 
+  filter(name != "SA_PV_C" | Biochar != "CWC")
+
+PZD_label$name <- factor(PZD_label$name,
+                         levels = c("SA","PV","SA_PV", "SA_PV_C"),
+                         labels = c("SA~(m^2/g)", "PV~(cm^3/g)", "log~SA/PV", "log~SA/PV/C"))
+
+PZD_SAPV_C_plot <- PZD_label %>% 
   ggplot(aes(
-    y = log10(value),
+    y = value,
     x = Pore_size,
     color = Biochar
   )) +
   labs(x = "Pore size (mm)", y = NULL, color = "", shape = "") +
   geom_point(size = 2) +
-  facet_wrap(~ factor(name, levels=c("SA","PV","SA_PV", "SA_PV_C")),
+  facet_wrap(.~ name,
              scales = "free_y",
-             labeller = PZD_labels,
+             labeller = label_parsed,
              strip.position = "left") +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF")) +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
+                     values=c("#767676FF","#800000FF","#FFB547FF")) +
   scale_x_continuous(breaks=c(1,3,5,10,20,30)) +
-  scale_y_continuous(labels = scaleY) +
+  scale_y_continuous() +
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
@@ -54,26 +56,22 @@ PZD_SAPV_C_plot <- PZD %>%
 PZD_SAPV_C_plot
 ggsave("R/figs/PZD_SAPV_C_large.pdf")
 
-Correlation_SAPV_C_plot_nolabel <- PZD %>% 
-  filter(Gas == "N2") %>% 
-  mutate(id = row_number()) %>% 
-  select(SA, PV, SA_PV, SA_PV_C, Pore_size, Biochar) %>%
-  pivot_longer(c(where(is.numeric), -Biochar, -Pore_size)) %>% 
-  filter(name != "SA_PV_C" | Biochar != "CWC") %>% 
+PZD_SAPV_C_plot_nolabel <- PZD_label %>% 
   ggplot(aes(
-    y = log10(value),
+    y = value,
     x = Pore_size,
     color = Biochar
   )) +
   labs(x = "Pore size (mm)", y = NULL, color = "", shape = "") +
   geom_point(size = 2) +
-  facet_wrap(~ factor(name, levels=c("SA","PV","SA_PV", "SA_PV_C")),
+  facet_wrap(.~ name,
              scales = "free_y",
-             labeller = PZD_labels,
+             labeller = label_parsed,
              strip.position = "left") +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF")) +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
+                     values=c("#767676FF","#800000FF","#FFB547FF")) +
   scale_x_continuous(breaks=c(1,3,5,10,20,30)) +
-  scale_y_continuous(labels = scaleY) +
+  scale_y_continuous() +
   theme_bw() +
   guides(color = "none") +
   theme(panel.grid = element_blank(), 
@@ -81,45 +79,46 @@ Correlation_SAPV_C_plot_nolabel <- PZD %>%
         text = element_text(size = 40),
         strip.placement = "outside",
         strip.background = element_blank())
-Correlation_SAPV_C_plot_nolabel
-ggsave("R/figs/Correlation_SAPV_C_plot_nolabel.pdf")
+PZD_SAPV_C_plot_nolabel
+ggsave("R/figs/PZD_SAPV_C_plot_nolabel.pdf")
 
 # Small pores
-PZD_labels <- as_labeller(c(
-  "SA" = "log SA",
-  "PV" = "log PV",
-  "SA_PV" = "log SA/PV",
-  "SA_PV_C" = "log (SA/PV)/C"
-))
-
-scaleXS <- function(x) sprintf("%.2f", x)
-
-Correlation_SAPV_small_plot <- PZD %>% 
+PZD_label_small <- PZD %>% 
+  mutate(SA_PV = log10(SA_PV)) %>% 
   filter(Gas == "CO2") %>% 
   mutate(id = row_number()) %>% 
   select(SA, PV, SA_PV, Pore_size, Biochar) %>%
   pivot_longer(c(where(is.numeric), -Biochar, -Pore_size)) %>% 
+  filter(name != "SA_PV_C" | Biochar != "CWC") 
+
+PZD_label_small$name <- factor(PZD_label_small$name,
+                               levels = c("SA","PV","SA_PV"),
+                               labels = c("SA~(m^2/g)", "PV~(cm^3/g)", "log~SA/PV"))
+
+PZD_SAPV_C_small_plot <- PZD_label_small %>% 
   ggplot(aes(
-    y = log10(value),
+    y = value,
     x = Pore_size,
     color = Biochar
   )) +
   labs(x = "Pore size (mm)", y = NULL, color = "", shape = "") +
-  geom_point() +
-  facet_wrap(~ factor(name, levels=c("SA","PV","SA_PV")),
+  geom_point(size = 2) +
+  facet_wrap(.~ name,
              scales = "free_y",
-             labeller = PZD_labels,
+             labeller = label_parsed,
              strip.position = "left") +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF")) +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
+                     values=c("#767676FF","#800000FF","#FFB547FF")) +
+  scale_x_continuous(breaks=c(1,3,5,10,20,30)) +
+  scale_y_continuous() +
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
-        text = element_text(size = 20),
+        text = element_text(size = 30),
         strip.placement = "outside",
-        strip.background = element_blank()) +
-  scale_x_continuous(labels = scaleXS)
-Correlation_SAPV_small_plot
-ggsave("R/figs/Correlation_SAPV_small_plot.pdf")
+        strip.background = element_blank())
+PZD_SAPV_C_small_plot
+ggsave("R/figs/PZD_SAPV_C_small_plot.pdf")
 
 # Individual plots ----
 SA_all <- ggplot(data = PZD, mapping = aes(x = Pore_size, y = SA, color = Biochar, shape = Gas)) +
