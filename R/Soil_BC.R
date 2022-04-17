@@ -5,325 +5,211 @@ library(latex2exp)
 library(ggtext)
 library(scales)
 library(writexl)
+library(broom)
 library(tidyverse)
-library(tidyverse)
+library(knitr)
+library(moderndive)
+
 # Data manipulation ----
-Sorption_soil <- read_excel("R/data_raw/010322_sorption_rawdata_soil.xlsx")
-as.data.table(Sorption_soil)
-Sorption_soil <- as.data.table(Sorption_soil)
+Sorption_soil <- read_excel("R/data_raw/010322_sorption_rawdata_soil.xlsx") %>% 
+  mutate(BClogic = if_else(Biochar == "no",
+                 TRUE,
+                 FALSE))
 
 Sorption_soil$SoilLogic <- as.logical(Sorption_soil$Soil_binary)
 Sorption_soil$mixLogic <- as.logical(Sorption_soil$mix_binary)
-Sorption_soil <- subset(Sorption_soil,select = -c(Soil_binary,mix_binary))
+Sorption_soil$isothermLogic <- as.logical(Sorption_soil$isotherm_binary)
+Sorption_soil <- subset(Sorption_soil,
+                        select = -c(Soil_binary,mix_binary,isotherm_binary))
 Sorption_soil <- Sorption_soil %>%
-  mutate(Kd = Cs/Cw, log_Kd = log10(Cs/Cw))
-Sorption_BC_BS <- kable(Sorption_soil, "latex", booktabs = TRUE, digits = 2)
+  drop_na(log_Cs) %>% 
+  select(-c(V_w, m_tot, m_aq, M_s, M_bc, y)) %>% 
+  mutate(Kd = Cs/Cw, 
+         log_Kd = log10(Cs/Cw))
 
-# Subset biochar and cocktail/single compound, change from Sorption_soil to Sorption_soil_NAomit when data is updated
-Sorption_soil_NAomit <- na.omit(Sorption_soil)
+Sorption_soil_summary <- Sorption_soil %>% 
+  drop_na(log_Cs) %>% 
+  filter(Compound != "PFPeA") %>% 
+  group_by(mixLogic, BClogic, Biochar, Compound) %>% 
+  summarise(K_ds_mean = mean(K_ds),
+            log_Kds_mean = log10(mean(K_ds)),
+            sd_Kds= sd(K_ds),
+            Kd_mean = mean(Kd),
+            log_Kd_mean = log10(mean(Kd)),
+            sd_Kd = sd(Kd),
+            n = n(),
+            se_Kd = sd_Kd / sqrt(n),
+            se_Kds = sd_Kds / sqrt(n)
+            )
 
-Sorption_soil_blank <- subset(Sorption_soil, Biochar == "no") 
-Sorption_soil_blank_summary <- Sorption_soil_blank[, .(K_ds = mean(K_ds), 
-                                                       log_Kds = log10(mean(K_ds)),
-                                                       se_K_ds = std.error(K_ds),
-                                                       se_logKds = std.error(log10(K_ds))
-                                                       ),
-                                                   keyby = .(Compound, mixLogic)]
+write_xlsx(Sorption_soil_summary,"R/data_manipulated/010322_sorption_soil_summary.xlsx")
 
-write_xlsx(Sorption_soil_blank_summary,"R/data_manipulated/010322_sorption_soil_blank_summary.xlsx")
-
-Sorption_soil_blank_mix <- subset(Sorption_soil_blank, mixLogic == TRUE)
-Sorption_soil_blank_PFOA <- subset(Sorption_soil_blank, mixLogic == FALSE)
-Sorption_soil_BC <- Sorption_soil_NAomit[Biochar != 'no'] 
-Sorption_soil_BC_PFOA <- subset(Sorption_soil_BC, mixLogic == FALSE) 
-Sorption_soil_BC_mix <- subset(Sorption_soil_BC, mixLogic == TRUE)
-
-CWC_soil_mix <- filter(Sorption_soil_BC_mix, Biochar == "CWC")
-ULS_soil_mix <- filter(Sorption_soil_BC_mix, Biochar == "ULS")
-DSL_soil_mix <- filter(Sorption_soil_BC_mix, Biochar == "DSL")
-
-CWC_soil_PFOA <- filter(Sorption_soil_BC_PFOA, Biochar == "CWC")
-ULS_soil_PFOA <- filter(Sorption_soil_BC_PFOA, Biochar == "ULS")
-DSL_soil_PFOA <- filter(Sorption_soil_BC_PFOA, Biochar == "DSL")
+Sorption_soil_summary$Compound <- 
+  factor(Sorption_soil_summary$Compound, 
+         levels = c("PFPeA", 
+                    "PFHxA", 
+                    "PFHpA", 
+                    "PFOA", 
+                    "PFNA", 
+                    "PFDA")
+         )
 
 Sorption <- read_excel("R/data_raw/160222_sorption_rawdata.xlsx")
-as.data.table(Sorption)
-Sorption <- as.data.table(Sorption)
 
-nr_compounds <- length(unique(Sorption$Compound))
-compounds <- unique(Sorption$Compound)
-nr_biochars <- length(unique(Sorption$Biochar))
-biochars <- unique(Sorption$Biochar)
+#Convert 1 and 0 to TRUE and FALSE and delete integer columns
+Sorption$SoilLogic <- as.logical(Sorption$Soil_binary)
+Sorption$mixLogic <- as.logical(Sorption$mix_binary)
+Sorption$isothermLogic <- as.logical(Sorption$isotherm_binary)
+Sorption <- select(Sorption, -Soil_binary, -mix_binary, -isotherm_binary)
 
-Sorption_soil_blank_summary_NAomit <- na.omit(Sorption_soil_blank_summary)
+# Subset biochar and cocktail/single compound
+Sorption_NAomit <- na.omit(Sorption)
+Sorption_NA_C1omit <- Sorption_NAomit %>% 
+  filter(Conc_point != 1) %>% 
+  mutate(Kd = Cs/Cw, log_Kd = log10(Cs/Cw),
+         BClogic = FALSE)
 
-# Soil blank ----
-Sorption_soil_blank_summary_NAomit$Compound <- factor(Sorption_soil_blank_summary_NAomit$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                              "PFOA", "PFNA", "PFDA"))
+Soil_BC_join <- full_join(Sorption_NA_C1omit, Sorption_soil)
 
-SoilBlankKd <- ggplot(data = Sorption_soil_blank_summary_NAomit, aes(x = Compound, y = log_Kds, color = mixLogic)) + 
-  geom_point()+ 
-  geom_errorbar(aes(ymin=log_Kds-se_logKds, ymax=log_Kds+se_logKds), width = .1) + 
-  labs(x = "", y = expression(log~K[d]), col = "") + 
-  scale_color_manual(
-    values = c('black','grey60'),
-    breaks = c("TRUE", "FALSE"),
-    labels = c("cocktail", "single compound")
-  ) +
-  theme_bw()
-SoilBlankKd
-ggsave(filename="R/figs/SoilBlankKd.pdf")
-#cannot compare Kds like in this plot.
+Soil_BC_join_triplicate_mean <- Soil_BC_join %>%
+  filter(isothermLogic == FALSE) %>% 
+  group_by(Biochar, Compound, SoilLogic, mixLogic, isothermLogic, BClogic, Conc_point, type) %>% 
+  summarise(Cw_sd = sd(Cw),
+            Cs_sd = sd(Cs),
+            Kd_sd = sqrt(Cw_sd^2+Cs_sd^2),
+            Kd = mean(Kd),
+            Cw = mean(Cw),
+            Cs = mean(Cs),
+            log_Kd = log10(mean(Kd)),
+            log_Kd_sd = log10(sqrt(Cw_sd^2+Cs_sd^2)),
+            n = n())
 
-Sorption_soil_blank_mix$Compound <- factor(Sorption_soil_blank_mix$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                                                        "PFOA", "PFNA", "PFDA"))
+Soil_BC_join_isotherm <- Soil_BC_join %>%
+  filter(isothermLogic == TRUE)
 
-Sorption_soil_blank_mix_points <- ggplot(data = Sorption_soil_blank_mix) + 
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)))+ 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Compound", title = "Soil blank cocktail triplicates") + 
-  theme_bw()
-Sorption_soil_blank_mix_points
+Soil_BC_join <- full_join(Soil_BC_join_triplicate_mean, Soil_BC_join_isotherm)
 
-# CWC soil cocktail ----
+Soil_BC_join$Compound <- 
+  factor(Soil_BC_join$Compound, 
+         levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
 
-#CWC facet soil mix: no results, all NAs
-# compounds2 <- unique(CWC_soil_mix$Compound)
-# 
-# 
-# summary_stats_CWC_soil_mix <- data.table(K_F = rep(0, nr_compounds-1), 
-#                                        K_F_std_error = rep(0, nr_compounds-1),
-#                                        n = rep(0, nr_compounds-1),
-#                                        n_std_error = rep(0, nr_compounds-1),
-#                                        r_squared = rep(0, nr_compounds-1),
-#                                        residual_std_error = rep(0, nr_compounds-1),
-#                                        p_value = rep(0, nr_compounds-1),
-#                                        compound = compounds2,
-#                                        biochar = "CWC")
-# 
-# for(i in 1:(nr_compounds-1)){
-#   fit <- lm(log_Cs ~ log_Cw, data = CWC_soil_mix[Compound == compounds2[i]])
-#   summary_stats_CWC_soil_mix[compound == compounds2[i], K_F := fit$coefficients[1]]
-#   summary_stats_CWC_soil_mix[compound == compounds2[i], K_F_std_error := summary(fit)$coefficients[1,2]]
-#   summary_stats_CWC_soil_mix[compound == compounds2[i], n := fit$coefficients[2]]
-#   summary_stats_CWC_soil_mix[compound == compounds2[i], n_std_error := summary(fit)$coefficients[2,2]]
-#   summary_stats_CWC_soil_mix[compound == compounds2[i], r_squared := summary(fit)$r.squared]
-#   summary_stats_CWC_soil_mix[compound == compounds2[i], residual_std_error := summary(fit)$sigma]
-#   summary_stats_CWC_soil_mix[compound == compounds2[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
-#                                                          summary(fit)$fstatistic[3],lower.tail=F)]
-# }
-CWC_soil_mix$Compound <- factor(CWC_soil_mix$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                                  "PFOA", "PFNA", "PFDA"))
+Soil_BC_join$type <- 
+  factor(Soil_BC_join$type, 
+         levels = c("BC_sing", "BC_S_sing", "BC_S_mix", "BC_mix"))
 
-CWC_isotherm_soil_mix <- ggplot(data = CWC_soil_mix) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound))) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Compound", title = "CWC soil cocktail isotherm") + 
-  theme_bw()
-CWC_isotherm_soil_mix
 
-# ULS soil cocktail ---- 
-
-# ULS facet soil mix
-ULS_soil_mix <- filter(ULS_soil_mix, Compound != "PFPeA")
-compounds2 <- unique(ULS_soil_mix$Compound)
-summary_stats_ULS_soil_mix <- data.table(K_F = rep(0, nr_compounds-2), 
-                                         K_F_std_error = rep(0, nr_compounds-2),
-                                         n = rep(0, nr_compounds-2),
-                                         n_std_error = rep(0, nr_compounds-2),
-                                         r_squared = rep(0, nr_compounds-2),
-                                         residual_std_error = rep(0, nr_compounds-2),
-                                         p_value = rep(0, nr_compounds-2),
-                                         compound = compounds2,
-                                         biochar = "ULS")
-
-for(i in 1:(nr_compounds-2)){
-  fit <- lm(y ~ log_Cw, data = ULS_soil_mix[Compound == compounds2[i]])
-  summary_stats_ULS_soil_mix[compound == compounds2[i], K_F := fit$coefficients[1]]
-  summary_stats_ULS_soil_mix[compound == compounds2[i], K_F_std_error := summary(fit)$coefficients[1,2]]
-  summary_stats_ULS_soil_mix[compound == compounds2[i], n := fit$coefficients[2]]
-  summary_stats_ULS_soil_mix[compound == compounds2[i], n_std_error := summary(fit)$coefficients[2,2]]
-  summary_stats_ULS_soil_mix[compound == compounds2[i], r_squared := summary(fit)$r.squared]
-  summary_stats_ULS_soil_mix[compound == compounds2[i], residual_std_error := summary(fit)$sigma]
-  summary_stats_ULS_soil_mix[compound == compounds2[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
-                                                                      summary(fit)$fstatistic[3],lower.tail=F)]
-}
-
-ULS_soil_mix$Compound <- factor(ULS_soil_mix$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                                  "PFOA", "PFNA", "PFDA"))
-ULS_isotherm_soil_mix <- ggplot(data = ULS_soil_mix) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound))) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Compound", title = "ULS soil cocktail isotherm") + 
-  theme_bw()
-ULS_isotherm_soil_mix
-
-# DSL soil cocktail ----
-#DSL facet soil mix
-DSL_soil_mix <- filter(DSL_soil_mix, Compound == "PFDA")
-compounds3 <- unique(DSL_soil_mix$Compound)
-
-summary_stats_DSL_soil_mix <- data.table(K_F = rep(0, nr_compounds-5), 
-                                         K_F_std_error = rep(0, nr_compounds-5),
-                                         n = rep(0, nr_compounds-5),
-                                         n_std_error = rep(0, nr_compounds-5),
-                                         r_squared = rep(0, nr_compounds-5),
-                                         residual_std_error = rep(0, nr_compounds-5),
-                                         p_value = rep(0, nr_compounds-5),
-                                         compound = compounds3,
-                                         biochar = "DSL")
-
-for(i in 1:(nr_compounds-5)){
-  fit <- lm(y ~ log_Cw, data = DSL_soil_mix[Compound == compounds3[i]])
-  summary_stats_DSL_soil_mix[compound == compounds3[i], K_F := fit$coefficients[1]]
-  summary_stats_DSL_soil_mix[compound == compounds3[i], K_F_std_error := summary(fit)$coefficients[1,2]]
-  summary_stats_DSL_soil_mix[compound == compounds3[i], n := fit$coefficients[2]]
-  summary_stats_DSL_soil_mix[compound == compounds3[i], n_std_error := summary(fit)$coefficients[2,2]]
-  summary_stats_DSL_soil_mix[compound == compounds3[i], r_squared := summary(fit)$r.squared]
-  summary_stats_DSL_soil_mix[compound == compounds3[i], residual_std_error := summary(fit)$sigma]
-  summary_stats_DSL_soil_mix[compound == compounds3[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
-                                                                      summary(fit)$fstatistic[3],lower.tail=F)]
-}
-
-DSL_PFDA_soil_plot <- ggplot(data = DSL_soil_mix) +
-  geom_point(mapping = aes(x = log_Cw, y = y)) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = y), 
+# Attenuation all combinations ----
+Attenuation <- Soil_BC_join %>% 
+  filter(Biochar != "no") %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = log10(Cw), 
+                           y = log10(Cs),
+                           color = type),
+             alpha = 0.7) + 
+  geom_smooth(mapping = aes(x = log10(Cw), 
+                            y = log10(Cs), 
+                            color = type), 
               formula = y ~ x, 
               method=lm, 
-              se=FALSE, 
-              colour = "grey", 
-              size = 0.5,
-              data = DSL_soil_mix
+              se=F, fullrange = FALSE) + 
+  facet_grid(rows = vars(Biochar),
+             cols = vars(Compound)) +
+  labs(x = TeX(r'($log~C_{w}~(\mu g/L)$)'), 
+       y = TeX(r'($log~C_{s}~(\mu g/g)$)'),
+       color = "",
   ) +
-  labs(x = expression(log~C[w]), y = expression(log~C[s]~modified)) + 
-  #ggtitle("DSL PFDA isotherm") +
+  scale_color_brewer(palette = "Paired",
+                     labels = c("BC single", 
+                                "BC soil single", 
+                                "BC soil cocktail",
+                                "BC cocktail (n=3)")) +
   theme_bw() +
-  theme(panel.grid = element_blank()) #+
-  # geom_richtext(
-  #   data = summary_stats_CWC_single_label,
-  #   aes(label = label, x = log_Cw, y = log_Cs),
-  #   hjust = 0
-  # )
-DSL_PFDA_soil_plot
-ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
+  theme(panel.grid = element_blank(),
+        legend.position = "bottom",
+        text = element_text(size = 12)
+        )
+Attenuation
+ggsave(filename = "R/figs/Attenuation.pdf")
+# Can choose to have triplicate points as triplicates or as mean point (but then error bars become an issue)
 
-DSL_soil_mix$Compound <- factor(DSL_soil_mix$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                                  "PFOA", "PFNA", "PFDA"))
+# Attenuation at C10
+Soil_BC_join$Compound <- 
+  factor(Soil_BC_join$Compound, 
+         levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
 
-DSL_isotherm_soil_mix <- ggplot(data = DSL_soil_mix) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound))) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Compound)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Compound", title = "DSL soil cocktail isotherm") + 
-  theme_bw()
-DSL_isotherm_soil_mix
+Soil_BC_join$Biochar <- 
+  factor(Soil_BC_join$Biochar, 
+         levels = c("no", "CWC", "DSL", "ULS"))
 
-# PFOA soil ----
-#PFOA soil summary statistics
-summary_stats_PFOA_soil <- data.table(K_F = rep(0, nr_biochars), 
-                                         K_F_std_error = rep(0, nr_biochars),
-                                         n = rep(0, nr_biochars),
-                                         n_std_error = rep(0, nr_biochars),
-                                         r_squared = rep(0, nr_biochars),
-                                         residual_std_error = rep(0, nr_biochars),
-                                         p_value = rep(0, nr_biochars),
-                                      biochar = biochars,
-                                         compound = "PFOA")
+Soil_BC_join$type <- 
+  factor(Soil_BC_join$type, 
+         levels = c("BC_sing", "BC_S_sing", "BC_S_mix", "BC_mix", "S_sing", "S_mix"))
 
-for(i in 1:(nr_biochars)){
-  fit <- lm(log_Cs ~ log_Cw, data = Sorption_soil_BC_PFOA[Biochar == biochars[i]])
-  summary_stats_PFOA_soil[biochar == biochars[i], K_F := fit$coefficients[1]]
-  summary_stats_PFOA_soil[biochar == biochars[i], K_F_std_error := summary(fit)$coefficients[1,2]]
-  summary_stats_PFOA_soil[biochar == biochars[i], n := fit$coefficients[2]]
-  summary_stats_PFOA_soil[biochar == biochars[i], n_std_error := summary(fit)$coefficients[2,2]]
-  summary_stats_PFOA_soil[biochar == biochars[i], r_squared := summary(fit)$r.squared]
-  summary_stats_PFOA_soil[biochar == biochars[i], residual_std_error := summary(fit)$sigma]
-  summary_stats_PFOA_soil[biochar == biochars[i], p_value := pf(summary(fit)$fstatistic[1],summary(fit)$fstatistic[2],
-                                                                      summary(fit)$fstatistic[3],lower.tail=F)]
-}
+C10 <- Soil_BC_join %>% 
+  filter(Conc_point == 10) %>%
+  ggplot(aes(x = Biochar,
+             y = log10(Kd),
+             color = type
+  )) +
+  geom_point(size = 3,
+             alpha = 0.7) +
+  facet_wrap(~ Compound) +
+  labs(x = "", 
+       y = TeX(r'($log~K_{d}~(L/kg)$)'),
+       color = "",
+  ) +
+  scale_color_brewer(palette = "Paired",
+                     labels = c("BC single", 
+                                "BC soil single", 
+                                "BC soil cocktail",
+                                "BC cocktail (n=3)",
+                                "Soil single (n=3)",
+                                "Soil cocktail (n=3)")) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "bottom",
+        text = element_text(size = 12))
+C10
+ggsave(filename = "R/figs/C10.pdf")
 
-
-
-#PFOA soil isotherm
-summary_stats_PFOA_soil_label <- summary_stats_PFOA_soil %>%
-  mutate(
-    log_Cw = 2.5, log_Cs = 4.9,
-    label =
-      glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(K_F, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
-  )
-
-summary_stats_PFOA_soil_label <- summary_stats_PFOA_soil_label |>
-  transform(Biochar = biochar)
-
-facetPFOA_soil <- Sorption_soil_BC_PFOA |>
-  transform(pre_biochar = Biochar)
-
-facetPFOA_soil <- rbind(
-  transform(facetPFOA_soil, Biochar = unique(Sorption_soil_BC_PFOA$Biochar)[1]),
-  transform(facetPFOA_soil, Biochar = unique(Sorption_soil_BC_PFOA$Biochar)[2]),
-  transform(facetPFOA_soil, Biochar = unique(Sorption_soil_BC_PFOA$Biochar)[3])
-)
-
-Sorption_soil_BC_PFOA$Biochar <- factor(Sorption_soil_BC_PFOA$Biochar, levels = c("CWC", "DSL", "ULS"))
-facetPFOA_soil$Biochar <- factor(facetPFOA_soil$Biochar, levels = c("CWC", "DSL", "ULS"))
-summary_stats_PFOA_soil_label$Biochar <- factor(summary_stats_PFOA_soil_label$Biochar, levels = c("CWC", "DSL", "ULS"))
-
-
-PFOA_facet_soil_isotherm <- ggplot(data = Sorption_soil_BC_PFOA) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar)), color = "gray45", size = 1) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_biochar), formula = y ~ x, method=lm, se=FALSE, colour = "grey", size = 0.5,
-              data = facetPFOA_soil) +
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
-  ggtitle("PFOA soil") +
+# PFOA soil isotherm and BC isotherm ----
+PFOA_isotherm_attenuation <- Soil_BC_join %>% 
+  filter(Compound == "PFOA",
+         Biochar != "no",
+         mixLogic == FALSE) %>% 
+  group_by(SoilLogic, Biochar) %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = SoilLogic),
+                           size = 1) + 
+  geom_smooth(mapping = aes(x = log_Cw, 
+                            y = log_Cs, 
+                            color = SoilLogic), 
+              formula = y ~ x, 
+              method=lm, 
+              se=F, fullrange = FALSE) + 
+  labs(x = TeX(r'($log~C_{w}~(\mu g/L)$)'), 
+       y = TeX(r'($log~C_{s}~(\mu g/g)$)'),
+       color = "") + 
+  ggtitle("PFOA") +
   facet_grid(rows = vars(Biochar)) +
   theme_bw() +
-  geom_richtext(
-    data = summary_stats_PFOA_soil_label,
-    aes(label = label, x = log_Cw, y = log_Cs),
-    hjust = 0
-  ) +
-  theme(panel.grid = element_blank()) +
-  guides(color = "none")
-PFOA_facet_soil_isotherm
-ggsave(filename="R/figs/PFOA_facet_soil_isotherm.pdf")
+  theme(panel.grid = element_blank())
+PFOA_isotherm_attenuation
+
+# PFOA summary statistics ----
+summary_stats_PFOA <- Soil_BC_join %>% 
+  filter(Compound == "PFOA",
+         Biochar != "no",
+         mixLogic == FALSE,
+         SoilLogic == TRUE) %>% 
+  group_by(Biochar) %>% 
+  do(model = lm(log_Cs ~ log_Cw, data = .)) %>% 
+  tidy(model)
+
+summary_stats_PFOA_lm <- lm(log_Cs ~ log_Cw, data = summary_stats_PFOA) %>% 
+  get_regression_table() %>% 
+  mutate(biochar = "CWC") #need to adjust filter above to the right biochar
 
 
-Sorption_soil_blank_PFOA$Compound <- factor(Sorption_soil_blank_PFOA$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                                                        "PFOA", "PFNA", "PFDA"))
 
-Sorption_soil_blank_PFOA_points <- ggplot(data = Sorption_soil_blank_PFOA) + 
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs), shape = 21, size = 3, fill = "#077DAA")+ 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), title = "Soil blank PFOA triplicates") + 
-  theme_bw()
-Sorption_soil_blank_PFOA_points
 
-# PFOA soil CWC ----
-CWC_isotherm_soil_PFOA <- ggplot(data = CWC_soil_PFOA) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs)) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), title = "CWC soil PFOA isotherm") + 
-  theme_bw()
-CWC_isotherm_soil_PFOA
-
-# PFOA soil ULS ----
-ULS_isotherm_soil_PFOA <- ggplot(data = ULS_soil_PFOA) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs)) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), title = "ULS soil PFOA isotherm") + 
-  theme_bw()
-ULS_isotherm_soil_PFOA
-
-# PFOA soil DSL ----
-DSL_isotherm_soil_PFOA <- ggplot(data = DSL_soil_PFOA) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs)) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), title = "DSL soil PFOA isotherm") + 
-  theme_bw()
-DSL_isotherm_soil_PFOA
-
-#PFOA soil all biochars ----
-PFOA_soil_isotherm <- ggplot(data = Sorption_soil_BC_PFOA) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar))) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), formula = y ~ x, method=lm, se=FALSE, fullrange = TRUE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s]), col = "Biochar", title = "PFOA biochar soil isotherm") + 
-  theme_bw()
-PFOA_soil_isotherm

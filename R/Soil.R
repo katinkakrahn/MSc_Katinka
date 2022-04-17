@@ -1,6 +1,14 @@
-Soil <- read_excel("/Users/katinkakrahn/Library/CloudStorage/OneDrive-NGI/VOW/Data/040322_soil_rawdata.xlsx")
-as.data.table(Soil)
-Soil <- as.data.table(Soil)
+# Library ----
+library(data.table)
+library(readxl)
+library(latex2exp)
+library(ggtext)
+library(scales)
+library(writexl)
+library(tidyverse)
+
+Soil <- read_excel("R/data_raw/040322_soil_rawdata.xlsx")
+
 
 CECions <- filter(Soil, Type == "Exchangeable ions")
 Total_element <- filter(Soil, Type == "Total element conc")

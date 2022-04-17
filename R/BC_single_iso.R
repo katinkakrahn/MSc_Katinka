@@ -118,8 +118,6 @@ summary_stats_CWC_single_label$Compound <- factor(summary_stats_CWC_single_label
 Sorption_BC_mix_summary$Compound <- factor(Sorption_BC_mix_summary$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                                                       "PFOA", "PFNA", "PFDA"))
 
-
- 
 CWC_facet_isotherm <- ggplot(data = CWC_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
              color = "gray45", size = 1) + 
@@ -413,7 +411,9 @@ Sorption_isotherms_nolabel <- as_tibble(Sorption_BC_single) %>%
                            "PFNA" = "PFNA (C9)",
                            "PFDA" = "PFDA (C10)")) %>%  
   ggplot() +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
+  geom_point(mapping = aes(x = log_Cw, y = log_Cs, 
+                           color = factor(Biochar)),
+             alpha = 0.6,
              size = 2) + 
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
               formula = y ~ x, 
@@ -421,19 +421,15 @@ Sorption_isotherms_nolabel <- as_tibble(Sorption_BC_single) %>%
               se=F, 
               fullrange = FALSE,
               size = 2) + 
-  labs(x = TeX(r'($log~C_{w}~(\mu g~L^{-1})$)'), y = TeX(r'($log~C_{s}~(\mu g~kg^{-1})$)'), color = "") + 
+  labs(x = TeX(r'($log~C_{w}~(\mu g~L^{-1})$)'), 
+       y = TeX(r'($log~C_{s}~(\mu g~kg^{-1})$)'), color = "") + 
   facet_wrap(~Compound) +
-  #ggtitle("Freundlich linear sorption isotherms") +
   theme_bw() +
-  theme(text = element_text(size = 40)) +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+  theme(text = element_text(size = 16)) +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
+                     values=c("#FFB547FF","#4E9C81","#40E0CF"))+
   theme(panel.grid = element_blank(), legend.position = "bottom") +
   guides(color = "none")
-# geom_richtext(
-#   data = summary_stats_ULS_single_label,
-#   aes(label = label, x = log_Cw, y = log_Cs),
-#   hjust = 0
-# )
 Sorption_isotherms_nolabel
 ggsave(filename="R/figs/Sorption_isotherms_single_BC_nolabel.pdf")
 

@@ -44,7 +44,7 @@ PZD_SAPV_C_plot <- PZD_label %>%
              labeller = label_parsed,
              strip.position = "left") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
-                     values=c("#767676FF","#800000FF","#FFB547FF")) +
+                     values=c("#FFB547FF","#4E9C81","#40E0CF")) +
   scale_x_continuous(breaks=c(1,3,5,10,20,30)) +
   scale_y_continuous() +
   theme_bw() +
@@ -69,14 +69,14 @@ PZD_SAPV_C_plot_nolabel <- PZD_label %>%
              labeller = label_parsed,
              strip.position = "left") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
-                     values=c("#767676FF","#800000FF","#FFB547FF")) +
+                     values=c("#FFB547FF","#4E9C81","#40E0CF")) +
   scale_x_continuous(breaks=c(1,3,5,10,20,30)) +
   scale_y_continuous() +
   theme_bw() +
   guides(color = "none") +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
-        text = element_text(size = 40),
+        text = element_text(size = 20),
         strip.placement = "outside",
         strip.background = element_blank())
 PZD_SAPV_C_plot_nolabel

@@ -365,7 +365,8 @@ SAPV_C_Kd1ugL_plot <- Biochar_ratios_1ugL_select %>%
              scales = "free_x",
              labeller = Biochar_ratios_labels_C,
              strip.position = "bottom") +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF")) +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
+                     values=c("#FFB547FF","#4E9C81","#40E0CF")) +
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
@@ -384,7 +385,8 @@ Kd_1ugL_SA_PV_C <- Biochar_ratios_1ugL_select %>%
   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.01)+
   labs(x = TeX(r'(log (SA/PV)/C$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
   geom_point(size = 10) +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),values=c("#767676FF","#800000FF","#FFB547FF"))+
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
+                     values=c("#FFB547FF","#4E9C81","#40E0CF"))+
   geom_point(size = 2) +
   theme_bw() +
   guides(shape = "none", color = "none") +
