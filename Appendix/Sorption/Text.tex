@@ -1,0 +1,56 @@
+\chapter{Sorption}\label{appSec:Sorption} 
+
+\begin{sidewaystable}
+\caption{Attenuation factors calculated as $1-K_{d,BC~single}/K_{d,type}~\times~100$}
+\centering
+\adjustbox{max width=\textwidth}{%
+\begin{threeparttable}
+\label{apptab:attenuation}
+\begin{tabular}{llllllllllllllllll} \toprule
+& \multicolumn{5}{c}{ULS}                                                   &          & \multicolumn{5}{c}{DSL}                                                   &          & \multicolumn{5}{c}{CWC}                                                   \\ 
+\cmidrule(l){3-6} \cmidrule(l){9-12} \cmidrule(l){15-18}
+PFCA & type           & $log~Kd$ & $se~log~K_d$ & n  & Attenuation factor                   & Compound & type           & $log~Kd$ & $se~log~K_d$ & n  & Attenuation factor                   & Compound & type           & $log~Kd$ & $se~log~K_d$ & n  & Attenuation factor                  \\ \midrule
+PFPeA    & BC single      &        &           & NA & \multicolumn{1}{r}{\textit{*}} & PFPeA    & BC single      & 2.47   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFPeA    & BC single      & 3.27   &           & 1  & \multicolumn{1}{r}{\textit{*}} \\
+PFHxA    & BC single      & 4.14   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFHxA    & BC single      & 3.47   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFHxA    & BC single      & 2.37   &           & 1  & \multicolumn{1}{r}{\textit{*}} \\
+PFHpA    & BC single      & 5.87   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFHpA    & BC single      & 4.65   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFHpA    & BC single      & 4.61   &           & 1  & \multicolumn{1}{r}{\textit{*}} \\
+PFOA     & BC single      & 5.60   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFOA     & BC single      & 4.52   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFOA     & BC single      & 3.64   &           & 1  & \multicolumn{1}{r}{\textit{*}} \\
+PFNA     & BC single      & 5.87   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFNA     & BC single      & 5.18   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFNA     & BC single      & 4.36   &           & 1  & \multicolumn{1}{r}{\textit{*}} \\
+PFDA     & BC single      & 6.06   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFDA     & BC single      & 5.10   &           & 1  & \multicolumn{1}{r}{\textit{*}} & PFDA     & BC single      & 3.92   &           & 1  & \multicolumn{1}{r}{\textit{*}} \\
+         &                &        &           &    &                                &          &                &        &           &    &                                &          &                &        &           &    &                                \\
+PFPeA    & BC S cocktail &        &           & NA &                                & PFPeA    & BC S cocktail &        &           & NA &                                & PFPeA    & BC S cocktail &        &           & NA &                                \\
+PFHxA    & BC S cocktail & 2.40   &           & 1  & 42 \%                          & PFHxA    & BC S cocktail &        &           & NA &                                & PFHxA    & BC S cocktail & 2.19   &           & 1  & 8 \%                           \\
+PFHpA    & BC S cocktail & 2.05   &           & 1  & 65 \%                          & PFHpA    & BC S cocktail &        &           & NA &                                & PFHpA    & BC S cocktail & 2.21   &           & 1  & 52 \%                          \\
+PFOA     & BC S cocktail & 3.47   &           & 1  & 38 \%                          & PFOA     & BC S cocktail & 3.24   &           & 1  & 28 \%                          & PFOA     & BC S cocktail & 2.73   &           & 1  & 25 \%                          \\
+PFNA     & BC S cocktail & 3.73   &           & 1  & 36 \%                          & PFNA     & BC S cocktail & 3.33   &           & 1  & 36 \%                          & PFNA     & BC S cocktail & 2.68   &           & 1  & 39 \%                          \\
+PFDA     & BC S cocktail & 4.16   &           & 1  & 31 \%                          & PFDA     & BC S cocktail & 3.67   &           & 1  & 28 \%                          & PFDA     & BC S cocktail & 2.91   &           & 1  & 26 \%                          \\
+         &                &        &           &    &                                &          &                &        &           &    &                                &          &                &        &           &    &                                \\
+PFPeA    & BC cocktail   &        &           & NA &                                & PFPeA    & BC cocktail   &        &           & NA &                                & PFPeA    & BC cocktail   & 2.19   & 3.66      & 2  & 33 \%                          \\
+PFHxA    & BC cocktail   &        &           & NA &                                & PFHxA    & BC cocktail   &        &           & NA &                                & PFHxA    &               &        &           & NA &                                \\
+PFHpA    & BC cocktail   & 3.14   & 3.29      & 3  & 46 \%                          & PFHpA    & BC cocktail   &        &           & NA &                                & PFHpA    &               &        &           & NA &                                \\
+PFOA     & BC cocktail   & 4.13   & 3.57      & 3  & 26 \%                          & PFOA     & BC cocktail   & 3.17   & 4.83      & 3  & 30 \%                          & PFOA     & BC cocktail   & 2.84   & 3.78      & 3  & 22 \%                          \\
+PFNA     & BC cocktail   & 4.40   & 3.20      & 3  & 25 \%                          & PFNA     & BC cocktail   & 3.03   & 4.86      & 3  & 41 \%                          & PFNA     & BC cocktail   & 2.33   & 3.83      & 3  & 47 \%                          \\
+PFDA     & BC cocktail   & 5.09   & 3.26      & 3  & 16 \%                          & PFDA     & BC cocktail   & 3.60   & 5.25      & 3  & 29 \%                          & PFDA     & BC cocktail   & 2.95   & 4.62      & 3  & 25 \%                          \\
+         &                &        &           &    &                                &          &                &        &           &    &                                &          &                &        &           &    &                                \\
+PFOA     & BC S single    & 4.61   &           & 1  & 18 \%                          & PFOA     & BC S single    & 3.98   &           & 1  & 12 \%                          & PFOA     & BC S single    & 3.19   &           & 1  & 12 \%                          \\ \midrule
+         &                &        &           &    &                                &          &                &        &           &    &                                &          &                &        &           &    &                                \\
+         & \multicolumn{5}{c}{blank}                                                 &          & \multicolumn{5}{c}{blank}                                                 &          & \multicolumn{5}{c}{blank}                                                 \\
+         \cmidrule(l){3-6} \cmidrule(l){9-12} \cmidrule(l){15-18}
+Compound & type           & $log~Kd$ & $se~log~K_d$ & n  & Attenuation factor                   & Compound & type           & $log~Kd$ & $se~log~K_d$ & n  & Attenuation factor                    & Compound & type           & $log~Kd$ & $se~log~K_d$ & n  & Attenuation factor                   \\ \midrule
+PFPeA    & S cocktail    &        &           & NA &                                & PFPeA    & S cocktail    &        &           & NA &                                & PFPeA    & S cocktail    &        &           & NA &                                \\
+PFHxA    & S cocktail    & 2.34   & 3.29      & 3  & 43 \%                          & PFHxA    & S cocktail    & 2.34   & 3.29      & 3  & 33 \%                          & PFHxA    & S cocktail    & 2.34   & 3.29      & 3  & 1 \%                           \\
+PFHpA    & S cocktail    & 2.17   & 3.00      & 3  & 63 \%                          & PFHpA    & S cocktail    & 2.17   & 3.00      & 3  & 53 \%                          & PFHpA    & S cocktail    & 2.17   & 3.00      & 3  & 53 \%                          \\
+PFOA     & S cocktail    & 2.72   & 4.35      & 3  & 51 \%                          & PFOA     & S cocktail    & 2.72   & 4.35      & 3  & 40 \%                          & PFOA     & S cocktail    & 2.72   & 4.35      & 3  & 25 \%                          \\
+PFNA     & S cocktail    & 2.57   & 4.63      & 3  & 56 \%                          & PFNA     & S cocktail    & 2.57   & 4.63      & 3  & 50 \%                          & PFNA     & S cocktail    & 2.57   & 4.63      & 3  & 41 \%                          \\
+PFDA     & S cocktail    & 2.55   & 5.19      & 3  & 58 \%                          & PFDA     & S cocktail    & 2.55   & 5.19      & 3  & 50 \%                          & PFDA     & S cocktail    & 2.55   & 5.19      & 3  & 35 \%                          \\
+         &                &        &           &    &                                &          &                &        &           &    &                                &          &                &        &           &    &                                \\
+PFOA     & S single       & 2.82   & 3.90      & 3  & 50 \%                          & PFOA     & S single       & 2.82   & 3.90      & 3  & 38 \%                          & PFOA     & S single       & 2.82   & 3.90      & 3  & 22 \%                         \\ \bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item * reference $K_d$ for calculation of attenuation factors
+\item BC = biochar
+\item S = soil
+\item NA = amount in filtrate exceeded the amount spiked due to analytical uncertainty
+\end{tablenotes}
+\end{threeparttable}}
+\end{sidewaystable}
+
