@@ -2,7 +2,7 @@
 In this chapter the results and methods from laboratory experiments are presented and discussed.
 
 \section{PFCA sorption behavior}
-\subsection{Sorption isotherms for the biochar-water batch tests}
+\subsection{Biochar-water sorption isotherms}
 In \cref{fig:sorption_isotherms}, the sorption isotherms are presented for PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA to CWC, ULS and DSL. The points generated from the batch tests were fitted using the Freundlich model (\cref{eq:FreundlichLinear}). For all compounds, the sorption isotherm for ULS is visibly higher than DSL, followed by CWC. The Freundlich sorption coefficients ($log~K_F$), linearity coefficients ($n_F$) and correlation coefficients ($r^2$) are presented in \cref{tab:summary_stats_single}. Somewhat unexpectedly, sorption is strongest for the two sludge chars. Possible mechanisms for the strong sorption will be discussed in this section. 
 
 Due to the pioneering research on sewage sludge biochars as sorbents for PFAS in this thesis, literature partitioning coefficients for PFCAs of other sewage sludge biochars are non-existent (is that correct?). However, a comparison can be made between the $log~K_F$s found in this thesis and for commercially-produced activated carbons (AC) reported in other studies. The sorption coefficients are equivalent or higher compared to literature values for $log~K_F$ of PFOA to AC: 5.60 \citep{Kupryianchyk2016a}, 4.45 \citep{hansen2010sorption}, and 4.74-5.42 \citep{silvani2019can}. This is promising for the potential to replace non-renewable AC with waste based biochars for environmental remediation in the field and wastewater treatment. 
@@ -31,7 +31,7 @@ PFNA & 5.89 ± 0.02 & 0.71 ± 0.03 & 0.99 & *** & 5.33 ± 0.03 & 0.80 ± 0.07 & 
 PFDA & 6.00 ± 0.04 & 0.35 ± 0.05 & 0.86 & *** & 5.61 ± 0.02 & 0.61 ± 0.02 & 0.99 & *** & 5.22 ± 0.07 & 0.45 ± 0.04 & 0.94 & *** \\ \bottomrule
 \end{tabular}
 \begin{tablenotes}
-\item Significant codes: *** $\sim$ 0.001, ** $\sim$ 0.01,  
+\item Significant codes: *** $\sim$ 0.001, ** $\sim$ 0.01  
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
@@ -102,20 +102,60 @@ Sorption non-linearity ($n<1$) occurs due to the complex composition of sediment
 For the short-chain compounds (PFPeA and PFHxA), Correlations are poor which results in higher standard errors and slopes that are unrealistic (PFHxA-DSL: n=1.11 and PFHpA-ULS: 1.08). Possible explanations for the poor correlations for PFPeA and PFHxA are poor biochar affinity, but the standard error is also large so that the isotherm may actually be linear ($\pm$ 0.11 for both). For PFPeA- and PFHxA-CWC, it appears that CWC sorption sites have been saturated since most points center around the same area, which means that CWC reaches sorption maximum at $~$4000 $\mu g~kg^{-1}$. However, four points are insufficient to conclude that CWC has the lowest affinity and capacity to sorb short-chain PFCAs. The CWC isotherms had the widest concentration intervals for $C_w$, which can be explained by CWC being the weakest sorbent of the three biochars studied, resulting in higher aqueous concentrations than for the sludge biochars. 
 
 \subsubsection{Isotherm concentration range}
-The importance of a wide enough concentration interval is reflected in the resulting $n_F$-value acheived. ULS and DSL gave isotherms typically across 0-1.5 orders of magnitude, which indicates that either higher spike concentrations or a lower BC dosage should have been used for the batch tests and that the sludge biochars have a higher sorptive capacity compared with CWC. The batch tests were spiked at 10 concentrations over four orders of magnitude where the lowest concentration was aimed at being close to the instrumental LOQ. Poor signals were achieved for the SC1 points and were removed from the data analysis to improve the certainty of the regression analysis. By doing this the spike concentration interval was reduced to two orders of magnitude \cref{tab:spikeConcentrations}. The concentration range achieved was an average of 1.3 log units for the batch test filtrate, in contrast to the desired concentration range over 4 log units. In retrospect, spike concentrations at each log unit should have been selected instead of spreading the ten concentrations evenly across the concentration range. 
+ULS and DSL gave isotherms typically across 0-1.5 orders of magnitude, which indicates that either higher spike concentrations or a lower BC dosage should have been used for the batch tests and that the sludge biochars have a higher sorptive capacity compared with CWC. The batch tests were spiked at 10 concentrations over four orders of magnitude where the lowest concentration was aimed at being close to the instrumental LOQ. Poor signals were achieved for the SC1 points and were removed from the data analysis to improve the certainty of the regression analysis. By doing this the spike concentration interval was reduced to two orders of magnitude \cref{tab:spikeConcentrations}. The concentration range achieved was an average of 1.3 log units for the batch test filtrate, in contrast to the desired concentration range over 4 log units. In retrospect, spike concentrations at each log unit should have been selected instead of spreading the ten concentrations evenly across the concentration range. Gaining valid points across a wider concentration range could affect the $n_F$-value acheived. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Effect of competing PFCAs}
+\section{Sorption attenuation by soil and competing congeners}
+Table with partitioning coefficients for the biochar sorbents with and without the presence of soil, plus/minus standard error
+Kd at C10 for soil alone
+How to account for Kd of soil when calculating KF 
+    Show how to derive Freundlich equation with respect to soil Kd from original Freundlich equation
+
+\subsection{Attenuation by competing congeners}
+
+\subsection{Attenuation by soil}
+The soil used in the batch tests was characterized as a fine sand (0.1 to 0.3 mm) with 1.3 \% TOC (pH 5.38 \textpm 0.02, CEC 2.63 \textpm 0.06 meqv 100 g\textsuperscript{-1}). Total element concentrations and exchangeable ion concentrations are in \cref{appSec:elements}, \cref{apptab:soil}. 
+
+Soil extraction showed no native target analytes present. Upon filtration, each batch test category was different in its ease of filtration due to various degree of suspended particles and had different color filtrate, as seen in \cref{subfig:filtrate}. Filter clogging and reduction in filter pore size, had to exchange filters during filtration, which is a potential source of error. 
+
+Aggregation of humic substances upon addition of acetic acid pre-SPE, how this may impact results. 
+
+Precipitation of a brown fluff was observed when filtered batch tests containing soil was adjusted to pH 3 with 1 M acetic acid
+
 Sorptive attenuation of a spiked cocktail of the six TCs were tested for each biochar is shown by the red point in \cref{fig:sorption_isotherms_all}. Due to different spike concentration used for each compound in the cocktail, establishing quantitative trends for how chain length influences competition for sorption size is difficult. However, some conclusions can be drawn by looking at the overall trends. \cref{tab:competition} shows that $log~K_d$ decreases for all compounds in the presence of a mixture. $K_d$ changes the least for PFHxA and PFHpA (2.3 and 0.2 \% respectively) and may be attributed to lower spiked concentrations (330 and 117 \textmu g L\textsuperscript{-1}) for these compounds compared to the rest in \cref{tab:competition}. Competition is most profound for PFOA to CWC followed by PFDA for ULS and CWC (15.8, 10.0 and 10.6 \% respectively), which can be explained by the highest concentrations spiked for these compounds (1 953 and 3 830 \textmu g L\textsuperscript{-1}). It appears that sorption of PFNA is minimally influenced by competition between other compounds despite SC being in the higher range (1 409 \textmu g L\textsuperscript{-1}). $K_d$ for PFPeA is reduced by 8.2\% and is expected based on weaker sorption of short-chain compounds.
 
 Expected: Attenuation factors larger for short-chain than long chains which have greater sorption affinity.
 
+Most previous studies have reported a linear increasing trend between log Kd and chain length. However not for PFPeA, \citep{zhang2013sorption}, found in \citep{Sorengard2019}. and \citep{guelfo2013}  these studies are for sorption to organic matter.  Steric hindrance. Competing sorption to humic matter
+fouling/pre-loading by NOM
+Pore blocking
+
+\begin{figure}[!ht]
+\subfloat[\label{subfig:filtrate}]{%
+  \includegraphics[width=0.45\textwidth]{Bilder/Samples/Filtrate_DOC.JPG}
+}
+\hfill
+\subfloat[\label{subfig:precip}]{%
+  \includegraphics[width=0.45\textwidth]{Bilder/Samples/Precipitation.jpg}
+}
+\caption{(a) Color of filtrate for each biochar batch test. From left to right: soil only, soil+ULS, soil+CWC, and soil+BRL. (b) Precipitation observed when filtered soil samples were adjusted to pH 3 with 1 M acetic acid.}
+\label{fig:DOC_tubes}
+\end{figure}
+
+
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\textwidth]{R/figs/C10_mixVsSingle_BC_plot.pdf}
-    \caption{Sorption attenuation for TCs in a cocktail spiked at SC10. It is important to note that attenuation cannot be compared across chain lengths as different concentrations have been used. The error bars represent the standard deviation of $log~K_d$ for the cocktail batch tests performed in triplicate. The single-compound $log~K_d$'s are single points.}
-    \label{fig:competition}
+    \includegraphics[width=\textwidth]{R/figs/C10.pdf}
+    \caption{Sorption attenuation for each TC by soil and/or competing congeners at SC10. The error bars represent the standard deviation of $log~K_d$ for the cocktail batch tests performed in triplicate (not included). The single-compound $log~K_d$'s are single points.}
+    \label{fig:C10}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{R/figs/Attenuation.pdf}
+    \caption{Sorption attenuation by soil and a cocktail.}
+    \label{fig:attenuation}
 \end{figure}
 
 \begin{table}
@@ -142,7 +182,7 @@ PFDA & 10.6 & 10.9 & 3.1 \\ \bottomrule
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Effect of biochar properties}
+\section{Effect of biochar properties on sorption}
 This section compares the distribution coefficients derived for ULS, DSL and CWC in this study to biochar composition of main elements (C, H, O, N), trace elements (Ca and Fe), and surface area (SA) and pore volume (PV) in order to gain insights into possible sorption mechanisms. In the comparison between sorbent properties and sorption coefficients for each biochar type, PFOA, PFNA and PFDA have been used because they gave the best sorption isotherms. $log~K_F$ has been normalized to 1 $\mu g~L^{-1}$ which is used as the distribution coefficients in this discussion.
 
 \subsection{Surface area and pore volume}
@@ -304,59 +344,6 @@ S & 7.08 & 0.05 & 23.33 & 0.87 & 0/1/10\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Sorption isotherms from the soil-biochar-water batch tests}
-\subsection{Soil chemistry}
-The soil used in the batch tests was characterized as a fine sand (0.1 to 0.3 mm) with 1.3 \% TOC (pH 5.38 \textpm 0.02, CEC 2.63 \textpm 0.06 meqv 100 g\textsuperscript{-1}). Total element concentrations and exchangeable ion concentrations are in \cref{appSec:elements}, \cref{apptab:soil}. The soil extraction showed no native target analytes present.  
-
-Table with partitioning coefficients for the biochar sorbents with and without the presence of soil, plus/minus standard error
-Kd at C10 for soil alone
-How to account for Kd of soil when calculating KF 
-    Show how to derive Freundlich equation with respect to soil Kd from original Freundlich equation
-    
-\subsection{PFOA isotherms vs cocktail isotherms}
-to compare with C$_w$ at SP10 for the single compound batch test to determine a competition factor between the other PFCAs in the cocktail to sorption sites on the biochar.
-
-Plot comparing the isotherms of PFOA-BC to PFOA-soil-BC
-Discuss influence of presence of soil on PFOA sorption
-Significance of C8 chain length taken together with BC properties 
-
-Plot comparing cocktail-BC to cocktail-soil-BC
-Effect of presence of soil AND competing congeners
-Competitive sorption, attenuation factor
-
-Comparison between sorption of PFOA in cocktail-soil and PFOA in biochar-soil
-
-\subsection{Sorption attenuation by soil}
-fouling/pre-loading by NOM
-Pore blocking
-
-\subsection{Soil-BC interactions}
-Most previous studies have reported a linear increasing trend between log Kd and chain length. However not for PFPeA, \citep{zhang2013sorption}, found in \citep{Sorengard2019}. and \citep{guelfo2013}  these studies are for sorption to organic matter.  Steric hindrance. 
-
-\subsubsection{Difference in color of filtrate between batch tests}
-Filter clogging and reduction in filter size, had to exchange filters during filtration, how this may impact results
-Aggregation of humic substances upon addition of acetic acid pre-SPE, how this may impact results
-
-Precipitation of a brown fluff was observed when filtered batch tests containing soil was adjusted to pH 3 with 1 M acetic acid
-
-\begin{figure}
-    \centering
-        \begin{subfigure}[t]{\linewidth}
-            \centering
-            \includegraphics[width=0.6\textwidth]{Bilder/Samples/Filtrate_DOC.JPG}
-            \subcaption{}
-            \label{fig:filtrate}
-        \end{subfigure}
-        \begin{subfigure}[]{\linewidth}
-            \centering
-            \includegraphics[width=0.6\textwidth]{Bilder/Samples/Precipitation.jpg}
-            \subcaption{}
-            \label{fig:precip}
-        \end{subfigure}  
-        \caption{(a) Color of filtrate for each biochar batch test. From left to right: soil only, soil+ULS, soil+CWC, and soil+BRL. (b) Precipitation observed when filtered soil samples were adjusted to pH 3 with 1 M acetic acid.}
-        \label{fig:DOC_tubes}
-\end{figure}
 
 \section{Potential for commercializing sludge chars as sorbents}
 Potential challenges with application of sewage sludge-based sorbents: leaching of heavy metals, sorption capacity, pH (although liming raises pH which is not good for sorption, addition of Ca\textsuperscript{2+} creates divalent bridging effect and complexation of PFAS molecules that enhance sorption. 
