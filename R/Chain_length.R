@@ -95,7 +95,6 @@ ChainLength_KF <- ggplot(data = summary_stats_single) +
   theme(panel.grid = element_blank()) +
   guides(size = "none", fill = "none")
 ChainLength_KF
-ggsave(filename = "R/figs/chainlength_KF.pdf")
 
 ChainLength_KF_line <- ggplot(data = summary_stats_single, mapping = aes(x = nr_CF2, y = log_KF, color = biochar)) +
   geom_point(size = 1) + 
@@ -107,25 +106,24 @@ ChainLength_KF_line <- ggplot(data = summary_stats_single, mapping = aes(x = nr_
   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 25)) +
   guides(size = "none", fill = "none")
 ChainLength_KF_line
-set_palette(ChainLength_KF_line, "uchicago")
-ggsave(filename = "R/figs/chainlength_KF_line.pdf")
 
 n_KF <- ggplot(data = summary_stats_single, mapping = aes(x = nr_CF2, y = n, color = biochar)) +
-  geom_point(size = 1) + 
   geom_errorbar(aes(nr_CF2, ymin=n-n_std_error, ymax=n+n_std_error), width=.05,
                 position=position_dodge(.9), color = "grey45") +
+  geom_point(size = 2) + 
   geom_line(size = 1) +
   labs(x = expression(CF[2]~chain~length), y = expression(n[F]), color = "") +
+  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
+                     values=c("#FFB547FF","#4E9C81","#40E0CF")) +
   theme_bw() +
   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 25)) +
   guides(size = "none", fill = "none")
 n_KF
-set_palette(n_KF, "uchicago")
 ggsave(filename = "R/figs/n_KF.pdf")
 
-summary_stats_C3_single_CWC <- lm(log_Kd ~ nr_CF2, data = subset(Sorption_BC_single_C3, Biochar == "CWC"))
-summary(summary_stats_C3_single_CWC)
-summary_stats_C3_single_ULS <- lm(log_Kd ~ nr_CF2, data = subset(Sorption_BC_single_C3, Biochar == "ULS"))
-summary(summary_stats_C3_single_ULS)
-summary_stats_C3_single_DSL <- lm(log_Kd ~ nr_CF2, data = subset(Sorption_BC_single_C3, Biochar == "DSL"))
-summary(summary_stats_C3_single_DSL)
+# summary_stats_C3_single_CWC <- lm(log_Kd ~ nr_CF2, data = subset(Sorption_BC_single_C3, Biochar == "CWC"))
+# summary(summary_stats_C3_single_CWC)
+# summary_stats_C3_single_ULS <- lm(log_Kd ~ nr_CF2, data = subset(Sorption_BC_single_C3, Biochar == "ULS"))
+# summary(summary_stats_C3_single_ULS)
+# summary_stats_C3_single_DSL <- lm(log_Kd ~ nr_CF2, data = subset(Sorption_BC_single_C3, Biochar == "DSL"))
+# summary(summary_stats_C3_single_DSL)

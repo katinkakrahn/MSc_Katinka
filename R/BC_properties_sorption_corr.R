@@ -222,7 +222,7 @@ chain_length_Kd1ugL_plot <- ggplot(data = Kd_1ugL_chain_length,
        color = "", 
        shape = "") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
-                     values= c("#767676FF","#800000FF","#FFB547FF"))+
+                     values=c("#FFB547FF","#4E9C81","#40E0CF")) +
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
@@ -316,11 +316,11 @@ Correlation_SAPV_Ca_plot <- Biochar_ratios_1ugL_select %>%
              labeller = Biochar_ratios_labels_Ca,
              strip.position = "bottom") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
-                     values=c("#767676FF","#800000FF","#FFB547FF")) +
+                     values=c("#FFB547FF","#4E9C81","#40E0CF")) +
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
-        text = element_text(size = 20),
+        text = element_text(size = 12),
         strip.placement = "outside",
         strip.background = element_blank())
 Correlation_SAPV_Ca_plot
@@ -393,8 +393,6 @@ Kd_1ugL_SA_PV_C <- Biochar_ratios_1ugL_select %>%
   coord_fixed(ratio = 0.9) +
   theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 40))
 Kd_1ugL_SA_PV_C
-ggsave(filename="R/figs/Kd_1ugL_SA_PV_C.pdf")
-ggsave(filename="R/figs/legend.pdf")
 
 
 # Main elements separately ----
@@ -679,5 +677,4 @@ Kd_1ngL_plot <- ggplot(data = Kd_1ngL, aes(x = nr_CF2.x, y = Kd_1ngL, color = bi
   theme_bw() +
   theme(panel.grid = element_blank(), legend.position = "bottom")
 Kd_1ngL_plot
-ggsave(filename="R/figs/Kd_1ngL_plot.pdf")
 
