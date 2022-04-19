@@ -89,7 +89,7 @@ summary_stats_CWC_single_label <- summary_stats_CWC_single %>%
     log_Cw = 0.6, log_Cs = 1,
     label =
       glue("*r<sup>2</sup>* = {round(r_squared, 2)} <br> *log K<sub>F</sub>* = {round(log_KF, 2)} <br> *n<sub>F</sub>* = {round(n, 2)}")
-    )
+  )
 
 summary_stats_CWC_single_label <- summary_stats_CWC_single_label |>
   transform(Compound = compound)
@@ -110,13 +110,13 @@ facetCWC <- rbind(
 CWC_single$Compound <- factor(CWC_single$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                               "PFOA", "PFNA", "PFDA"))
 facetCWC$Compound <- factor(facetCWC$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                              "PFOA", "PFNA", "PFDA"))
+                                                          "PFOA", "PFNA", "PFDA"))
 summary_stats_CWC_single$compound <- factor(summary_stats_CWC_single$compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                              "PFOA", "PFNA", "PFDA"))
-summary_stats_CWC_single_label$Compound <- factor(summary_stats_CWC_single_label$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                                           "PFOA", "PFNA", "PFDA"))
-Sorption_BC_mix_summary$Compound <- factor(Sorption_BC_mix_summary$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+summary_stats_CWC_single_label$Compound <- factor(summary_stats_CWC_single_label$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
                                                                                                       "PFOA", "PFNA", "PFDA"))
+Sorption_BC_mix_summary$Compound <- factor(Sorption_BC_mix_summary$Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                                                                        "PFOA", "PFNA", "PFDA"))
 
 CWC_facet_isotherm <- ggplot(data = CWC_single) +
   geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
@@ -138,7 +138,7 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
               colour = "grey", 
               size = 0.5,
               data = facetCWC
-              ) +
+  ) +
   geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Compound)), 
               color = "black", 
               formula = y ~ x, 
@@ -151,11 +151,11 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
   theme_bw() +
   theme(text = element_text(size = 16)) +
   theme(panel.grid = element_blank()) #+
-  #guides(color = "none") #+
-  # geom_richtext(
-  #   data = summary_stats_CWC_single_label,
-  #   aes(label = label, x = log_Cw, y = log_Cs),
-  #   hjust = 0)
+#guides(color = "none") #+
+# geom_richtext(
+#   data = summary_stats_CWC_single_label,
+#   aes(label = label, x = log_Cw, y = log_Cs),
+#   hjust = 0)
 CWC_facet_isotherm
 ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
 
@@ -253,11 +253,11 @@ ULS_facet_isotherm <- ggplot(data = ULS_single) +
   theme(text = element_text(size = 16)) +
   theme(panel.grid = element_blank()) +
   guides(color = "none") #+
-  # geom_richtext(
-  #   data = summary_stats_ULS_single_label,
-  #   aes(label = label, x = log_Cw, y = log_Cs),
-  #   hjust = 0
-  # )
+# geom_richtext(
+#   data = summary_stats_ULS_single_label,
+#   aes(label = label, x = log_Cw, y = log_Cs),
+#   hjust = 0
+# )
 ULS_facet_isotherm
 ggsave(filename="R/figs/ULS_facet_isotherm.pdf")
 
@@ -357,11 +357,11 @@ DSL_facet_isotherm <- ggplot(data = DSL_single) +
   theme(text = element_text(size = 16)) +
   theme(panel.grid = element_blank()) +
   guides(color = "none") #+
-  # geom_richtext(
-  #   data = summary_stats_DSL_single_label,
-  #   aes(label = label, x = log_Cw, y = log_Cs),
-  #   hjust = 0
-  # )
+# geom_richtext(
+#   data = summary_stats_DSL_single_label,
+#   aes(label = label, x = log_Cw, y = log_Cs),
+#   hjust = 0
+# )
 DSL_facet_isotherm
 ggsave(filename="R/figs/DSL_facet_isotherm.pdf")
 
@@ -739,8 +739,3 @@ PFDA_facet_isotherm <- ggplot(data = PFDA_sorption_single) +
   guides(color = "none")
 PFDA_facet_isotherm
 ggsave(filename="R/figs/PFDA_facet_isotherm.pdf")
-
-
-
-
-

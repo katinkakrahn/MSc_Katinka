@@ -370,7 +370,7 @@ SAPV_C_Kd1ugL_plot <- Biochar_ratios_1ugL_select %>%
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
-        text = element_text(size = 20),
+        text = element_text(size = 12),
         strip.placement = "outside",
         strip.background = element_blank()) +
   scale_x_continuous(labels = scaleX)

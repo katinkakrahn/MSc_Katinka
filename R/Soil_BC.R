@@ -12,36 +12,17 @@ library(moderndive)
 
 # Data manipulation ----
 Sorption_soil <- read_excel("R/data_raw/010322_sorption_rawdata_soil.xlsx") %>% 
+  drop_na(log_Cs) %>% 
   mutate(BClogic = if_else(Biochar == "no",
                  TRUE,
-                 FALSE))
-
-Sorption_soil$SoilLogic <- as.logical(Sorption_soil$Soil_binary)
-Sorption_soil$mixLogic <- as.logical(Sorption_soil$mix_binary)
-Sorption_soil$isothermLogic <- as.logical(Sorption_soil$isotherm_binary)
-Sorption_soil <- subset(Sorption_soil,
-                        select = -c(Soil_binary,mix_binary,isotherm_binary))
-Sorption_soil <- Sorption_soil %>%
-  drop_na(log_Cs) %>% 
-  select(-c(V_w, m_tot, m_aq, M_s, M_bc, y)) %>% 
-  mutate(Kd = Cs/Cw, 
-         log_Kd = log10(Cs/Cw))
-
-Sorption_soil_summary <- Sorption_soil %>% 
-  drop_na(log_Cs) %>% 
-  filter(Compound != "PFPeA") %>% 
-  group_by(mixLogic, BClogic, Biochar, Compound) %>% 
-  summarise(K_ds_mean = mean(K_ds),
-            log_Kds_mean = log10(mean(K_ds)),
-            sd_Kds= sd(K_ds),
-            Kd_mean = mean(Kd),
-            log_Kd_mean = log10(mean(Kd)),
-            sd_Kd = sd(Kd),
-            n = n(),
-            se_Kd = sd_Kd / sqrt(n),
-            se_Kds = sd_Kds / sqrt(n)
-            )
-
+                 FALSE),
+         SoilLogic = as.logical(Soil_binary),
+         mixLogic = as.logical(mix_binary),
+         isothermLogic = as.logical(isotherm_binary),
+         Kd = Cs / Cw) %>% 
+  select(Conc_point, Compound, Biochar, type, SoilLogic, mixLogic, isothermLogic, 
+         BClogic, Cs, Cw, K_ds, Kd)
+  
 write_xlsx(Sorption_soil_summary,"R/data_manipulated/010322_sorption_soil_summary.xlsx")
 
 Sorption_soil_summary$Compound <- 
@@ -54,58 +35,76 @@ Sorption_soil_summary$Compound <-
                     "PFDA")
          )
 
-Sorption <- read_excel("R/data_raw/160222_sorption_rawdata.xlsx")
-
-#Convert 1 and 0 to TRUE and FALSE and delete integer columns
-Sorption$SoilLogic <- as.logical(Sorption$Soil_binary)
-Sorption$mixLogic <- as.logical(Sorption$mix_binary)
-Sorption$isothermLogic <- as.logical(Sorption$isotherm_binary)
-Sorption <- select(Sorption, -Soil_binary, -mix_binary, -isotherm_binary)
-
-# Subset biochar and cocktail/single compound
-Sorption_NAomit <- na.omit(Sorption)
-Sorption_NA_C1omit <- Sorption_NAomit %>% 
+Sorption_BC <- read_excel("R/data_raw/160222_sorption_rawdata.xlsx") %>% 
+  na.omit() %>% 
   filter(Conc_point != 1) %>% 
-  mutate(Kd = Cs/Cw, log_Kd = log10(Cs/Cw),
-         BClogic = FALSE)
+  mutate(SoilLogic = as.logical(Soil_binary),
+         mixLogic = as.logical(mix_binary),
+         isothermLogic = as.logical(isotherm_binary),
+         BClogic = FALSE,
+         Kd = Cs / Cw) %>% 
+  select(Conc_point, Compound, Biochar, type, SoilLogic, mixLogic, isothermLogic, 
+         BClogic, Cs, Cw, Kd)
 
-Soil_BC_join <- full_join(Sorption_NA_C1omit, Sorption_soil)
+Soil_BC_join <- full_join(Sorption_BC, Sorption_soil)
+
+# Summary statistics ----
+# https://stackoverflow.com/questions/22713325/fitting-several-regression-models-with-dplyr
+
+Soil_BC_join_isotherm <- Soil_BC_join %>%
+  filter(isothermLogic == TRUE) %>% 
+  group_by(Biochar, Compound, type, Conc_point) %>% 
+  mutate(n = n())
+
+summary_statistics_isotherms <- Soil_BC_join_isotherm %>% 
+  group_by(Compound, Biochar, type, SoilLogic, mixLogic) %>%
+  do(fit_isotherms = glance(lm(Cs ~ Cw, data = .))) %>% 
+  unnest(fit_isotherms)
 
 Soil_BC_join_triplicate_mean <- Soil_BC_join %>%
   filter(isothermLogic == FALSE) %>% 
-  group_by(Biochar, Compound, SoilLogic, mixLogic, isothermLogic, BClogic, Conc_point, type) %>% 
-  summarise(Cw_sd = sd(Cw),
-            Cs_sd = sd(Cs),
-            Kd_sd = sqrt(Cw_sd^2+Cs_sd^2),
+  group_by(Biochar, Compound, type, Conc_point) %>% 
+  summarise(n = n(),
+            Cw_se = sd(Cw) / sqrt(n),
+            Cs_se = sd(Cs) / sqrt(n),
+            Kd_se = sqrt(Cw_se^2+Cs_se^2),
             Kd = mean(Kd),
             Cw = mean(Cw),
-            Cs = mean(Cs),
-            log_Kd = log10(mean(Kd)),
-            log_Kd_sd = log10(sqrt(Cw_sd^2+Cs_sd^2)),
-            n = n())
+            Cs = mean(Cs))
 
-Soil_BC_join_isotherm <- Soil_BC_join %>%
-  filter(isothermLogic == TRUE)
+Soil_BC_join_mean_and_isotherm <- full_join(Soil_BC_join_triplicate_mean, 
+                                            Soil_BC_join_isotherm)
 
-Soil_BC_join <- full_join(Soil_BC_join_triplicate_mean, Soil_BC_join_isotherm)
-
-Soil_BC_join$Compound <- 
-  factor(Soil_BC_join$Compound, 
-         levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
-
-Soil_BC_join$type <- 
-  factor(Soil_BC_join$type, 
-         levels = c("BC_sing", "BC_S_sing", "BC_S_mix", "BC_mix"))
-
+Attenuation_C10 <- Soil_BC_join_mean_and_isotherm %>% 
+  filter(Conc_point == 10) %>% 
+  mutate(log_Kd = log10(Kd),
+         log_Kd_se = log10(Kd_se)) %>% 
+  select(Compound, Biochar, type, log_Kd, log_Kd_se, n) %>% 
+  group_by(Compound, Biochar, type) %>% 
+  arrange(Biochar = factor(Biochar, levels = c("ULS", "DSL", "CWC", "no")),
+          type = factor(type, levels = c("BC_sing", "BC_S_sing", 
+                                         "BC_S_mix", "BC_mix")),
+          Compound = factor(Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                                 "PFOA", "PFNA", "PFDA"))
+          ) %>% 
+  write_xlsx("R/data_manipulated/190422_Attenuation_factors.xlsx")
 
 # Attenuation all combinations ----
-Attenuation <- Soil_BC_join %>% 
+Attenuation <- Soil_BC_join_mean_and_isotherm %>% 
   filter(Biochar != "no") %>% 
-  ggplot() +
-  geom_point(mapping = aes(x = log10(Cw), 
-                           y = log10(Cs),
-                           color = type),
-             alpha = 0.7) + 
+  mutate(Compound = factor(Compound, levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                      "PFOA", "PFNA", "PFDA")),
+         type = factor(type, levels = c("BC_sing", "BC_S_sing", 
+                                  "BC_S_mix", "BC_mix"))) %>% 
+  ggplot(mapping = aes(x = log10(Cw), 
+                       y = log10(Cs),
+                       color = type)) +
+  # geom_errorbar(aes(xmin = log10(Cw) - log10(Cw_sd),
+  #                   xmax = log10(Cw) + log10(Cw_sd),
+  #                   )) +
+  # geom_errorbar(aes(ymin = log10(Cs) - log10(Cs_sd),
+  #                   ymax = log10(Cs) + log10(Cs_sd))) +
+  geom_point(alpha = 0.7) + 
   geom_smooth(mapping = aes(x = log10(Cw), 
                             y = log10(Cs), 
                             color = type), 
@@ -115,9 +114,8 @@ Attenuation <- Soil_BC_join %>%
   facet_grid(rows = vars(Biochar),
              cols = vars(Compound)) +
   labs(x = TeX(r'($log~C_{w}~(\mu g/L)$)'), 
-       y = TeX(r'($log~C_{s}~(\mu g/g)$)'),
-       color = "",
-  ) +
+       y = TeX(r'($log~C_{s}~(\mu g/kg)$)'),
+       color = "") +
   scale_color_brewer(palette = "Paired",
                      labels = c("BC single", 
                                 "BC soil single", 
@@ -132,31 +130,29 @@ Attenuation
 ggsave(filename = "R/figs/Attenuation.pdf")
 # Can choose to have triplicate points as triplicates or as mean point (but then error bars become an issue)
 
-# Attenuation at C10
-Soil_BC_join$Compound <- 
-  factor(Soil_BC_join$Compound, 
-         levels = c("PFPeA", "PFHxA", "PFHpA", "PFOA", "PFNA", "PFDA"))
-
-Soil_BC_join$Biochar <- 
-  factor(Soil_BC_join$Biochar, 
-         levels = c("no", "CWC", "DSL", "ULS"))
-
-Soil_BC_join$type <- 
-  factor(Soil_BC_join$type, 
-         levels = c("BC_sing", "BC_S_sing", "BC_S_mix", "BC_mix", "S_sing", "S_mix"))
-
-C10 <- Soil_BC_join %>% 
+# Attenuation at C10 ----
+C10 <- Soil_BC_join_mean_and_isotherm %>% 
   filter(Conc_point == 10) %>%
+  mutate(Compound = factor(Compound, 
+                           levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                      "PFOA", "PFNA", "PFDA")),
+         Biochar = factor(Biochar,
+                          levels = c("no", "CWC", "DSL", "ULS")),
+         type = factor(type,
+                       levels = c("BC_sing", "BC_S_sing", "BC_S_mix", 
+                                  "BC_mix", "S_sing", "S_mix"))) %>% 
   ggplot(aes(x = Biochar,
              y = log10(Kd),
-             color = type
+             color = type,
+             shape = type
   )) +
-  geom_point(size = 3,
-             alpha = 0.7) +
+  geom_point(size = 4,
+             alpha = 1) +
   facet_wrap(~ Compound) +
-  labs(x = "", 
+  labs(x = "Biochar", 
        y = TeX(r'($log~K_{d}~(L/kg)$)'),
        color = "",
+       shape = ""
   ) +
   scale_color_brewer(palette = "Paired",
                      labels = c("BC single", 
@@ -165,12 +161,64 @@ C10 <- Soil_BC_join %>%
                                 "BC cocktail (n=3)",
                                 "Soil single (n=3)",
                                 "Soil cocktail (n=3)")) +
+  scale_shape_manual(name = "",
+                     labels = c("BC single", 
+                                "BC soil single", 
+                                "BC soil cocktail",
+                                "BC cocktail (n=3)",
+                                "Soil single (n=3)",
+                                "Soil cocktail (n=3)"),
+                     values = c(16, 17, 17, 16, 17, 17)) +
   theme_bw() +
   theme(panel.grid = element_blank(),
         legend.position = "bottom",
         text = element_text(size = 12))
 C10
 ggsave(filename = "R/figs/C10.pdf")
+
+Attenuation_factors <- read_xlsx("R/data_manipulated/190422_Attenuation_factors_manual.xlsx") %>% 
+  mutate(Attenuation_percent = Attenuation * 100)
+  
+Attenuation_C10 <- Attenuation_factors %>% 
+  drop_na(Attenuation) %>% 
+  mutate(Compound = factor(Compound, 
+                           levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                      "PFOA", "PFNA", "PFDA")),
+         Biochar = factor(Biochar,
+                          levels = c("CWC", "DSL", "ULS", "no_CWC", "no_DSL", "no_ULS"))
+         ) %>% 
+  ggplot(aes(x = Biochar,
+             y = Attenuation_percent,
+             color = type,
+             shape = type
+  )) +
+  geom_point(size = 4,
+             alpha = 1) +
+  facet_wrap(~ Compound) +
+  labs(x = "Biochar",
+       y = "Attenuation factor (% sorption reduction from BC single)",
+       color = "",
+       shape = ""
+  ) +
+  scale_color_brewer(palette = "Paired",
+                     labels = c("BC cocktail (n=3)", 
+                                "BC soil cocktail",
+                                "BC soil single",
+                                "Soil cocktail (n=3)",
+                                "Soil single (n=3)")) +
+  scale_shape_manual(name = "",
+                     labels = c("BC cocktail (n=3)", 
+                                "BC soil cocktail",
+                                "BC soil single",
+                                "Soil cocktail (n=3)",
+                                "Soil single (n=3)"),
+                     values = c(16, 17, 17, 17, 17)) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "bottom",
+        text = element_text(size = 12))
+Attenuation_C10
+ggsave(filename = "R/figs/Attenuation_factors_C10.pdf")
 
 # PFOA soil isotherm and BC isotherm ----
 PFOA_isotherm_attenuation <- Soil_BC_join %>% 
@@ -179,10 +227,10 @@ PFOA_isotherm_attenuation <- Soil_BC_join %>%
          mixLogic == FALSE) %>% 
   group_by(SoilLogic, Biochar) %>% 
   ggplot() +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, color = SoilLogic),
+  geom_point(mapping = aes(x = log10(Cw), y = log10(Cs), color = SoilLogic),
                            size = 1) + 
-  geom_smooth(mapping = aes(x = log_Cw, 
-                            y = log_Cs, 
+  geom_smooth(mapping = aes(x = log10(Cw), 
+                            y = log10(Cs), 
                             color = SoilLogic), 
               formula = y ~ x, 
               method=lm, 
@@ -195,20 +243,6 @@ PFOA_isotherm_attenuation <- Soil_BC_join %>%
   theme_bw() +
   theme(panel.grid = element_blank())
 PFOA_isotherm_attenuation
-
-# PFOA summary statistics ----
-summary_stats_PFOA <- Soil_BC_join %>% 
-  filter(Compound == "PFOA",
-         Biochar != "no",
-         mixLogic == FALSE,
-         SoilLogic == TRUE) %>% 
-  group_by(Biochar) %>% 
-  do(model = lm(log_Cs ~ log_Cw, data = .)) %>% 
-  tidy(model)
-
-summary_stats_PFOA_lm <- lm(log_Cs ~ log_Cw, data = summary_stats_PFOA) %>% 
-  get_regression_table() %>% 
-  mutate(biochar = "CWC") #need to adjust filter above to the right biochar
 
 
 
