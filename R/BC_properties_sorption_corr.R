@@ -212,11 +212,12 @@ Kd_1ugL_select$biochar <- factor(Kd_1ugL_select$biochar, levels = c("ULS", "DSL"
 
 chain_length_Kd1ugL_plot <- ggplot(data = Kd_1ugL_chain_length, 
                        aes(x = nr_CF2, y = log_Kd, color = biochar)) + 
-  geom_point(size = 4) + 
-  geom_line(size = 1) + 
   geom_errorbar(aes(ymin = log_Kd-logKd_error, 
                     ymax = log_Kd+logKd_error), 
-                width = 0.05) +
+                width = 0.05,
+                color = "black") +
+  geom_point(size = 4) + 
+  geom_line(size = 1) + 
   labs(x = TeX(r'($CF_2~chain~length$)'), 
        y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), 
        color = "", 
@@ -226,7 +227,7 @@ chain_length_Kd1ugL_plot <- ggplot(data = Kd_1ugL_chain_length,
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
-        text = element_text(size = 16))
+        text = element_text(size = 25))
 chain_length_Kd1ugL_plot
 ggsave(filename="R/figs/chain_length_Kd1ugL_plot.pdf")
 
@@ -384,16 +385,36 @@ Kd_1ugL_SA_PV_C <- Biochar_ratios_1ugL_select %>%
   geom_line(aes(group = compound), color = "black") +
   geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.01)+
   labs(x = TeX(r'(log (SA/PV)/C$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
-  geom_point(size = 10) +
+  geom_point(size = 5) +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
                      values=c("#FFB547FF","#4E9C81","#40E0CF"))+
   geom_point(size = 2) +
   theme_bw() +
   guides(shape = "none", color = "none") +
   coord_fixed(ratio = 0.9) +
-  theme(panel.grid = element_blank(), legend.position = "bottom", text = element_text(size = 40))
+  theme(panel.grid = element_blank(), legend.position = "bottom", 
+        text = element_text(size = 20))
 Kd_1ugL_SA_PV_C
+ggsave("R/figs/SETAC/SAPV_C_nolabel.pdf")
 
+Kd_1ugL_SA_PV_C_label <- Biochar_ratios_1ugL_select %>% 
+  drop_na() %>%
+  ggplot(aes(x = log10(SA_PV_C), y = log_Kd, shape = compound, color = biochar),
+  ) +
+  geom_line(aes(group = compound), color = "black") +
+  geom_errorbar(aes(ymin=log_Kd-logKd_error, ymax=log_Kd+logKd_error), color = "grey", width=.01)+
+  labs(x = TeX(r'(log (SA/PV)/C$)'), y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), color = "", shape = "") +
+  geom_point(size = 5) +
+  scale_color_manual(breaks = c("CWC", "DSL", "ULS"),
+                     values=c("#FFB547FF","#40E0CF", "#4E9C81"))+
+  geom_point(size = 2) +
+  theme_bw() +
+  #guides(shape = "none", color = "none") +
+  coord_fixed(ratio = 0.9) +
+  theme(panel.grid = element_blank(), legend.position = "bottom", 
+        text = element_text(size = 20))
+Kd_1ugL_SA_PV_C_label
+ggsave("R/figs/SETAC/SAPV_C_label.pdf")
 
 # Main elements separately ----
 # Biochar_ratios_1ugL_select$compound <- 

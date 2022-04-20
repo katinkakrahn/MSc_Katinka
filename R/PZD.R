@@ -37,7 +37,7 @@ PZD_SAPV_C_plot <- PZD_label %>%
     x = Pore_size,
     color = Biochar
   )) +
-  labs(x = "Pore size (mm)", y = NULL, color = "", shape = "") +
+  labs(x = "Pore size (nm)", y = NULL, color = "", shape = "") +
   geom_point(size = 2) +
   facet_wrap(.~ name,
              scales = "free_y",
@@ -62,8 +62,8 @@ PZD_SAPV_C_plot_nolabel <- PZD_label %>%
     x = Pore_size,
     color = Biochar
   )) +
-  labs(x = "Pore size (mm)", y = NULL, color = "", shape = "") +
-  geom_point(size = 2) +
+  labs(x = "Pore size (nm)", y = NULL, color = "", shape = "") +
+  geom_point(size = 1.5) +
   facet_wrap(.~ name,
              scales = "free_y",
              labeller = label_parsed,
@@ -73,13 +73,14 @@ PZD_SAPV_C_plot_nolabel <- PZD_label %>%
   scale_x_continuous(breaks=c(1,3,5,10,20,30)) +
   scale_y_continuous() +
   theme_bw() +
-  guides(color = "none") +
+  guides(colour = guide_legend(override.aes = list(size=5))) +
   theme(panel.grid = element_blank(), 
-        legend.position = "bottom", 
+        legend.position = "right", 
         text = element_text(size = 20),
         strip.placement = "outside",
         strip.background = element_blank())
 PZD_SAPV_C_plot_nolabel
+ggsave("R/figs//SETAC/PZD_label.pdf")
 
 # Small pores
 PZD_label_small <- PZD %>% 

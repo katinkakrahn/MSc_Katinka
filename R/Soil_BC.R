@@ -172,7 +172,7 @@ C10 <- Soil_BC_join_mean_and_isotherm %>%
   theme_bw() +
   theme(panel.grid = element_blank(),
         legend.position = "bottom",
-        text = element_text(size = 12))
+        text = element_text(size = 20))
 C10
 ggsave(filename = "R/figs/C10.pdf")
 
@@ -221,29 +221,33 @@ Attenuation_C10
 ggsave(filename = "R/figs/Attenuation_factors_C10.pdf")
 
 # PFOA soil isotherm and BC isotherm ----
-PFOA_isotherm_attenuation <- Soil_BC_join %>% 
-  filter(Compound == "PFOA",
-         Biochar != "no",
-         mixLogic == FALSE) %>% 
-  group_by(SoilLogic, Biochar) %>% 
+PFOA_isotherm_attenuation <- Soil_BC_join_isotherm %>% 
+  filter(Compound == "PFOA") %>% 
+  mutate(type = factor(type, levels = c("BC_sing", "BC_S_sing", 
+                                        "BC_S_mix"))) %>% 
+  group_by(type) %>% 
   ggplot() +
-  geom_point(mapping = aes(x = log10(Cw), y = log10(Cs), color = SoilLogic),
+  geom_point(mapping = aes(x = log10(Cw), y = log10(Cs), color = type),
                            size = 1) + 
   geom_smooth(mapping = aes(x = log10(Cw), 
                             y = log10(Cs), 
-                            color = SoilLogic), 
+                            color = type), 
               formula = y ~ x, 
               method=lm, 
               se=F, fullrange = FALSE) + 
   labs(x = TeX(r'($log~C_{w}~(\mu g/L)$)'), 
-       y = TeX(r'($log~C_{s}~(\mu g/g)$)'),
+       y = TeX(r'($log~C_{s}~(\mu g/kg)$)'),
        color = "") + 
-  ggtitle("PFOA") +
-  facet_grid(rows = vars(Biochar)) +
+  facet_grid(rows = vars(Biochar),
+             cols = vars(Compound)) +
+  scale_color_brewer(palette = "Paired",
+                     labels = c("BC single", 
+                                "BC soil single", 
+                                "BC soil cocktail")) +
   theme_bw() +
-  theme(panel.grid = element_blank())
+  theme(panel.grid = element_blank(),
+        legend.position = "bottom",
+        text = element_text(size = 20)
+  )
 PFOA_isotherm_attenuation
-
-
-
-
+ggsave(filename = "R/figs/Attenuation_isotherms_PFOA.pdf")

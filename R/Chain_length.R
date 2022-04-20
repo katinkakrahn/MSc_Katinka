@@ -110,7 +110,7 @@ ChainLength_KF_line
 n_KF <- ggplot(data = summary_stats_single, mapping = aes(x = nr_CF2, y = n, color = biochar)) +
   geom_errorbar(aes(nr_CF2, ymin=n-n_std_error, ymax=n+n_std_error), width=.05,
                 position=position_dodge(.9), color = "grey45") +
-  geom_point(size = 2) + 
+  geom_point(size = 4) + 
   geom_line(size = 1) +
   labs(x = expression(CF[2]~chain~length), y = expression(n[F]), color = "") +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),

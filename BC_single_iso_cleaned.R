@@ -313,6 +313,7 @@ Sorption_isotherms_nolabel <- Sorption_BC_single %>%
   theme(panel.grid = element_blank(), legend.position = "bottom") +
   guides(color = "none")
 Sorption_isotherms_nolabel
+ggsave(filename="R/figs/SETAC/Sorption_isotherms_nolabel.pdf")
 
 
 
