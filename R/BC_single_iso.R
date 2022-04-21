@@ -411,11 +411,11 @@ Sorption_isotherms_nolabel <- as_tibble(Sorption_BC_single) %>%
                            "PFNA" = "PFNA (C9)",
                            "PFDA" = "PFDA (C10)")) %>%  
   ggplot() +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, 
+  geom_point(mapping = aes(x = log10(Cw), y = log10(Cs), 
                            color = factor(Biochar)),
              alpha = 0.6,
              size = 2) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, color = factor(Biochar)), 
+  geom_smooth(mapping = aes(x = log10(Cw), y = log10(Cs), color = factor(Biochar)), 
               formula = y ~ x, 
               method=lm, 
               se=F, 
@@ -428,10 +428,9 @@ Sorption_isotherms_nolabel <- as_tibble(Sorption_BC_single) %>%
   theme(text = element_text(size = 16)) +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
                      values=c("#FFB547FF","#4E9C81","#40E0CF"))+
-  theme(panel.grid = element_blank(), legend.position = "bottom") +
-  guides(color = "none")
+  theme(panel.grid = element_blank(), legend.position = "right")
 Sorption_isotherms_nolabel
-ggsave(filename="R/figs/Sorption_isotherms_single_BC_nolabel.pdf")
+ggsave(filename="R/figs/SETAC/Sorption_isotherms_single_BC_label.pdf")
 
 # Summary stats of each compound ----
 summary_stats_PFPeA <- filter(summary_stats_single, compound == "PFPeA")

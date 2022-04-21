@@ -50,7 +50,7 @@ PZD_SAPV_C_plot <- PZD_label %>%
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
-        text = element_text(size = 12),
+        text = element_text(size = 20),
         strip.placement = "outside",
         strip.background = element_blank())
 PZD_SAPV_C_plot
@@ -113,7 +113,7 @@ PZD_SAPV_C_small_plot <- PZD_label_small %>%
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
-        text = element_text(size = 12),
+        text = element_text(size = 20),
         strip.placement = "outside",
         strip.background = element_blank())
 PZD_SAPV_C_small_plot
