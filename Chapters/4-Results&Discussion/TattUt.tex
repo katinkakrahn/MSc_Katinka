@@ -392,3 +392,67 @@ Pore size distribution is important for explaining sorption of PFAS of increasin
 
 
 \citep{yin2022insights,du2014adsorption} effects of salinity on sorption, states sorption increases with increasing salinity because the solubility of PFAS declines when the solution increases in ionic strength, making more PFCs separated from bulk solution onto adsorbents, which is called salting-out effect . 
+
+\begin{figure}
+    \centering
+        \begin{subfigure}[]{\linewidth}
+            \centering
+            \includegraphics[width=0.6\textwidth]{R/figs/ULS_facet_isotherm.pdf}
+            \subcaption{ULS isotherms}
+            \label{fig:ULS_isotherm}
+        \end{subfigure}
+        \begin{subfigure}[]{\linewidth}
+            \centering
+            \includegraphics[width=0.6\textwidth]{R/figs/DSL_facet_isotherm.pdf}
+            \subcaption{DSL isotherms}
+            \label{fig:DSL_isotherm}
+        \end{subfigure}   
+\end{figure}
+\begin{figure}[t]\ContinuedFloat
+        \begin{subfigure}[]{\linewidth}
+            \centering
+            \includegraphics[width=0.6\textwidth]{R/figs/CWC_facet_isotherm.pdf}
+            \subcaption{CWC isotherms}
+            \label{fig:CWC_isotherm}
+        \end{subfigure}
+        \caption{Single-compound Freundlich sorption isotherms of PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA. Lines are obtained by linear regression. For comparison across chain length, the shaded gray lines are the isotherms from the other compounds.}
+        \label{fig:sorption_isotherms_all}
+\end{figure}
+
+%Consider removing this table
+\begin{table}
+\centering
+\caption{Competition factor at SC10 (\cref{tab:spikeConcentrations}) for each compound and biochar. Competition factor is defined as K\textsubscript{d,single}/K\textsubscript{d,mix})$\times$100\%.}
+\begin{threeparttable}
+\label{tab:competition}
+\begin{tabular}{lrrr}
+\toprule
+ & \multicolumn{3}{c}{Competition factor \%} \\ \cmidrule(l){2-4}
+ & CWC & ULS & DSL \\ \midrule
+PFPeA & 8.2 & \textsuperscript{*} & \textsuperscript{*} \\
+PFHxA & \textsuperscript{*} & 2.3 & \textsuperscript{*} \\
+PFHpA & \textsuperscript{*} & 0.2 & \textsuperscript{*} \\
+PFOA & 15.8 & 3.4 & 4.4 \\
+PFNA & 0.9 & 3.4 & 0.7 \\
+PFDA & 10.6 & 10.9 & 3.1 \\ \bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textsuperscript{*} Amount in filtrate exceeded the amount spiked due to analytical uncertainty.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+$K_d$ changes the least for PFHxA and PFHpA (2.3 and 0.2 \% respectively) and may be attributed to lower spiked concentrations (330 and 117 \textmu g L\textsuperscript{-1}) for these compounds compared to the rest in \cref{tab:competition}. Competition is most profound for PFOA to CWC followed by PFDA for ULS and CWC (15.8, 10.0 and 10.6 \% respectively), which can be explained by the highest concentrations spiked for these compounds (1 953 and 3 830 \textmu g L\textsuperscript{-1}). It appears that sorption of PFNA is minimally influenced by competition between other compounds despite SC being in the higher range (1 409 \textmu g L\textsuperscript{-1}). $K_d$ for PFPeA is reduced by 8.2\% and is expected based on weaker sorption of short-chain compounds.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{R/figs/C10.pdf}
+    \caption{Sorption attenuation for each TC by soil and/or competing congeners at SC10 (191, 330, 117, 1 953, 1 409, and 3 830 \textmu g L\textsuperscript{-1} for C5-C10, respectively). The error bars represent the standard deviation of $log~K_d$ for the cocktail batch tests performed in triplicate (not included). The single-compound $log~K_d$'s are single points.}
+    \label{fig:C10}
+\end{figure}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{R/figs/Attenuation_factors_C10_OND.pdf}
+    \caption{Attenuation factors at C10 for C8-C10 calculated as \% reduction in $K_d$ from BC single. BC cocktails are spiked with 7.8 mg/L total PFCA and BC soil cocktails with 10.8 mg/L (the difference is due to analytical uncertainty and will be discussed assuming the that the spike concentrations are similar). See \cref{tab:spikeConcentrations} for spike concentrations used for each PFCA in the single-spike and cocktail-spike batch tests.}
+    \label{fig:attenuation_factors}
+\end{figure}

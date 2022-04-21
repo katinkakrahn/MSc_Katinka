@@ -3,15 +3,22 @@ In this chapter the results and methods from laboratory experiments are presente
 
 \section{PFCA sorption behavior}
 \subsection{Biochar-water sorption isotherms}
-In \cref{fig:sorption_isotherms}, the sorption isotherms are presented for PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA to CWC, ULS and DSL. The points generated from the batch tests were fitted using the Freundlich model (\cref{eq:FreundlichLinear}). For all compounds, the sorption isotherm for ULS is visibly higher than DSL, followed by CWC. The Freundlich sorption coefficients ($log~K_F$), linearity coefficients ($n_F$) and correlation coefficients ($r^2$) are presented in \cref{tab:summary_stats_single}. Somewhat unexpectedly, sorption is strongest for the two sludge chars. Possible mechanisms for the strong sorption will be discussed in this section. 
+\cref{fig:sorption_isotherms} shows the sorption isotherms for PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA on CWC, ULS and DSL. The points generated from the batch tests were fitted using the Freundlich model (\cref{eq:FreundlichLinear}). For all compounds, the sorption isotherm for ULS is visibly higher than DSL, followed by CWC. The Freundlich sorption coefficients ($log~K_F$), linearity coefficients ($n_F$) and correlation coefficients ($r^2$) are presented in \cref{tab:summary_stats_single}. Somewhat unexpectedly, sorption is strongest for the two sludge chars. Possible mechanisms for the strong sorption will be discussed in this section. 
 
-Due to the pioneering research on sewage sludge biochars as sorbents for PFAS in this thesis, literature partitioning coefficients for PFCAs of other sewage sludge biochars are non-existent (is that correct?). However, a comparison can be made between the $log~K_F$s found in this thesis and for commercially-produced activated carbons (AC) reported in other studies. The sorption coefficients are equivalent or higher compared to literature values for $log~K_F$ of PFOA to AC: 5.60 \citep{Kupryianchyk2016a}, 4.45 \citep{hansen2010sorption}, and 4.74-5.42 \citep{silvani2019can}. This is promising for the potential to replace non-renewable AC with waste based biochars for environmental remediation in the field and wastewater treatment. 
+Due to the pioneering research on sewage sludge biochars as sorbents for PFAS in this thesis, literature partitioning coefficients for PFCAs of other sewage sludge biochars are scarce (is that correct?). However, comparisons can be made between the $log~K_F$s found in this thesis and for commercially-produced activated carbons (AC) reported in other studies. The sorption coefficients are equivalent or higher compared to literature values for $log~K_F$ of PFOA to AC: 5.60 \citep{Kupryianchyk2016a}, 4.45 \citep{hansen2010sorption}, and 4.74-5.42 \citep{silvani2019can}. This is promising for the potential to replace non-renewable AC with waste-based biochars for environmental remediation in the field and wastewater treatment. 
 
 \begin{figure}[tb]
     \centering
     \includegraphics[width=0.8\textwidth]{R/figs/Sorption_isotherms_single_BC.pdf}
     \caption{Freundlich sorption isotherms of TCs in batch tests with three different biochars. Lines are obtained by linear regression.}
     \label{fig:sorption_isotherms}
+\end{figure}
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=\textwidth]{R/figs/BC_facet_isotherm.pdf}
+    \caption{Single-compound Freundlich sorption isotherms of PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA. Lines are obtained by linear regression. For comparison across chain length, the shaded gray lines are the isotherms from the other compounds with the same sorbent.}
+    \label{fig:sorption_isotherms_all}
 \end{figure}
 
 \begin{table}
@@ -38,9 +45,9 @@ PFDA & 6.00 ± 0.04 & 0.35 ± 0.05 & 0.86 & *** & 5.61 ± 0.02 & 0.61 ± 0.02 & 
 
 \subsection{Effect of PFCA properties}
 \subsubsection{PFCA chain length}
-\cref{fig:sorption_isotherms_all} shows sorption isotherms for the single-compound batch tests for CWC, ULS and DSL. The Freundlich coefficients for ULS increased in the order, PFPeA $<$ PFHxA $<$ PFOA $<$ PFHpA $<$ PFNA $<$ PFDA, ranging from $log~K_F$ = 4.10-6.00 (\cref{tab:summary_stats_single}). All regressions were significant (p$<$0.01). The Freundlich coefficients for DSL increased in the order, PFHxA $<$ PFPeA $<$ PFHpA $<$ PFOA $<$ PFNA $<$ PFDA, ranging from $log~K_F$ = 3.16-5.61. All regressions were significant (p$<$0.001) except for the PFPeA isotherm which only consisted of four points (SP7-10) due to higher analyzed filtrate concentrations than what was spiked for SP1-6 (attributed to analytical uncertainty or imprecision/contamination during laboratory work) (\cref{fig:DSL_isotherm}). The Freundlich coefficients for CWC increased in the order, PFPeA $<$ PFHpA $<$ PFHxA $<$ PFNA $<$ PFOA $<$ PFDA, ranging from $log~K_F$ = 3.01-5.22. All regressions were significant (p$<$0.01) except for PFPeA and PFHxA despite nine points used in the regressions. Changes in $log~K_F$ with chain length can be visualized in \cref{subfig:chainlength}. 
+\cref{fig:sorption_isotherms_all} shows sorption isotherms for the single-compound batch tests for CWC, ULS and DSL. The Freundlich coefficients for ULS increased in the order: PFPeA (CF4) $<$ PFHxA (CF5) $<$ PFOA (CF7) $<$ PFHpA (CF6) $<$ PFNA (CF8) $<$ PFDA (CF9), ranging from $log~K_F$ = 4.10-6.00 (\cref{tab:summary_stats_single}). All regressions were significant (p$<$0.01). The Freundlich coefficients for DSL increased in the order, PFHxA (CF5) $<$ PFPeA (CF4) $<$ PFHpA (CF6) $<$ PFOA (CF7) $<$ PFNA (CF8) $<$ PFDA (CF9), ranging from $log~K_F$ = 3.16-5.61. All regressions were significant (p$<$0.001) except for the PFPeA isotherm which only consisted of four points (SP7-10) due to higher analyzed filtrate concentrations than what was spiked for SP1-6 (analytical uncertainty or imprecision/contamination during laboratory work) (\cref{fig:sorption_isotherms_all}). The Freundlich coefficients for CWC increased in the order, PFPeA (CF4) $<$ PFHpA (CF6) $<$ PFHxA (CF5) $<$ PFNA (CF8) $<$ PFOA (CF7) $<$ PFDA (CF9), ranging from $log~K_F$ = 3.01-5.22. All regressions were significant (p$<$0.01) except for PFPeA and PFHxA despite nine points used in the regressions. Changes in $log~K_F$ with chain length can be visualized in \cref{subfig:chainlength}. 
 
-A statistically significant relationship between $log~K_F$ and CF\textsubscript{2} chain length was found for all three biochars (p$<$0.05, \cref{fig:chain_length_n}), which is in accordance with previous studies \citep{Sorengard2019,higgins2006sorption,ahmed2020per}. There was a difference of 1.2-1.9 $log~K_F$ units between the longest and the shortest PFCA chain (PFDA and PFPeA). For every CF\textsubscript{2} moiety, hydrophobic interactions between condensed aromatic structures in the biochar matrix increases, contributing to stronger sorption. Several mechanisms can be used to explain why perfluorinated carboxylic acids increase in hydrophobicity with increasing chain length. 1) Due to high molecular surface of the perfluorinated tail, a high cavity formation energy is needed to dissolve the compounds in water, and therefore they tend to be pushed towards water extremities, such as a biochar surface. Therefore, dissolution becomes increasingly energetically demanding with increasing chain length \citep{sigmund2022sorption}. 2) the perfluorinated chain with CF\textsubscript{2} moieties is capable of the least van der Waals interactions per molecular surface area compared to CH\textsubscript{2} which results in the least interactions between water molecules when in the water cavity. This is why PFASs are both oil- and water repellent. 
+A statistically significant relationship between $log~K_F$ and CF\textsubscript{2} chain length was found for all three biochars (p$<$0.05, \cref{fig:chain_length_n}), which is in accordance with previous studies \citep{Sorengard2019, higgins2006sorption, ahmed2020per}. There was a difference of 1.2-1.9 $log~K_F$ units between the longest and the shortest PFCA chain (PFDA and PFPeA). For every CF\textsubscript{2} moiety, hydrophobic interactions between condensed aromatic structures in the biochar matrix increases, contributing to stronger sorption. Several mechanisms can be used to explain why perfluorinated carboxylic acids increase in hydrophobicity with increasing chain length. 1) Due to high molecular surface of the perfluorinated tail, a high cavity formation energy is needed to dissolve the compounds in water, and therefore they tend to be pushed towards water extremities, such as a biochar surface. Therefore, dissolution becomes increasingly energetically demanding with increasing chain length \citep{sigmund2022sorption}. 2) the perfluorinated chain with CF\textsubscript{2} moieties is capable of the least van der Waals interactions per molecular surface area compared to CH\textsubscript{2} which results in the least interactions between water molecules when in the water cavity. This is why PFASs are both oil- and water repellent. 
 
 \begin{figure*}[tbh]
     \centering
@@ -61,61 +68,28 @@ A statistically significant relationship between $log~K_F$ and CF\textsubscript{
     \caption{Relationship between \textbf{(a)} Correlation between $log~K_F$ and chain length. Linear regression coefficients for ULS: $r^2$ = 0.68, $p$ = 0.52, DSL: $r^2$ = 0.98, $p$ = 0.012, CWC: $r^2$ = 0.93, $p$ = 0.007. Error bars are the propagated error of $log~K_F$ and $n_F$. \textbf{(b)} $n_F$ and $CF_2$ chain length. Error bars are the standard error of $log~K_F$ for each chain length and biochar isotherm.}
 \end{figure*}
 
-\begin{figure}
-    \centering
-        \begin{subfigure}[]{\linewidth}
-            \centering
-            \includegraphics[width=0.6\textwidth]{R/figs/ULS_facet_isotherm.pdf}
-            \subcaption{ULS isotherms}
-            \label{fig:ULS_isotherm}
-        \end{subfigure}
-        \begin{subfigure}[]{\linewidth}
-            \centering
-            \includegraphics[width=0.6\textwidth]{R/figs/DSL_facet_isotherm.pdf}
-            \subcaption{DSL isotherms}
-            \label{fig:DSL_isotherm}
-        \end{subfigure}   
-\end{figure}
-\begin{figure}[t]\ContinuedFloat
-        \begin{subfigure}[]{\linewidth}
-            \centering
-            \includegraphics[width=0.6\textwidth]{R/figs/CWC_facet_isotherm.pdf}
-            \subcaption{CWC isotherms}
-            \label{fig:CWC_isotherm}
-        \end{subfigure}
-        \caption{Single-compound Freundlich sorption isotherms of PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA. Lines are obtained by linear regression. For comparison across chain length, the shaded gray lines are the isotherms from the other compounds.}
-        \label{fig:sorption_isotherms_all}
-\end{figure}
-
 \subsubsection{PFAS functional group} 
-The charged and polar head of PFCAs give these compound classes unique sorptive properties because the polar head can engage simultaneously in electrostatic bonding with surface functional groups or bridging cations within the biochar matrix (ash rich in cations) \citep{zhang2013sorption,sigmund2022sorption}. In this study, the highest sorption were seen for ULS and DSL with the lowest \% C (\cref{tab:SAPV}), which is in contrast with previous literature. However, previous PFAS sorption studies have been conducted on biochar from cleaner, wood-based feedstock \citep{Sormo2021}, activated carbon \citep{zhang2021sorption,Kupryianchyk2016b}, soils and sediments \citep{higgins2006sorption}, and raw sewage sludges \citep{zhang2013sorption}. These studies conclude that the importance of electrostatic interaction to sorption comes secondary to the hydrophobic effect. The main reason for this is that the biochar surface is net negatively charged with a high cation exchange capacity (CEC) \citep{Ahmad2014} and may experience electrostatic repulsion of the negatively charged functional group on the PFAS (Include PZC when available). PFCAs have low $pK_a$s (-1, \citep{goss2008pKa}) due to having strong electron withdrawing fluorine atoms and hence become strong acids. The PFCAs investigated in this study will be negatively charged given the filtrate pH of 7.1-7.4 (\cref{tab:pHcond}). Thus, all TCs experience electrostatic repulsion from the biochar surface which result in the lowest $K_F$-values for the shorter-chain PFCAs (\cref{tab:summary_stats_single}). Electrostatic repulsion is reduced in acid soils where the CEC is reduced and the biochar surfaces become protonated and more neutral. This allows for anion- \textpi-bond interaction with biochar \citep{sigmund2022sorption}. 
+The charged and polar head of PFCAs give these compound classes unique sorptive properties because the polar head can engage simultaneously in electrostatic bonding with surface functional groups or bridging cations within the biochar matrix (ash rich in cations) \citep{zhang2013sorption,sigmund2022sorption}. In this study, the highest sorption were seen for ULS and DSL with the lowest \% C (\cref{tab:SAPV}), which is, at large, in contrast with previous literature. However, previous PFAS sorption studies have been conducted on biochar from cleaner, wood-based feedstock \citep{Sormo2021}, activated carbon \citep{zhang2021sorption,Kupryianchyk2016b}, soils and sediments \citep{higgins2006sorption}, and raw sewage sludges \citep{zhang2013sorption}. These studies conclude that the importance of electrostatic interaction to sorption comes secondary to the hydrophobic effect. The main reason for this is that the biochar surface is net negatively charged with a high cation exchange capacity (CEC) \citep{Ahmad2014} and may experience electrostatic repulsion of the negatively charged functional group on the PFAS (Include PZC when available). PFCAs have low $pK_a$s (-1, \citep{goss2008pKa}) due to having strong electron withdrawing fluorine atoms and hence become strong acids. The PFCAs investigated in this study will be negatively charged given the filtrate pH of 7.1-7.4 (\cref{tab:pHcond}). Thus, all TCs experience electrostatic repulsion from the biochar surface which result in the lowest $K_F$-values for the shorter-chain PFCAs (\cref{tab:summary_stats_single}). Electrostatic repulsion is reduced in acid soils where the CEC is reduced and the biochar surfaces become protonated and more neutral. This allows for anion- \textpi-bond interaction with biochar \citep{sigmund2022sorption}. 
 
-\cite{zhang2021sorption} found that sorption increased in the order PFBA $<$ PFBS $<$ PFOA $<$ PFOS for granular activated carbon and softwood-derived biochar. The difference between the PFSA and PFCA groups is that PFSAs have one more perfluorinated carbon than PFCAs, which has its terminal carbon bonded as a carboxylate (COO\textsuperscript{-}). If one compares PFHpS with PFOA, which have the same number of $\mathrm{CF_2}$ moieties, the perfluorinated sulfonic acid still sorbs better. Researchers attribute this to 1) difference in molecular size, where the sulfonate moiety is slightly larger than the carboxylate moiety, which results in greater cavity formation energy of PFSAs, and hence in water saturated conditions, the functional group is pushed towards water extremities \citep{yin2022insights,sigmund2022sorption}. In batch shaking experiments this would be the biochar surfaces or tube walls; 2) Because sulfonic acid is a stronger acid than carboxylic acid which results in stronger ionic interaction to positive charges of mineral phases \citep{arvaniti2015review}. \cite{du2014adsorption}: electr and hydry balance Since sorption increased with chain length onto all three biochars in this study, this suggests that hydrophobic interactions is the dominant sorption mechanism over electrostatic interactions. Therefore, further investigation to explain why the sludge biochars sorb better than CWC will follow. 
+\cite{zhang2021sorption} found that sorption increased in the order PFBA $<$ PFBS $<$ PFOA $<$ PFOS for granular activated carbon and softwood-derived biochar. The difference between the PFSA and PFCA groups is that PFSAs have one more perfluorinated carbon than PFCAs, which has its terminal carbon bonded as a carboxylate (COO\textsuperscript{-}). If one compares PFHpS with PFOA, which have the same number of $\mathrm{CF_2}$ moieties, the perfluorinated sulfonic acid still sorbs better. Researchers attribute this to 1) difference in molecular size, where the sulfonate moiety is slightly larger than the carboxylate moiety, which results in greater cavity formation energy of PFSAs, and hence in water saturated conditions, the functional group is pushed towards water extremities \citep{yin2022insights,sigmund2022sorption}. In batch shaking experiments this would be the biochar surfaces or tube walls; 2) Because sulfonic acid is a stronger acid than carboxylic acid which results in stronger ionic interaction to positive charges of mineral phases \citep{arvaniti2015review}. \cite{du2014adsorption}: electr and hydry balance Since sorption increased with chain length onto all three biochars in this study, this suggests that hydrophobic interactions is the dominant sorption mechanism over electrostatic interactions. Therefore, further investigation to explain why the sludge biochars sorb better than CWC is described in the next section. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Soil chemistry}
-The soil used in the batch tests was characterized as a fine sand (0.1 to 0.3 mm) with 1.3 \% TOC (pH 5.38 \textpm 0.02, CEC 2.63 \textpm 0.06 meqv 100 g\textsuperscript{-1}). Total element concentrations and exchangeable ion concentrations are in \cref{appSec:elements}, \cref{apptab:soil}. 
-
-Soil extraction showed no native target analytes present. Upon filtration, each batch test category was different in its ease of filtration due to various degree of suspended particles and had different color filtrate, as seen in \cref{subfig:filtrate}. Filter clogging and reduction in filter pore size, had to exchange filters during filtration, which is a potential source of error. 
-
-Aggregation of humic substances upon addition of acetic acid pre-SPE, how this may impact results. 
-
-Precipitation of a brown fluff was observed when filtered batch tests containing soil was adjusted to pH 3 with 1 M acetic acid
-
-Sorptive attenuation of a spiked cocktail of the six TCs were tested for each biochar is shown by the red point in \cref{fig:sorption_isotherms_all}. Due to different spike concentration used for each compound in the cocktail, establishing quantitative trends for how chain length influences competition for sorption size is difficult. However, some conclusions can be drawn by looking at the trends for each PFCA in the different batch test categories. \cref{tab:competition} shows that $log~K_d$ decreases for all compounds in the presence of a mixture. $K_d$ changes the least for PFHxA and PFHpA (2.3 and 0.2 \% respectively) and may be attributed to lower spiked concentrations (330 and 117 \textmu g L\textsuperscript{-1}) for these compounds compared to the rest in \cref{tab:competition}. Competition is most profound for PFOA to CWC followed by PFDA for ULS and CWC (15.8, 10.0 and 10.6 \% respectively), which can be explained by the highest concentrations spiked for these compounds (1 953 and 3 830 \textmu g L\textsuperscript{-1}). It appears that sorption of PFNA is minimally influenced by competition between other compounds despite SC being in the higher range (1 409 \textmu g L\textsuperscript{-1}). $K_d$ for PFPeA is reduced by 8.2\% and is expected based on weaker sorption of short-chain compounds.
-
-Most previous studies have reported a linear increasing trend between $log~K_d$ and chain length. However not for PFPeA, \citep{zhang2013sorption}, found in \citep{Sorengard2019}. and \citep{guelfo2013} these studies are for sorption to organic matter.  Steric hindrance. Competing sorption to humic matter
-fouling/pre-loading by NOM
-Pore blocking
-
 \section{Sorption attenuation by soil and competing congeners}
-\cref{fig:C10} shows the $K_d$ values for the different batch test categories spiked at SC10 for each compound (\cref{tab:spikeConcentrations}, note: $K_d$-values cannot be compared between compounds as different spike concentrations were used). The figure shows that sorption is clearly attenuated by soil and competing congeners by varying degrees. Strongest sorption is seen and expected for the singly spiked batch tests with biochar only. The cocktail spikes in both biochar only and biochar and soil experience similar attenuation, although for ULS, BC soil cocktail is markedly lower than  BC cocktail, which is to be expected because the sandy soil used has poor sorption affinity with a mean $log~K_d$ value of 2.47 (red symbols, \cref{fig:C10}) versus $log~K_d$ of, for example, 6.06 for singly-spiked PFDA to ULS-water. Overall, BC soil cocktail experiences highest sorption attenuation, which is plausible because both soil and competing PFCAs disrupt optimal sorption. 
+Brown-colored filtrate and humus aggregation indicate that co-sorption onto organic matter (OM) in the BC-soil-water batch test is significant (details on soil chemistry is in \cref{sec:Soil}). By this co-existence, sorption attenuation occurs by 1) competitive and weaker sorption of PFAS on OM, and 2) competitive sorption to pore walls and pore clogging by large humic acids (300-600 nm) \citep{Cornelissen2006,kluvcakova2018size}. Combined, these and rather attenuates the effect of the biochar sorbents by pore clogging and competitive sorption to pore walls than enhancing sorption by the presence of additional sorbent substrate \citep{du2014adsorption}. Further, size of the organic molecules matter as humic molecules with similar size to PFAS contribute to highest competition, however, this was not investigated in this study. 
+\cref{subfig:C10} shows the $K_d$ values for the different batch test categories spiked at SC10 for each compound (\cref{tab:spikeConcentrations}, note: $K_d$-values cannot be compared between compounds as different spike concentrations were used). The figure shows that sorption is clearly attenuated by soil and competing congeners by varying degrees. Strongest sorption is seen and expected for the singly spiked batch tests with biochar only. The cocktail spikes in both biochar only and biochar and soil experience similar attenuation, although for ULS, BC soil cocktail is markedly lower than  BC cocktail, which is to be expected because the sandy soil used has poor sorption affinity with a mean $log~K_d$ value of 2.47 (red symbols, \cref{subfig:C10}) versus $log~K_d$ of, for example, 6.06 for singly-spiked PFDA to ULS-water. Overall, BC soil cocktail experiences highest sorption attenuation, which is plausible because both soil and competing PFCAs disrupt optimal sorption. 
 
 A table of attenuation factors for each batch test category is provided in \cref{apptab:attenuation}.
 Total concentration cocktail BC: 7.8 mg/L, cocktail BC soil: 10.8 mg/L
 
-\cref{fig:attenuation_factors} shows the percentage reduction in $K_d$ for each batch test category compared to the biochar-water single-spike batch tests. 
+Sorptive attenuation of a spiked cocktail of the six TCs were tested for each biochar and is shown in \cref{subfig:C10} Due to different spike concentration used for each compound in the cocktail, establishing quantitative trends for how chain length influences competition for sorption size is difficult. However, some conclusions can be drawn by looking at the trends for each PFCA in the different batch test categories. For all compounds, $log~K_d$ decreases in the presence of a mixture. 
+
+Mixed system versus single system on competetive sorption exists in a mixed system compared to a single system, which can be seen in the C10 figure, adsorbed amounts of each compound is less compared with the single system, in accordance with previous literature \citep{deng2010removal}
+Most previous studies have reported a linear increasing trend between $log~K_d$ and chain length. However not for PFPeA, \citep{zhang2013sorption}, found in \citep{Sorengard2019}. and \citep{guelfo2013} these studies are for sorption to organic matter.  Steric hindrance. Competing sorption to humic matter
+fouling/pre-loading by NOM
+Pore blocking
+
+\cref{subfig:AF} shows the percentage reduction in $K_d$ for each batch test category compared to the biochar-water single-spike batch tests. 
 
 It appears that attenuation by a cocktail in soil and biochar only is within the range 25-45\% of maximum sorption capacity with little variance between the biochar samples.  
 
@@ -123,29 +97,28 @@ It appears that ULS, which has the highest sorption, also has most attenuation.
 
 Two explanations: 1) ULS having the highest sorption and most attenuation would indicated that these high sorption sits on ULS are limited and easily blocked; and this totally makes sense for the cocktail spike cause the highest sorption sites are the preferred sorption sites. 2) for the soil spike in addition to 1 you have to consider that there is also weaker sorption to the soil than the biochar, so you are measuring an average. The closer the sorption of the char is to the soil, the less the apparent attenuation effect.
 
+\begin{figure}
+    \centering
+        \begin{subfigure}[]{\linewidth}
+            \centering
+            \includegraphics[width=0.75\textwidth]{R/figs/C10.pdf}
+            \subcaption{Sorption attenuation for each TC by soil and/or competing congeners at SC10 (191, 330, 117, 1 953, 1 409, and 3 830 \textmu g L\textsuperscript{-1} for C5-C10, respectively). The error bars represent the standard deviation of $log~K_d$ for the cocktail batch tests performed in triplicate (not included). The single-compound $log~K_d$'s are single points.}
+            \label{subfig:C10}
+        \end{subfigure}
+        \begin{subfigure}[]{\linewidth}
+            \centering
+            \includegraphics[width=0.75\textwidth]{R/figs/Attenuation_factors_C10_OND.pdf}
+            \subcaption{Attenuation factors at C10 for C8-C10 calculated as \% reduction in $K_d$ from BC single. BC cocktails are spiked with 7.8 mg/L total PFCA and BC soil cocktails with 10.8 mg/L (the difference is due to analytical uncertainty and will be discussed assuming the that the spike concentrations are similar). See \cref{tab:spikeConcentrations} for spike concentrations used for each PFCA in the single-spike and cocktail-spike batch tests.}
+            \label{subfig:AF}
+        \end{subfigure}  
+    \caption{Reduction in $log~K_d$ at SC10 (a) and attenuation factors at SC10 (b).}
+    \label{fig:C10_AF}
+\end{figure}
+
 \subsection{Sorption attenuation of PFOA isotherms}
 Attenuation is lowest for BC soil single, 12-18 \% of maximum sorption, but note that only PFOA was spiked for this batch test type. Single-spikes in soil was only performed for PFOA, whose sorption is weaker than BC single, but stronger than cocktails in both BC and BC-soil. This suggests that sorption attenuation by competing congeners is higher than by the presence of soil. Applied to real-world conditions, this means that soil amended with BC is more effective in removing PFCAs at low concentrations than highly contaminated soil with a mixture of compounds and highly concentrated PFCA-cocktail in water.
 
 \cref{fig:PFOA_attenuation} isotherms for BC single, 
-
-\begin{figure}[htb]
-\subfloat[\label{subfig:filtrate}]{%
-  \includegraphics[width=0.45\textwidth]{Bilder/Samples/Filtrate_DOC.JPG}
-}
-\hfill
-\subfloat[\label{subfig:precip}]{%
-  \includegraphics[width=0.45\textwidth]{Bilder/Samples/Precipitation.jpg}
-}
-\caption{(a) Color of filtrate for each biochar batch test. From left to right: soil only, soil+ULS, soil+CWC, and soil+BRL. (b) Precipitation observed when filtered soil samples were adjusted to pH 3 with 1 M acetic acid.}
-\label{fig:DOC_tubes}
-\end{figure}
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.8\textwidth]{R/figs/C10.pdf}
-    \caption{Sorption attenuation for each TC by soil and/or competing congeners at SC10 (191, 330, 117, 1 953, 1 409, and 3 830 \textmu g L\textsuperscript{-1} for C5-C10, respectively). The error bars represent the standard deviation of $log~K_d$ for the cocktail batch tests performed in triplicate (not included). The single-compound $log~K_d$'s are single points.}
-    \label{fig:C10}
-\end{figure}
 
 \begin{figure}[htb]
     \centering
@@ -154,38 +127,7 @@ Attenuation is lowest for BC soil single, 12-18 \% of maximum sorption, but note
     \label{fig:PFOA_attenuation}
 \end{figure}
 
-\begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.8\textwidth]{R/figs/Attenuation_factors_C10_OND.pdf}
-    \caption{Attenuation factors at C10 for C8-C10 calculated as \% reduction in $K_d$ from BC single. BC cocktails are spiked with 7.8 mg/L total PFCA and BC soil cocktails with 10.8 mg/L (the difference is due to analytical uncertainty and will be discussed assuming the that the spike concentrations are similar). See \cref{tab:spikeConcentrations} for spike concentrations used for each PFCA in the single-spike and cocktail-spike batch tests.}
-    \label{fig:attenuation_factors}
-\end{figure}
-
-
-%Consider removing this table
-\begin{table}
-\centering
-\caption{Competition factor at SC10 (\cref{tab:spikeConcentrations}) for each compound and biochar. Competition factor is defined as K\textsubscript{d,single}/K\textsubscript{d,mix})$\times$100\%.}
-\begin{threeparttable}
-\label{tab:competition}
-\begin{tabular}{lrrr}
-\toprule
- & \multicolumn{3}{c}{Competition factor \%} \\ \cmidrule(l){2-4}
- & CWC & ULS & DSL \\ \midrule
-PFPeA & 8.2 & \textsuperscript{*} & \textsuperscript{*} \\
-PFHxA & \textsuperscript{*} & 2.3 & \textsuperscript{*} \\
-PFHpA & \textsuperscript{*} & 0.2 & \textsuperscript{*} \\
-PFOA & 15.8 & 3.4 & 4.4 \\
-PFNA & 0.9 & 3.4 & 0.7 \\
-PFDA & 10.6 & 10.9 & 3.1 \\ \bottomrule
-\end{tabular}
-\begin{tablenotes}
-\item \textsuperscript{*} Amount in filtrate exceeded the amount spiked due to analytical uncertainty.
-\end{tablenotes}
-\end{threeparttable}
-\end{table}
-
-\subsection{Sorption non-linearity}
+\subsection{Freundlich sorption non-linearity}
 $n_F$ is a dimensionless empirical parameter that represents sorption linearity. All isotherms experience sorption site saturation at increasing concentrations indicated by $n_F<1 $ (\cref{tab:summary_stats_single}, which is consistent with the Freundlich model and other studies where sorption to biochar sees $n$-values typically around 0.3-0.7 \citep{Cornelissen2005}. From other studies, $K_F$ increases and $n_F$ decreases with decreasing O/C, H/C, and N/C ratios \citep{Cornelissen2005}. However, this study $K_F$ decreases with decreasing O/C, H/C, and N/C ratios, and no clear trend is seen for $n_F$ \cref{subfig:n}. Meanwhile, it does seem like the nonlinearity coefficients for CWC are more stable with increasing chain lengths than ULS and DSL. Additionally, comparing $n$ across compound isotherms does not make sense due to different spike concentrations being used for each compound. \citep{yin2022insights} suggests that electrostatic interactions between PFCAs and sediment can contribute to further enhancement of saturation of the adsorption sites and that intermolecular electrostatic repulsion between the individual molecules could also result in nonlinear sorption \citep{higgins2006sorption,yin2022insights}.
 
 \citep{yin2022insights} attributes non-linear sorption to three explanations: 1) complex composition of biochar with negative, positive and neutral charges within same matrix, 2) successive saturation of adsorption sites, 3) electrostatic interactions between the PFASs and sediment, 4) electrostatic repulsion from negatively charged carboxylate groups. 
@@ -229,7 +171,7 @@ DSL & 700 & 110 & 0.111 & 2.80 & 87  & 0.027 & 3.51 & 13.5 & 61.4 & 1.05 & 0.82 
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{R/figs/PZD_SAPV_C_small_plot.pdf}
+    \includegraphics[width=0.8\textwidth]{R/figs/PZD_SAPV_C_small_plot.pdf}
     \caption{Cumulative pore size distribution for pores 0.4-1.5 nm using DFT.}
     \label{fig:PZD_small}
 \end{figure}
@@ -281,7 +223,7 @@ In summary, difference in sorption between CWC, DSL, and ULS can be explained by
 
 
 \subsection{Surface chemistry}
-Based on feedstock type for the three biochars studied in this thesis, carbon content of the biochars follows the expected trend, CWC \textless ULS \textless DSL with 91.4\%, 29.6\% and 13.5\%, respectively (\cref{tab:SAPV}). Oxygen content was highest for DSL and ULS (61.4 and 57.1 \% respectively) compared to 5.5 \% for CWC. CWC has a low O/C and H/C ratio (\textless 1) whereas ULS and DSL have ratios \textgreater 1. A low H/C and O/C ratio is associated with high degree of aromaticity and few functional groups. This shows that the CWC matrix is dominated by aromatic carbon whereas ULS and DSL are dominated by oxidized carbon resulting in a more hydrophobic surface of the high-C biochar. A high degree of aromaticity have been reported in previous literature to be important for sorption of hydrophobic organic contaminants such as PAH's \citep{Cornelissen2005}. However, \cite{du2014adsorption} report that a higher O/C ratio with a biochar matrix consisting of more surface functional groups that are Lewis acids (hydroxyl, carbonyl, and metal-containing groups) have been found to be beneficial for sorption because they aid in the diffusion of PFAS into deeper pores that increases sorption capacity. The reason for this is that the CF chain is net negative and ion bridging is important because biochar is accompanied with high ash contents containing divalent cations. This interaction is stronger than hydrophobic interaction, which is only a compromise for PFAS which is more hydrophobic than lipophilic. It can hypothesized that the higher O/C ratio of the sewage sludge biochars may then be a contribution factor for stronger sorption seen for these chars. Although sorption capacity has not been measured directly, this might indicate that sorption at more inaccessible sites occur on the sludge biochars by the aid of surface functional groups. 
+Based on feedstock type for the three biochars studied in this thesis, carbon content of the biochars follows the expected trend, CWC \textless ULS \textless DSL with 91.4\%, 29.6\% and 13.5\%, respectively (\cref{tab:SAPV}). Oxygen content was highest for DSL and ULS (61.4 and 57.1 \% respectively) compared to 5.5 \% for CWC. CWC has a low O/C and H/C ratio (\textless 1) whereas ULS and DSL have ratios \textgreater 1. A low H/C and O/C ratio is associated with high degree of aromaticity and few functional groups. This shows that the CWC matrix is dominated by aromatic carbon whereas ULS and DSL are dominated by oxidized carbon resulting in a more hydrophobic surface of the high-C biochar. A high degree of aromaticity have been reported in previous literature to be important for sorption of hydrophobic organic contaminants such as PAH's \citep{Cornelissen2005}. However, \cite{du2014adsorption} report that a higher O/C ratio with a biochar matrix consisting of more surface functional groups that are Lewis acids (hydroxyl, carbonyl, and metal-containing groups) have been found to be beneficial for sorption because they aid in the diffusion of PFAS into deeper pores that increases sorption capacity. The reason for this is that the CF chain is net negative and ion bridging is important because biochar is accompanied with high ash contents containing divalent cations. This interaction is stronger than hydrophobic interaction, which is only a compromise for PFAS which is more hydrophobic than oleophobic. It can hypothesized that the higher O/C ratio of the sewage sludge biochars may then be a contribution factor for stronger sorption seen for these chars. Although sorption capacity has not been measured directly, this might indicate that sorption at more inaccessible sites occur on the sludge biochars by the aid of surface functional groups. 
 
 The proportion of elements other than C, O, H and N contained in the biochar matrices is significantly lower for the clean wood biochar (1.4 \%) compared to the sludge biochars (10.9 and 23.2 \%), containing a greater mixture of other elements. Total elemental composition of the biochars is given in \cref{appSec:elements}. The results from this study is in contrast to literature \citep{Hale2016,Sormo2021,zhang2021sorption} that report that the sorption strength of organic compounds to biochar increases with decreasing biochar O/C and biochar H/C ratios. Thus, the higher sorption onto ULS and DSL cannot be explained by the sorbent composition of main elements alone.
 
@@ -313,7 +255,7 @@ S & 7.08 & 0.05 & 23.33 & 0.87 & 0/1/10\\
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{R/figs/SAPV_C_Kd1ugL_plot.pdf}
+    \includegraphics[width=0.8\textwidth]{R/figs/SAPV_C_Kd1ugL_plot.pdf}
     \caption{The correlation of $log~K_d$ vs. (a) log C (b) log SA/PV (c) log (SA/PV)/C using BET for SA and BJH for PV by biomass feedstock. Error bars are the propagated standard error of $log~K_F$ and $n$.}
     \label{fig:Kd_SAPV_C}
 \end{figure}
@@ -347,7 +289,7 @@ Previous research suggests that calcium content is an important parameter contri
 Do I have data on \% ash for each sorbent?
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{R/figs/Correlation_SAPV_Ca_plot.pdf}
+    \includegraphics[width=0.8\textwidth]{R/figs/Correlation_SAPV_Ca_plot.pdf}
     \caption{The correlation of $log~K_d$ vs. (a) log Ca (b) log PV (c) log PV/Ca (d) log (SA/PV)/Ca using BET for SA and BJH for PV by biomass feedstock. Error bars are the propagated standard error.}
     \label{fig:Kd_SAPV_Ca}
 \end{figure}
@@ -359,7 +301,24 @@ Iron speciation, Synchrotron results, Inner-sphere complexes (covalent metal-lig
     \mathrm{\equiv Fe-OH_2^+~ + ~ CF_3(CF_2)_nCOO^- \rightarrow   ~ \equiv Fe-OOC(CF_2)_nCF_3 ~+~ H_2O}
 \end{equation}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Soil chemistry}\label{sec:Soil}
+The soil used in the batch tests was characterized as a fine sand (0.1 to 0.3 mm) with 1.3 \% TOC (pH 5.38 \textpm 0.02, CEC 2.63 \textpm 0.06 meqv 100 g\textsuperscript{-1}). Total element concentrations and exchangeable ion concentrations are in \cref{appSec:elements}, \cref{apptab:soil}. Soil extraction showed no native target analytes present. Upon filtration, each batch test category was different in its ease of filtration due to various degree of suspended particles, which also resulted in different filtrate color \cref{subfig:filtrate}. The soil batch tests with ULS and DSL were more transparent than soil only and soil-DSL, which is attributed to complexation of inorganic species present in the sludge chars. Since filters were clogged and had to be exchanged up to three times during filtration, both clogging resulting in reduced filter pore size and multiple filter exchange are possible sources of errors for the measurement of accurate $C_w$. Filter blanks were only conducted for BC-water samples and showed no significant effect, but filtration with soil may be different. Aggregation of humic substances as brown fluff was observed upon addition of 1 M acetic acid to pH 3 pre-SPE for the most colored filtrated samples \cref{subfig:precip}.
+
+\begin{figure}[tbh]
+\subfloat[\label{subfig:filtrate}]{%
+  \includegraphics[width=0.45\textwidth]{Bilder/Samples/Filtrate_DOC.JPG}
+}
+\hfill
+\subfloat[\label{subfig:precip}]{%
+  \includegraphics[width=0.38\textwidth]{Bilder/Samples/Precipitation.JPG}
+}
+\caption{(a) Color of filtrate for each biochar batch test. From left to right: soil only, soil+ULS, soil+CWC, and soil+DSL (BRL = DSL). (b) Precipitation observed when filtered soil samples were adjusted to pH 3 with 1 M acetic acid.}
+\label{fig:DOC_tubes}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
