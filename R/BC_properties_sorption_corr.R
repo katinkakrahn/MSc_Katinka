@@ -327,7 +327,6 @@ Correlation_SAPV_Ca_plot <- Biochar_ratios_1ugL_select %>%
 Correlation_SAPV_Ca_plot
 ggsave("R/figs/Correlation_SAPV_Ca_plot.pdf")
 
-?scale_x_continuous
 # Pivot correlation C ----
 
 Biochar_ratios_labels_C <- as_labeller(c(
@@ -411,7 +410,7 @@ Kd_1ugL_SA_PV_C_label <- Biochar_ratios_1ugL_select %>%
   theme_bw() +
   #guides(shape = "none", color = "none") +
   coord_fixed(ratio = 0.9) +
-  theme(panel.grid = element_blank(), legend.position = "bottom", 
+  theme(panel.grid = element_blank(), legend.position = "right", 
         text = element_text(size = 20))
 Kd_1ugL_SA_PV_C_label
 ggsave("R/figs/SETAC/SAPV_C_label.pdf")

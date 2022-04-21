@@ -125,7 +125,7 @@ CWC_facet_isotherm <- Sorption_BC_single %>%
        color = "") + 
   facet_wrap(~Compound) +
   theme_bw() +
-  theme(text = element_text(size = 16)) +
+  theme(text = element_text(size = 20)) +
   theme(panel.grid = element_blank())
 CWC_facet_isotherm
 ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
@@ -169,7 +169,7 @@ ULS_facet_isotherm <- Sorption_BC_single %>%
        color = "") + 
   facet_wrap(~Compound) +
   theme_bw() +
-  theme(text = element_text(size = 16)) +
+  theme(text = element_text(size = 20)) +
   theme(panel.grid = element_blank())
 ULS_facet_isotherm
 ggsave(filename="R/figs/ULS_facet_isotherm.pdf")
@@ -226,7 +226,7 @@ DSL_facet_isotherm <- Sorption_BC_single %>%
        color = "") + 
   facet_wrap(~Compound) +
   theme_bw() +
-  theme(text = element_text(size = 16)) +
+  theme(text = element_text(size = 20)) +
   theme(panel.grid = element_blank())
 DSL_facet_isotherm
 ggsave(filename="R/figs/DSL_facet_isotherm.pdf")
@@ -277,7 +277,7 @@ Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
        color = "") + 
   facet_wrap(~Compound) +
   theme_bw() +
-  theme(text = element_text(size = 16)) +
+  theme(text = element_text(size = 20)) +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
                      values=c("#FFB547FF","#4E9C81","#40E0CF"))+
   theme(panel.grid = element_blank(), legend.position = "bottom")
@@ -315,7 +315,49 @@ Sorption_isotherms_nolabel <- Sorption_BC_single %>%
 Sorption_isotherms_nolabel
 ggsave(filename="R/figs/SETAC/Sorption_isotherms_nolabel.pdf")
 
+# Individual sorption isotherms all ----
+facet_all <- full_join(facetCWC, facetDSL)
+facet_all <- full_join(facet_all, facetULS)
 
+BC_facet_isotherm <- Sorption_BC_single %>% 
+  mutate(Compound = factor(Compound, 
+                           levels = c("PFPeA", "PFHxA", "PFHpA", 
+                                      "PFOA", "PFNA", "PFDA")),
+         Biochar = factor(Biochar,
+                          levels = c("CWC", "DSL", "ULS"))) %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = log10(Cw), 
+                           y = log10(Cs), 
+                           group = factor(Compound)), 
+             color = "gray45", 
+             size = 1) + 
+  geom_smooth(mapping = aes(x = log10(Cw), 
+                            y = log10(Cs), 
+                            group = pre_compound), 
+              formula = y ~ x, 
+              method=lm, 
+              se=FALSE, 
+              colour = "grey", 
+              size = 0.5,
+              data = facet_all) +
+  geom_smooth(mapping = aes(x = log10(Cw), 
+                            y = log10(Cs), 
+                            group = factor(Compound)), 
+              color = "black", 
+              formula = y ~ x, 
+              method=lm, 
+              se=T, 
+              fullrange = FALSE) + 
+  labs(x = TeX(r'($log~C_{w}~(\mu g/L)$)'), 
+       y = TeX(r'($log~C_{s}~(\mu g/kg)$)'), 
+       color = "") + 
+  facet_grid(rows = vars(Biochar),
+             cols = vars(Compound)) +
+  theme_bw() +
+  theme(text = element_text(size = 20)) +
+  theme(panel.grid = element_blank())
+BC_facet_isotherm
+ggsave(filename="R/figs/BC_facet_isotherm.pdf")
 
 
 

@@ -149,7 +149,7 @@ C10 <- Soil_BC_join_mean_and_isotherm %>%
   geom_point(size = 4,
              alpha = 1) +
   facet_wrap(~ Compound) +
-  labs(x = "Biochar", 
+  labs(x = "", 
        y = TeX(r'($log~K_{d}~(L/kg)$)'),
        color = "",
        shape = ""
@@ -172,20 +172,24 @@ C10 <- Soil_BC_join_mean_and_isotherm %>%
   theme_bw() +
   theme(panel.grid = element_blank(),
         legend.position = "bottom",
-        text = element_text(size = 20))
+        text = element_text(size = 20),
+        axis.text.x = element_text(angle = 0, 
+                                   vjust = 0.5, 
+                                   hjust=0.5))
 C10
 ggsave(filename = "R/figs/C10.pdf")
 
 Attenuation_factors <- read_xlsx("R/data_manipulated/190422_Attenuation_factors_manual.xlsx") %>% 
   mutate(Attenuation_percent = Attenuation * 100)
-  
-Attenuation_C10 <- Attenuation_factors %>% 
+
+Attenuation_C10_OND <- Attenuation_factors %>% 
   drop_na(Attenuation) %>% 
+  filter(Biochar %in% c("CWC", "DSL", "ULS"),
+         Compound %in% c("PFOA", "PFNA", "PFDA")) %>% 
   mutate(Compound = factor(Compound, 
-                           levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                      "PFOA", "PFNA", "PFDA")),
+                           levels = c("PFOA", "PFNA", "PFDA")),
          Biochar = factor(Biochar,
-                          levels = c("CWC", "DSL", "ULS", "no_CWC", "no_DSL", "no_ULS"))
+                          levels = c("CWC", "DSL", "ULS"))
          ) %>% 
   ggplot(aes(x = Biochar,
              y = Attenuation_percent,
@@ -193,32 +197,81 @@ Attenuation_C10 <- Attenuation_factors %>%
              shape = type
   )) +
   geom_point(size = 4,
-             alpha = 1) +
+             alpha = 0.7) +
   facet_wrap(~ Compound) +
-  labs(x = "Biochar",
-       y = "Attenuation factor (% sorption reduction from BC single)",
+  labs(x = "",
+       y = "Attenuation factor",
        color = "",
        shape = ""
   ) +
+  scale_y_continuous(labels = percent_format(scale = 1)) +
   scale_color_brewer(palette = "Paired",
                      labels = c("BC cocktail (n=3)", 
                                 "BC soil cocktail",
                                 "BC soil single",
-                                "Soil cocktail (n=3)",
-                                "Soil single (n=3)")) +
+                                "Reference: BC single")) +
   scale_shape_manual(name = "",
                      labels = c("BC cocktail (n=3)", 
                                 "BC soil cocktail",
                                 "BC soil single",
-                                "Soil cocktail (n=3)",
-                                "Soil single (n=3)"),
+                                "Reference: BC single"),
                      values = c(16, 17, 17, 17, 17)) +
+  guides(color=guide_legend(nrow=2),byrow=TRUE) +
   theme_bw() +
   theme(panel.grid = element_blank(),
         legend.position = "bottom",
-        text = element_text(size = 12))
-Attenuation_C10
-ggsave(filename = "R/figs/Attenuation_factors_C10.pdf")
+        text = element_text(size = 20),
+        axis.text.x = element_text(angle = 0, 
+                                   vjust = 0.5, 
+                                   hjust=0.5))
+Attenuation_C10_OND
+ggsave(filename = "R/figs/Attenuation_factors_C10_OND.pdf")
+
+# Attenuation C10 PFOA + PFNA ----
+C10_PFOA_PFNA <- Soil_BC_join_mean_and_isotherm %>% 
+  filter(Conc_point == 10,
+         Compound %in% c("PFOA", "PFNA")) %>%
+  mutate(Compound = factor(Compound, 
+                           levels = c("PFOA", "PFNA")),
+         Biochar = factor(Biochar,
+                          levels = c("no", "CWC", "DSL", "ULS")),
+         type = factor(type,
+                       levels = c("BC_sing", "BC_S_sing", "BC_S_mix", 
+                                  "BC_mix", "S_sing", "S_mix"))) %>% 
+  ggplot(aes(x = Biochar,
+             y = log10(Kd),
+             color = type,
+             shape = type
+  )) +
+  geom_point(size = 6,
+             alpha = 1) +
+  facet_wrap(~ Compound) +
+  labs(x = "", 
+       y = TeX(r'($log~K_{d}~(L/kg)$)'),
+       color = "",
+       shape = ""
+  ) +
+  scale_color_brewer(palette = "Paired",
+                     labels = c("BC single", 
+                                "BC soil single", 
+                                "BC soil cocktail",
+                                "BC cocktail (n=3)",
+                                "Soil single (n=3)",
+                                "Soil cocktail (n=3)")) +
+  scale_shape_manual(name = "",
+                     labels = c("BC single", 
+                                "BC soil single", 
+                                "BC soil cocktail",
+                                "BC cocktail (n=3)",
+                                "Soil single (n=3)",
+                                "Soil cocktail (n=3)"),
+                     values = c(16, 17, 17, 16, 17, 17)) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "right",
+        text = element_text(size = 20))
+C10_PFOA_PFNA
+ggsave(filename = "R/figs/SETAC/C10_PFOA_PFNA.pdf")
 
 # PFOA soil isotherm and BC isotherm ----
 PFOA_isotherm_attenuation <- Soil_BC_join_isotherm %>% 
