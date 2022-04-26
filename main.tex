@@ -126,7 +126,7 @@
 %%%%%%%%
 
 
-\usepackage[authoryear,round]{natbib}
+\usepackage{natbib}
 \bibliographystyle{agsm} %Harvard ish stil
 
 %\usepackage[authoryear,round]{natbib}
@@ -145,8 +145,7 @@
 %TC:ignore
 % Forside
 \pagenumbering{gobble} %skrur av sidetall
-%\include{Chapters/0-Div/Forside}
-
+\includepdf{Chapters/0-Div/Forside.pdf}
 
 %\pagenumbering{arabic} %sidetall etter innholdsfortegnelse
 \pagestyle{plain}
@@ -206,7 +205,7 @@
 
 
 %Literature
-\input{Chapters/2-Literature_Study/Text}
+\input{Chapters/2-Objectives/Text}
 \newpage
 
 \part{Materials and Methods}
@@ -266,5 +265,5 @@
   \ifthenelse{\equal{#1}{lof}}{}%
   {\ifthenelse{\equal{#1}{lot}}{}{\svaddcontentsline{#1}{#2}{#3}}}}
 \input{Appendix/VedleggMAIN}
-
+\includepdf{Chapters/0-Div/m-bakside_a4.pdf}
 \end{document}
