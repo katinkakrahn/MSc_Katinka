@@ -11,7 +11,16 @@ A series of batch shaking tests were conducted to test the sorption strength of 
 \section{Biochar sorbents}
 
 \subsection{Feedstock}
-Three feedstock types were selected as sorbents in the sorption experiments: Ullensaker Sludge (ULS), Digested Sludge Lindum (DSL) clean wood chips (CWC). ULS is raw sewage sludge from Ullensaker WWTP that has been dewatered. DSL is sewage sludge that has been through anaerobic digestion (AD) to produce biogas, also referred to as digestate. Anaerobic digestion is performed at Lindum AS and produces methane (and other gases; \cref{eq:AD}) which becomes commercial biogas fuel. The sewage sludge is dewatered, dried and pelletized before pyrolysis. CWC is made of clean, fresh softwood timber without additives that have been shredded, dried, and compressed into 8 mm pellets. The wood pellets are commercially available from Hallingdal trepellets (Kleivi næringspark, Ål).
+Been banned with new guidelines and regulations but there is still much left in the unsaturated zone heavily contaminated with PFAS (what are the concentrations of the various PFASs?) NGI document? Firefighting training site at Gardermoen, Norway used these substances since 1989. Ullensaker sludge
+
+Three feedstock types were selected as sorbents in the sorption experiments: Ullensaker Sludge (ULS), Digested Sludge Lindum (DSL) clean wood chips (CWC). ULS is raw sewage sludge from Ullensaker WWTP that has been dewatered. DSL is sludge from food waste and organic material that has been through anaerobic digestion (AD) to produce biogas, also referred to as digestate. Anaerobic digestion is performed at Lindum AS and produces methane (and other gases: 
+
+\begin{equation}
+\label{eq:AD}
+    \ce{C_cH_hO_oN_nS_s + yH_2O -> xCH_4 + nNH_3 + xH_2S + (c-x)CO_2}
+\end{equation}
+
+which becomes commercial biogas fuel. The sewage sludge is dewatered, dried and pelletized before pyrolysis. CWC is made of clean, fresh softwood timber without additives that have been shredded, dried, and compressed into 8 mm pellets. The wood pellets are commercially available from Hallingdal trepellets (Kleivi næringspark, Ål).
 
 \subsection{Pyrolysis}
 CWC, ULS, and DSL biochars were produced by slow pyrolysis at 700 \textdegree C using ETIA technology by Biogreen\textsuperscript{\textcopyright} at Lindum AS (Drammen, Norway). \cref{tab:sorbents} summarizes the variables for pyrolysis of each biochar. The three biochars were produced as part of a larger study on the life cycle of waste based sorbents and was given as biochar samples to conduct the sorption experiments on for this thesis. The pyrolysis chamber is first electrically heated to stable PT. Feedstock pellets are added to a feeding container where a heated rotating screw (Spirajoule\textsuperscript{\textregistered}) transports the feedstock into and through the pyrolysis chamber at the programmed RT. The biochar is then transported to an external collection container where it is dispensed into sampling bags \cref{fig:biocharCollection}. \cref{fig:pellets} shows the pellets before and after pyrolysis. 
@@ -46,7 +55,7 @@ DSL & 700 & 20 & Digested sludge Lindum \\
     \label{fig:pellets}
 \end{figure}
 
-Syn-gas from pyrolysis is led through a condensing pipe that condenses into bio-oil at two points depending on boiling point. Syn-gas that does not condense at this point is led into a combustion chamber where a steady inflow of propane ensures a clean burning process of the remaining molecules. See \cref{appSec:pollution} for additional work on measurements on environmental pollutant emission from the ETIA unit.
+Syn-gas from pyrolysis is led through a condensing pipe that condenses into bio-oil at two points depending on boiling point. Syn-gas that does not condense at this point is led into a combustion chamber where a steady inflow of propane ensures a clean burning process of the remaining molecules.
 
 \subsection{Biochar characterization}
 
@@ -79,7 +88,7 @@ Effectiveness of PFCA removal by waste biochar was evaluated by batch shaking te
 \input{Chapters/3-Materials_and_Methods/tab_PFCAs}
 
 \subsubsection{Spike concentrations}
-Sorption of PFAS to biochar follows the Freundlich sorption model, which means that sorption increases linearly until it is attenuated at higher concentrations \cref{eq:Freundlich}. The goal when designing the sorption isotherm experiments was to represent sorption across both the linear and non-linear region. To achieve detectable concentrations across this range, determination of appropriate spike concentrations was based on several factors: 1) Biochar-water partition coefficients ($K_{BC}$) for the TCs obtained from literature \cite{Xiao2017} \cref{tab:Kbc}, 2) biochar dose, 3), the LOQ of the analytical method, and 4) available pipetting volume range. The relationship between $K_{BC}~\mathrm{(L~g^{-1})}$, the sorbed concentration, $C_s~\mathrm{(\mu g~g^{-1})}$, and the freely dissolved aqueous concentration, $C_w~\mathrm{(\mu g~L^{-1})}$, expressed as:
+Sorption of PFAS to biochar follows the Freundlich sorption model, which means that sorption increases linearly until it is attenuated at higher concentrations \cref{eq:Freundlich}. Details on sorption models is provided in \cref{sec:data_analysis} The goal when designing the sorption isotherm experiments was to represent sorption across both the linear and non-linear region. To achieve detectable concentrations across this range, determination of appropriate spike concentrations was based on several factors: 1) Biochar-water partition coefficients ($K_{BC}$) for the TCs obtained from literature \cite{Xiao2017} \cref{tab:Kbc}, 2) biochar dose, 3), the LOQ of the analytical method, and 4) available pipetting volume range. The relationship between $K_{BC}~\mathrm{(L~g^{-1})}$, the sorbed concentration, $C_s~\mathrm{(\mu g~g^{-1})}$, and the freely dissolved aqueous concentration, $C_w~\mathrm{(\mu g~L^{-1})}$, expressed as:
 
 \begin{align}
     \label{eq:Kbc1}
@@ -119,10 +128,12 @@ Where $m_{TA}$ is the mass PFAS spiked, $m_{BC}$ is the biochar dose, and $V_w$ 
 Two preliminary batch tests were prepared to check how well the $K_d$ values selected from the literature corresponded to those for ULS and CWC. Further details about this analysis are provided in \cref{appSec:IsothermSetup}.
 
 \subsubsection{Biochar}
-A sub sample (100 g) was taken by random grab sampling from the bulk volume of the biochar produced during the pyrolysis run. The biochars were crushed using a ball mill (Retsch ISO 9001) with five balls at 50 rpm for 5 minutes and sieved into fine-powdered biochar (D \textless 1 mm) and transferred to LDPE zipper bags for storage (4 \textdegree C). 
+A sub sample (100 g) was taken by random grab sampling from the bulk volume of the biochar produced during pyrolysis. The biochars were crushed using a ball mill (Retsch ISO 9001) with five balls at 50 rpm for 5 minutes and sieved into fine-powdered biochar (D \textless 1 mm) and transferred to LDPE zipper bags for storage (4 \textdegree C). 
 
 \subsubsection{Soil}
-The soil used for the sorption tests was an unaged sandy soil obtained from a remote field area 17 km from Uppsala, Sweden (59.733 N, 17.667 E). TOC-content was determined according to... pH according to... The soil was characterized for total element concentrations, exchangeable ions, TOC and pH by... the methods... The soil was dried at 100 \textdegree C for 24 h and crushed and sieved to \textless 2 mm.  The soil was screened for PFAS using a methanol extraction, solid phase extraction and quantification by liquid chromatography coupled with tandem mass spectrometry at NTNU (Trondheim, Norway) by a project partner (details for the SPE and LC-MS/MS procedures will be given in \cref{methods:instrAnalysis}), performed in triplicate.
+The soil used for the sorption tests was an unaged sandy soil obtained from a remote field area 17 km from Uppsala, Sweden (59.733 N, 17.667 E). The carbon and nitrogen content in the soils was determined through dry combustion according to ISO10694 (1995) and ISO 13878 (1998), respectively using an elemental analyzer for macrosamples (TruMac ® CN, Leco corp, S:t Joseph, MI, USA).... pH according to...  The soil was characterized for total element concentrations, exchangeable ions, TOC and pH by... the methods... by research partner
+
+The soil was dried at 100 \textdegree C for 24 h and crushed and sieved to \textless 2 mm.  The soil was screened for PFAS using a methanol extraction, solid phase extraction and quantification by liquid chromatography coupled with tandem mass spectrometry at NTNU (Trondheim, Norway) by a project partner (details for the SPE and LC-MS/MS procedures will be given in \cref{methods:instrAnalysis}), performed in triplicate.
 
 \begin{figure}
     \centering
@@ -155,13 +166,13 @@ The soil used for the sorption tests was an unaged sandy soil obtained from a re
 \end{table}
 
 \subsection{Batch tests}
-An overview of the experimental setup for the batch test is given in \cref{fig:batchtests_flowchart} and an illustration of the overall batch test experiment procedure is in \cref{fig:batchtest_setup}. Details for the preparations of each batch test category are given in the subsections below. The batch tests were prepared with a liquid to solid mass ratio (L/S) of 500 for biochar and L/S of 10 for soil amended with 2\% biochar in accordance with CEN EN 12457. The dry matter was added to pre-cleaned 50 mL PP centrifuge tubes and spiked with either individual PFCAs or a cocktail of all six TCs at the concentrations specified in \cref{tab:spikeConcentrations} to a final liquid volume of 50 mL. The standard concentrations were analytically verified to ensure accuracy of the data analysis (see \cref{appSec:IsothermSetup} for expected vs. analytical concentrations). The samples were assured to contain \textless 10\% MeOH, which is the upper limit for which methanol does not influence sorption (reference). The batch tests were shaken end-over-end (9 rpm) and/or agitated on a shaking table (160 rpm) in room temperature (20\textdegree C) for at least 14 days to reach equilibrium \citep{higgins2006sorption} before filtration through a 0.45 \textmu m Minisart\textsuperscript{\textregistered} regenerated cellulose syringe filter into PP tubes based on the methods described in \cite{Sorengard2019}. Loss of biochar to the walls of the syringe was quantified to maintain a full mass balance when analyzing the partitioning of the TCs between the solid and liquid phase and is in \cref{appSec:misclab}. Therefore, a 100\% mass balance was assumed when calculating partitioning between sorbent and water by subtracting the initial spike concentration from the measured concentration in the filtrates. by also correcting for loss to laboratory ware (reference). 
+An overview of the experimental setup for the batch test is given in \cref{fig:batchtests_flowchart} and an illustration of the overall batch test experiment procedure is in \cref{fig:batchtest_setup}. Details for the preparations of each batch test category are given in the subsections below. The batch tests were prepared with a liquid to solid mass ratio (L/S) of 500 for biochar and L/S of 10 for soil amended with 2\% biochar in accordance with CEN EN 12457. All PP tubes were rinsed three times with 50\% MeOH and dried prior to sample preparation to extract any potential PFAS contamination. The dry matter was added to pre-cleaned 50 mL PP centrifuge tubes and spiked with either individual PFCAs or a cocktail of all six TCs at the concentrations specified in \cref{tab:spikeConcentrations} to a final liquid volume of 50 mL. The standard concentrations were analytically verified to ensure accuracy of the data analysis (see \cref{appSec:IsothermSetup} for expected vs. analytical concentrations). The samples were assured to contain \textless 10\% MeOH, which is the upper limit for which methanol does not influence sorption (reference). The batch tests were shaken end-over-end (9 rpm) and/or agitated on a shaking table (160 rpm) in room temperature (20\textdegree C) for at least 14 days to reach equilibrium \citep{higgins2006sorption} before filtration through a 0.45 \textmu m Minisart\textsuperscript{\textregistered} regenerated cellulose syringe filter into PP tubes based on the methods described in \cite{Sorengard2019}. Loss of biochar to the walls of the syringe was quantified to maintain a full mass balance when analyzing the partitioning of the TCs between the solid and liquid phase and is in \cref{appSec:misclab}. Therefore, a 100\% mass balance was assumed when calculating partitioning between sorbent and water by subtracting the initial spike concentration from the measured concentration in the filtrates. by also correcting for loss to laboratory ware (reference). 
 
 \subsubsection{Biochar-water batch tests}
-100\textpm 4 mg biochar was weighed for the biochar-water batch tests. on an analytical scale and placed into pre-cleaned (50\% methanol) 50 mL PP tubes. The tubes were filled half up of Milli-Q water. In each tube, stock PFCA was pipetted using micro- (5-50 {\textmu}l and 200-1000 {\textmu}L) and milli pipettes (2-10 mL) into the char-water solution to make 10 dilutions for each of the 6 PFCAs in even intervals within the concentration points in \cref{tab:spikeConcentrations}. Some tubes were added Milli-Q water up to the 50 mL mark and some were weighed in order to control for the water amount being within \textpm 0.02 mL. The same ten concentrations were used to spike CWC, ULS and DSL batch tests. A cocktail batch test was prepared for the three biochars at SP10  The same dose biochar was used as for the other sorption isotherms. The cumulative CMC (critical micelle concentration) for the six PFCAs at SC10 was assured not to be an issue for the concentration range considered \citep{bhhatarai2011,ding2013physicochemical}.
+100\textpm 4 mg biochar was weighed for the biochar-water batch tests. on an analytical scale and placed into pre-cleaned (50\% methanol) 50 mL PP tubes. The tubes were filled half up of Milli-Q water. In each tube, stock PFCA was pipetted using micro- (5-50 {\textmu}l and 200-1000 {\textmu}L) and milli pipettes (2-10 mL) into the char-water solution to make 10 dilutions for each of the 6 PFCAs in even intervals within the concentration points in \cref{tab:spikeConcentrations}. Some tubes were added Milli-Q water up to the 50 mL mark and some were weighed in order to control for the water amount being within \textpm 0.02 mL. The same ten concentrations were used to spike CWC, ULS and DSL batch tests. A cocktail batch test was prepared for the three biochars using the same relative amounts of each TC as the single-spike samples at SC10 (SC10-MIX), which was spiked directly into the sample tubes. The same dose biochar was used as for the other sorption isotherms. The cumulative CMC (critical micelle concentration) for the six PFCAs at SC10 was assured not to be an issue for the concentration range considered \citep{bhhatarai2011,ding2013physicochemical}.
 
-\subsubsection{Soil-biochar-water batch tests}
-5\textpm 0.005 g soil, 0.1\textpm 0.0004 g biochar
+\subsubsection{Soil-biochar-water batch tests}\label{sec:S-BC}
+5\textpm 0.005 g soil and 0.1\textpm 0.0004 g biochar were weighed for each soil-BC-water batch test. A cocktail standard was prepared before spiking the samples using the same proportions at SC10 as for the biochar-water batch test. The difference between the two methods used to spike cocktail samples is a potential source of error for later comparison of sorption attenuation. 
 The batch tests were prepared as 6-point isotherms within a 10\textsuperscript{4} concentration range with a L/S ratio of 10 in PP tubes, in accordance with CEN EN 12457 with modifications described in \citep{Hale2017fire,Kupryianchyk2016a}. L/S 10  is common in leaching tests for waste materials and soil according to the waste and shaken in an end-over-end shaker for \textgreater 14 days. 
 centrifuged to remove as many particles from suspension as possible. Still, filtration required frequent filter change due to clogging (up to three times per sample).
 
@@ -169,7 +180,7 @@ centrifuged to remove as many particles from suspension as possible. Still, filt
 pH and conductivity was measured in a solution (1:5) of biochar and water, with pre-stirring (15 min) and letting the particles settle (\textgreater 24 hrs) before measurement (n=3). This is according to the standard method for measuring pH in soil. It is common to add CaCl\textsubscript{2} if the soil has a low ionic strength, but this was considered unnecessary in the presence of biochar as it contains a high amount of soluble ions. 
 
 \subsection{Control samples}
-To prevent underestimation of $C_w$, filter blanks were prepared for each PFCA in triplicates at an optimum concentration range for the instrument (see \cref{sec:PFCAanalytic}) to correct for PFCA loss to the filter paper. 
+To control for potential underestimation of $C_w$, filter blanks were prepared for each PFCA in triplicates at an optimum concentration range for the instrument (see \cref{sec:PFCAanalytic}) to correct for PFCA loss to the filter paper. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -258,5 +269,87 @@ Where: \newline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Data analysis}
+\section{Data analysis}\label{sec:data_analysis}
 Chromatogram analysis and peak integration for PFAS quantification were carried out using MassLynx version and TargetLynx versions 4.1.  Raw data handling was conduced using Microsoft Excel (v.16.58). Statistical analysis and plotting were carried out using R software (v.4.1.2) and RStudio IDE (2022.02.0-443).
+
+\subsection{Adsorption models}
+A sorption isotherm is determined experimentally by preparing batch tests with a set water:soil ratio and spiking the system with increasing doses of the contaminant. A regression line is fitted by plotting the aqueous versus the sorbed concentration can be used to evaluate which sorption model that is most suitable for the system. Sorption of organic contaminants like PFAS by biochar is most best expressed using the Freundlich sorption isotherm model . Langmuir dual-mode are other relations used to describe adsorption. This study uses the Freundlich relation to describe the equilibrium distribution of PFAS between biochar, soil and water. "The Freundlich relation differs from that of Langmuir in that it does not consider all sites on the adsorbent surface to be equal but rather adsorption becomes progressively more difficult as more and more adsorbate accumulates. Furthermore, it is assumed that, once the surface is covered, additional adsorbed species can still be accommodated. In other words, multilayer adsorption is predicted by this relation" \citep{vanloon2017Ch14}
+
+Langmuir assumes sorption sites are finite and adsorption is limited to monolayer coverage, a sorption maximum is reached, reversible process. Langmuir assumptions will not work in the presence of soil
+Sorption quantified by determination of partition coefficient, $K_d$
+
+\citep{Li2019} 
+
+Linear: sorption increases proportionally with adsorbate concentration according to the following linear expression:
+\begin{equation}\label{linear}
+C_s = K_d \times C_w
+\end{equation}
+
+Langmuir: assumes constant sorption free energy (ideal monolayer coverage, identical sites, no interaction between sorbates)
+Freundlich: assumes log distribution of sorption free energies, more empiric, often better fit and comparison with literature
+
+\citep{du2014adsorption}: Langmuir model usually describes the adsorption isotherms of PFOS and PFOA well, so need to explain why we chose Freundlich. Monolayer sorption is not realistic. 
+
+Limitation of the Freundlich model is that it does not predict an adsorption maximum. 
+Freundlich relation is good for modeling the equilibrium distribution at low concentrations of the organic solute and small molecules \citep{vanloon2017Ch14}
+Freundlich isotherm/relation: 
+Expression:
+\begin{equation} \label{eq:Freundlich}
+    C_s = K_F \times (C_{w})^{n_F}
+\end{equation}
+
+Where $C_s$ is amount sorbed in \textmu g kg\textsuperscript{-1}, $K_F$ is the Freundlich partition coefficient in L/kg, $C_{w}$ is the equilibrium aqueous concentration in mg/L and n is the exponent of non-linearity. Taking the log of each side of \cref{eq:Freundlich} gives a linear expression:
+
+\begin{equation} \label{eq:FreundlichLinear}
+    \log C_s = \log K_F + n_F \times \log C_{w}
+\end{equation}
+
+Plotting the linear form in \cref{eq:FreundlichLinear}, the intercept is $log~K_F$ and the slope is n. 
+
+Modeling sorption is complicated in the presence of soil since partition behavior between soil and water and biochar and water must be considered all together. Sorption to soil only is most often represented by the linear expression:
+
+\begin{equation} \label{eq:KD}
+    C_s = \frac{K_d}{C_{w}}
+\end{equation}
+
+Where $C_s$ = quantity sorbed per unit mass (\textmu g kg\textsuperscript{-1}), $C_{aq}$ =  equilibrium aqueous concentration (\textmu g L\textsuperscript{-1} and $K_d$ is the partition constant between the solid and aqueous phase. A new mass balance for the partitioning between water, soil and sorbent is obtained by building on the Freundlich equation (\cref{eq:Freundlich}) (mass PFAS, m ng\textsuperscript{-1} or \textmu g and mass soil or sorbent, M kg\textsuperscript{-1}). The mass balance between the three phases can be deduced:
+
+\begin{equation} \label{eq:massBalance1}
+    m_{tot} = m_{aq} + m_{s} + m_{bc}
+\end{equation}
+
+\begin{equation} \label{eq:massBalance2}
+     m_{tot} = C_{aq}V_{aq} + C_sM_s + C_{bc}M_{bc}
+\end{equation}
+
+\begin{equation} \label{eq:massBalance3}
+     m_{tot} = C_{aq}V_{aq} + K_dC_{aq}M_s + K_{F}C_{aq}^{n_F}M_{bc}
+\end{equation}
+ 
+Fitting \cref{eq:massBalance3} to the Freundlich equation yields:
+
+\begin{equation} \label{eq:FreundFit}
+    m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s = K_{F}C_{aq}^{n_F}M_{bc}
+\end{equation}
+
+and get the partitioning of PFAS in the biochar (bc) expressed on the left hand side, and the aqueous PFAS concentration on the right hand side of \cref{eq:FreundFit}. To get the linear Freundlich expression log of each side is performed:
+
+\begin{equation} \label{eq:FreundLinSoil1}
+   \log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) = \log (K_{F}C_{aq}^{n_F}M_{bc})
+\end{equation}
+
+Further modifications are made to simplify to the Freundlich linear expression as y = b + ax:
+
+\begin{equation} \label{eq:FreundLinSoil2}
+    \log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) = \log K_{F} + \log C_{aq}^{n_F} + \log M_{bc}
+\end{equation}
+
+\begin{equation} \label{eq:FreundLinSoil3}
+    \log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) = \log K_{F} + n_F \times \log C_{aq} + \log M_{BC}
+\end{equation}
+
+\begin{equation} \label{eq:FreundLinSoil4}
+    \log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) - \log M_{BC} = \log K_{F} + n_F \times \log C_{aq}  
+\end{equation}
+
+\cref{eq:FreundLinSoil4} can be plotted using $\log C_{aq}$ on the x axis and $\log (m_{tot} - C_{aq}V_{aq} - K_dC_{aq}M_s) - \log M_{bc}$ on the y axis for each point on the isotherm. The slope derived from linear regression is $n_F$ and the intercept is $K_F$. Using the Freundlich model, sorption capacity is expressed in terms of \(n\) and affinity is expressed in terms of \(K_F\). 
