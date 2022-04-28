@@ -47,7 +47,6 @@ Sorption_BC <- read_excel("R/data_raw/160222_sorption_rawdata.xlsx") %>%
          BClogic, Cs, Cw, Kd)
 
 Soil_BC_join <- full_join(Sorption_BC, Sorption_soil)
-
 # Summary statistics ----
 # https://stackoverflow.com/questions/22713325/fitting-several-regression-models-with-dplyr
 
@@ -58,8 +57,61 @@ Soil_BC_join_isotherm <- Soil_BC_join %>%
 
 summary_statistics_isotherms <- Soil_BC_join_isotherm %>% 
   group_by(Compound, Biochar, type, SoilLogic, mixLogic) %>%
-  do(fit_isotherms = glance(lm(Cs ~ Cw, data = .))) %>% 
+  do(fit_isotherms = glance(lm(log10(Cs) ~ log10(Cw), data = .))) %>% 
   unnest(fit_isotherms)
+
+Freundlich_statistics_isotherms <- Soil_BC_join_isotherm %>% 
+  group_by(Compound, Biochar, type, SoilLogic, mixLogic) %>%
+  do(fit_isotherms = tidy(lm(log10(Cs) ~ log10(Cw), data = .))) %>% 
+  unnest(fit_isotherms) %>% 
+  pivot_wider(names_from = "term",
+              values_from = "estimate") %>% 
+  rename(log_KF = "(Intercept)",
+         n = "log10(Cw)")
+
+Freundlich_KF <- Freundlich_statistics_isotherms %>% 
+  drop_na(log_KF) %>% 
+  select(-n)
+
+Freundlich_n <- Freundlich_statistics_isotherms %>% 
+  drop_na(n) %>% 
+  select(-log_KF)
+
+Freundlich_soil <- full_join(Freundlich_KF, Freundlich_n, by = c("type", "Compound", "Biochar"))
+r_squared <- summary_statistics_isotherms %>% 
+  select(Compound, Biochar, type, r.squared,p.value)
+Freundlich_soil <- merge(Freundlich_soil, r_squared, by = c("Compound", "Biochar", "type")) %>% 
+  filter(Compound %in% c("PFOA"),
+         type %in% c("BC_S_mix", "BC_S_sing", "BC_sing")) %>% 
+  write_xlsx("R/data_manipulated/280422_PFOA_Freundlich.xlsx")
+
+  
+PFOA_linear <- Soil_BC_join_isotherm %>% 
+  filter(Compound == "PFOA") %>% 
+  mutate(type = factor(type, levels = c("BC_sing", "BC_S_sing", 
+                                          "BC_S_mix"))) %>% 
+  group_by(type) %>% 
+  ggplot(mapping = aes(x = Cw, y = Cs, color = type)) +
+  geom_point(size = 3) + 
+  geom_smooth(method = "lm", formula = y ~ poly(log(x), 2), se = FALSE) +
+  labs(x = TeX(r'($C_{w}~(\mu g/L)$)'), 
+         y = TeX(r'($C_{s}~(\mu g/kg)$)'),
+         color = "") + 
+  facet_wrap(~Biochar,
+               scales = "free_x") +
+  scale_y_continuous(labels = comma) +
+  scale_color_brewer(palette = "Paired",
+                       labels = c("BC single", 
+                                  "BC soil single", 
+                                  "BC soil mixed")) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        legend.position = "bottom",
+        text = element_text(size = 20))
+PFOA_linear
+ggsave(filename = "R/figs/PFOA_linear.pdf")  
+
+
 
 Soil_BC_join_triplicate_mean <- Soil_BC_join %>%
   filter(isothermLogic == FALSE) %>% 
@@ -78,7 +130,8 @@ Soil_BC_join_mean_and_isotherm <- full_join(Soil_BC_join_triplicate_mean,
 Attenuation_C10 <- Soil_BC_join_mean_and_isotherm %>% 
   filter(Conc_point == 10) %>% 
   mutate(log_Kd = log10(Kd),
-         log_Kd_se = log10(Kd_se)) %>% 
+         log_Kd_se = log10(Kd_se),
+         Kd = Kd) %>% 
   select(Compound, Biochar, type, log_Kd, log_Kd_se, n) %>% 
   group_by(Compound, Biochar, type) %>% 
   arrange(Biochar = factor(Biochar, levels = c("ULS", "DSL", "CWC", "no")),
@@ -104,13 +157,14 @@ Attenuation <- Soil_BC_join_mean_and_isotherm %>%
   #                   )) +
   # geom_errorbar(aes(ymin = log10(Cs) - log10(Cs_sd),
   #                   ymax = log10(Cs) + log10(Cs_sd))) +
-  geom_point(alpha = 0.7) + 
+  geom_point(alpha = 1) + 
   geom_smooth(mapping = aes(x = log10(Cw), 
                             y = log10(Cs), 
                             color = type), 
               formula = y ~ x, 
               method=lm, 
-              se=F, fullrange = FALSE) + 
+              se=F, fullrange = FALSE,
+              alpha = 0.5) + 
   facet_grid(rows = vars(Biochar),
              cols = vars(Compound)) +
   labs(x = TeX(r'($log~C_{w}~(\mu g/L)$)'), 
@@ -119,8 +173,8 @@ Attenuation <- Soil_BC_join_mean_and_isotherm %>%
   scale_color_brewer(palette = "Paired",
                      labels = c("BC single", 
                                 "BC soil single", 
-                                "BC soil cocktail",
-                                "BC cocktail (n=3)")) +
+                                "BC soil mixed",
+                                "BC mixed (n=3)")) +
   theme_bw() +
   theme(panel.grid = element_blank(),
         legend.position = "bottom",
@@ -157,17 +211,17 @@ C10 <- Soil_BC_join_mean_and_isotherm %>%
   scale_color_brewer(palette = "Paired",
                      labels = c("BC single", 
                                 "BC soil single", 
-                                "BC soil cocktail",
-                                "BC cocktail (n=3)",
+                                "BC soil mixed",
+                                "BC mixed (n=3)",
                                 "Soil single (n=3)",
-                                "Soil cocktail (n=3)")) +
+                                "Soil mixed (n=3)")) +
   scale_shape_manual(name = "",
                      labels = c("BC single", 
                                 "BC soil single", 
-                                "BC soil cocktail",
-                                "BC cocktail (n=3)",
+                                "BC soil mixed",
+                                "BC mixed (n=3)",
                                 "Soil single (n=3)",
-                                "Soil cocktail (n=3)"),
+                                "Soil mixed (n=3)"),
                      values = c(16, 17, 17, 16, 17, 17)) +
   theme_bw() +
   theme(panel.grid = element_blank(),
@@ -180,19 +234,27 @@ C10
 ggsave(filename = "R/figs/C10.pdf")
 
 Attenuation_factors <- read_xlsx("R/data_manipulated/190422_Attenuation_factors_manual.xlsx") %>% 
-  mutate(Attenuation_percent = Attenuation * 100)
+  mutate(percent_drop = (1-Attenuation)*100) %>% 
+  filter(Compound %in% c("PFOA", "PFNA", "PFDA"),
+         type %in% c("BC_S_sing"))
 
 Attenuation_C10_OND <- Attenuation_factors %>% 
   drop_na(Attenuation) %>% 
   filter(Biochar %in% c("CWC", "DSL", "ULS"),
-         Compound %in% c("PFOA", "PFNA", "PFDA")) %>% 
+         Compound %in% c("PFOA", "PFNA", "PFDA"),
+         ) %>% 
   mutate(Compound = factor(Compound, 
                            levels = c("PFOA", "PFNA", "PFDA")),
          Biochar = factor(Biochar,
-                          levels = c("CWC", "DSL", "ULS"))
+                          levels = c("CWC", "DSL", "ULS")),
+         type = factor(type,
+                       levels = c("BC_sing", "BC_S_sing", 
+                                  "BC_S_mix", "BC_mix",
+                                  "S_sing", "S_mix"
+                                  )) 
          ) %>% 
   ggplot(aes(x = Biochar,
-             y = Attenuation_percent,
+             y = Attenuation,
              color = type,
              shape = type
   )) +
@@ -204,18 +266,24 @@ Attenuation_C10_OND <- Attenuation_factors %>%
        color = "",
        shape = ""
   ) +
-  scale_y_continuous(labels = percent_format(scale = 1)) +
+  #scale_y_continuous(labels = percent_format(scale = 1)) +
   scale_color_brewer(palette = "Paired",
-                     labels = c("BC cocktail (n=3)", 
-                                "BC soil cocktail",
+                     labels = c("Reference: BC single",
                                 "BC soil single",
-                                "Reference: BC single")) +
+                                "BC soil mixed",
+                                "BC mixed (n=3)",
+                                "Soil single (n=3)",
+                                "Soil mixed (n=3)"
+                                )) +
   scale_shape_manual(name = "",
-                     labels = c("BC cocktail (n=3)", 
-                                "BC soil cocktail",
+                     labels = c("Reference: BC single",
                                 "BC soil single",
-                                "Reference: BC single"),
-                     values = c(16, 17, 17, 17, 17)) +
+                                "BC soil mixed",
+                                "BC mixed (n=3)",
+                                "Soil single (n=3)",
+                                "Soil mixed (n=3)"
+                                ),
+                     values = c(16, 17, 17, 16)) +
   guides(color=guide_legend(nrow=2),byrow=TRUE) +
   theme_bw() +
   theme(panel.grid = element_blank(),
@@ -254,17 +322,17 @@ C10_PFOA_PFNA <- Soil_BC_join_mean_and_isotherm %>%
   scale_color_brewer(palette = "Paired",
                      labels = c("BC single", 
                                 "BC soil single", 
-                                "BC soil cocktail",
-                                "BC cocktail (n=3)",
+                                "BC soil mixed",
+                                "BC mixed (n=3)",
                                 "Soil single (n=3)",
-                                "Soil cocktail (n=3)")) +
+                                "Soil mixed (n=3)")) +
   scale_shape_manual(name = "",
                      labels = c("BC single", 
                                 "BC soil single", 
-                                "BC soil cocktail",
-                                "BC cocktail (n=3)",
+                                "BC soil mixed",
+                                "BC mixed (n=3)",
                                 "Soil single (n=3)",
-                                "Soil cocktail (n=3)"),
+                                "Soil mixed (n=3)"),
                      values = c(16, 17, 17, 16, 17, 17)) +
   theme_bw() +
   theme(panel.grid = element_blank(),
@@ -296,7 +364,7 @@ PFOA_isotherm_attenuation <- Soil_BC_join_isotherm %>%
   scale_color_brewer(palette = "Paired",
                      labels = c("BC single", 
                                 "BC soil single", 
-                                "BC soil cocktail")) +
+                                "BC soil mixed")) +
   theme_bw() +
   theme(panel.grid = element_blank(),
         legend.position = "bottom",
