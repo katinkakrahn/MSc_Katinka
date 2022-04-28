@@ -8,7 +8,7 @@ library(writexl)
 library(tidyverse)
 
 #Data cleaning ----
-PZD <- read_xlsx("R/data_raw/080422_PZD.xlsx")
+PZD <- read_xlsx("R/data_raw/080422_PZD.xlsx") 
 PZD <- as.data.table(PZD)
 PZD$SA_PV <- PZD$SA/PZD$PV
 PZD$SA_PV_C <- PZD$SA_PV/PZD$C
@@ -17,6 +17,7 @@ PZD$SA_PV_C <- PZD$SA_PV/PZD$C
 # Pivot PZD ----
 scaleX <- function(x) sprintf("%.1f", x)
 scaleY <- function(y) sprintf("%.0f", y)
+scaleZ <- function(x) sprintf("%.2f", x)
 
 PZD_label <- PZD %>% 
   mutate(SA_PV = log10(SA_PV),
@@ -37,7 +38,7 @@ PZD_SAPV_C_plot <- PZD_label %>%
     x = Pore_size,
     color = Biochar
   )) +
-  labs(x = "Pore size (nm)", y = NULL, color = "", shape = "") +
+  labs(x = "Pore diameter (nm)", y = NULL, color = "", shape = "") +
   geom_point(size = 2) +
   facet_wrap(.~ name,
              scales = "free_y",
@@ -48,8 +49,7 @@ PZD_SAPV_C_plot <- PZD_label %>%
   scale_x_continuous(breaks=c(1,3,5,10,20,30)) +
   scale_y_continuous() +
   theme_bw() +
-  theme(panel.grid = element_blank(), 
-        legend.position = "bottom", 
+  theme(legend.position = "bottom",
         text = element_text(size = 20),
         strip.placement = "outside",
         strip.background = element_blank())
@@ -101,7 +101,7 @@ PZD_SAPV_C_small_plot <- PZD_label_small %>%
     x = Pore_size,
     color = Biochar
   )) +
-  labs(x = "Pore size (mm)", y = NULL, color = "", shape = "") +
+  labs(x = "Pore diameter (nm)", y = NULL, color = "", shape = "") +
   geom_point(size = 2) +
   facet_wrap(.~ name,
              scales = "free_y",
@@ -110,9 +110,9 @@ PZD_SAPV_C_small_plot <- PZD_label_small %>%
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
                      values=c("#FFB547FF","#4E9C81","#40E0CF")) +
   scale_y_continuous() +
+  scale_x_continuous(labels = scaleZ) +
   theme_bw() +
-  theme(panel.grid = element_blank(), 
-        legend.position = "bottom", 
+  theme(legend.position = "bottom", 
         text = element_text(size = 20),
         strip.placement = "outside",
         strip.background = element_blank())

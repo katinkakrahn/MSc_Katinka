@@ -210,24 +210,26 @@ Kd_1ugL_chain_length <- Kd_1ugL %>%
 
 Kd_1ugL_select$biochar <- factor(Kd_1ugL_select$biochar, levels = c("ULS", "DSL", "CWC"))
 
-chain_length_Kd1ugL_plot <- ggplot(data = Kd_1ugL_chain_length, 
-                       aes(x = nr_CF2, y = log_Kd, color = biochar)) + 
+chain_length_Kd1ugL_plot <- Kd_1ugL_chain_length %>% 
+  mutate(biochar = factor(biochar, 
+                          levels = c("ULS", "DSL", "CWC"))) %>% 
+  ggplot(aes(x = nr_CF2, y = log_Kd, color = biochar)) + 
   geom_errorbar(aes(ymin = log_Kd-logKd_error, 
                     ymax = log_Kd+logKd_error), 
                 width = 0.05,
-                color = "black") +
-  geom_point(size = 4) + 
+                color = "gray") +
+  geom_point(size = 2) + 
   geom_line(size = 1) + 
   labs(x = TeX(r'($CF_2~chain~length$)'), 
        y = TeX(r'($log~K_d~(at~C_w~1 \mu g/L)$)'), 
        color = "", 
        shape = "") +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
-                     values=c("#FFB547FF","#4E9C81","#40E0CF")) +
+  scale_color_manual(breaks = c("ULS", "DSL", "CWC"),
+                     values=c("#4E9C81","#40E0CF", "#FFB547FF")) +
   theme_bw() +
   theme(panel.grid = element_blank(), 
-        legend.position = "bottom", 
-        text = element_text(size = 25))
+        legend.position = "right", 
+        text = element_text(size = 20))
 chain_length_Kd1ugL_plot
 ggsave(filename="R/figs/chain_length_Kd1ugL_plot.pdf")
 
@@ -237,6 +239,18 @@ summary_stats_1ugL_ULS <- lm(log_Kd ~ nr_CF2, data = subset(Kd_1ugL_chain_length
 summary(summary_stats_1ugL_ULS)
 summary_stats_1ugL_DSL <- lm(log_Kd ~ nr_CF2, data = subset(Kd_1ugL_chain_length, biochar == "DSL"))
 summary(summary_stats_1ugL_DSL)
+
+summary_chain_length <- Kd_1ugL_chain_length %>% 
+  group_by(biochar) %>%
+  do(fit_isotherms = glance(lm(log_Kd ~ nr_CF2, data = .))) %>% 
+  unnest(fit_isotherms)
+
+summary_BC_single_tidy <- Sorption_BC_single %>% 
+  group_by(Compound, Biochar) %>%
+  do(fit_isotherms = tidy(lm(Cs ~ Cw, data = .))) %>% 
+  unnest(fit_isotherms) %>% 
+  pivot_wider(names_from = term,
+              values_from = c(estimate, std.error, statistic, p.value))
 
 # Trace and main elements plots together ----
 Trace_elements_biochar_plot <- ggplot(data = subset(Biochar, Unit %in% "mg/kg"), 
@@ -310,7 +324,7 @@ Correlation_SAPV_Ca_plot <- Biochar_ratios_1ugL_select %>%
                     ymax=log_Kd+logKd_error), 
                 width = 0.01,
                 color = "grey")+
-  geom_line(aes(group = compound), color = "black") +
+  geom_line(aes(group = compound), color = "grey") +
   geom_point(size = 4) +
   facet_wrap(~ name,
              scales = "free_x",
@@ -321,9 +335,10 @@ Correlation_SAPV_Ca_plot <- Biochar_ratios_1ugL_select %>%
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
-        text = element_text(size = 12),
+        text = element_text(size = 20),
         strip.placement = "outside",
-        strip.background = element_blank())
+        strip.background = element_blank(),
+        panel.spacing = unit(2, "lines"))
 Correlation_SAPV_Ca_plot
 ggsave("R/figs/Correlation_SAPV_Ca_plot.pdf")
 
@@ -359,7 +374,7 @@ SAPV_C_Kd1ugL_plot <- Biochar_ratios_1ugL_select %>%
                     ymax=log_Kd+logKd_error), 
                 width = 0.03,
                 color = "grey")+
-  geom_line(aes(group = compound), color = "black") +
+  geom_line(aes(group = compound), color = "grey") +
   geom_point(size = 4) +
   facet_wrap(~ name,
              scales = "free_x",
@@ -370,9 +385,10 @@ SAPV_C_Kd1ugL_plot <- Biochar_ratios_1ugL_select %>%
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "bottom", 
-        text = element_text(size = 12),
+        text = element_text(size = 20),
         strip.placement = "outside",
-        strip.background = element_blank()) +
+        strip.background = element_blank(),
+        panel.spacing = unit(2, "lines")) +
   scale_x_continuous(labels = scaleX)
 SAPV_C_Kd1ugL_plot
 ggsave("R/figs/SAPV_C_Kd1ugL_plot.pdf")
