@@ -1,4 +1,4 @@
-\documentclass[12pt,  a4paper,oneside]{book} %Fjern twoside dersom\usepackage[norsk] skriveren kun skriver ut på én side
+\documentclass[12pt,a4paper,oneside]{book} %Fjern twoside dersom\usepackage[norsk] skriveren kun skriver ut på én side
 % Pakker.
 \usepackage[paper=A4,pagesize]{typearea}
 \usepackage{titlesec}
@@ -28,7 +28,7 @@
 \usepackage{multicol}
 % For hypertekst i pdf.
 \usepackage[hidelinks]{hyperref} %Denne må før glossaries
-%\providecommand\phantomsection{} % Denne gjor at det vil kompilere både med og uten hyperref som funker
+%\providecommand\phantomsection{} % Denne gjør at det vil kompilere både med og uten hyperref som funker
 
 % Innfører \cref{} for å gjøre referering til labler lettere.
 \usepackage[english]{cleveref}
@@ -52,7 +52,7 @@
 \usepackage[acronym,xindy]{glossaries}
 \usepackage{glossary-mcols}% glossaries med to kolonner
 \renewcommand{\glossaryentrynumbers}[1]{}% empty sidetall best uten
-%\makeglossaries
+\makeglossaries
 
 % Gjør lister bedre.
 %\setlength{\parskip}{1.5em} %avstand mellom avsnitt
@@ -110,7 +110,7 @@
 \floatstyle{plaintop}
 \restylefloat{table}
 
-% Ordner nummerering av floats innenfor sine respektable avsnitt.
+% Ordner nummerering av floats innenfor sine respektive avsnitt.
 \numberwithin{figure}{chapter}
 \numberwithin{equation}{chapter}
 \numberwithin{table}{chapter}
@@ -131,11 +131,10 @@
 
 %\usepackage[authoryear,round]{natbib}
 \usepackage{enumitem}
-%\hypersetup{pdfauthor={Egil}} % Denne skulle fikse noe...
 \usepackage{newfloat} % Vil du ha vanlig telling velg "within=none". "within=section" gir nummerering "section.<skjemanummer>". Skriver du i memoir/book/e.l. med chapter som hovedkapittel, kan det være naturlig å velge "within=chapter" i stedet.
 
 \DeclareFloatingEnvironment[  fileext={skjema},  placement={!htbp},  name={Skjema},  listname={Skjemaliste}]{skjema}
-% jeg er fæn av å holde figurer på Topp, Bunn eller egen Page, men hvis du vil bruke !h også kan du endre til "placement={!htbp}"
+% jeg er fan av å holde figurer på Topp, Bunn eller egen Page, men hvis du vil bruke !h også kan du endre til "placement={!htbp}"
 \numberwithin{skjema}{section}
 
 \usepackage{changepage}
@@ -157,12 +156,12 @@
 \include{Chapters/0-Div/Summary}
 \include{Chapters/0-Div/Sammendrag}
 
-\listoffigures
-\addcontentsline{toc}{chapter}{List of figures}
+%\listoffigures
+%\addcontentsline{toc}{chapter}{List of figures}
 %\clearpage
 
-\listoftables
-\addcontentsline{toc}{chapter}{List of tables}
+%\listoftables
+%\addcontentsline{toc}{chapter}{List of tables}
 %\clearpage
 
 \input{Lister/Acronyms}

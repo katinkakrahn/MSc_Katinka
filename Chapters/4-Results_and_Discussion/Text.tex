@@ -10,14 +10,14 @@ Due to the novel research on sewage sludge biochars as sorbents for PFAS in this
 \begin{figure}[tb]
     \centering
     \includegraphics[width=0.8\textwidth]{R/figs/Sorption_isotherms_single_BC.pdf}
-    \caption{Freundlich sorption isotherms of TCs in batch tests with three different biochars. Lines are obtained by linear regression.}
+    \caption{Freundlich sorption isotherms for PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA in batch tests with three different biochars. Lines are obtained by linear regression.}
     \label{fig:sorption_isotherms}
 \end{figure}
 
 \begin{figure}[tb]
     \centering
     \includegraphics[width=\textwidth]{R/figs/BC_facet_isotherm.pdf}
-    \caption{Single-compound Freundlich sorption isotherms of PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA. Lines are obtained by linear regression. For comparison across chain length, the shaded gray lines are the isotherms from the other compounds with the same sorbent.}
+    \caption{Single-compound Freundlich sorption isotherms for PFPeA, PFHxA, PFHpA, PFOA, PFNA and PFDA. Lines are obtained by linear regression. For comparison across chain length, the shaded gray lines are the isotherms from the other compounds with the same sorbent.}
     \label{fig:sorption_isotherms_all}
 \end{figure}
 
@@ -257,9 +257,7 @@ Colored filtrate and humus aggregation seen during analysis of the soil batch te
 \end{figure}
 
 \subsection{Sorption attenuation of PFOA isotherms}
-\cref{fig:PFOA_attenuation} shows the effect of attenuation on the PFOA isotherms for BC soil single and BC soil mixed. The isotherms were spiked with the same $C_i$, only that six of the ten points were selected for the attenuation isotherms (\cref{sec:S-BC}. For all three biochars, BC single have highest sorption, followed by BC soil single, and BC soil mixed. Freundlich partition coefficients and slopes are in \cref{appSec:Sorption}\cref{apptab:summary_stats_all}. This trend gives a good representation of the hierarchy of factors that influence attenuation, consistent with the results discussed earlier in this section. The isotherms have similar $C_s$ concentrations but varying $C_w$, depending on sample type. Due to pore blocking and competitive sorption, more sorbate in solution is needed to push the same amount of molecules onto the solid phase in presence of soil. This effect is further enhanced by the presence of both soil and a cocktail---indicated by the green line being the lowest isotherm---because the PFCAs with longer chain lengths (PFNA and PFDA) are expected to be stronger in the competition for sorption sites than PFOA \citep{Sormo2021}. Consistent with \cref{fig:C10_AF}, the cocktail attenuation effect is more significant than attenuation by soil. 
-
-Parallel isotherms means that attenuation is the same across the whole concentration range, such as between BC single and BC soil single for ULS, whereas for some isotherms attenuation is minimal at low concentrations and increases with increasing spike concentration, which is the case for the DSL isotherms. That attenuation factors increases with increasing concentration is explained by the non-linear sorption at higher concentrations, so when spike concentration increases, sorption attenuation increases. 
+\cref{fig:PFOA_attenuation} shows the effect of attenuation on the PFOA isotherms for BC soil single and BC soil mixed. The isotherms were spiked with the same $C_i$, only that six of the ten points were selected for the attenuation isotherms (\cref{sec:S-BC}. For all biochars, BC single have the highest sorption, followed by BC soil single, and BC soil mixed. This trend gives a good representation of the order of factors that influence attenuation, consistent with the results discussed earlier in this section. The isotherms have similar $C_s$ concentrations but varying $C_w$, depending on sample type. Due to pore blocking and competitive sorption, more sorbate in solution is needed to push the same amount of molecules onto the solid phase in presence of soil. This effect can be shown to be further enhanced by the presence of both soil and a cocktail since this isotherm has the highest $Cw$ and lowest $C_s$. This is because PFCAs with longer chain lengths (PFNA and PFDA) have an advantage when competing for sorption sites than PFOA \citep{Sormo2021}. Consistent with \cref{fig:C10_AF}, the cocktail attenuation effect is more significant than attenuation by soil. Parallel isotherms means that attenuation is the same across the whole concentration range, such as between BC single and BC soil single for ULS. For some isotherms attenuation is minimal at low concentrations and increases with increasing spike concentration, which is the case for the DSL isotherms. This can be explained by the non-linear sorption at higher concentrations, so when spike concentration increases, sorption attenuation increases. 
 
 \begin{figure}[htb]
     \centering
@@ -269,16 +267,17 @@ Parallel isotherms means that attenuation is the same across the whole concentra
 \end{figure}
 
 \subsection{Freundlich sorption non-linearity}\label{sec:non-linearity}
-The Freundlich coefficient of non-linearity ($n_F$), is a measure of sorption capacity within the concentration range acheived for the sorption isotherms. A lower $n_F$ indicates that sorption sites are starting to be saturated and the biochar is closer to its maximum sorption capacity.  All isotherms experience sorption site attenuation at increasing concentrations indicated by $n_F<1$ (\cref{tab:summary_stats_single}, which is consistent with the Freundlich model and other studies where sorption to biochar have $n$-values typically around 0.3-0.7 \citep{Cornelissen2005}. 
+The non-linear sorption isotherms for PFOA in \cref{fig:PFOA_nonlinear} shows how sorption is attenuated at higher concentrations. When a linear model is derived from applying the $log$ of each axis, the slope ($n_F$) represents how linear the isotherm is within the concentration interval achieved (\cref{sec:models}). The resulting Freundlich coefficients ($log~K_F$ and $n_F$) for PFOA are given in \cref{tab:PFOA_Freundlich}, and the remaining compounds are in  \cref{appSec:Sorption}\cref{apptab:summary_stats_all}.
 
-Concentration interval for the isotherms is an important predictor of the slope ($n_F$) and intercept ($log~K_F$) derived from the linear regression. The concentration range achieved was an average of 1.3 log units of $C_w$, in contrast to the desired concentration range over 4 log units. This indicates that either higher spike concentrations or a lower BC dosage should have been used for the batch tests and that the sludge biochars have a higher sorptive capacity compared with CWC. Poor signals were achieved for the SC1 points and were removed from the data analysis to improve the certainty of the regression analysis. By doing this the spike concentration interval was reduced to two orders of magnitude \cref{tab:spikeConcentrations}. In retrospect, spike concentrations at each log unit should have been selected instead of spreading the ten concentrations evenly across the concentration range.
+All BC single isotherms have $n_F<1$. This indicates that the concentration interval achieved was wide enough to represent  (\cref{tab:summary_stats_single}, which is consistent with the Freundlich model and other studies where sorption to biochar have $n$-values typically around 0.3-0.7 \citep{Cornelissen2005}. The Freundlich coefficient of non-linearity ($n_F$), is a measure of sorption capacity within the concentration range acheived for the sorption isotherms. A lower $n_F$ indicates that sorption sites are starting to be saturated and the biochar is closer to its maximum sorption capacity.  
+
+ The concentration range achieved was an average of 1.3 log units of $C_w$, in contrast to the desired concentration range over 4 log units. This indicates that either higher spike concentrations or a lower BC dosage should have been used for the batch tests and that the sludge biochars have a higher sorptive capacity compared with CWC. Poor signals were achieved for the SC1 points and were removed from the data analysis to improve the certainty of the regression analysis. By doing this the spike concentration interval was reduced to two orders of magnitude \cref{tab:spikeConcentrations}. In retrospect, spike concentrations at each log unit should have been selected instead of spreading the ten concentrations evenly across the concentration range.
 
 For the short-chain compounds (PFPeA and PFHxA), correlations are poor which results in higher standard errors and slopes that are unrealistic (PFHxA-DSL: n=1.11 and PFHpA-ULS: 1.08). Possible explanations for the poor correlations for PFPeA and PFHxA are poor biochar affinity, but the standard error is also large so that the isotherm may actually be linear ($\pm$ 0.11 for both). For PFPeA- and PFHxA-CWC, it appears that CWC sorption sites have been saturated since most points center around the same area, which means that CWC reaches sorption maximum at $~$4 000 $\mu g~kg^{-1}$. However, four points are insufficient to conclude that CWC has the lowest affinity and capacity to sorb short-chain PFCAs. The CWC isotherms had the widest concentration intervals for $C_w$, which can be explained by CWC being the weakest sorbent of the three biochars studied, resulting in higher aqueous concentrations than for the sludge biochars. 
 
 \citep{yin2022insights} suggests that electrostatic interactions between PFCAs and sediment can contribute to further enhancing of saturation of the adsorption sites and that intermolecular electrostatic repulsion between the individual molecules could also result in nonlinear sorption \citep{higgins2006sorption,yin2022insights}.
 
 \citep{yin2022insights} attributes non-linear sorption to three explanations: 1) complex composition of biochar with negative, positive and neutral charges within same matrix, 2) successive saturation of adsorption sites, 3) electrostatic interactions between the PFASs and sediment, 4) electrostatic repulsion from negatively charged carboxylate groups. 
-
 
 Sorption non-linearity ($n<1$) occurs due to the complex composition of sediment/biochar with both positive and negative charges contributing to either attraction or repulsion, as well as hydrophobic surfaces, and indicates successive saturation of these adsorption sites \citep{yin2022insights}.  
 
@@ -310,8 +309,8 @@ PFOA & ULS & BC\_sing    & 5.73 ± 0.02 & 0.65 ± 0.05 & 0.95 & *** \\ \bottomru
 
 \begin{figure}
     \centering
-    \includegraphics{R/figs/PFOA_linear.pdf}
-    \caption{Attenuation isotherms for PFOA plotted without log axes. Curves are fitted by a polylogarithmic curve (poly(log(x), 2)).}
+    \includegraphics[width=0.8\textwidth]{R/figs/PFOA_linear.pdf}
+    \caption{Attenuation isotherms for PFOA plotted without log axes. Curves are fitted by a polylogarithmic curve.}
     \label{fig:PFOA_nonlinear}
 \end{figure}
 
