@@ -75,6 +75,14 @@
 \usepackage{array}
 \usepackage{textgreek}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Egil 2022
+% kan generere en blank side
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Egil 2022
 
 % Gjør figurer og bilder bedre.
 \usepackage{float}
@@ -139,21 +147,30 @@
 
 \usepackage{changepage}
 
+
 \begin{document}
 %TC:ignore
 % Forside
 \pagenumbering{gobble} %skrur av sidetall
 \includepdf{Chapters/0-Div/Forside.pdf}
 
+
 %\pagenumbering{arabic} %sidetall etter innholdsfortegnelse
 \pagestyle{plain}
 \pagenumbering{roman}
-\setcounter{page}{5}
+\setcounter{page}{3} %%%%%%%%%% nummeret her styrer hvilket sidetall man begynner på
 
-\clearpage
-\include{Chapters/0-Div/Acknowledgements}
+\cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Egil 2022
+\afterpage{\blankpage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Egil 2022
 \include{Chapters/0-Div/Abstract}
 \include{Chapters/0-Div/Sammendrag}
+\newpage\null\newpage %%%%%%%%%%%%%%%%%% Egil 2022
+\include{Chapters/0-Div/Preface}
+\newpage\null\newpage %%%%%%%%%%%%%%%%%% Egil 2022
+\include{Chapters/0-Div/Acknowledgements}
+
 
 %\listoffigures
 %\addcontentsline{toc}{chapter}{List of figures}
