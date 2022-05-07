@@ -89,13 +89,17 @@ Freundlich_soil <- merge(Freundlich_soil, r_squared, by = c("Compound", "Biochar
 PFOA_linear <- Soil_BC_join_isotherm %>% 
   filter(Compound == "PFOA") %>% 
   mutate(type = factor(type, levels = c("BC_sing", "BC_S_sing", 
-                                          "BC_S_mix"))) %>% 
+                                          "BC_S_mix")),
+         Cw = Cw/1000,
+         Cs = Cs/1000) %>% 
   group_by(type) %>% 
   ggplot(mapping = aes(x = Cw, y = Cs, color = type)) +
   geom_point(size = 3) + 
-  geom_smooth(method = "lm", formula = y ~ poly(log(x), 2), se = FALSE) +
-  labs(x = TeX(r'($C_{w}~(\mu g/L)$)'), 
-         y = TeX(r'($C_{s}~(\mu g/kg)$)'),
+  geom_smooth(method = "lm", 
+              formula = y ~ poly(log(x), 2), 
+              se = FALSE) +
+  labs(x = TeX(r'($C_{w}~(mg/L)$)'), 
+         y = TeX(r'($C_{s}~(mg/kg)$)'),
          color = "") + 
   facet_wrap(~Biochar,
                scales = "free_x") +
@@ -107,10 +111,10 @@ PFOA_linear <- Soil_BC_join_isotherm %>%
   theme_bw() +
   theme(panel.grid = element_blank(),
         legend.position = "bottom",
-        text = element_text(size = 20))
+        text = element_text(size = 20),
+        panel.spacing = unit(2, "lines"))
 PFOA_linear
 ggsave(filename = "R/figs/PFOA_linear.pdf")  
-
 
 
 Soil_BC_join_triplicate_mean <- Soil_BC_join %>%
@@ -124,6 +128,8 @@ Soil_BC_join_triplicate_mean <- Soil_BC_join %>%
             Cw = mean(Cw),
             Cs = mean(Cs))
 
+TEST <- merge(summary_statistics_BC_single,
+              Soil_BC_join_isotherm)
 Soil_BC_join_mean_and_isotherm <- full_join(Soil_BC_join_triplicate_mean, 
                                             Soil_BC_join_isotherm)
 
@@ -186,7 +192,8 @@ ggsave(filename = "R/figs/Attenuation.pdf")
 
 # Attenuation at C10 ----
 C10 <- Soil_BC_join_mean_and_isotherm %>% 
-  filter(Conc_point == 10) %>%
+  filter(Conc_point == 10,
+         Compound %in% c("PFOA", "PFNA", "PFDA")) %>%
   mutate(Compound = factor(Compound, 
                            levels = c("PFPeA", "PFHxA", "PFHpA", 
                                       "PFOA", "PFNA", "PFDA")),
@@ -200,7 +207,7 @@ C10 <- Soil_BC_join_mean_and_isotherm %>%
              color = type,
              shape = type
   )) +
-  geom_point(size = 4,
+  geom_point(size = 6,
              alpha = 1) +
   facet_wrap(~ Compound) +
   labs(x = "", 
@@ -226,7 +233,7 @@ C10 <- Soil_BC_join_mean_and_isotherm %>%
   theme_bw() +
   theme(panel.grid = element_blank(),
         legend.position = "bottom",
-        text = element_text(size = 20),
+        text = element_text(size = 25),
         axis.text.x = element_text(angle = 0, 
                                    vjust = 0.5, 
                                    hjust=0.5))
@@ -235,8 +242,7 @@ ggsave(filename = "R/figs/C10.pdf")
 
 Attenuation_factors <- read_xlsx("R/data_manipulated/190422_Attenuation_factors_manual.xlsx") %>% 
   mutate(percent_drop = (1-Attenuation)*100) %>% 
-  filter(Compound %in% c("PFOA", "PFNA", "PFDA"),
-         type %in% c("BC_S_sing"))
+  filter(Compound %in% c("PFOA", "PFNA", "PFDA"))
 
 Attenuation_C10_OND <- Attenuation_factors %>% 
   drop_na(Attenuation) %>% 
@@ -258,17 +264,17 @@ Attenuation_C10_OND <- Attenuation_factors %>%
              color = type,
              shape = type
   )) +
-  geom_point(size = 4,
+  geom_point(size = 6,
              alpha = 0.7) +
   facet_wrap(~ Compound) +
   labs(x = "",
-       y = "Attenuation factor",
+       y = "AF",
        color = "",
        shape = ""
   ) +
   #scale_y_continuous(labels = percent_format(scale = 1)) +
   scale_color_brewer(palette = "Paired",
-                     labels = c("Reference: BC single",
+                     labels = c("BC single (ref.)",
                                 "BC soil single",
                                 "BC soil mixed",
                                 "BC mixed (n=3)",
@@ -276,7 +282,7 @@ Attenuation_C10_OND <- Attenuation_factors %>%
                                 "Soil mixed (n=3)"
                                 )) +
   scale_shape_manual(name = "",
-                     labels = c("Reference: BC single",
+                     labels = c("BC single (ref.)",
                                 "BC soil single",
                                 "BC soil mixed",
                                 "BC mixed (n=3)",
@@ -284,11 +290,12 @@ Attenuation_C10_OND <- Attenuation_factors %>%
                                 "Soil mixed (n=3)"
                                 ),
                      values = c(16, 17, 17, 16)) +
+  scale_y_continuous(breaks=c(25,50,75,100,125,150)) +
   guides(color=guide_legend(nrow=2),byrow=TRUE) +
   theme_bw() +
   theme(panel.grid = element_blank(),
         legend.position = "bottom",
-        text = element_text(size = 20),
+        text = element_text(size = 25),
         axis.text.x = element_text(angle = 0, 
                                    vjust = 0.5, 
                                    hjust=0.5))
