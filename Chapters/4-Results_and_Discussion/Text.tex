@@ -66,8 +66,8 @@ This section relates the distribution coefficients derived for ULS, DSL and CWC 
 \label{tab:SAPV}
 \begin{tabular}{lcccccccccccc}
 \toprule
-Biochar & \multicolumn{3}{l}{N\textsubscript{2} sorption} & \multicolumn{2}{l}{CO\textsubscript{2} sorption} & \multicolumn{4}{l}{Elemental content} & \multicolumn{3}{c}{Element ratio} \\
-sorbent & \multicolumn{3}{l}{(pores \textgreater 1.5 nm)} & \multicolumn{2}{l}{(pores 0.4-1.5 nm)} & & & & & & \\ \cmidrule(l){2-4} \cmidrule(l){5-6} \cmidrule(l){7-10} \cmidrule(l){11-13} 
+Biochar & \multicolumn{2}{l}{N\textsubscript{2} sorption} & \multicolumn{2}{l}{CO\textsubscript{2} sorption} & \multicolumn{4}{l}{Elemental content} & \multicolumn{3}{c}{Element ratio} \\
+sorbent & \multicolumn{2}{l}{(pores \textgreater 1.5 nm)} & \multicolumn{2}{l}{(pores 0.4-1.5 nm)} & & & & & & \\ \cmidrule(l){2-3} \cmidrule(l){4-5} \cmidrule(l){6-9} \cmidrule(l){10-12} 
 & BET SA  & BJH PV  & DFT SA & DFT PV & C & O & H & N & O/C & H/C & N/C \\
 & ($\mathrm{m^2~g^{-1}}$) & (cm\textsuperscript{3} g\textsuperscript{-1}) & ($\mathrm{m^2~g^{-1}}$) & (cm\textsuperscript{3} g\textsuperscript{-1}) & (\%) & (\%) & (\%) & (\%) & & & \\ \midrule
 CWC & 323 & 0.017 & 683 & 0.186 & 91.4 & 5.50 & 1.01 & 0.69 & 0.06 & 0.01 & 0.008 \\
@@ -83,8 +83,8 @@ Maximum sorption is achieved when the molecular dimensions of PFAS match the por
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{R/figs/PZD_SAPV_C_small_plot.pdf}
-    \caption{Cumulative pore size distribution for pores 0.4-1.5 nm using DFT.}
+    \includegraphics[width=\textwidth]{R/figs/PZD_SA_PV_small_plot.pdf}
+    \caption{Cumulative pore size distribution for pores 0.4-1.5 nm using DFT with (a) surface area (SA) and (b) pore volume (PV).}
     \label{fig:PZD_small}
 \end{figure}
 
@@ -113,21 +113,19 @@ PFDA & 10 & 0.72 & 1.54  \\ \bottomrule
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth, trim={0 2cm 0 0},clip]{Diagrams/Molecular_size.pdf}
-    \caption{Definition of effective cross-sectional diameter ($D_{eff}$) and maximum diameter ($D_{max}$) shown for PFOA.}
+    \caption{Effective cross-sectional diameter ($D_{eff}$) and maximum diameter ($D_{max}$) of PFOA.}
     \label{fig:molecularSize}
 \end{figure}
 
 \subsubsection{Pore size distribution for pores $>$1.5 nm}
-Similar to the trend for small pores, CWC also had the largest cumulative SA but the lowest PV for pores $>$1.5 nm (323 m\textsuperscript{2} g\textsuperscript{-1} versus 110 and 128 m\textsuperscript{2} g\textsuperscript{-1} for DSL and ULS, respectively). \cref{fig:PZD_large}a shows that the highest proportion of SA is allocated to pores between 1.5-3 nm for CWC and 1.5-5 nm for ULS and DSL. Cumulative PV is highest for ULS (0.126 cm\textsuperscript{3} g\textsuperscript{-1}), where PV for CWC was one order of magnitude lower (0.017 cm\textsuperscript{3} g\textsuperscript{-1}). Furthermore, the development of PV with pore diameter in \cref{fig:PZD_large}b shows a clear distinction between CWC and the two sewage sludge biochars. CWC has most of its PV in pores $<$3 nm, whereas PV for ULS and DSL steadily increase up to the maximum pore size of 35 nm. This difference becomes important for the SA/PV ratio seen in \cref{fig:PZD_large}c. Here, ULS and DSL have low and equivalent cumulative $\log~SA/PV$ ratios of 2.8 compared to the higher ratio of 3.2 for CWC (\cref{tab:SAPV}). Previous studies have consistently concluded that a large internal surface area and pore volume of adsorbents are the two most important parameters for achieving high sorption capacity of PFAS \citep{du2014adsorption,Sormo2021,Hale2016,ahmed2020per}. Similarly, the results of this study provide clear indications that a low SA/PV ratio can be considered a proxy for good PFAS sorption. The most plausible explanation for why CWC is the weakest sorbent among the three samples in this study is that CWC consists almost exclusively of micropores, whereas ULS and DSL also have pores in the mesopore range (2-50 nm). The shift observed by comparing SA and PV together demonstrates the importance of considering both pore size \textit{and} surface area when evaluating available sorption sites on biochar.
+CWC biochar had the largest cumulative SA (323 m\textsuperscript{2} g\textsuperscript{-1}) but the lowest PV (0.017 cm\textsuperscript{3} g\textsuperscript{-1}) for pores $>$1.5 nm. ULS biochar had slightly larger SA than DSL biochar (128 versus 110 m\textsuperscript{2} g\textsuperscript{-1}) as well as slightly larger PV (0.126 versus 0.111 cm\textsuperscript{3} g\textsuperscript{-1}). Additionally, the pore size distributions in \cref{fig:PZD_large} show remarkable differences in how SA and PV are distributed with increasing pore diameters between CWC biochar and the sludge biochars. For CWC biochar, SA and PV are almost exclusively allocated to pores between 1.5-3 nm. By contrast, SA and PV for the ULS and DSL biochars increase steadily up to the maximum pore size of 35 nm. Since the ULS and DSL biochars have similar PSD in terms of both SA and PV (\cref{fig:PZD_large}), although slightly larger for ULS than DSL, the higher carbon content in ULS biochar (29.6 \%) than DSL biochar (13.5 \%) indicates that more hydrophobic interactions are possible for ULS biochar. Apart from SA and PV, carbon content has, in previous literature, been a good predictor of sorption affinity to PFAS \citep{Hale2016,Cornelissen2005}.  
 
-Since ULS and DSL had nearly equivalent SA/PV ratios, an additional parameter is needed to explain why ULS is a better sorbent than DSL (\cref{fig:PZD_large}c). Apart from SA and PV, carbon content has, in previous literature, been a good predictor of sorption affinity to PFAS \citep{Hale2016,Cornelissen2005}. ULS contains 29.6 \% carbon whereas DSL contains 13.5 \%.  
-
- This means that high porosity and sufficiently large pores are the two most important parameters that regulate high sorption capacity, and that the pore wall composition further contributes to enhanced sorption. 
+Three important conclusions can be drawn from this information: 1) CWC has predominantly too small pores to accommodate PFCA, 2) CWC has much lower PV for pores $>$1.5 nm, and this greatly restricts pore filling mechanisms, and 3) ULS biochar has a higher PV, SA and C-content than DSL biochar. This explains why ULS biochar is a better sorbent than DSL biochar. Previous studies have consistently concluded that a large internal surface area and pore volume are the two most important parameters for achieving high sorption capacity for a sorbent for PFAS \citep{du2014adsorption,Sormo2021,Hale2016,ahmed2020per}. The most plausible explanation for why CWC is the weakest sorbent among the three biochars in this study is that CWC biochar consists almost exclusively of micropores, whereas the ULS and DSL biochars have more pores in the mesopore range (2-50 nm). This means that high porosity and sufficiently large pores are the two most important parameters that regulate high sorption capacity, and that a carbon-rich pore wall enhances sorption by increasing hydrophobic interactions. 
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{R/figs/PZD_SAPV_C_large.pdf}
-    \caption{Cumulative pore size distribution for pores $>$ 1.5 nm using DFT theory. (a) Surface area, (b) pore volume, (c) SA/PV ratio for pores $>$1.5 nm normalized to carbon content (g C/g BC). (d) A lower SA/PV/C ratio indicates a higher degree of C in the pore wall matrix.}
+    \includegraphics[width=\textwidth]{R/figs/PZD_SA_PV_plot_large.pdf}
+    \caption{Cumulative pore size distribution for pores $>$ 1.5 nm using DFT theory with (a) surface area (SA) and (b) pore volume (PV).}
     \label{fig:PZD_large}
 \end{figure}
 
@@ -185,7 +183,7 @@ Due to the lack of corresponding reference compounds for some of the EXAFS signa
     \mathrm{\equiv Fe-OH_2^+ ~ + ~ CF_3(CF_2)_nCOO^- \rightarrow ~ \equiv Fe-OOC(CF_2)_nCF_3 ~+~ H_2O}
 \end{equation}
 
-where the triple bond represents chelation of Fe to the biochar matrix. Point of zero charge (pzc) for Fe(oxyhydr)oxides, such as ferrihydrite and goethite, are around 7, similar to the solution pH measured for the water-biochar systems (see \cref{sec:inorganic}). The iron species are expected to be neutral for the systems analyzed and will likely not be one of the dominating sorption mechanisms for PFCA. 
+where the triple bond represents chelation of Fe to the biochar matrix. Point of zero charge (PZC) for Fe(oxyhydr)oxides, such as ferrihydrite and goethite, are around 7, similar to the solution pH measured for the water-biochar systems (see \cref{sec:inorganic}). The iron species are expected to be neutral for the systems analyzed and will likely not be one of the dominating sorption mechanisms for PFCA. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -203,7 +201,7 @@ This section discusses sorption attenuation for the different batch test categor
     \item \textbf{Soil mixed}: soil-water spiked with a PFCA cocktail
 \end{itemize}
 
-\cref{subfig:C10} shows the $K_d$-values for the different batch test categories spiked with the same concentration of each compound at the highest spike point, SC10 (\cref{tab:spikeConcentrations}). This way of comparing partitioning of the same compound across biochar samples was decided to be the simplest because the overall mass PFCA added to the system was the same for all samples. $K_d$ for the biochar-soil batch tests has not been corrected for the amount sorbed by soil itself due to inconsistent results for the $K_d$ in soil (\cref{tab:attenuation}). Therefore, $K_d$ for BC soil single, BC soil mixed and BC mixed represent the collective partitioning coefficients for biochar and soil. However, the sandy soil used has low sorption strength, with a mean $\log~K_d$ value of 2.47, over 1000 times lower than for, e.g., singly-spiked PFDA to ULS-water (6.06). thus, the effect of this was relatively limited. The cocktail consisted of 2.5\% PFPeA, 7.7\% PFHxA, 1.4\% PFHpA, 18.2\% PFOA, 21.3\% PFNA, and 48.8\% PFDA. Since the cocktail consisted of different concentrations of each compound, a trend for attenuation with chain length cannot be derived. However, the relative $K_d$-values of each batch test category, as well as comparisons between biochar samples, yield interesting results. 
+\cref{subfig:C10} shows the $K_d$-values for the different batch test categories spiked with the same concentration of each compound at the highest spike point, SC10 (\cref{tab:spikeConcentrations}). This way of comparing partitioning of the same compound across biochar samples was decided to be the simplest because the overall mass PFCA added to the system was the same for all samples. $K_d$ for the biochar-soil batch tests has not been corrected for the amount sorbed by soil itself due to inconsistent results for the $K_d$ in soil (\cref{tab:attenuation}). Therefore, $K_d$ for BC soil single, BC soil mixed and BC mixed represent the collective partitioning coefficients for biochar and soil. However, the sandy soil used has low sorption strength, with a mean $\log~K_d$ value of 2.47, over 1000 times lower than for, e.g., singly-spiked PFDA to ULS-water (6.06). Thus, the effect of this was relatively limited. The cocktail consisted of 2.5\% PFPeA, 7.7\% PFHxA, 1.4\% PFHpA, 18.2\% PFOA, 21.3\% PFNA, and 48.8\% PFDA. Since the cocktail consisted of different concentrations of each compound, a trend for attenuation with chain length cannot be derived. However, the relative $K_d$-values of each batch test category, as well as comparisons between biochar samples, yield interesting results.
 
 In \cref{subfig:C10}, the difference in $\log~K_d$ between BC single and the other sample types equates to how much sorption is attenuated in the presence of soil and/or other PFCAs. Fouling, together with attenuation, are terms used to discuss the weakening of sorbent sorption by natural organic matter or competing contaminants \citep{Werner2006}. For all compounds, the presence of other PFCAs was responsible for the highest drop in $\log~K_d$, consistent with the findings of \cite{Cornelissen2006}. Overall, $\log~K_d$ decreased in the following order: BC single $>$ BC soil single $>$ BC mixed $>$ BC soil mixed $>$ soil single and mixed. Attenuation appears to be similar for all biochars as the points for each batch type align parallel for PFOA, PFNA, and PFDA. This trend shows that the mixed systems have greatest attenuation, where sorption is up to two orders of magnitude weaker than BC single, the reference of calculating the AFs. This means that sorption is non-linear at high concentrations, something which will be discussed further in \cref{sec:non-linearity}. These results are in line with previous literature \citep{deng2010removal, zhou2010sorption}.
 
@@ -214,7 +212,10 @@ In \cref{subfig:C10}, the difference in $\log~K_d$ between BC single and the oth
     AF = \frac{K_{d,BC single}}{K_{d,x}}
 \end{equation}
 
-where $K_{d,BC~single}$ is the mixed, soil mixed, or soil single batch test sample partition coefficient. AFs for PFPeA, PFHxA and PFHpA are not presented due to lack of consistent results. Lowest AFs were measured for BC-soil-PFOA, where AFs were 3, 4, and 10 for CWC, DSL, and ULS respectively. All calculated AFs are in \cref{tab:attenuation}. 
+where $K_{d,BC~single}$ is the mixed, soil mixed, or soil single batch test sample partition coefficient. AFs for PFPeA, PFHxA and PFHpA are not presented due to lack of consistent results. Lowest AFs were measured for BC-soil-PFOA, where AFs were 3, 4, and 10 for CWC, DSL, and ULS respectively. All calculated AFs are in \cref{tab:attenuation}. Highest attenuation were measured for the cocktail samples, with minor variance between the BC soil mixed and BC mixed samples. Attenuation factors are in the range 6-140 which means that sorption has been reduced by 84-99\%. This suggests that the total concentration of the cocktail is responsible for saturating sorption sites almost completely, and that the presence of soil in this case does not contribute to additional fouling. These factors are very high due to five other compounds added at similar concentrations. Overall, \cref{fig:C10_AF} shows that attenuation by the cocktail is more significant than attenuation by soil. This can mean two things: 1) The soil does not block biochar sorption sites, or 2) The soil, which has a $\log~K_d$ of 2.6 $\pm$ 2.0, sorbs some of the PFCAs that have been blocked from sorption onto the biochar. It was difficult to evaluate any trends in AFs between biochar samples or PFCA chain lengths. Further investigations by conducting attenuation experiments with a larger biochar sample size are needed to determine a relationship between biochar properties and fouling. 
+
+Gerard:
+    attenuation factors mellom 6 og 200 for PFCA, ta ingen har målt denne parameteren for biokull og PFCAs før, men at det er noe på BC og PAH (meg – attenuation rundt 10) og sulfametazol (attenuation 100-500). Det er mye mer men du behøver ikke diskutere alt. Riktignok viktig å kjenne til Hale et al Water Research 2010 som viste at attenuation med sediment ble borte (AF = 1) etter 3 år (!) med å riste – da kom DDTen gjennom oljelaget som blokkerte porene. Hun viste derfor at dette er mer en kinetisk effekt enn en likevektseffekt. 
 
 \begin{table}
 \centering
@@ -233,9 +234,6 @@ PFOA & BC S single & 3.19 & 3 & 3.98 & 4 & 4.61 & 10 \\ \bottomrule
 \end{tabular}
 \end{table}
 
-Highest attenuation were measured for the cocktail samples, with minor variance between the BC soil mixed and BC mixed samples. Attenuation factors are in the range 6-140 which means that sorption has been reduced by 84-99\%. This suggests that the total concentration of the cocktail is responsible for saturating sorption sites almost completely, and that the presence of soil in this case does not contribute to additional fouling. These factors are very high due to five other compounds added at similar concentrations. Overall, \cref{fig:C10_AF} shows that attenuation by the cocktail is more significant than attenuation by soil. This can mean two things: 1) The soil does not block biochar sorption sites, or 2) The soil, which has a $\log~K_d$ of 2.6 $\pm$ 2.0, sorbs some of the PFCAs that have been blocked from sorption onto the biochar. It was difficult to evaluate any trends in AFs between biochar samples or PFCA chain lengths. Further investigations by conducting attenuation experiments with a larger biochar sample size are needed to determine a relationship between biochar properties and fouling. 
-
-Colored filtrate and humus aggregation seen during analysis of the soil batch tests indicate that sorption of organic matter (OM) to biochar is likely (see \cref{sec:S-BC}. The soil used was a sandy soil with 1.3 \% TOC (details on soil properties is in \cref{sec:Soil}). By the co-existence of OM and dissolved organic carbon (DOC), sorption attenuation occurs by a combination of competitive and weaker sorption of PFAS to OM and DOC, and the competitive sorption of OM to biochar. Large humic acids (300-600 nm) clog the pores, preventing diffusion of PFAS \citep{Cornelissen2006,kluvcakova2018size}. Furthermore, the size of the organic molecules is a critical factor as humic molecules whose size is similar to that of PFAS are responsible for the highest competition \citep{du2014adsorption}. Given that size fractionation was not investigated in this study, the effect of differences of size for humic acids can only be discussed in theory.
 
 \begin{figure}
     \centering
@@ -248,7 +246,7 @@ Colored filtrate and humus aggregation seen during analysis of the soil batch te
         \begin{subfigure}[]{\linewidth}
             \centering
             \includegraphics[width=0.75\textwidth]{R/figs/Attenuation_factors_C10_OND.pdf}
-            \subcaption{Attenuation factors (AF) at SC10 for PFOA, PFNA, and PFDA calculated as $K_{d,BC single}/K_{d,x}$ where $K_{d,x}$ are the batch test categories. BC cocktails are spiked with 7.8 mg/L total PFCA and BC soil cocktails with 10.8 mg/L (the difference is explained in the corresponding section). See \cref{tab:spikeConcentrations} for spike concentrations used for each PFCA in the single-spike and cocktail-spike batch tests.}
+            \subcaption{Attenuation factors (AF) at SC10 for PFOA, PFNA, and PFDA calculated as $K_{d,BC single}/K_{d,x}$ where $K_{d,x}$ are batch test categories. See \cref{tab:spikeConcentrations} for spike concentrations used for each PFCA in the single-spike and cocktail-spike batch tests.}
             \label{subfig:AF}
         \end{subfigure}  
     \caption{Reduction in \textbf{(a)} $\log~K_d$ at SC10 and \textbf{(b)} attenuation factors at SC10.}
@@ -312,18 +310,8 @@ PFOA & ULS & BC\_sing    & 5.73 ± 0.02 & 0.65 ± 0.05 & 0.95 & *** \\ \bottomru
     \label{fig:nonlinear_OND} 
 \end{figure}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Soil}\label{sec:Soil}
-Before filtration of the batch tests with soil, each sample category (CWC-soil, DSL-soil, ULS-soil and soil only), despite being centrifuged, contained different degrees of suspended particles. This made it difficult to filter the samples that contained the most suspended particles. Filtration led to clogged filters that had to be changed up to three times per sample. The resulting filtrates varied in color \cref{fig:DOC}. These differences can be attributed to different amounts of dissolved organic carbon (\acrshort{DOC}). The sludge biochar-soil samples were more transparent than soil only and soil-CWC. The remarkable difference in DOC is attributed to DOC complexation with inorganic species present in the sludge chars, but not in CWC. Frequently clogged filters likely resulted in reduced filter pore size associated with the fact that some DOC was retained. This may have led to underestimating $C_w$, and thereby overestimating $K_d$ for soil which, in turn, became an issue when deriving $K_F$ for the biochar in these samples using \cref{eq:FreundLinSoil4}. Filter blanks were only prepared for BC-water samples that showed no significant effect (see \cref{apptab:FB}). Hence, the effect of reduced filter size by clogging cannot be quantified. In summary, the results and observations from the BC soil batch tests indicate that sewage sludge biochar binds DOC, and DOC in the filtrate is potentially responsible for an underestimation of $C_w$, and hence, overestimation of $K_{d,s}$. 
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.7\textwidth]{Bilder/Samples/Filtrate_DOC.JPG}
-    \caption{Color of filtrate for each biochar batch test. From left to right: soil only, soil+ULS, soil+CWC, and soil+DSL (BRL = DSL).}
-    \label{fig:DOC}
-\end{figure}
+DOC-assisted sorption 
+Colored filtrate and humus aggregation seen during analysis of the soil batch tests indicate that sorption of organic matter (OM) to biochar is likely (see \cref{sec:S-BC}. The soil used was a sandy soil with 1.3 \% TOC (details on soil properties is in \cref{sec:Soil}). By the co-existence of OM and dissolved organic carbon (DOC), sorption attenuation occurs by a combination of competitive and weaker sorption of PFAS to OM and DOC, and the competitive sorption of OM to biochar. Large humic acids (300-600 nm) clog the pores, preventing diffusion of PFAS \citep{Cornelissen2006,kluvcakova2018size}. Furthermore, the size of the organic molecules is a critical factor as humic molecules whose size is similar to that of PFAS are responsible for the highest competition \citep{du2014adsorption}. Given that size fractionation was not investigated in this study, the effect of differences of size for humic acids can only be discussed in theory.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
