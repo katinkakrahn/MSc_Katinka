@@ -14,15 +14,17 @@ CECions <- filter(Soil, Type == "Exchangeable ions")
 Total_element <- filter(Soil, Type == "Total element conc")
 
 # Element concentrations from triplicate soil samples
-SoilsummaryCEC <- CECions[, .(mean_conc = mean(Concentration), 
-                            sd_conc = sd(Concentration)
-),
-keyby = .(Compound)]
+SoilsummaryCEC <- CECions %>% 
+  group_by(Compound) %>% 
+  summarise(mean_conc = mean(Concentration), 
+            sd_conc = sd(Concentration))
 
-SoilsummaryTotal <- Total_element[, .(mean_conc = mean(Concentration),
-                                      sd_conc = sd(Concentration)
-                                      ),
-                                  keyby = .(Compound)]
+
+SoilsummaryTotal <- Total_element %>% 
+  group_by(Compound) %>% 
+  summarise(mean_conc = mean(Concentration),
+            sd_conc = sd(Concentration)
+  )
 
 #CEC ions plot
 CECions_plot <- ggplot(data = SoilsummaryCEC) + 
