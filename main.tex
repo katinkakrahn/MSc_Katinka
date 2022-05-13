@@ -25,6 +25,7 @@
 \usepackage{setspace}
 \usepackage[section]{placeins}
 
+\DeclareMathOperator\Log{Log}
 \usepackage{multicol}
 % For hypertekst i pdf.
 \usepackage[hidelinks]{hyperref} %Denne må før glossaries
@@ -153,7 +154,6 @@
 \pagenumbering{gobble} %skrur av sidetall
 \includepdf{Chapters/0-Div/Forside.pdf}
 
-
 %\pagenumbering{arabic} %sidetall etter innholdsfortegnelse
 \pagestyle{plain}
 \pagenumbering{roman}
@@ -165,19 +165,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Egil 2022
 \include{Chapters/0-Div/Abstract}
 \include{Chapters/0-Div/Sammendrag}
-\newpage\null\newpage %%%%%%%%%%%%%%%%%% Egil 2022
+%\newpage\null\newpage %%%%%%%%%%%%%%%%%% Egil 2022
 \include{Chapters/0-Div/Preface}
-\newpage\null\newpage %%%%%%%%%%%%%%%%%% Egil 2022
+%\newpage\null\newpage %%%%%%%%%%%%%%%%%% Egil 2022
 \include{Chapters/0-Div/Acknowledgements}
-
-
-%\listoffigures
-%\addcontentsline{toc}{chapter}{List of figures}
-%\clearpage
-
-%\listoftables
-%\addcontentsline{toc}{chapter}{List of tables}
-%\clearpage
 
 \input{Lister/Acronyms}
 \addcontentsline{toc}{chapter}{Abbreviations}
@@ -212,7 +203,7 @@
 
 %\maketitle
 
-\part{Introduction}
+%\part{Introduction}
 %Introduction:
 \input{Chapters/1-Introduction/Text}
 \newpage
@@ -222,7 +213,7 @@
 \input{Chapters/2-Objectives/Text}
 \newpage
 
-\part{Materials and Methods}
+%\part{Materials and Methods}
 %Experiments in lab
 \input{Chapters/3-Materials_and_Methods/Text}
 \newpage
@@ -231,25 +222,16 @@
 
 \newpage
 
-\part{Results and discussion}
+%\part{Results and discussion}
 \input{Chapters/4-Results_and_Discussion/Text}
 \newpage
 
 %Conclusions
+%\part{Conclusion}{Implications, conclusion, and recommendations for further work}
 \input{Chapters/5-Conclusion/Text}
 \newpage
 
-%Further work
-%\input{Chapters/6-Further_work/Text}
-%\newpage
 
-%\input{Theory} % midlertidig for å se hvordan det blir. Flyttet til litterature
-%\input{Konklusjon}
-%input{Referanser}
-% Symbolliste
-%\include{Chapters/Symbolliste}
-%\include{Chapters/Refferanser}
-%\newpage
 
 \bibliography{Kilder/Biochar-PFAS,Kilder/Rapporter,Kilder/History,Kilder/Jord-PFAS,Kilder/PFAS}
 \addcontentsline{toc}{chapter}{Bibliography}
