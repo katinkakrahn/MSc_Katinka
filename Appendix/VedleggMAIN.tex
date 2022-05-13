@@ -21,23 +21,23 @@
 % label for hver pdf plasseres i pagecommanden etter "\section{}"
 % Eks.: ..., pagecommand={\subsection{Min subsection}\label{app:OedoILs01LOG}},...
 
-\chapter*{Appendices} % Overskrift (start på vedlegg) suppresser kapitteltall
+%\chapter*{Appendices} % Overskrift (start på vedlegg) suppresser kapitteltall
     \phantomsection % For hyperref til funke når suppressed kapitteltall
     \addcontentsline{toc}{part}{Appendices}%
     \markboth{Appendices}{Appendices}% https://latex.org/forum/viewtopic.php?t=1309
-List of appendices % Oppdater siste tall (XYZ) til siste vedleggsnummer for hvert vedlegg
-\begin{itemize}
+%List of appendices % Oppdater siste tall (XYZ) til siste vedleggsnummer for hvert vedlegg
+%\begin{itemize}
     %\item \cref{appSec:ETIA}.number--number: \nameref{appSec:ETIA}
-    \item \cref{appSec:IsothermSetup}. number--number: \nameref{appSec:IsothermSetup}
-    \item \cref{appSec:LCMS}. number--number: \nameref{appSec:LCMS}
-    \item \cref{appSec:misclab}. number--number: \nameref{appSec:misclab}
-    \item \cref{appSec:elements}. number--number: \nameref{appSec:elements}
-    \item \cref{appSec:Sorption}. number--number: \nameref{appSec:Sorption}
-    \item \cref{appSec:rawdata}. number--number: \nameref{appSec:rawdata}
-    \item \cref{appSec:Fe}. number--number: \nameref{appSec:Fe}
-    \item \cref{appSec:poster}. number--number: \nameref{appSec:poster}
+    %\item \cref{appSec:IsothermSetup}. number--number: \nameref{appSec:IsothermSetup}
+    %\item \cref{appSec:LCMS}. number--number: \nameref{appSec:LCMS}
+    %\item \cref{appSec:misclab}. number--number: \nameref{appSec:misclab}
+    %\item \cref{appSec:elements}. number--number: \nameref{appSec:elements}
+    %\item \cref{appSec:Sorption}. number--number: \nameref{appSec:Sorption}
+    %\item \cref{appSec:rawdata}. number--number: \nameref{appSec:rawdata}
+    %\item \cref{appSec:Fe}. number--number: \nameref{appSec:Fe}
+    %\item \cref{appSec:poster}. number--number: \nameref{appSec:poster}
     %\item \cref{appSec:pollution}. number--number: \nameref{appSec:pollution}
-\end{itemize}
+%\end{itemize}
 
 % Ta inn vedlegg i ønsket rekkefølge og oppdater evt listen ovenfor
 %\input{Appendix/Pyrolysis/Text}
