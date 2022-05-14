@@ -157,17 +157,23 @@
 %\pagenumbering{arabic} %sidetall etter innholdsfortegnelse
 \pagestyle{plain}
 \pagenumbering{roman}
-\setcounter{page}{3} %%%%%%%%%% nummeret her styrer hvilket sidetall man begynner på
+\setcounter{page}{2} %%%%%%%%%% nummeret her styrer hvilket sidetall man begynner på
 
-\cleardoublepage
+
+%\cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Egil 2022
-\afterpage{\blankpage}
+%\afterpage{\blankpage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Egil 2022
+\include{Chapters/0-Div/Intentional_blank_page}
 \include{Chapters/0-Div/Abstract}
+%\newpage\null\newpage %%%%%%%%%%%%%%%%%% Egil 2022
+\include{Chapters/0-Div/Intentional_blank_page}
 \include{Chapters/0-Div/Sammendrag}
 %\newpage\null\newpage %%%%%%%%%%%%%%%%%% Egil 2022
+\include{Chapters/0-Div/Intentional_blank_page}
 \include{Chapters/0-Div/Preface}
 %\newpage\null\newpage %%%%%%%%%%%%%%%%%% Egil 2022
+\include{Chapters/0-Div/Intentional_blank_page}
 \include{Chapters/0-Div/Acknowledgements}
 
 \input{Lister/Acronyms}
