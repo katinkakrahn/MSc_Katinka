@@ -33,13 +33,15 @@ PZD_label$name <- factor(PZD_label$name,
                          labels = c("SA~(m^2/g)", "PV~(cm^3/g)", "log~SA/PV", "log~SA/PV/C"))
 
 PZD_SAPV_C_plot <- PZD_label %>% 
+  filter(name != "log~SA/PV",
+         name != "log~SA/PV/C") %>% 
   ggplot(aes(
     y = value,
     x = Pore_size,
     color = Biochar
   )) +
   labs(x = "Pore diameter (nm)", y = NULL, color = "", shape = "") +
-  geom_point(size = 2) +
+  geom_point(size = 3) +
   facet_wrap(.~ name,
              scales = "free_y",
              labeller = label_parsed,
@@ -50,11 +52,12 @@ PZD_SAPV_C_plot <- PZD_label %>%
   scale_y_continuous() +
   theme_bw() +
   theme(legend.position = "bottom",
-        text = element_text(size = 20),
+        text = element_text(size = 40),
         strip.placement = "outside",
-        strip.background = element_blank())
+        strip.background = element_blank()) +
+  guides(colour = guide_legend(override.aes = list(size=10)))
 PZD_SAPV_C_plot
-ggsave("R/figs/PZD_SAPV_C_large.pdf")
+ggsave("R/figs/PZD_SA_PV_plot_large.pdf")
 
 PZD_SAPV_C_plot_nolabel <- PZD_label %>% 
   ggplot(aes(
@@ -74,8 +77,7 @@ PZD_SAPV_C_plot_nolabel <- PZD_label %>%
   scale_y_continuous() +
   theme_bw() +
   guides(colour = guide_legend(override.aes = list(size=5))) +
-  theme(panel.grid = element_blank(), 
-        legend.position = "right", 
+  theme(legend.position = "right", 
         text = element_text(size = 20),
         strip.placement = "outside",
         strip.background = element_blank())
@@ -96,13 +98,14 @@ PZD_label_small$name <- factor(PZD_label_small$name,
                                labels = c("SA~(m^2/g)", "PV~(cm^3/g)", "log~SA/PV"))
 
 PZD_SAPV_C_small_plot <- PZD_label_small %>% 
+  filter(name != "log~SA/PV") %>% 
   ggplot(aes(
     y = value,
     x = Pore_size,
     color = Biochar
   )) +
   labs(x = "Pore diameter (nm)", y = NULL, color = "", shape = "") +
-  geom_point(size = 2) +
+  geom_point(size = 3) +
   facet_wrap(.~ name,
              scales = "free_y",
              labeller = label_parsed,
@@ -113,11 +116,12 @@ PZD_SAPV_C_small_plot <- PZD_label_small %>%
   scale_x_continuous(labels = scaleZ) +
   theme_bw() +
   theme(legend.position = "bottom", 
-        text = element_text(size = 20),
+        text = element_text(size = 40),
         strip.placement = "outside",
-        strip.background = element_blank())
+        strip.background = element_blank()) +
+  guides(colour = guide_legend(override.aes = list(size=10)))
 PZD_SAPV_C_small_plot
-ggsave("R/figs/PZD_SAPV_C_small_plot.pdf")
+ggsave("R/figs/PZD_SA_PV_small_plot.pdf")
 
 # Individual plots ----
 SA_all <- ggplot(data = PZD, mapping = aes(x = Pore_size, y = SA, color = Biochar, shape = Gas)) +

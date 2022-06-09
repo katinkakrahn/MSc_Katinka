@@ -261,10 +261,21 @@ write_xlsx(summary_stats_single, "R/data_manipulated/310322_summary_stats_single
 
 # Sorption isotherm all chars ----
 Sorption_BC_single$Compound <- factor(Sorption_BC_single$Compound, 
-                                      levels = c("PFPeA", "PFHxA", "PFHpA", 
-                                                 "PFOA", "PFNA", "PFDA"))
+                                      levels = c("PFDA", "PFNA", "PFOA", 
+                                                 "PFHpA", "PFHxA","PFPeA"))
 
-Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
+Sorption_isotherms <- Sorption_BC_single %>% 
+  filter(Compound != "PFPeA" | Biochar != "DSL",
+         Compound != "PFPeA" | Biochar != "CWC",
+         Compound != "PFHxA" | Biochar != "CWC") %>% 
+  # mutate(Compound = recode(Compound,
+  #                          "PFPeA" = "PFPeA (C5)",
+  #                          "PFHxA" = "PFHxA (C6)",
+  #                          "PFHpA" = "PFHpA (C7)",
+  #                          "PFOA" = "PFOA (C8)",
+  #                          "PFNA" = "PFNA (C9)",
+  #                          "PFDA" = "PFDA (C10)")) %>%  
+  ggplot() +
   geom_point(mapping = aes(x = log10(Cw), y = log10(Cs), color = factor(Biochar)), 
              size = 1) + 
   geom_smooth(mapping = aes(x = log10(Cw), y = log10(Cs), color = factor(Biochar)), 
@@ -275,23 +286,29 @@ Sorption_isotherms <- ggplot(data = Sorption_BC_single) +
   labs(x = TeX(r'($log~C_{w}~(\mu g~L^{-1})$)'), 
        y = TeX(r'($log~C_{s}~(\mu g~kg^{-1})$)'), 
        color = "") + 
-  facet_wrap(~Compound) +
+  facet_wrap(~Compound,
+             scales = "free_x") +
   theme_bw() +
-  theme(text = element_text(size = 20)) +
+  theme(text = element_text(size = 20),
+        panel.spacing = unit(0.8, "cm")) +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
                      values=c("#FFB547FF","#4E9C81","#40E0CF"))+
-  theme(panel.grid = element_blank(), legend.position = "bottom")
+  theme(legend.position = "bottom") 
 Sorption_isotherms
 ggsave(filename="R/figs/Sorption_isotherms_single_BC.pdf")
+ggsave(filename="R/figs/article/Sorption_isotherms_single_BC.pdf")
 
 Sorption_isotherms_nolabel <- Sorption_BC_single %>% 
-  mutate(Compound = recode(Compound,
-                           "PFPeA" = "PFPeA (C5)",
-                           "PFHxA" = "PFHxA (C6)",
-                           "PFHpA" = "PFHpA (C7)",
-                           "PFOA" = "PFOA (C8)",
-                           "PFNA" = "PFNA (C9)",
-                           "PFDA" = "PFDA (C10)")) %>%  
+  filter(Compound != "PFPeA" | Biochar != "DSL",
+         Compound != "PFHxA" | Biochar != "CWC",
+         Compound != "PFPeA" | Biochar != "CWC") %>% 
+  # mutate(Compound = recode(Compound,
+  #                          "PFPeA" = "PFPeA (C5)",
+  #                          "PFHxA" = "PFHxA (C6)",
+  #                          "PFHpA" = "PFHpA (C7)",
+  #                          "PFOA" = "PFOA (C8)",
+  #                          "PFNA" = "PFNA (C9)",
+  #                          "PFDA" = "PFDA (C10)")) %>%  
   ggplot() +
   geom_point(mapping = aes(x = log10(Cw), y = log10(Cs), 
                            color = factor(Biochar)),
@@ -305,13 +322,14 @@ Sorption_isotherms_nolabel <- Sorption_BC_single %>%
               size = 2) + 
   labs(x = TeX(r'($log~C_{w}~(\mu g~L^{-1})$)'), 
        y = TeX(r'($log~C_{s}~(\mu g~kg^{-1})$)'), color = "") + 
-  facet_wrap(~Compound) +
+  facet_wrap(~Compound,
+             scales = "free_x") +
   theme_bw() +
-  theme(text = element_text(size = 16)) +
+  theme(text = element_text(size = 20)) +
   scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
                      values=c("#FFB547FF","#4E9C81","#40E0CF"))+
-  theme(panel.grid = element_blank(), legend.position = "bottom") +
-  guides(color = "none")
+  theme(panel.grid = element_blank(), legend.position = "bottom")
+  #guides(color = "none")
 Sorption_isotherms_nolabel
 ggsave(filename="R/figs/SETAC/Sorption_isotherms_nolabel.pdf")
 

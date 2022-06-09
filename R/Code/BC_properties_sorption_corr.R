@@ -166,9 +166,12 @@ summary_stats_single <- merge(summary_stats_single, summary_stats_DSL_single, al
 Kd_1ugL <- summary_stats_single %>% 
   as_tibble() %>% 
   group_by(compound, biochar) %>% 
-  mutate(log_Cs = log_KF + n*log_Cw,
-         log_Kd = log_KF + n*log_Cw,
-         Kd = 10^(log_KF + n*log_Cw),
+  mutate(K_F = 10^log_KF,
+         C_w = 1,
+         C_s = K_F*C_w^n,
+         K_d = C_s/C_w,
+         log_Kd = log10(K_d),
+         K_d_error = sqrt(log10((10^log_KF_std_error)^2)+n_std_error^2),
          logKd_error = sqrt(log_KF_std_error^2+n_std_error^2)
          ) %>% 
   ungroup()
@@ -229,9 +232,10 @@ chain_length_Kd1ugL_plot <- Kd_1ugL_chain_length %>%
   theme_bw() +
   theme(panel.grid = element_blank(), 
         legend.position = "right", 
-        text = element_text(size = 20))
+        text = element_text(size = 30))
 chain_length_Kd1ugL_plot
 ggsave(filename="R/figs/chain_length_Kd1ugL_plot.pdf")
+ggsave(filename="R/figs/article/chain_length_Kd1ugL_plot.pdf")
 
 summary_stats_1ugL_CWC <- lm(log_Kd ~ nr_CF2, data = subset(Kd_1ugL_chain_length, biochar == "CWC"))
 summary(summary_stats_1ugL_CWC)

@@ -595,11 +595,27 @@ facetPFOA <- rbind(
 
 
 PFOA_facet_isotherm <- ggplot(data = PFOA_sorption_single) +
-  geom_point(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar)), color = "gray45", size = 1) + 
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = pre_biochar), formula = y ~ x, method=lm, se=FALSE, colour = "grey", size = 0.5,
-              data = facetPFOA) +
-  geom_smooth(mapping = aes(x = log_Cw, y = log_Cs, group = factor(Biochar)), color = "black", formula = y ~ x, method=lm, se=T, fullrange = FALSE) + 
-  labs(x = expression(log~C[w]), y = expression(log~C[s])) + 
+  geom_point(mapping = aes(x = log_Cw, 
+                           y = log_Cs, 
+                           group = factor(Biochar)), color = "gray45", size = 1) + 
+  # geom_smooth(mapping = aes(x = log_Cw, 
+  #                           y = log_Cs, 
+  #                           group = pre_biochar), 
+  #             formula = y ~ x, 
+  #             method=lm, se=FALSE, 
+  #             colour = "grey", 
+  #             size = 0.5,
+  #             data = facetPFOA) +
+  geom_smooth(mapping = aes(x = log_Cw, 
+                            y = log_Cs, 
+                            group = factor(Biochar)), 
+              color = "black", 
+              formula = y ~ x, 
+              method=lm, 
+              se=F, 
+              fullrange = FALSE) + 
+  labs(x = TeX(r'($log~C_{w}~(\mu g~L^{-1})$)'), 
+       y = TeX(r'($log~C_{s}~(\mu g~kg^{-1})$)')) + 
   ggtitle("PFOA") +
   facet_grid(rows = vars(Biochar)) +
   theme_bw() +
