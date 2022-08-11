@@ -150,12 +150,12 @@ CWC_facet_isotherm <- ggplot(data = CWC_single) +
   #ggtitle("CWC isotherm") +
   theme_bw() +
   theme(text = element_text(size = 16)) +
-  theme(panel.grid = element_blank()) #+
-#guides(color = "none") #+
-# geom_richtext(
-#   data = summary_stats_CWC_single_label,
-#   aes(label = label, x = log_Cw, y = log_Cs),
-#   hjust = 0)
+  theme(panel.grid = element_blank()) +
+  guides(color = "none") +
+  geom_richtext(
+    data = summary_stats_CWC_single_label,
+    aes(label = label, x = log_Cw, y = log_Cs),
+    hjust = 0)
 CWC_facet_isotherm
 ggsave(filename="R/figs/CWC_facet_isotherm.pdf")
 
