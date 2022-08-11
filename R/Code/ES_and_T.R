@@ -43,6 +43,8 @@ Sorption_soil <- read_excel("R/data_raw/010322_sorption_rawdata_soil.xlsx") %>%
 
 Sorption_BC_soil <- full_join(Sorption_BC, Sorption_soil)
 
+Sorption_BC_soil %>% filter(isothermLogic == F) %>% write_xlsx("R/data_manipulated/090822_rawdata_joined.xlsx")
+
 regression_glance <- Sorption_BC_soil %>% 
   group_by(Compound, Biochar, type) %>%
   do(fit_isotherms = glance(lm(log10(Cs) ~ log10(Cw), data = .))) %>% 
@@ -83,7 +85,7 @@ Sorption_isotherms_nonsigremoved <- Sorption_BC_soil %>%
                            color = factor(Biochar)
                            ), 
                            #color = "grey",
-             size = 0.5,
+             size = 3,
              alpha = 0.6) + 
   geom_smooth(mapping = aes(x = log10(Cw), y = log10(Cs), color = factor(Biochar)), 
               formula = y ~ x, 
@@ -97,15 +99,18 @@ Sorption_isotherms_nonsigremoved <- Sorption_BC_soil %>%
              #scales = "free_x",
              ncol = 2) +
   theme_bw() +
-  theme(
-    legend.text=element_text(size=13),
+  theme(text = element_text(size = 30),
+    #legend.text=element_text(size=20),
     panel.spacing = unit(0.2, "cm"),
     legend.position = "bottom",
     panel.grid = element_blank(),
     legend.margin=margin(0,0,0,0),
-    legend.box.margin=margin(-10,-10,0,-10)) +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
-                     values=c("#FFB547FF","#4E9C81","#40E0CF"))
+    legend.box.margin=margin(-10,-10,0,-10),
+    axis.title.x = element_text(margin = margin(10,0,5,0))) +
+  scale_color_manual(labels = c("WCBC", "SSBC1", "SSBC2"),
+                     breaks = c("CWC", "ULS", "DSL"),
+                     values = c("#FFB547FF","#4E9C81","#40E0CF")) +
+  guides(colour = guide_legend(override.aes = list(size=3)))
 Sorption_isotherms_nonsigremoved
 ggsave(filename="R/figs/article/Sorption_isotherms_single_nonsigremoved.pdf")
 
@@ -129,31 +134,42 @@ PSD_pivot$name <- factor(PSD_pivot$name,
                          levels = c("N2 - SA~(m^2/g)", "N2 - PV~(cm^3/g)", "CO2 - SA~(m^2/g)", "CO2 - PV~(cm^3/g)"),
                          labels = c("N[2]~SA~(m^2/g)", "N[2]~PV~(cm^3/g)", "CO[2]~SA~(m^2/g)", "CO[2]~PV~(cm^3/g)"))
 
-PSD_plot <- PSD_pivot %>% 
-  mutate(name = factor(name, 
-                       levels = c("CO[2]~SA~(m^2/g)", "CO[2]~PV~(cm^3/g)", "N[2]~SA~(m^2/g)", "N[2]~PV~(cm^3/g)" 
-                       )))%>% 
+PSD_plot <- PSD_pivot %>%
+  mutate(name = factor(name,
+                       levels = c("CO[2]~SA~(m^2/g)", "CO[2]~PV~(cm^3/g)", "N[2]~SA~(m^2/g)", "N[2]~PV~(cm^3/g)"
+                       )))%>%
   ggplot(aes(
     y = value,
     x = Pore_size,
     color = Biochar
   )) +
+  geom_vline(xintercept = c(0.96, 1.08, 1.19, 1.36, 1.54, 1.42),
+             linetype = 2,
+             color = "gray45") +
   labs(x = "Pore diameter (nm)", y = NULL, color = "", shape = "") +
-  geom_point(size = 2) +
+  geom_point(size = 3) +
+  scale_x_log10() +
   facet_wrap(.~ name,
              scales = "free",
              labeller = label_parsed,
              strip.position = "left") +
-  scale_color_manual(breaks = c("CWC", "ULS", "DSL"),
+  scale_color_manual(labels = c("WCBC", "SSBC1", "SSBC2"),
+                     breaks = c("CWC", "ULS", "DSL"),
                      values=c("#FFB547FF","#4E9C81","#40E0CF")) +
   #scale_x_continuous(breaks=c(1,3,5,10,20,30)) +
   scale_y_continuous() +
   theme_bw() +
   theme(legend.position = "bottom",
-        text = element_text(size = 20),
+        text = element_text(size = 40),
         strip.placement = "outside",
-        strip.background = element_blank()) +
-  guides(colour = guide_legend(override.aes = list(size=4)))
+        strip.background = element_blank(),
+        legend.margin=margin(10,0,0,0),
+        legend.box.margin=margin(-10,-10, 10, -10),
+        panel.grid = element_blank(),
+        panel.spacing = unit(0.5, "cm"),
+        axis.title.x = element_text(margin = margin(10,0,5,0))
+  ) +
+  guides(colour = guide_legend(override.aes = list(size=7)))
 PSD_plot
 ggsave("R/figs/article/PSD_plot.pdf")
 
@@ -187,7 +203,8 @@ Soil_BC_join <- full_join(Sorption_BC, Sorption_soil)
 Soil_BC_join_isotherm <- Soil_BC_join %>%
   filter(isothermLogic == TRUE) %>% 
   group_by(Biochar, Compound, type, Conc_point) %>% 
-  mutate(n = n())
+  mutate(n = n(),
+         log_Kd = log10(Kd))
 
 summary_statistics_isotherms <- Soil_BC_join_isotherm %>% 
   group_by(Compound, Biochar, type, SoilLogic, mixLogic) %>%
@@ -211,20 +228,19 @@ Freundlich_n <- Freundlich_statistics_isotherms %>%
   drop_na(n) %>% 
   select(-log_KF)
 
-Freundlich_soil <- full_join(Freundlich_KF, Freundlich_n, by = c("type", "Compound", "Biochar"))
+Freundlich_coefficients <- full_join(Freundlich_KF, Freundlich_n, by = c("type", "Compound", "Biochar"))
 r_squared <- summary_statistics_isotherms %>% 
   select(Compound, Biochar, type, r.squared,p.value)
 
 Soil_BC_join_triplicate_mean <- Soil_BC_join %>%
   filter(isothermLogic == FALSE) %>% 
-  group_by(Biochar, Compound, type, Conc_point) %>% 
-  summarise(n = n(),
-            Cw_se = sd(Cw) / sqrt(n),
-            Cs_se = sd(Cs) / sqrt(n),
-            Kd_se = sqrt(Cw_se^2+Cs_se^2),
-            Kd = mean(Kd),
-            Cw = mean(Cw),
-            Cs = mean(Cs))
+  group_by(Biochar, Compound, type, Conc_point, SoilLogic, isothermLogic, BClogic, mixLogic) %>% 
+  summarise(Kd_mean = mean(Kd),
+            log_Kd = mean(log10(Kd)),
+            log_Kd_sd = sd(log10(Kd)),
+            n = n())
+
+  write_xlsx(Soil_BC_join_triplicate_mean, "R/data_manipulated/090822_triplicate_tests.xlsx")
 
 Soil_BC_join_mean_and_isotherm <- full_join(Soil_BC_join_triplicate_mean, 
                                             Soil_BC_join_isotherm)
@@ -232,47 +248,61 @@ Soil_BC_join_mean_and_isotherm <- full_join(Soil_BC_join_triplicate_mean,
 C10 <- Soil_BC_join_mean_and_isotherm %>% 
   filter(Conc_point == 10,
          Compound %in% c("PFOA", "PFNA", "PFDA"),
-         Biochar != "no",
-         type != "BC_mix"
+         Biochar != "no"#,
+         #type != "BC_mix"
   ) %>%
   mutate(Compound = factor(Compound, 
                            levels = c("PFPeA", "PFHxA", "PFHpA", 
                                       "PFOA", "PFNA", "PFDA")),
-         Biochar = factor(Biochar,
-                          levels = c("no", "CWC", "DSL", "ULS")),
          type = factor(type,
                        levels = c("BC_sing", "BC_S_sing", "BC_S_mix", 
                                   "BC_mix", "S_sing", "S_mix"))) %>% 
   ggplot(aes(x = Biochar,
-             y = log10(Kd),
+             y = log_Kd,
              color = type,
+             fill = type,
              shape = type
   )) +
-  geom_point(size = 4,
+  geom_point(size = 7,
              alpha = 1) +
+  geom_errorbar(aes(ymin=log_Kd-log_Kd_sd, 
+                    ymax=log_Kd+log_Kd_sd),
+                width = 0.3,
+                show.legend = F) +
   facet_wrap(~ Compound) +
   labs(x = "", 
        y = TeX(r'($log~K_{d}~(L/kg)$)'),
        color = "",
-       shape = ""
+       shape = "",
+       fill = ""
   ) +
-  scale_color_grey(labels = c("BC-single", 
-                              "BC-soil-single",
-                              "BC-soil-mix"
-                              )) +
-  scale_shape(labels = c("BC-single", 
-                         "BC-soil-single",
-                         "BC-soil-mix"
-  )) +
+  scale_shape_manual(values = c(21, 22, 23, 24),
+                     labels = c("BC-single",
+                                "BC-soil-single",
+                                "BC-soil-mix",
+                                "BC-mix (n=3)")) +
+  scale_fill_manual(values = c("#262239","#6bb120", "#009df7", "grey45"),
+                     labels = c("BC-single",
+                                "BC-soil-single",
+                                "BC-soil-mix",
+                                "BC-mix (n=3)")) +
+  scale_color_manual(values = c("black", "black", "black", "black"),
+                    labels = c("BC-single",
+                               "BC-soil-single",
+                               "BC-soil-mix",
+                               "BC-mix (n=3)")) +
+  scale_x_discrete(limit = c("CWC", "DSL", "ULS"),
+                   labels = c("WCBC","SSBC2","SSBC1")) +
   theme_bw() +
-  theme(panel.grid = element_blank(),
+  theme(text = element_text(size = 30),
+        panel.grid = element_blank(),
         legend.position = "bottom",
         axis.text.x = element_text(angle = 0, 
                                    vjust = 0.5, 
                                    hjust=0.5),
         legend.margin=margin(0,0,0,0),
         legend.box.margin=margin(-10,-10,10,-10),
-        legend.text=element_text(size=12)) +
-  guides(colour = guide_legend(override.aes = list(size=4)))
+        legend.text=element_text(size=20)) #+
+  #guides(colour = guide_legend(override.aes = list(size=4)))
 C10
 ggsave(filename = "R/figs/article/C10_grey_triplicateremoved.pdf")
